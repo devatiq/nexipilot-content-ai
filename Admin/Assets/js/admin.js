@@ -186,7 +186,14 @@
                         });
                     }
                 },
-                error: function() {
+                error: function(xhr, status, error) {
+                    console.error('API Status Check Error:', {
+                        status: status,
+                        error: error,
+                        response: xhr.responseText,
+                        statusCode: xhr.status
+                    });
+                    
                     Swal.close();
                     
                     // On error, assume API unavailable and offer demo
