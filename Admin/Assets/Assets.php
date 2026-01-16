@@ -44,17 +44,15 @@ class Assets
      */
     public function admin_enqueue_styles($hook_suffix)
     {
-        // Only load on PostPilot settings page
-        if ('toplevel_page_postpilot-settings' !== $hook_suffix) {
-            return;
+        // Load on PostPilot settings page and post edit pages
+        if ('toplevel_page_postpilot-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
+            wp_enqueue_style(
+                'postpilot-admin-style',
+                POSTPILOT_ADMIN_ASSETS . '/css/admin.css',
+                array(),
+                POSTPILOT_VERSION
+            );
         }
-
-        wp_enqueue_style(
-            'postpilot-admin-style',
-            POSTPILOT_ADMIN_ASSETS . '/css/admin.css',
-            array(),
-            POSTPILOT_VERSION
-        );
     }
 
     /**
@@ -66,26 +64,25 @@ class Assets
      */
     public function admin_enqueue_scripts($hook_suffix)
     {
-        // Only load on PostPilot settings page
-        if ('toplevel_page_postpilot-settings' !== $hook_suffix) {
-            return;
+        // Load on PostPilot settings page and post edit pages
+        if ('toplevel_page_postpilot-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
+            wp_enqueue_script(
+                'postpilot-admin-script',
+                POSTPILOT_ADMIN_ASSETS . '/js/admin.js',
+                array('jquery'),
+                POSTPILOT_VERSION,
+                true
+            );
+
+            wp_localize_script(
+                'postpilot-admin-script',
+                'postpilotAdmin',
+                array(
+                    'ajaxurl' => admin_url('admin-ajax.php'),
+                    'nonce' => wp_create_nonce('postpilot_nonce'),
+                    'generateFaqNonce' => wp_create_nonce('postpilot_generate_faq'),
+                )
+            );
         }
-
-        wp_enqueue_script(
-            'postpilot-admin-script',
-            POSTPILOT_ADMIN_ASSETS . '/js/admin.js',
-            array('jquery'),
-            POSTPILOT_VERSION,
-            true
-        );
-
-        wp_localize_script(
-            'postpilot-admin-script',
-            'postpilotAdmin',
-            array(
-                'ajaxurl' => admin_url('admin-ajax.php'),
-                'nonce' => wp_create_nonce('postpilot_nonce'),
-            )
-        );
     }
 }

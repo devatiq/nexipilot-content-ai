@@ -124,15 +124,23 @@ class ContentInjector
      *
      * @since 1.0.0
      * @param int    $post_id The post ID.
-     * @param string $content The post content.
+     * @param string $content The post content (unused, kept for compatibility).
      * @return string FAQ HTML
      */
     private function get_faq($post_id, $content)
     {
-        $faq_data = $this->ai_manager->get_faq($post_id, $content);
+        // Check if FAQ is enabled for this post
+        $faq_enabled = get_post_meta($post_id, '_postpilot_faq_enabled', true);
         
-        if (is_wp_error($faq_data) || empty($faq_data)) {
-            Logger::debug('FAQ generation failed or empty', array('post_id' => $post_id));
+        if ($faq_enabled !== '1') {
+            return '';
+        }
+
+        // Get FAQ data from post meta
+        $faq_data = get_post_meta($post_id, '_postpilot_faqs', true);
+        
+        if (empty($faq_data) || !is_array($faq_data)) {
+            Logger::debug('No FAQ data found in post meta', array('post_id' => $post_id));
             return '';
         }
 

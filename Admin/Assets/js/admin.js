@@ -62,4 +62,96 @@
         }
     });
 
+    // ===========================
+    // FAQ Meta Box Functionality
+    // ===========================
+
+    $(document).ready(function() {
+        let faqIndex = $('.postpilot-faq-item').length;
+
+        // Add FAQ Item
+        $(document).on('click', '.postpilot-add-faq-item', function(e) {
+            e.preventDefault();
+            
+            const template = $('#postpilot-faq-item-template').html();
+            const newItem = template
+                .replace(/\{\{INDEX\}\}/g, faqIndex)
+                .replace(/\{\{NUMBER\}\}/g, faqIndex + 1);
+            
+            $('.postpilot-faq-items').append(newItem);
+            $('.postpilot-no-faqs').remove();
+            faqIndex++;
+        });
+
+        // Remove FAQ Item
+        $(document).on('click', '.postpilot-remove-faq-item', function(e) {
+            e.preventDefault();
+            
+            if (confirm('Are you sure you want to remove this FAQ item?')) {
+                $(this).closest('.postpilot-faq-item').fadeOut(300, function() {
+                    $(this).remove();
+                    
+                    // Show "no FAQs" message if all items removed
+                    if ($('.postpilot-faq-item').length === 0) {
+                        $('.postpilot-faq-items').html('<p class="postpilot-no-faqs">No FAQs yet. Click "Generate FAQ" to create them automatically.</p>');
+                    }
+                    
+                    // Renumber remaining items
+                    $('.postpilot-faq-item').each(function(index) {
+                        $(this).find('.postpilot-faq-item-number').text('FAQ #' + (index + 1));
+                    });
+                });
+            }
+        });
+
+        // Generate FAQ via AJAX
+        $(document).on('click', '.postpilot-generate-faq', function(e) {
+            e.preventDefault();
+            
+            const button = $(this);
+            const spinner = button.siblings('.spinner');
+            const postId = button.data('post-id');
+            
+            // Disable button and show spinner
+            button.prop('disabled', true);
+            spinner.addClass('is-active');
+            
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'postpilot_generate_faq',
+                    nonce: postpilotAdmin.generateFaqNonce,
+                    post_id: postId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Replace FAQ items with generated ones
+                        $('.postpilot-faq-items').html(response.data.html);
+                        $('.postpilot-no-faqs').remove();
+                        
+                        // Update button text
+                        button.text('Regenerate FAQ');
+                        
+                        // Update index
+                        faqIndex = response.data.count;
+                        
+                        // Show success message
+                        alert(response.data.message);
+                    } else {
+                        alert('Error: ' + response.data.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('AJAX Error: ' + error);
+                },
+                complete: function() {
+                    // Re-enable button and hide spinner
+                    button.prop('disabled', false);
+                    spinner.removeClass('is-active');
+                }
+            });
+        });
+    });
+
 })(jQuery);

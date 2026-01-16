@@ -42,9 +42,14 @@ class AdminManager
     protected $assets;
 
     /**
-     * AdminManager constructor
+     * FAQ Meta Box instance
      *
-     * Initializes the AdminManager by setting constants and initiating configurations.
+     * @var MetaBox\FAQMetaBox
+     */
+    protected $faq_metabox;
+
+    /**
+     * AdminManager constructor
      *
      * @since 1.0.0
      */
@@ -56,7 +61,7 @@ class AdminManager
     }
 
     /**
-     * Sets the constants for the PostPilot Admin
+     * Set admin constants
      *
      * @since 1.0.0
      * @return void
@@ -67,7 +72,7 @@ class AdminManager
     }
 
     /**
-     * Initializes the classes used by the PostPilot Admin
+     * Initialize the PostPilot Admin
      *
      * @since 1.0.0
      * @return void
@@ -76,6 +81,7 @@ class AdminManager
     {
         $this->settings = new Settings();
         $this->assets = new Assets();
+        $this->faq_metabox = new MetaBox\FAQMetaBox();
     }
 
     /**
