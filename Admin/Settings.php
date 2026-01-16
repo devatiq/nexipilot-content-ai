@@ -277,19 +277,25 @@ class Settings
                         $ai_manager = new \PostPilot\AI\Manager();
                         $is_connected = false;
                         $status_text = __('API Not Connected', 'postpilot');
+                        $status_class = 'postpilot-status-disconnected';
                         
                         if ($ai_manager->is_provider_available()) {
                             // Test actual API connection
                             $test_result = $ai_manager->test_api_connection();
-                            $is_connected = !is_wp_error($test_result);
                             
-                            if ($is_connected) {
+                            if (!is_wp_error($test_result)) {
+                                // API key is valid and working
+                                $is_connected = true;
                                 $status_text = __('API Connected', 'postpilot');
+                                $status_class = 'postpilot-status-connected';
                             } else {
-                                // Show specific error if available
+                                // API key exists but has an error
                                 $error_message = $test_result->get_error_message();
+                                
                                 if (strpos($error_message, 'quota') !== false) {
-                                    $status_text = __('Quota Exceeded', 'postpilot');
+                                    // Key is valid but quota exceeded
+                                    $status_text = __('Connected - Quota Exceeded', 'postpilot');
+                                    $status_class = 'postpilot-status-warning';
                                 } elseif (strpos($error_message, 'invalid') !== false || strpos($error_message, 'Incorrect') !== false) {
                                     $status_text = __('Invalid API Key', 'postpilot');
                                 } else {
@@ -297,8 +303,6 @@ class Settings
                                 }
                             }
                         }
-                        
-                        $status_class = $is_connected ? 'postpilot-status-connected' : 'postpilot-status-disconnected';
                         ?>
                         <span class="postpilot-status-badge <?php echo esc_attr($status_class); ?>" id="postpilot-api-status">
                             <span class="status-dot"></span>

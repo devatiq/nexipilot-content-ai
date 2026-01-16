@@ -110,6 +110,11 @@
     animation: none;
 }
 
+.postpilot-status-warning .status-dot {
+    background: #f59e0b;
+    animation: none;
+}
+
 /* Settings Grid */
 .postpilot-settings-grid {
     display: grid;
