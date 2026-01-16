@@ -177,7 +177,7 @@ final class PostPilot
      * @since 1.0.0
      * @return void
      */
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 }

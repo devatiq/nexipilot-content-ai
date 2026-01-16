@@ -1,0 +1,582 @@
+# Copyright (C) 2026 Nexiby LLC
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: PostPilot AI 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/postpilot\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-01-16T20:23:31+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: postpilot\n"
+
+#. Plugin Name of the plugin
+#: postpilot.php
+#: Admin/Settings.php:50
+#: Admin/Settings.php:51
+msgid "PostPilot AI"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: postpilot.php
+msgid "https://github.com/devatiq/postpilot"
+msgstr ""
+
+#. Description of the plugin
+#: postpilot.php
+msgid "AI-powered WordPress plugin that generates FAQs, content summaries, and smart internal links for your posts."
+msgstr ""
+
+#. Author of the plugin
+#: postpilot.php
+msgid "Nexiby LLC"
+msgstr ""
+
+#. Author URI of the plugin
+#: postpilot.php
+msgid "https://nexiby.com"
+msgstr ""
+
+#: Admin/AdminManager.php:113
+msgid "Unauthorized"
+msgstr ""
+
+#: Admin/AdminManager.php:119
+msgid "Missing data"
+msgstr ""
+
+#: Admin/AdminManager.php:131
+msgid "Setting saved."
+msgstr ""
+
+#: Admin/AdminManager.php:133
+msgid "Failed to save setting."
+msgstr ""
+
+#: Admin/AdminManager.php:151
+msgid "Settings"
+msgstr ""
+
+#: Admin/AdminManager.php:172
+msgid "Documentation"
+msgstr ""
+
+#: Admin/AdminManager.php:173
+msgid "Support"
+msgstr ""
+
+#: Admin/Assets/Assets.php:108
+msgid "Are you sure you want to remove this FAQ item?"
+msgstr ""
+
+#: Admin/Assets/Assets.php:109
+msgid "Yes, remove it"
+msgstr ""
+
+#: Admin/Assets/Assets.php:110
+msgid "Cancel"
+msgstr ""
+
+#: Admin/Assets/Assets.php:111
+msgid "Generating FAQ..."
+msgstr ""
+
+#: Admin/Assets/Assets.php:112
+msgid "Please wait while we generate FAQs from your content."
+msgstr ""
+
+#: Admin/Assets/Assets.php:113
+msgid "Success!"
+msgstr ""
+
+#: Admin/Assets/Assets.php:114
+#: Admin/Assets/Assets.php:121
+msgid "Error"
+msgstr ""
+
+#: Admin/Assets/Assets.php:115
+msgid "API Quota Exceeded"
+msgstr ""
+
+#: Admin/Assets/Assets.php:116
+msgid "Your OpenAI quota has been exceeded. Would you like to use demo FAQ content instead?"
+msgstr ""
+
+#: Admin/Assets/Assets.php:117
+msgid "Yes, use demo FAQ"
+msgstr ""
+
+#: Admin/Assets/Assets.php:118
+msgid "Demo FAQ Added"
+msgstr ""
+
+#: Admin/Assets/Assets.php:119
+msgid "Demo FAQ content has been added. You can edit it manually or add credits to your OpenAI account to generate real content."
+msgstr ""
+
+#: Admin/Assets/Assets.php:120
+msgid "Rate Limit Reached"
+msgstr ""
+
+#: Admin/Assets/Assets.php:122
+msgid "OK"
+msgstr ""
+
+#: Admin/Assets/Assets.php:123
+msgid "An error occurred. Please try again."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:74
+msgid "PostPilot AI - FAQ Generator"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:113
+msgid "Display FAQ on this post?"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:116
+msgid "Check this to show AI-generated FAQs on the frontend."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:123
+msgid "FAQ Items"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:126
+msgid "+ Add FAQ Item"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:137
+msgid "No FAQs yet. Click \"Generate FAQ\" to create them automatically."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:148
+msgid "Regenerate FAQ"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:148
+msgid "Generate FAQ"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:152
+msgid "Generate FAQs using AI based on your post content."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:179
+#, php-format
+msgid "FAQ #%s"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:180
+msgid "Remove this FAQ"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:186
+msgid "Question:"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:191
+msgid "Enter question..."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:194
+msgid "Answer:"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:198
+msgid "Enter answer..."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:291
+#: Admin/MetaBox/FAQMetaBox.php:376
+#: Admin/MetaBox/FAQMetaBox.php:446
+msgid "Permission denied."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:304
+#: Admin/MetaBox/FAQMetaBox.php:389
+#, php-format
+msgid "You have generated FAQ for this post recently. Please wait %s before trying again."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:309
+#: Admin/MetaBox/FAQMetaBox.php:394
+#, php-format
+msgid "You have reached your daily FAQ generation limit (%d per day). Please try again tomorrow."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:327
+msgid "Post not found."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:354
+msgid "FAQ generated successfully!"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:425
+msgid "Demo FAQ added successfully!"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:455
+msgid "AI service is not configured. Please add your API key in PostPilot settings."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:479
+msgid "AI service is available."
+msgstr ""
+
+#: Admin/Settings.php:163
+#: Admin/Settings.php:358
+msgid "AI Provider Configuration"
+msgstr ""
+
+#: Admin/Settings.php:170
+#: Admin/Settings.php:478
+msgid "Feature Settings"
+msgstr ""
+
+#: Admin/Settings.php:178
+#: Admin/Settings.php:365
+msgid "AI Provider"
+msgstr ""
+
+#: Admin/Settings.php:186
+#: Admin/Settings.php:382
+msgid "OpenAI API Key"
+msgstr ""
+
+#: Admin/Settings.php:194
+#: Admin/Settings.php:420
+msgid "Claude API Key"
+msgstr ""
+
+#: Admin/Settings.php:203
+msgid "Enable FAQ Generator"
+msgstr ""
+
+#: Admin/Settings.php:211
+msgid "FAQ Position"
+msgstr ""
+
+#: Admin/Settings.php:219
+msgid "Enable Content Summary"
+msgstr ""
+
+#: Admin/Settings.php:227
+msgid "Summary Position"
+msgstr ""
+
+#: Admin/Settings.php:235
+msgid "Enable Smart Internal Links"
+msgstr ""
+
+#: Admin/Settings.php:272
+msgid "AI-Powered Content Enhancement for WordPress"
+msgstr ""
+
+#: Admin/Settings.php:280
+msgid "API Not Connected"
+msgstr ""
+
+#: Admin/Settings.php:290
+msgid "API Connected"
+msgstr ""
+
+#: Admin/Settings.php:298
+msgid "Connected - Quota Exceeded"
+msgstr ""
+
+#: Admin/Settings.php:301
+msgid "Invalid API Key"
+msgstr ""
+
+#: Admin/Settings.php:303
+msgid "Connection Failed"
+msgstr ""
+
+#: Admin/Settings.php:324
+msgid "General"
+msgstr ""
+
+#: Admin/Settings.php:331
+msgid "Features"
+msgstr ""
+
+#: Admin/Settings.php:337
+msgid "Troubleshooting"
+msgstr ""
+
+#: Admin/Settings.php:359
+msgid "Configure your AI provider and API credentials"
+msgstr ""
+
+#: Admin/Settings.php:376
+msgid "Choose your preferred AI provider"
+msgstr ""
+
+#: Admin/Settings.php:388
+#: Admin/Settings.php:426
+msgid "Saved"
+msgstr ""
+
+#: Admin/Settings.php:413
+#: Admin/Settings.php:451
+msgid "Get your API key from"
+msgstr ""
+
+#: Admin/Settings.php:461
+#: Admin/Settings.php:599
+#: Admin/Settings.php:668
+msgid "Save Settings"
+msgstr ""
+
+#: Admin/Settings.php:479
+msgid "Enable or disable AI-powered features"
+msgstr ""
+
+#: Admin/Settings.php:493
+msgid "FAQ Generator"
+msgstr ""
+
+#: Admin/Settings.php:496
+msgid "Automatically generate frequently asked questions based on your content"
+msgstr ""
+
+#: Admin/Settings.php:512
+#: Admin/Settings.php:553
+msgid "Display Position"
+msgstr ""
+
+#: Admin/Settings.php:516
+#: Admin/Settings.php:560
+#: Admin/Settings.php:823
+#: Admin/Settings.php:864
+msgid "After Content"
+msgstr ""
+
+#: Admin/Settings.php:519
+#: Admin/Settings.php:557
+#: Admin/Settings.php:820
+#: Admin/Settings.php:861
+msgid "Before Content"
+msgstr ""
+
+#: Admin/Settings.php:534
+msgid "Content Summary"
+msgstr ""
+
+#: Admin/Settings.php:537
+msgid "Generate concise summaries of your posts for better engagement"
+msgstr ""
+
+#: Admin/Settings.php:576
+msgid "Smart Internal Links"
+msgstr ""
+
+#: Admin/Settings.php:579
+msgid "Automatically suggest relevant internal links to improve SEO"
+msgstr ""
+
+#: Admin/Settings.php:615
+msgid "Debug Logging"
+msgstr ""
+
+#: Admin/Settings.php:616
+msgid "Enable debug logging for troubleshooting API issues"
+msgstr ""
+
+#: Admin/Settings.php:626
+msgid "Enable Debug Logging"
+msgstr ""
+
+#: Admin/Settings.php:639
+msgid "Log all API requests and responses to debug.log"
+msgstr ""
+
+#: Admin/Settings.php:643
+msgid "When enabled, all API requests and responses will be logged to debug.log. This is useful for troubleshooting API connection issues. Keep this disabled in production environments to avoid filling up your debug log."
+msgstr ""
+
+#: Admin/Settings.php:652
+msgid "Debug Log Location:"
+msgstr ""
+
+#: Admin/Settings.php:657
+msgid "Make sure WP_DEBUG and WP_DEBUG_LOG are enabled in wp-config.php for debug logging to work."
+msgstr ""
+
+#: Admin/Settings.php:686
+msgid "Configure your AI provider and API credentials."
+msgstr ""
+
+#: Admin/Settings.php:697
+msgid "Enable or disable AI-powered features and configure their display."
+msgstr ""
+
+#: Admin/Settings.php:712
+msgid "OpenAI (ChatGPT)"
+msgstr ""
+
+#: Admin/Settings.php:715
+msgid "Claude (Anthropic)"
+msgstr ""
+
+#: Admin/Settings.php:719
+msgid "Select your preferred AI provider."
+msgstr ""
+
+#: Admin/Settings.php:740
+#: Admin/Settings.php:772
+msgid "API key is saved"
+msgstr ""
+
+#: Admin/Settings.php:740
+msgid "Enter your OpenAI API key"
+msgstr ""
+
+#. translators: %s: OpenAI API URL
+#. translators: %s: Anthropic API URL
+#: Admin/Settings.php:748
+#: Admin/Settings.php:780
+#, php-format
+msgid "Get your API key from %s"
+msgstr ""
+
+#: Admin/Settings.php:772
+msgid "Enter your Claude API key"
+msgstr ""
+
+#: Admin/Settings.php:803
+msgid "Enable AI-generated FAQ section"
+msgstr ""
+
+#: Admin/Settings.php:844
+msgid "Enable AI-generated content summary"
+msgstr ""
+
+#: Admin/Settings.php:885
+msgid "Enable AI-powered smart internal linking"
+msgstr ""
+
+#: AI/Claude.php:97
+#: AI/OpenAI.php:89
+msgid "What is this content about?"
+msgstr ""
+
+#: AI/Claude.php:180
+msgid "Invalid Claude API key."
+msgstr ""
+
+#: AI/Claude.php:202
+msgid "Claude API key is not configured."
+msgstr ""
+
+#. translators: %d: HTTP response code
+#: AI/Claude.php:246
+#, php-format
+msgid "Claude API error (Code: %d)"
+msgstr ""
+
+#: AI/Claude.php:262
+msgid "Invalid response from Claude API."
+msgstr ""
+
+#: AI/Manager.php:155
+msgid "This is a demo summary. Configure your AI provider API key in PostPilot settings to generate real AI-powered summaries."
+msgstr ""
+
+#: AI/Manager.php:177
+#, php-format
+msgid "Summary generation failed: %s"
+msgstr ""
+
+#: AI/Manager.php:203
+#: AI/Manager.php:283
+msgid "AI provider is not configured."
+msgstr ""
+
+#: AI/Manager.php:300
+msgid "How do I configure PostPilot AI?"
+msgstr ""
+
+#: AI/Manager.php:301
+msgid "Go to PostPilot AI in your WordPress admin menu, select your AI provider (OpenAI or Claude), enter your API key, and enable the features you want to use."
+msgstr ""
+
+#: AI/Manager.php:304
+msgid "What AI providers are supported?"
+msgstr ""
+
+#: AI/Manager.php:305
+msgid "PostPilot AI currently supports OpenAI (ChatGPT) and Claude (Anthropic). You can switch between providers in the settings."
+msgstr ""
+
+#: AI/Manager.php:308
+msgid "Is this a demo FAQ?"
+msgstr ""
+
+#: AI/Manager.php:309
+msgid "Yes! This is demo content shown because no AI provider is configured. Add your API key in the settings to generate real AI-powered FAQs."
+msgstr ""
+
+#: AI/Manager.php:312
+msgid "How do I get an API key?"
+msgstr ""
+
+#: AI/Manager.php:313
+msgid "For OpenAI, visit platform.openai.com/api-keys. For Claude, visit console.anthropic.com. Both services require account registration."
+msgstr ""
+
+#: AI/Manager.php:329
+msgid "No AI provider configured."
+msgstr ""
+
+#: AI/OpenAI.php:188
+msgid "Invalid OpenAI API key."
+msgstr ""
+
+#: AI/OpenAI.php:204
+msgid "OpenAI API key is not configured."
+msgstr ""
+
+#: AI/OpenAI.php:248
+msgid "OpenAI quota exceeded. Please add credits to your OpenAI account at platform.openai.com/account/billing"
+msgstr ""
+
+#: AI/OpenAI.php:253
+msgid "Invalid OpenAI API key. Please check your API key in PostPilot settings."
+msgstr ""
+
+#: AI/OpenAI.php:258
+#, php-format
+msgid "OpenAI API error (Code: %d): %s"
+msgstr ""
+
+#: AI/OpenAI.php:274
+msgid "Invalid response from OpenAI API."
+msgstr ""
+
+#: Frontend/ContentInjector.php:150
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: Frontend/ContentInjector.php:197
+msgid "Summary:"
+msgstr ""
+
+#: Inc/Activate.php:40
+msgid "PostPilot AI requires WordPress 5.8 or higher."
+msgstr ""
+
+#: Inc/Activate.php:41
+#: Inc/Activate.php:51
+msgid "Plugin Activation Error"
+msgstr ""
+
+#: Inc/Activate.php:50
+msgid "PostPilot AI requires PHP 7.4 or higher."
+msgstr ""
