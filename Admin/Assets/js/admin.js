@@ -31,17 +31,28 @@
         // MODERN SETTINGS PAGE INTERACTIVITY
         // ========================================
 
-        // Tab Navigation
-        $('.postpilot-tab').on('click', function() {
-            const tabName = $(this).data('tab');
-            
+        // Tab Navigation with Persistence
+        function switchTab(tabName) {
             // Remove active class from all tabs and tab contents
             $('.postpilot-tab').removeClass('active');
             $('.postpilot-tab-content').removeClass('active');
             
             // Add active class to clicked tab and corresponding content
-            $(this).addClass('active');
+            $('.postpilot-tab[data-tab="' + tabName + '"]').addClass('active');
             $('#' + tabName + '-tab').addClass('active');
+            
+            // Save active tab to localStorage
+            localStorage.setItem('postpilot_active_tab', tabName);
+        }
+        
+        // Restore last active tab on page load
+        const lastActiveTab = localStorage.getItem('postpilot_active_tab') || 'general';
+        switchTab(lastActiveTab);
+        
+        // Handle tab clicks
+        $('.postpilot-tab').on('click', function() {
+            const tabName = $(this).data('tab');
+            switchTab(tabName);
         });
 
         // Toggle API key fields based on selected provider

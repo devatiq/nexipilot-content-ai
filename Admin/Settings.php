@@ -315,7 +315,7 @@ class Settings
 
             <!-- Tab Navigation -->
             <div class="postpilot-tabs">
-                <button type="button" class="postpilot-tab active" data-tab="general">
+                <button type="button" class="postpilot-tab" data-tab="general">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                         <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"/>
                         <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2"/>
@@ -342,7 +342,7 @@ class Settings
                 <?php settings_fields('postpilot_settings'); ?>
                 
                 <!-- General Tab Content -->
-                <div class="postpilot-tab-content active" id="general-tab">
+                <div class="postpilot-tab-content" id="general-tab">
                 <div class="postpilot-settings-grid">
                     <!-- AI Provider Configuration Card -->
                     <div class="postpilot-card">
