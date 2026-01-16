@@ -83,38 +83,56 @@
             faqIndex++;
         });
 
-        // Remove FAQ Item
+        // Remove FAQ Item with SweetAlert2
         $(document).on('click', '.postpilot-remove-faq-item', function(e) {
             e.preventDefault();
             
-            if (confirm('Are you sure you want to remove this FAQ item?')) {
-                $(this).closest('.postpilot-faq-item').fadeOut(300, function() {
-                    $(this).remove();
-                    
-                    // Show "no FAQs" message if all items removed
-                    if ($('.postpilot-faq-item').length === 0) {
-                        $('.postpilot-faq-items').html('<p class="postpilot-no-faqs">No FAQs yet. Click "Generate FAQ" to create them automatically.</p>');
-                    }
-                    
-                    // Renumber remaining items
-                    $('.postpilot-faq-item').each(function(index) {
-                        $(this).find('.postpilot-faq-item-number').text('FAQ #' + (index + 1));
+            const faqItem = $(this).closest('.postpilot-faq-item');
+            
+            Swal.fire({
+                title: postpilotAdmin.i18n.confirmRemove,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: postpilotAdmin.i18n.removeButton,
+                cancelButtonText: postpilotAdmin.i18n.cancelButton
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    faqItem.fadeOut(300, function() {
+                        $(this).remove();
+                        
+                        // Show "no FAQs" message if all items removed
+                        if ($('.postpilot-faq-item').length === 0) {
+                            $('.postpilot-faq-items').html('<p class="postpilot-no-faqs">No FAQs yet. Click "Generate FAQ" to create them automatically.</p>');
+                        }
+                        
+                        // Renumber remaining items
+                        $('.postpilot-faq-item').each(function(index) {
+                            $(this).find('.postpilot-faq-item-number').text('FAQ #' + (index + 1));
+                        });
                     });
-                });
-            }
+                }
+            });
         });
 
-        // Generate FAQ via AJAX
+        // Generate FAQ via AJAX with SweetAlert2
         $(document).on('click', '.postpilot-generate-faq', function(e) {
             e.preventDefault();
             
             const button = $(this);
-            const spinner = button.siblings('.spinner');
             const postId = button.data('post-id');
             
-            // Disable button and show spinner
-            button.prop('disabled', true);
-            spinner.addClass('is-active');
+            // Show loading alert
+            Swal.fire({
+                title: postpilotAdmin.i18n.generating,
+                text: postpilotAdmin.i18n.pleaseWait,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
             
             $.ajax({
                 url: ajaxurl,
@@ -137,21 +155,113 @@
                         faqIndex = response.data.count;
                         
                         // Show success message
-                        alert(response.data.message);
+                        Swal.fire({
+                            icon: 'success',
+                            title: postpilotAdmin.i18n.success,
+                            text: response.data.message,
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
                     } else {
-                        alert('Error: ' + response.data.message);
+                        // Check if it's a quota exceeded error
+                        const errorMessage = response.data.message || '';
+                        const isQuotaError = errorMessage.toLowerCase().includes('quota') || 
+                                           errorMessage.toLowerCase().includes('exceeded') ||
+                                           errorMessage.toLowerCase().includes('insufficient');
+                        
+                        if (isQuotaError) {
+                            // Show confirmation dialog for demo FAQ
+                            Swal.fire({
+                                icon: 'warning',
+                                title: postpilotAdmin.i18n.quotaExceeded,
+                                text: postpilotAdmin.i18n.quotaMessage,
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: postpilotAdmin.i18n.useDemoButton,
+                                cancelButtonText: postpilotAdmin.i18n.cancelButton
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Generate demo FAQ
+                                    generateDemoFaq(button, postId);
+                                }
+                            });
+                        } else {
+                            // Show regular error
+                            Swal.fire({
+                                icon: 'error',
+                                title: postpilotAdmin.i18n.error,
+                                text: errorMessage
+                            });
+                        }
                     }
                 },
                 error: function(xhr, status, error) {
-                    alert('AJAX Error: ' + error);
-                },
-                complete: function() {
-                    // Re-enable button and hide spinner
-                    button.prop('disabled', false);
-                    spinner.removeClass('is-active');
+                    Swal.fire({
+                        icon: 'error',
+                        title: postpilotAdmin.i18n.error,
+                        text: 'AJAX Error: ' + error
+                    });
                 }
             });
         });
+
+        // Function to generate demo FAQ
+        function generateDemoFaq(button, postId) {
+            Swal.fire({
+                title: postpilotAdmin.i18n.generating,
+                text: 'Adding demo FAQ content...',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'postpilot_generate_demo_faq',
+                    nonce: postpilotAdmin.generateFaqNonce,
+                    post_id: postId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Replace FAQ items with demo ones
+                        $('.postpilot-faq-items').html(response.data.html);
+                        $('.postpilot-no-faqs').remove();
+                        
+                        // Update button text
+                        button.text('Regenerate FAQ');
+                        
+                        // Update index
+                        faqIndex = response.data.count;
+                        
+                        // Show success message
+                        Swal.fire({
+                            icon: 'info',
+                            title: postpilotAdmin.i18n.demoAdded,
+                            text: postpilotAdmin.i18n.demoMessage,
+                            confirmButtonText: 'OK'
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: postpilotAdmin.i18n.error,
+                            text: response.data.message
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: postpilotAdmin.i18n.error,
+                        text: 'AJAX Error: ' + error
+                    });
+                }
+            });
+        }
     });
 
 })(jQuery);

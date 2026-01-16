@@ -57,6 +57,7 @@ class FAQMetaBox
         add_action('add_meta_boxes', array($this, 'register_meta_box'));
         add_action('save_post', array($this, 'save_meta_box'), 10, 2);
         add_action('wp_ajax_postpilot_generate_faq', array($this, 'ajax_generate_faq'));
+        add_action('wp_ajax_postpilot_generate_demo_faq', array($this, 'ajax_generate_demo_faq'));
     }
 
     /**
@@ -320,6 +321,45 @@ class FAQMetaBox
             'message' => __('FAQ generated successfully!', 'postpilot'),
             'html' => $html,
             'count' => count($faq_data),
+        ));
+    }
+
+    /**
+     * AJAX handler for demo FAQ generation
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function ajax_generate_demo_faq()
+    {
+        // Security checks
+        check_ajax_referer('postpilot_generate_faq', 'nonce');
+
+        $post_id = isset($_POST['post_id']) ? absint($_POST['post_id']) : 0;
+
+        if (!$post_id || !current_user_can('edit_post', $post_id)) {
+            wp_send_json_error(array(
+                'message' => __('Permission denied.', 'postpilot'),
+            ));
+        }
+
+        // Get demo FAQ from AI Manager
+        $demo_faq = $this->ai_manager->get_demo_faq();
+
+        // Save to post meta
+        update_post_meta($post_id, '_postpilot_faqs', $demo_faq);
+
+        // Return HTML for FAQ items
+        ob_start();
+        foreach ($demo_faq as $index => $faq) {
+            $this->render_faq_item($index, $faq);
+        }
+        $html = ob_get_clean();
+
+        wp_send_json_success(array(
+            'message' => __('Demo FAQ added successfully!', 'postpilot'),
+            'html' => $html,
+            'count' => count($demo_faq),
         ));
     }
 }

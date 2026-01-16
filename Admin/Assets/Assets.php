@@ -66,10 +66,19 @@ class Assets
     {
         // Load on PostPilot settings page and post edit pages
         if ('toplevel_page_postpilot-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
+            // Enqueue SweetAlert2
+            wp_enqueue_script(
+                'sweetalert2',
+                'https://cdn.jsdelivr.net/npm/sweetalert2@11',
+                array(),
+                '11.0.0',
+                true
+            );
+
             wp_enqueue_script(
                 'postpilot-admin-script',
                 POSTPILOT_ADMIN_ASSETS . '/js/admin.js',
-                array('jquery'),
+                array('jquery', 'sweetalert2'),
                 POSTPILOT_VERSION,
                 true
             );
@@ -81,6 +90,20 @@ class Assets
                     'ajaxurl' => admin_url('admin-ajax.php'),
                     'nonce' => wp_create_nonce('postpilot_nonce'),
                     'generateFaqNonce' => wp_create_nonce('postpilot_generate_faq'),
+                    'i18n' => array(
+                        'confirmRemove' => __('Are you sure you want to remove this FAQ item?', 'postpilot'),
+                        'removeButton' => __('Yes, remove it', 'postpilot'),
+                        'cancelButton' => __('Cancel', 'postpilot'),
+                        'generating' => __('Generating FAQ...', 'postpilot'),
+                        'pleaseWait' => __('Please wait while we generate FAQs from your content.', 'postpilot'),
+                        'success' => __('Success!', 'postpilot'),
+                        'error' => __('Error', 'postpilot'),
+                        'quotaExceeded' => __('API Quota Exceeded', 'postpilot'),
+                        'quotaMessage' => __('Your OpenAI quota has been exceeded. Would you like to use demo FAQ content instead?', 'postpilot'),
+                        'useDemoButton' => __('Yes, use demo FAQ', 'postpilot'),
+                        'demoAdded' => __('Demo FAQ Added', 'postpilot'),
+                        'demoMessage' => __('Demo FAQ content has been added. You can edit it manually or add credits to your OpenAI account to generate real content.', 'postpilot'),
+                    ),
                 )
             );
         }

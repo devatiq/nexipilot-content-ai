@@ -288,7 +288,7 @@ class Manager
      * @since 1.0.0
      * @return array
      */
-    private function get_demo_faq()
+    public function get_demo_faq()
     {
         return array(
             array(
