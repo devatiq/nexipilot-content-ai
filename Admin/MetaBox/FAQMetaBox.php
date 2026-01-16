@@ -375,6 +375,14 @@ class FAQMetaBox
         try {
             // Security checks
             check_ajax_referer('postpilot_generate_faq', 'nonce');
+            
+            // Check if user has permission
+            if (!current_user_can('edit_posts')) {
+                wp_send_json_error(array(
+                    'message' => __('Permission denied.', 'postpilot'),
+                ));
+                return;
+            }
 
             // Check if AI provider is available
             if (!$this->ai_manager->is_provider_available()) {
