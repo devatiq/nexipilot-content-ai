@@ -313,9 +313,36 @@ class Settings
                 </div>
             </div>
 
+            <!-- Tab Navigation -->
+            <div class="postpilot-tabs">
+                <button type="button" class="postpilot-tab active" data-tab="general">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <?php esc_html_e('General', 'postpilot'); ?>
+                </button>
+                <button type="button" class="postpilot-tab" data-tab="features">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <?php esc_html_e('Features', 'postpilot'); ?>
+                </button>
+                <button type="button" class="postpilot-tab" data-tab="troubleshooting">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <?php esc_html_e('Troubleshooting', 'postpilot'); ?>
+                </button>
+            </div>
+
             <form action="options.php" method="post" class="postpilot-settings-form">
                 <?php settings_fields('postpilot_settings'); ?>
                 
+                <!-- General Tab Content -->
+                <div class="postpilot-tab-content active" id="general-tab">
                 <div class="postpilot-settings-grid">
                     <!-- AI Provider Configuration Card -->
                     <div class="postpilot-card">
@@ -425,44 +452,28 @@ class Settings
                                     <a href="https://console.anthropic.com/" target="_blank" rel="noopener">console.anthropic.com</a>
                                 </p>
                             </div>
-
-                            <!-- Debug Logging Toggle -->
-                            <div class="postpilot-field-group">
-                                <label class="postpilot-label">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
-                                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <?php esc_html_e('Debug Logging', 'postpilot'); ?>
-                                    <span class="postpilot-badge postpilot-badge-info" style="margin-left: 8px;">
-                                        <?php esc_html_e('Developer', 'postpilot'); ?>
-                                    </span>
-                                </label>
-                                <div class="postpilot-toggle-wrapper">
-                                    <label class="postpilot-toggle">
-                                        <input 
-                                            type="checkbox" 
-                                            name="postpilot_enable_debug_logging" 
-                                            value="1" 
-                                            <?php checked(get_option('postpilot_enable_debug_logging'), '1'); ?>
-                                        />
-                                        <span class="postpilot-toggle-slider"></span>
-                                    </label>
-                                    <span class="postpilot-toggle-label">
-                                        <?php esc_html_e('Enable API debug logging to debug.log', 'postpilot'); ?>
-                                    </span>
-                                </div>
-                                <p class="postpilot-field-description">
-                                    <?php esc_html_e('When enabled, all API requests and responses will be logged to debug.log. Useful for troubleshooting API issues. Keep disabled in production.', 'postpilot'); ?>
-                                </p>
-                            </div>
                         </div>
                     </div>
+                </div>
+                <!-- End General Tab -->
+                
+                <div class="postpilot-submit-wrapper">
+                    <?php submit_button(__('Save Settings', 'postpilot'), 'primary postpilot-btn-primary', 'submit', false); ?>
+                </div>
+                </div>
 
+                <!-- Features Tab Content -->
+                <div class="postpilot-tab-content" id="features-tab">
+                <div class="postpilot-settings-grid">
                     <!-- Feature Settings Card -->
                     <div class="postpilot-card">
                         <div class="postpilot-card-header">
                             <div class="postpilot-card-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
                                     <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                                     <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
                                 </svg>
@@ -586,10 +597,82 @@ class Settings
                         </div>
                     </div>
                 </div>
-
+                <!-- End Features Tab -->
+                
                 <div class="postpilot-submit-wrapper">
                     <?php submit_button(__('Save Settings', 'postpilot'), 'primary postpilot-btn-primary', 'submit', false); ?>
                 </div>
+                </div>
+
+                <!-- Troubleshooting Tab Content -->
+                <div class="postpilot-tab-content" id="troubleshooting-tab">
+                <div class="postpilot-settings-grid">
+                    <!-- Debug Logging Card -->
+                    <div class="postpilot-card">
+                        <div class="postpilot-card-header">
+                            <div class="postpilot-card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2><?php esc_html_e('Debug Logging', 'postpilot'); ?></h2>
+                                <p><?php esc_html_e('Enable debug logging for troubleshooting API issues', 'postpilot'); ?></p>
+                            </div>
+                        </div>
+                        <div class="postpilot-card-body">
+                            <!-- Debug Logging Toggle -->
+                            <div class="postpilot-field-group">
+                                <label class="postpilot-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
+                                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <?php esc_html_e('Enable Debug Logging', 'postpilot'); ?>
+                                </label>
+                                <div class="postpilot-toggle-wrapper">
+                                    <label class="postpilot-toggle">
+                                        <input 
+                                            type="checkbox" 
+                                            name="postpilot_enable_debug_logging" 
+                                            value="1" 
+                                            <?php checked(get_option('postpilot_enable_debug_logging'), '1'); ?>
+                                        />
+                                        <span class="postpilot-toggle-slider"></span>
+                                    </label>
+                                    <span class="postpilot-toggle-label">
+                                        <?php esc_html_e('Log all API requests and responses to debug.log', 'postpilot'); ?>
+                                    </span>
+                                </div>
+                                <p class="postpilot-field-description">
+                                    <?php esc_html_e('When enabled, all API requests and responses will be logged to debug.log. This is useful for troubleshooting API connection issues. Keep this disabled in production environments to avoid filling up your debug log.', 'postpilot'); ?>
+                                </p>
+                                
+                                <div class="postpilot-info-box" style="margin-top: 16px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0;">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <div>
+                                        <strong><?php esc_html_e('Debug Log Location:', 'postpilot'); ?></strong>
+                                        <p style="margin: 4px 0 0 0; font-size: 13px; opacity: 0.8;">
+                                            <?php echo esc_html(WP_CONTENT_DIR . '/debug.log'); ?>
+                                        </p>
+                                        <p style="margin: 8px 0 0 0; font-size: 13px; opacity: 0.8;">
+                                            <?php esc_html_e('Make sure WP_DEBUG and WP_DEBUG_LOG are enabled in wp-config.php for debug logging to work.', 'postpilot'); ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Troubleshooting Tab -->
+                
+                <div class="postpilot-submit-wrapper">
+                    <?php submit_button(__('Save Settings', 'postpilot'), 'primary postpilot-btn-primary', 'submit', false); ?>
+                </div>
+                </div>
+
             </form>
         </div>
         <?php
