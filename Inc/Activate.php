@@ -1,0 +1,89 @@
+<?php
+/**
+ * Activate.php
+ *
+ * Handles plugin activation tasks.
+ *
+ * @package PostPilot\Inc
+ * @since 1.0.0
+ */
+
+namespace PostPilot;
+
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
+/**
+ * Activate Class
+ *
+ * Handles all plugin activation tasks including setting default options
+ * and checking system requirements.
+ *
+ * @package PostPilot\Inc
+ * @since 1.0.0
+ */
+class Activate
+{
+    /**
+     * Plugin activation callback
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public static function activate()
+    {
+        // Check WordPress version
+        if (version_compare(get_bloginfo('version'), '5.8', '<')) {
+            deactivate_plugins(plugin_basename(POSTPILOT_FILE));
+            wp_die(
+                esc_html__('PostPilot AI requires WordPress 5.8 or higher.', 'postpilot'),
+                esc_html__('Plugin Activation Error', 'postpilot'),
+                array('back_link' => true)
+            );
+        }
+
+        // Check PHP version
+        if (version_compare(PHP_VERSION, '7.4', '<')) {
+            deactivate_plugins(plugin_basename(POSTPILOT_FILE));
+            wp_die(
+                esc_html__('PostPilot AI requires PHP 7.4 or higher.', 'postpilot'),
+                esc_html__('Plugin Activation Error', 'postpilot'),
+                array('back_link' => true)
+            );
+        }
+
+        // Set default options
+        self::set_default_options();
+
+        // Flush rewrite rules
+        flush_rewrite_rules();
+    }
+
+    /**
+     * Set default plugin options
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    private static function set_default_options()
+    {
+        $default_options = array(
+            'postpilot_ai_provider' => 'openai',
+            'postpilot_openai_api_key' => '',
+            'postpilot_claude_api_key' => '',
+            'postpilot_enable_faq' => '1',
+            'postpilot_enable_summary' => '1',
+            'postpilot_enable_internal_links' => '1',
+            'postpilot_faq_position' => 'after_content',
+            'postpilot_summary_position' => 'before_content',
+            'postpilot_version' => POSTPILOT_VERSION,
+        );
+
+        foreach ($default_options as $option_name => $option_value) {
+            if (get_option($option_name) === false) {
+                add_option($option_name, $option_value);
+            }
+        }
+    }
+}

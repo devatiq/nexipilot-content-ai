@@ -1,0 +1,175 @@
+/* PostPilot Frontend Styles */
+
+/* Summary Styles */
+.postpilot-summary {
+    background: #f0f6fc;
+    border-left: 4px solid #0969da;
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.postpilot-summary-content {
+    color: #24292f;
+}
+
+.postpilot-summary-content strong {
+    color: #0969da;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+/* FAQ Styles */
+.postpilot-faq {
+    margin: 40px 0;
+    padding: 30px;
+    background: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+}
+
+.postpilot-faq-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #24292f;
+    margin: 0 0 24px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #0969da;
+}
+
+.postpilot-faq-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.postpilot-faq-item {
+    padding: 20px;
+    background: #f6f8fa;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.postpilot-faq-item:hover {
+    background: #eef2f7;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.postpilot-faq-question {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0969da;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+}
+
+.postpilot-faq-answer {
+    font-size: 15px;
+    color: #57606a;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.postpilot-faq-answer p {
+    margin: 0 0 10px 0;
+}
+
+.postpilot-faq-answer p:last-child {
+    margin-bottom: 0;
+}
+
+/* Internal Links Styles */
+.postpilot-internal-link {
+    color: #0969da;
+    text-decoration: none;
+    border-bottom: 1px dotted #0969da;
+    transition: all 0.2s ease;
+}
+
+.postpilot-internal-link:hover {
+    color: #0550ae;
+    border-bottom-style: solid;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .postpilot-summary {
+        padding: 14px 16px;
+        font-size: 14px;
+    }
+
+    .postpilot-faq {
+        padding: 20px 16px;
+        margin: 30px 0;
+    }
+
+    .postpilot-faq-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .postpilot-faq-item {
+        padding: 16px;
+    }
+
+    .postpilot-faq-question {
+        font-size: 16px;
+    }
+
+    .postpilot-faq-answer {
+        font-size: 14px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .postpilot-summary {
+        background: #161b22;
+        border-left-color: #58a6ff;
+    }
+
+    .postpilot-summary-content {
+        color: #c9d1d9;
+    }
+
+    .postpilot-summary-content strong {
+        color: #58a6ff;
+    }
+
+    .postpilot-faq {
+        background: #0d1117;
+        border-color: #30363d;
+    }
+
+    .postpilot-faq-title {
+        color: #c9d1d9;
+        border-bottom-color: #58a6ff;
+    }
+
+    .postpilot-faq-item {
+        background: #161b22;
+    }
+
+    .postpilot-faq-item:hover {
+        background: #1c2128;
+    }
+
+    .postpilot-faq-question {
+        color: #58a6ff;
+    }
+
+    .postpilot-faq-answer {
+        color: #8b949e;
+    }
+
+    .postpilot-internal-link {
+        color: #58a6ff;
+        border-bottom-color: #58a6ff;
+    }
+
+    .postpilot-internal-link:hover {
+        color: #79c0ff;
+    }
+}

@@ -1,0 +1,282 @@
+<?php
+/**
+ * ContentInjector.php
+ *
+ * Handles content injection for AI-generated features.
+ *
+ * @package PostPilot\Frontend
+ * @since 1.0.0
+ */
+
+namespace PostPilot\Frontend;
+
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
+use PostPilot\AI\Manager as AIManager;
+use PostPilot\Helpers\Logger;
+
+/**
+ * ContentInjector Class
+ *
+ * Injects AI-generated content into posts using WordPress hooks.
+ *
+ * @package PostPilot\Frontend
+ * @since 1.0.0
+ */
+class ContentInjector
+{
+    /**
+     * AI Manager instance
+     *
+     * @var AIManager
+     */
+    private $ai_manager;
+
+    /**
+     * Constructor
+     *
+     * @since 1.0.0
+     */
+    public function __construct()
+    {
+        $this->ai_manager = new AIManager();
+        $this->init_hooks();
+    }
+
+    /**
+     * Initialize WordPress hooks
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    private function init_hooks()
+    {
+        add_filter('the_content', array($this, 'inject_ai_content'), 10);
+        add_action('save_post', array($this, 'clear_post_cache'), 10, 1);
+    }
+
+    /**
+     * Inject AI-generated content
+     *
+     * @since 1.0.0
+     * @param string $content The post content.
+     * @return string Modified content
+     */
+    public function inject_ai_content($content)
+    {
+        // Only process single posts
+        if (!is_singular('post') || !in_the_loop() || !is_main_query()) {
+            return $content;
+        }
+
+        global $post;
+        
+        if (!$post) {
+            return $content;
+        }
+
+        $modified_content = $content;
+
+        // Inject Summary
+        if (get_option('postpilot_enable_summary', '1') === '1') {
+            $summary_position = get_option('postpilot_summary_position', 'before_content');
+            $summary = $this->get_summary($post->ID, $post->post_content);
+            
+            if ($summary_position === 'before_content') {
+                $modified_content = $summary . $modified_content;
+            }
+        }
+
+        // Inject Internal Links
+        if (get_option('postpilot_enable_internal_links', '1') === '1') {
+            $modified_content = $this->inject_internal_links($post->ID, $modified_content);
+        }
+
+        // Inject FAQ
+        if (get_option('postpilot_enable_faq', '1') === '1') {
+            $faq_position = get_option('postpilot_faq_position', 'after_content');
+            $faq = $this->get_faq($post->ID, $post->post_content);
+            
+            if ($faq_position === 'after_content') {
+                $modified_content .= $faq;
+            } else {
+                $modified_content = $faq . $modified_content;
+            }
+        }
+
+        // Inject Summary (if after content)
+        if (get_option('postpilot_enable_summary', '1') === '1') {
+            $summary_position = get_option('postpilot_summary_position', 'before_content');
+            
+            if ($summary_position === 'after_content') {
+                $summary = $this->get_summary($post->ID, $post->post_content);
+                $modified_content .= $summary;
+            }
+        }
+
+        return $modified_content;
+    }
+
+    /**
+     * Get FAQ HTML
+     *
+     * @since 1.0.0
+     * @param int    $post_id The post ID.
+     * @param string $content The post content.
+     * @return string FAQ HTML
+     */
+    private function get_faq($post_id, $content)
+    {
+        $faq_data = $this->ai_manager->get_faq($post_id, $content);
+        
+        if (is_wp_error($faq_data) || empty($faq_data)) {
+            Logger::debug('FAQ generation failed or empty', array('post_id' => $post_id));
+            return '';
+        }
+
+        ob_start();
+        ?>
+        <div class="postpilot-faq">
+            <h2 class="postpilot-faq-title"><?php esc_html_e('Frequently Asked Questions', 'postpilot'); ?></h2>
+            <div class="postpilot-faq-items">
+                <?php foreach ($faq_data as $faq_item) : ?>
+                    <?php if (isset($faq_item['question']) && isset($faq_item['answer'])) : ?>
+                        <div class="postpilot-faq-item">
+                            <h3 class="postpilot-faq-question"><?php echo esc_html($faq_item['question']); ?></h3>
+                            <div class="postpilot-faq-answer"><?php echo wp_kses_post($faq_item['answer']); ?></div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php
+        $output = ob_get_clean();
+
+        /**
+         * Filter the FAQ output
+         *
+         * @since 1.0.0
+         * @param string $output The FAQ HTML output.
+         * @param int    $post_id The post ID.
+         * @param array  $faq_data The FAQ data array.
+         */
+        return apply_filters('postpilot_faq_output', $output, $post_id, $faq_data);
+    }
+
+    /**
+     * Get Summary HTML
+     *
+     * @since 1.0.0
+     * @param int    $post_id The post ID.
+     * @param string $content The post content.
+     * @return string Summary HTML
+     */
+    private function get_summary($post_id, $content)
+    {
+        $summary_text = $this->ai_manager->get_summary($post_id, $content);
+        
+        if (is_wp_error($summary_text) || empty($summary_text)) {
+            Logger::debug('Summary generation failed or empty', array('post_id' => $post_id));
+            return '';
+        }
+
+        ob_start();
+        ?>
+        <div class="postpilot-summary">
+            <div class="postpilot-summary-content">
+                <strong><?php esc_html_e('Summary:', 'postpilot'); ?></strong>
+                <?php echo wp_kses_post($summary_text); ?>
+            </div>
+        </div>
+        <?php
+        $output = ob_get_clean();
+
+        /**
+         * Filter the summary output
+         *
+         * @since 1.0.0
+         * @param string $output The summary HTML output.
+         * @param int    $post_id The post ID.
+         * @param string $summary_text The summary text.
+         */
+        return apply_filters('postpilot_summary_output', $output, $post_id, $summary_text);
+    }
+
+    /**
+     * Inject internal links into content
+     *
+     * @since 1.0.0
+     * @param int    $post_id The post ID.
+     * @param string $content The post content.
+     * @return string Modified content with internal links
+     */
+    private function inject_internal_links($post_id, $content)
+    {
+        $link_suggestions = $this->ai_manager->get_internal_links($post_id, $content);
+        
+        if (is_wp_error($link_suggestions) || empty($link_suggestions)) {
+            Logger::debug('Internal link generation failed or empty', array('post_id' => $post_id));
+            return $content;
+        }
+
+        $modified_content = $content;
+
+        foreach ($link_suggestions as $suggestion) {
+            if (!isset($suggestion['keyword']) || !isset($suggestion['post_id'])) {
+                continue;
+            }
+
+            $keyword = $suggestion['keyword'];
+            $linked_post_id = absint($suggestion['post_id']);
+            $permalink = get_permalink($linked_post_id);
+
+            if (!$permalink) {
+                continue;
+            }
+
+            // Create the link
+            $link = sprintf(
+                '<a href="%s" class="postpilot-internal-link">%s</a>',
+                esc_url($permalink),
+                esc_html($keyword)
+            );
+
+            // Replace first occurrence of the keyword (case-insensitive)
+            $modified_content = preg_replace(
+                '/\b' . preg_quote($keyword, '/') . '\b/i',
+                $link,
+                $modified_content,
+                1
+            );
+        }
+
+        /**
+         * Filter the internal links output
+         *
+         * @since 1.0.0
+         * @param string $modified_content The content with internal links.
+         * @param int    $post_id The post ID.
+         * @param array  $link_suggestions The link suggestions array.
+         */
+        return apply_filters('postpilot_internal_links_output', $modified_content, $post_id, $link_suggestions);
+    }
+
+    /**
+     * Clear post cache when post is saved
+     *
+     * @since 1.0.0
+     * @param int $post_id The post ID.
+     * @return void
+     */
+    public function clear_post_cache($post_id)
+    {
+        // Avoid autosaves and revisions
+        if (wp_is_post_autosave($post_id) || wp_is_post_revision($post_id)) {
+            return;
+        }
+
+        $this->ai_manager->clear_post_cache($post_id);
+    }
+}
