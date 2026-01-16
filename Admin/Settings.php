@@ -67,7 +67,7 @@ class Settings
     {
         // Register AI Provider Settings
         register_setting(
-            'postpilot_ai_settings',
+            'postpilot_settings',
             'postpilot_ai_provider',
             array(
                 'type' => 'string',
@@ -77,7 +77,7 @@ class Settings
         );
 
         register_setting(
-            'postpilot_ai_settings',
+            'postpilot_settings',
             'postpilot_openai_api_key',
             array(
                 'type' => 'string',
@@ -87,7 +87,7 @@ class Settings
         );
 
         register_setting(
-            'postpilot_ai_settings',
+            'postpilot_settings',
             'postpilot_claude_api_key',
             array(
                 'type' => 'string',
@@ -98,7 +98,7 @@ class Settings
 
         // Register Feature Settings
         register_setting(
-            'postpilot_feature_settings',
+            'postpilot_settings',
             'postpilot_enable_faq',
             array(
                 'type' => 'string',
@@ -108,7 +108,7 @@ class Settings
         );
 
         register_setting(
-            'postpilot_feature_settings',
+            'postpilot_settings',
             'postpilot_enable_summary',
             array(
                 'type' => 'string',
@@ -118,7 +118,7 @@ class Settings
         );
 
         register_setting(
-            'postpilot_feature_settings',
+            'postpilot_settings',
             'postpilot_enable_internal_links',
             array(
                 'type' => 'string',
@@ -128,7 +128,7 @@ class Settings
         );
 
         register_setting(
-            'postpilot_feature_settings',
+            'postpilot_settings',
             'postpilot_faq_position',
             array(
                 'type' => 'string',
@@ -138,7 +138,7 @@ class Settings
         );
 
         register_setting(
-            'postpilot_feature_settings',
+            'postpilot_settings',
             'postpilot_summary_position',
             array(
                 'type' => 'string',
@@ -262,8 +262,7 @@ class Settings
 
             <form action="options.php" method="post">
                 <?php
-                settings_fields('postpilot_ai_settings');
-                settings_fields('postpilot_feature_settings');
+                settings_fields('postpilot_settings');
                 do_settings_sections('postpilot-settings');
                 submit_button(__('Save Settings', 'postpilot'));
                 ?>
@@ -327,12 +326,17 @@ class Settings
     public function render_openai_api_key_field()
     {
         $value = get_option('postpilot_openai_api_key', '');
+        $has_key = !empty($value);
         ?>
-        <input type="password" 
+        <input type="text" 
                name="postpilot_openai_api_key" 
                id="postpilot_openai_api_key" 
                value="<?php echo esc_attr($value); ?>" 
-               class="regular-text" />
+               class="regular-text" 
+               placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot') : esc_attr__('Enter your OpenAI API key', 'postpilot'); ?>" />
+        <?php if ($has_key) : ?>
+            <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
+        <?php endif; ?>
         <p class="description">
             <?php
             printf(
@@ -354,12 +358,17 @@ class Settings
     public function render_claude_api_key_field()
     {
         $value = get_option('postpilot_claude_api_key', '');
+        $has_key = !empty($value);
         ?>
-        <input type="password" 
+        <input type="text" 
                name="postpilot_claude_api_key" 
                id="postpilot_claude_api_key" 
                value="<?php echo esc_attr($value); ?>" 
-               class="regular-text" />
+               class="regular-text" 
+               placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot') : esc_attr__('Enter your Claude API key', 'postpilot'); ?>" />
+        <?php if ($has_key) : ?>
+            <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
+        <?php endif; ?>
         <p class="description">
             <?php
             printf(

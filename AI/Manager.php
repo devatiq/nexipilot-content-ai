@@ -100,10 +100,9 @@ class Manager
     public function get_faq($post_id, $content)
     {
         if (!$this->is_provider_available()) {
-            return new \WP_Error(
-                'no_provider',
-                __('AI provider is not configured.', 'postpilot')
-            );
+            // Return demo FAQ when no provider is configured
+            Logger::debug('No AI provider configured, returning demo FAQ', array('post_id' => $post_id));
+            return $this->get_demo_faq();
         }
 
         // Check cache
@@ -118,7 +117,16 @@ class Manager
         // Generate new FAQ
         $faq = $this->provider->generate_faq($content);
         
-        if (!is_wp_error($faq)) {
+        if (is_wp_error($faq)) {
+            Logger::error('FAQ generation failed', array(
+                'post_id' => $post_id,
+                'error' => $faq->get_error_message()
+            ));
+            // Return demo FAQ on error
+            return $this->get_demo_faq();
+        }
+        
+        if (!empty($faq)) {
             set_transient($cache_key, $faq, $this->cache_expiration);
             Logger::debug('FAQ generated and cached', array('post_id' => $post_id));
         }
@@ -137,10 +145,9 @@ class Manager
     public function get_summary($post_id, $content)
     {
         if (!$this->is_provider_available()) {
-            return new \WP_Error(
-                'no_provider',
-                __('AI provider is not configured.', 'postpilot')
-            );
+            // Return demo summary when no provider is configured
+            Logger::debug('No AI provider configured, returning demo summary', array('post_id' => $post_id));
+            return __('This is a demo summary. Configure your AI provider API key in PostPilot settings to generate real AI-powered summaries.', 'postpilot');
         }
 
         // Check cache
@@ -155,7 +162,15 @@ class Manager
         // Generate new summary
         $summary = $this->provider->generate_summary($content);
         
-        if (!is_wp_error($summary)) {
+        if (is_wp_error($summary)) {
+            Logger::error('Summary generation failed', array(
+                'post_id' => $post_id,
+                'error' => $summary->get_error_message()
+            ));
+            return __('Summary generation failed. Please check your API key configuration.', 'postpilot');
+        }
+        
+        if (!empty($summary)) {
             set_transient($cache_key, $summary, $this->cache_expiration);
             Logger::debug('Summary generated and cached', array('post_id' => $post_id));
         }
@@ -261,5 +276,33 @@ class Manager
         }
 
         return $this->provider->validate_api_key($api_key);
+    }
+
+    /**
+     * Get demo FAQ for testing
+     *
+     * @since 1.0.0
+     * @return array
+     */
+    private function get_demo_faq()
+    {
+        return array(
+            array(
+                'question' => __('How do I configure PostPilot AI?', 'postpilot'),
+                'answer' => __('Go to PostPilot AI in your WordPress admin menu, select your AI provider (OpenAI or Claude), enter your API key, and enable the features you want to use.', 'postpilot'),
+            ),
+            array(
+                'question' => __('What AI providers are supported?', 'postpilot'),
+                'answer' => __('PostPilot AI currently supports OpenAI (ChatGPT) and Claude (Anthropic). You can switch between providers in the settings.', 'postpilot'),
+            ),
+            array(
+                'question' => __('Is this a demo FAQ?', 'postpilot'),
+                'answer' => __('Yes! This is demo content shown because no AI provider is configured. Add your API key in the settings to generate real AI-powered FAQs.', 'postpilot'),
+            ),
+            array(
+                'question' => __('How do I get an API key?', 'postpilot'),
+                'answer' => __('For OpenAI, visit platform.openai.com/api-keys. For Claude, visit console.anthropic.com. Both services require account registration.', 'postpilot'),
+            ),
+        );
     }
 }
