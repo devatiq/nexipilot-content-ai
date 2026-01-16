@@ -7,6 +7,27 @@
 
     $(document).ready(function() {
         // ========================================
+        // SETTINGS SAVED NOTIFICATION
+        // ========================================
+        
+        // Check if settings were just saved
+        if ($('.postpilot-settings-wrap').data('settings-saved')) {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Settings Saved Successfully!',
+                showConfirmButton: false,
+                timer: 2000,
+                toast: true,
+                background: '#fff',
+                iconColor: '#10b981',
+                customClass: {
+                    popup: 'postpilot-toast'
+                }
+            });
+        }
+
+        // ========================================
         // MODERN SETTINGS PAGE INTERACTIVITY
         // ========================================
 

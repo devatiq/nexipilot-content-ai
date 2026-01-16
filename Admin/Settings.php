@@ -242,19 +242,10 @@ class Settings
             return;
         }
 
-        // Add error/update messages
-        if (isset($_GET['settings-updated'])) {
-            add_settings_error(
-                'postpilot_messages',
-                'postpilot_message',
-                __('Settings Saved Successfully!', 'postpilot'),
-                'updated'
-            );
-        }
-
-        settings_errors('postpilot_messages');
+        // Check if settings were updated (for SweetAlert2 notification)
+        $settings_updated = isset($_GET['settings-updated']) && $_GET['settings-updated'] === 'true';
         ?>
-        <div class="wrap postpilot-settings-wrap">
+        <div class="wrap postpilot-settings-wrap" <?php echo $settings_updated ? 'data-settings-saved="true"' : ''; ?>>
             <!-- Header Section -->
             <div class="postpilot-header">
                 <div class="postpilot-header-content">
