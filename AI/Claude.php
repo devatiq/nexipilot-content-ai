@@ -6,6 +6,7 @@
  *
  * @package PostPilot\AI
  * @since 1.0.0
+ * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 
 namespace PostPilot\AI;
@@ -23,6 +24,7 @@ use PostPilot\Helpers\Logger;
  *
  * @package PostPilot\AI
  * @since 1.0.0
+ * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 class Claude implements ProviderInterface
 {

@@ -64,9 +64,8 @@ class Assets
      */
     public function admin_enqueue_scripts($hook_suffix)
     {
-        // Load on PostPilot settings page and post edit pages
+        // Enqueue SweetAlert2 on settings page and post edit pages
         if ('toplevel_page_postpilot-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
-            // Enqueue SweetAlert2
             wp_enqueue_script(
                 'sweetalert2',
                 POSTPILOT_ADMIN_ASSETS . '/js/sweetalert2.js',
@@ -74,17 +73,32 @@ class Assets
                 '11.0.0',
                 true
             );
+        }
 
+        // Enqueue settings.js only on PostPilot settings page
+        if ('toplevel_page_postpilot-settings' === $hook_suffix) {
             wp_enqueue_script(
-                'postpilot-admin-script',
-                POSTPILOT_ADMIN_ASSETS . '/js/admin.js',
+                'postpilot-settings-script',
+                POSTPILOT_ADMIN_ASSETS . '/js/settings.js',
+                array('jquery', 'sweetalert2'),
+                POSTPILOT_VERSION,
+                true
+            );
+        }
+
+        // Enqueue faq-metabox.js only on post edit pages
+        if ('post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
+            wp_enqueue_script(
+                'postpilot-faq-metabox-script',
+                POSTPILOT_ADMIN_ASSETS . '/js/faq-metabox.js',
                 array('jquery', 'sweetalert2'),
                 POSTPILOT_VERSION,
                 true
             );
 
+            // Localize script for FAQ metabox
             wp_localize_script(
-                'postpilot-admin-script',
+                'postpilot-faq-metabox-script',
                 'postpilotAdmin',
                 array(
                     'ajaxurl' => admin_url('admin-ajax.php'),
