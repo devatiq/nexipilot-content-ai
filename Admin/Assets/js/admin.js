@@ -31,6 +31,19 @@
         // MODERN SETTINGS PAGE INTERACTIVITY
         // ========================================
 
+        // Tab Navigation
+        $('.postpilot-tab').on('click', function() {
+            const tabName = $(this).data('tab');
+            
+            // Remove active class from all tabs and tab contents
+            $('.postpilot-tab').removeClass('active');
+            $('.postpilot-tab-content').removeClass('active');
+            
+            // Add active class to clicked tab and corresponding content
+            $(this).addClass('active');
+            $('#' + tabName + '-tab').addClass('active');
+        });
+
         // Toggle API key fields based on selected provider
         const providerSelect = $('#postpilot_ai_provider');
         const openaiField = $('#openai-api-key-field');
