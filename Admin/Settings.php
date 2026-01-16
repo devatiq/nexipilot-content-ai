@@ -474,10 +474,6 @@ class Settings
                                     <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
                                 </svg>
                             </div>
-                                    <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                            </div>
                             <div>
                                 <h2><?php esc_html_e('Feature Settings', 'postpilot'); ?></h2>
                                 <p><?php esc_html_e('Enable or disable AI-powered features', 'postpilot'); ?></p>
