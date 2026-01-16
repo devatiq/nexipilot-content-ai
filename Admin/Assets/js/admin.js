@@ -6,10 +6,14 @@
     'use strict';
 
     $(document).ready(function() {
+        // ========================================
+        // MODERN SETTINGS PAGE INTERACTIVITY
+        // ========================================
+
         // Toggle API key fields based on selected provider
         const providerSelect = $('#postpilot_ai_provider');
-        const openaiField = $('#postpilot_openai_api_key').closest('tr');
-        const claudeField = $('#postpilot_claude_api_key').closest('tr');
+        const openaiField = $('#openai-api-key-field');
+        const claudeField = $('#claude-api-key-field');
 
         function toggleApiKeyFields() {
             const selectedProvider = providerSelect.val();
@@ -26,40 +30,42 @@
         // Initial toggle
         if (providerSelect.length) {
             toggleApiKeyFields();
-            
-            // Toggle on change
             providerSelect.on('change', toggleApiKeyFields);
         }
 
-        // Toggle position fields based on feature enablement
-        const faqCheckbox = $('input[name="postpilot_enable_faq"]');
-        const faqPositionField = $('#postpilot_faq_position').closest('tr');
-        
-        const summaryCheckbox = $('input[name="postpilot_enable_summary"]');
-        const summaryPositionField = $('#postpilot_summary_position').closest('tr');
+        // Toggle API key visibility (show/hide password)
+        $('#toggle-openai-key, #toggle-claude-key').on('click', function() {
+            const input = $(this).siblings('input');
+            const type = input.attr('type');
+            input.attr('type', type === 'password' ? 'text' : 'password');
+        });
 
-        function togglePositionFields() {
-            if (faqCheckbox.is(':checked')) {
-                faqPositionField.show();
+        // Show/hide feature options based on toggle state
+        function toggleFeatureOptions() {
+            // FAQ options
+            const faqEnabled = $('input[name="postpilot_enable_faq"]').is(':checked');
+            if (faqEnabled) {
+                $('#faq-options').addClass('active');
             } else {
-                faqPositionField.hide();
+                $('#faq-options').removeClass('active');
             }
 
-            if (summaryCheckbox.is(':checked')) {
-                summaryPositionField.show();
+            // Summary options
+            const summaryEnabled = $('input[name="postpilot_enable_summary"]').is(':checked');
+            if (summaryEnabled) {
+                $('#summary-options').addClass('active');
             } else {
-                summaryPositionField.hide();
+                $('#summary-options').removeClass('active');
             }
         }
 
-        // Initial toggle
-        if (faqCheckbox.length && summaryCheckbox.length) {
-            togglePositionFields();
-            
-            // Toggle on change
-            faqCheckbox.on('change', togglePositionFields);
-            summaryCheckbox.on('change', togglePositionFields);
-        }
+        // Initialize on page load
+        toggleFeatureOptions();
+
+        // Update on toggle change
+        $('input[name="postpilot_enable_faq"], input[name="postpilot_enable_summary"]').on('change', function() {
+            toggleFeatureOptions();
+        });
     });
 
     // ===========================
