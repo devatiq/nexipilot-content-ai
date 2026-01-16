@@ -38,6 +38,18 @@
     font-weight: 500;
 }
 
+/* SweetAlert2 Toast Positioning */
+.postpilot-toast.swal2-popup {
+    margin-top: 46px !important; /* Position below WordPress admin bar (32px) + some spacing */
+}
+
+/* Adjust for mobile admin bar */
+@media screen and (max-width: 782px) {
+    .postpilot-toast.swal2-popup {
+        margin-top: 60px !important; /* Mobile admin bar is taller (46px) + spacing */
+    }
+}
+
 /* Main Wrapper */
 .postpilot-settings-wrap {
     margin: 20px 20px 0 0;
