@@ -1,157 +1,490 @@
-/* PostPilot Admin Styles */
+/**
+ * PostPilot Admin Styles - Modern UI/UX
+ * 
+ * @package PostPilot
+ * @since 1.0.0
+ */
 
+/* ========================================
+   SETTINGS PAGE - MODERN REDESIGN
+   ======================================== */
+
+/* Main Wrapper */
 .postpilot-settings-wrap {
-    max-width: 1200px;
-    margin: 20px 0;
+    margin: 20px 20px 0 0;
+    background: #f9fafb;
+    min-height: calc(100vh - 32px);
 }
 
-.postpilot-settings-header {
-    background: #fff;
-    border-left: 4px solid #2271b1;
-    padding: 15px 20px;
-    margin: 20px 0;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+/* Header Section */
+.postpilot-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px;
+    margin: -20px -20px 30px 0;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.postpilot-settings-header p {
+.postpilot-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.postpilot-header-title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.postpilot-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.postpilot-icon svg {
+    color: white;
+}
+
+.postpilot-header h1 {
     margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.postpilot-subtitle {
+    margin: 8px 0 0 0;
+    font-size: 16px;
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+/* Status Badge */
+.postpilot-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
     font-size: 14px;
-    color: #646970;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
 }
 
-/* Settings Sections */
-.form-table {
-    background: #fff;
-    padding: 20px;
-    margin-top: 20px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    animation: pulse 2s infinite;
 }
 
-.form-table th {
-    padding: 20px 10px 20px 0;
-    font-weight: 600;
-}
-
-.form-table td {
-    padding: 15px 10px;
-}
-
-/* Input Fields */
-.postpilot-settings-wrap input[type="text"],
-.postpilot-settings-wrap input[type="password"],
-.postpilot-settings-wrap select {
-    padding: 8px 12px;
-    font-size: 14px;
-}
-
-.postpilot-settings-wrap input[type="checkbox"] {
-    margin-right: 8px;
-}
-
-/* Description Text */
-.postpilot-settings-wrap .description {
-    margin-top: 8px;
-    color: #646970;
-    font-size: 13px;
-}
-
-.postpilot-settings-wrap .description a {
-    color: #2271b1;
-    text-decoration: none;
-}
-
-.postpilot-settings-wrap .description a:hover {
-    text-decoration: underline;
-}
-
-/* Submit Button */
-.postpilot-settings-wrap .submit {
-    padding: 0;
-    margin-top: 20px;
-}
-
-/* Settings Updated Notice */
-.postpilot-settings-wrap .notice {
-    margin: 20px 0;
-}
-
-/* Section Headers */
-.postpilot-settings-wrap h2 {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 30px 0 15px;
-    padding: 0;
-    border-bottom: 1px solid #dcdcde;
-    padding-bottom: 10px;
-}
-
-.postpilot-settings-wrap h2:first-of-type {
-    margin-top: 20px;
-}
-
-/* Responsive */
-@media screen and (max-width: 782px) {
-    .postpilot-settings-wrap .form-table th,
-    .postpilot-settings-wrap .form-table td {
-        padding: 10px;
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
     }
 }
 
-/* ===========================
-   FAQ Meta Box Styles
-   =========================== */
-
-.postpilot-faq-metabox {
-    padding: 12px;
+/* Settings Grid */
+.postpilot-settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 0 30px 0;
 }
 
-.postpilot-faq-enable {
-    margin-bottom: 20px;
-    padding: 12px;
-    background: #f0f0f1;
-    border-radius: 4px;
+/* Card Styles */
+.postpilot-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
-.postpilot-faq-enable label {
+.postpilot-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.postpilot-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.postpilot-card-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.postpilot-card-icon svg {
+    color: white;
+}
+
+.postpilot-card-header h2 {
+    margin: 0 0 4px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.postpilot-card-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.postpilot-card-body {
+    padding: 24px;
+}
+
+/* Field Groups */
+.postpilot-field-group {
+    margin-bottom: 24px;
+}
+
+.postpilot-field-group:last-child {
+    margin-bottom: 0;
+}
+
+.postpilot-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.postpilot-label-small {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+/* Badge */
+.postpilot-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.postpilot-badge-success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.postpilot-badge svg {
+    width: 12px;
+    height: 12px;
+}
+
+/* Input Styles */
+.postpilot-select,
+.postpilot-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #111827;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+.postpilot-select:focus,
+.postpilot-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.postpilot-select-small {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #374151;
+    background: white;
+}
+
+/* Input Group */
+.postpilot-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.postpilot-input-group .postpilot-input {
+    padding-right: 45px;
+}
+
+.postpilot-btn-icon {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    color: #9ca3af;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.postpilot-btn-icon:hover {
+    color: #667eea;
+}
+
+/* Field Description */
+.postpilot-field-description {
+    margin: 6px 0 0 0;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.postpilot-field-description a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.postpilot-field-description a:hover {
+    text-decoration: underline;
+}
+
+/* Feature Items */
+.postpilot-feature-item {
+    padding: 20px;
+    border: 1px solid #f3f4f6;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+}
+
+.postpilot-feature-item:last-child {
+    margin-bottom: 0;
+}
+
+.postpilot-feature-item:hover {
+    border-color: #e5e7eb;
+    background: #f9fafb;
+}
+
+.postpilot-feature-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.postpilot-feature-info {
+    flex: 1;
+}
+
+.postpilot-feature-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 6px;
     cursor: pointer;
 }
 
-.postpilot-faq-enable input[type="checkbox"] {
-    margin-right: 8px;
+.postpilot-feature-title svg {
+    color: #667eea;
+    flex-shrink: 0;
 }
 
+.postpilot-feature-description {
+    margin: 0;
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.postpilot-feature-options {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+    display: none;
+}
+
+.postpilot-feature-options.active {
+    display: block;
+}
+
+/* Toggle Switch */
+.postpilot-toggle {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.postpilot-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.postpilot-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d1d5db;
+    transition: 0.3s;
+    border-radius: 26px;
+}
+
+.postpilot-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.postpilot-toggle input:checked + .postpilot-toggle-slider {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.postpilot-toggle input:checked + .postpilot-toggle-slider:before {
+    transform: translateX(22px);
+}
+
+.postpilot-toggle input:focus + .postpilot-toggle-slider {
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* Submit Button */
+.postpilot-submit-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 0;
+}
+
+.postpilot-btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    padding: 12px 32px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    transition: all 0.2s ease !important;
+    text-shadow: none !important;
+    height: auto !important;
+}
+
+.postpilot-btn-primary:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.postpilot-btn-primary:active {
+    transform: translateY(0) !important;
+}
+
+/* ========================================
+   FAQ META BOX STYLES
+   ======================================== */
+
+/* FAQ Meta Box Container */
+#postpilot-faq-metabox {
+    padding: 0;
+}
+
+.postpilot-faq-container {
+    padding: 20px;
+}
+
+/* FAQ Header */
 .postpilot-faq-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #dcdcde;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f1;
 }
 
-.postpilot-faq-header h4 {
-    margin: 0;
-    font-size: 14px;
+.postpilot-faq-enable {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.postpilot-faq-enable label {
     font-weight: 600;
+    color: #1d2327;
+    margin: 0;
 }
 
+/* FAQ Items */
 .postpilot-faq-items {
     margin-bottom: 20px;
 }
 
 .postpilot-faq-item {
-    background: #fff;
-    border: 1px solid #c3c4c7;
-    border-radius: 4px;
-    padding: 15px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
     margin-bottom: 12px;
-    transition: box-shadow 0.2s;
+    transition: all 0.2s ease;
 }
 
 .postpilot-faq-item:hover {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-color: #d1d5db;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .postpilot-faq-item-header {
@@ -159,32 +492,12 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #f0f0f1;
 }
 
-.postpilot-faq-item-number {
+.postpilot-faq-number {
     font-weight: 600;
-    font-size: 13px;
-    color: #2271b1;
-}
-
-.postpilot-remove-faq-item {
-    color: #d63638;
-    cursor: pointer;
-    padding: 0;
-    background: none;
-    border: none;
-}
-
-.postpilot-remove-faq-item:hover {
-    color: #a00;
-}
-
-.postpilot-remove-faq-item .dashicons {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
+    color: #667eea;
+    font-size: 14px;
 }
 
 .postpilot-faq-field {
@@ -197,7 +510,8 @@
 
 .postpilot-faq-field label {
     display: block;
-    font-weight: 600;
+    font-weight: 500;
+    color: #374151;
     margin-bottom: 6px;
     font-size: 13px;
 }
@@ -206,47 +520,100 @@
 .postpilot-faq-field textarea {
     width: 100%;
     padding: 8px 12px;
-    border: 1px solid #8c8f94;
-    border-radius: 4px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
     font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.postpilot-faq-field input[type="text"]:focus,
+.postpilot-faq-field textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .postpilot-faq-field textarea {
-    resize: vertical;
     min-height: 80px;
+    resize: vertical;
+}
+
+/* FAQ Actions */
+.postpilot-faq-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.button.postpilot-add-faq,
+.button.postpilot-generate-faq {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.button.postpilot-add-faq:hover,
+.button.postpilot-generate-faq:hover {
+    background: #5568d3;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.button.postpilot-remove-faq {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.button.postpilot-remove-faq:hover {
+    background: #dc2626;
+    color: white;
+    transform: translateY(-1px);
 }
 
 .postpilot-no-faqs {
-    padding: 20px;
     text-align: center;
-    color: #646970;
-    background: #f6f7f7;
-    border: 1px dashed #c3c4c7;
-    border-radius: 4px;
+    padding: 40px 20px;
+    color: #6b7280;
+    font-size: 14px;
 }
 
-.postpilot-faq-actions {
-    padding-top: 15px;
-    border-top: 1px solid #dcdcde;
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .postpilot-settings-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-.postpilot-faq-actions .spinner {
-    float: none;
-    margin: 0 10px;
-    vertical-align: middle;
-}
-
-.postpilot-faq-actions .spinner.is-active {
-    display: inline-block;
-}
-
-.postpilot-add-faq-item {
-    margin-left: 10px;
-}
-
-/* API Key Success Icon */
-.postpilot-api-key-success {
-    color: #00a32a;
-    margin-left: 8px;
-    vertical-align: middle;
+@media (max-width: 782px) {
+    .postpilot-header {
+        padding: 24px;
+    }
+    
+    .postpilot-header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .postpilot-header h1 {
+        font-size: 24px;
+    }
+    
+    .postpilot-feature-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .postpilot-toggle {
+        align-self: flex-start;
+    }
 }

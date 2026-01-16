@@ -237,16 +237,17 @@ class Settings
      */
     public function render_settings_page()
     {
+        // Check user capabilities
         if (!current_user_can('manage_options')) {
             return;
         }
 
-        // Handle settings saved message
+        // Add error/update messages
         if (isset($_GET['settings-updated'])) {
             add_settings_error(
                 'postpilot_messages',
                 'postpilot_message',
-                __('Settings Saved', 'postpilot'),
+                __('Settings Saved Successfully!', 'postpilot'),
                 'updated'
             );
         }
@@ -254,22 +255,275 @@ class Settings
         settings_errors('postpilot_messages');
         ?>
         <div class="wrap postpilot-settings-wrap">
-            <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-            
-            <div class="postpilot-settings-header">
-                <p><?php esc_html_e('Configure AI-powered features for your WordPress posts.', 'postpilot'); ?></p>
+            <!-- Header Section -->
+            <div class="postpilot-header">
+                <div class="postpilot-header-content">
+                    <div class="postpilot-header-title">
+                        <span class="postpilot-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <div>
+                            <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+                            <p class="postpilot-subtitle"><?php esc_html_e('AI-Powered Content Enhancement for WordPress', 'postpilot'); ?></p>
+                        </div>
+                    </div>
+                    <div class="postpilot-header-actions">
+                        <span class="postpilot-status-badge postpilot-status-connected" id="postpilot-api-status">
+                            <span class="status-dot"></span>
+                            <?php esc_html_e('API Connected', 'postpilot'); ?>
+                        </span>
+                    </div>
+                </div>
             </div>
 
-            <form action="options.php" method="post">
-                <?php
-                settings_fields('postpilot_settings');
-                do_settings_sections('postpilot-settings');
-                submit_button(__('Save Settings', 'postpilot'));
-                ?>
+            <form action="options.php" method="post" class="postpilot-settings-form">
+                <?php settings_fields('postpilot_settings'); ?>
+                
+                <div class="postpilot-settings-grid">
+                    <!-- AI Provider Configuration Card -->
+                    <div class="postpilot-card">
+                        <div class="postpilot-card-header">
+                            <div class="postpilot-card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2><?php esc_html_e('AI Provider Configuration', 'postpilot'); ?></h2>
+                                <p><?php esc_html_e('Configure your AI provider and API credentials', 'postpilot'); ?></p>
+                            </div>
+                        </div>
+                        <div class="postpilot-card-body">
+                            <div class="postpilot-field-group">
+                                <label for="postpilot_ai_provider" class="postpilot-label">
+                                    <?php esc_html_e('AI Provider', 'postpilot'); ?>
+                                </label>
+                                <select name="postpilot_ai_provider" id="postpilot_ai_provider" class="postpilot-select">
+                                    <option value="openai" <?php selected(get_option('postpilot_ai_provider', 'openai'), 'openai'); ?>>
+                                        OpenAI (ChatGPT)
+                                    </option>
+                                    <option value="claude" <?php selected(get_option('postpilot_ai_provider'), 'claude'); ?>>
+                                        Claude (Anthropic)
+                                    </option>
+                                </select>
+                                <p class="postpilot-field-description">
+                                    <?php esc_html_e('Choose your preferred AI provider', 'postpilot'); ?>
+                                </p>
+                            </div>
+
+                            <div class="postpilot-field-group postpilot-api-key-field" id="openai-api-key-field">
+                                <label for="postpilot_openai_api_key" class="postpilot-label">
+                                    <?php esc_html_e('OpenAI API Key', 'postpilot'); ?>
+                                    <?php if (get_option('postpilot_openai_api_key')): ?>
+                                        <span class="postpilot-badge postpilot-badge-success">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                            <?php esc_html_e('Saved', 'postpilot'); ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </label>
+                                <div class="postpilot-input-group">
+                                    <input 
+                                        type="password" 
+                                        name="postpilot_openai_api_key" 
+                                        id="postpilot_openai_api_key"
+                                        class="postpilot-input"
+                                        value="<?php echo esc_attr(get_option('postpilot_openai_api_key')); ?>"
+                                        placeholder="sk-..."
+                                    />
+                                    <button type="button" class="postpilot-btn-icon" id="toggle-openai-key">
+                                        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2"/>
+                                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="postpilot-field-description">
+                                    <?php esc_html_e('Get your API key from', 'postpilot'); ?> 
+                                    <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">platform.openai.com/api-keys</a>
+                                </p>
+                            </div>
+
+                            <div class="postpilot-field-group postpilot-api-key-field" id="claude-api-key-field" style="display: none;">
+                                <label for="postpilot_claude_api_key" class="postpilot-label">
+                                    <?php esc_html_e('Claude API Key', 'postpilot'); ?>
+                                    <?php if (get_option('postpilot_claude_api_key')): ?>
+                                        <span class="postpilot-badge postpilot-badge-success">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                            <?php esc_html_e('Saved', 'postpilot'); ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </label>
+                                <div class="postpilot-input-group">
+                                    <input 
+                                        type="password" 
+                                        name="postpilot_claude_api_key" 
+                                        id="postpilot_claude_api_key"
+                                        class="postpilot-input"
+                                        value="<?php echo esc_attr(get_option('postpilot_claude_api_key')); ?>"
+                                        placeholder="sk-ant-..."
+                                    />
+                                    <button type="button" class="postpilot-btn-icon" id="toggle-claude-key">
+                                        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2"/>
+                                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="postpilot-field-description">
+                                    <?php esc_html_e('Get your API key from', 'postpilot'); ?> 
+                                    <a href="https://console.anthropic.com/" target="_blank" rel="noopener">console.anthropic.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature Settings Card -->
+                    <div class="postpilot-card">
+                        <div class="postpilot-card-header">
+                            <div class="postpilot-card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2><?php esc_html_e('Feature Settings', 'postpilot'); ?></h2>
+                                <p><?php esc_html_e('Enable or disable AI-powered features', 'postpilot'); ?></p>
+                            </div>
+                        </div>
+                        <div class="postpilot-card-body">
+                            <!-- FAQ Generator -->
+                            <div class="postpilot-feature-item">
+                                <div class="postpilot-feature-header">
+                                    <div class="postpilot-feature-info">
+                                        <label class="postpilot-feature-title">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" stroke-width="2"/>
+                                                <circle cx="12" cy="17" r="1" fill="currentColor"/>
+                                            </svg>
+                                            <?php esc_html_e('FAQ Generator', 'postpilot'); ?>
+                                        </label>
+                                        <p class="postpilot-feature-description">
+                                            <?php esc_html_e('Automatically generate frequently asked questions based on your content', 'postpilot'); ?>
+                                        </p>
+                                    </div>
+                                    <label class="postpilot-toggle">
+                                        <input 
+                                            type="checkbox" 
+                                            name="postpilot_enable_faq" 
+                                            value="1" 
+                                            <?php checked(get_option('postpilot_enable_faq'), '1'); ?>
+                                        />
+                                        <span class="postpilot-toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="postpilot-feature-options" id="faq-options">
+                                    <div class="postpilot-field-group">
+                                        <label for="postpilot_faq_position" class="postpilot-label-small">
+                                            <?php esc_html_e('Display Position', 'postpilot'); ?>
+                                        </label>
+                                        <select name="postpilot_faq_position" id="postpilot_faq_position" class="postpilot-select-small">
+                                            <option value="after_content" <?php selected(get_option('postpilot_faq_position', 'after_content'), 'after_content'); ?>>
+                                                <?php esc_html_e('After Content', 'postpilot'); ?>
+                                            </option>
+                                            <option value="before_content" <?php selected(get_option('postpilot_faq_position'), 'before_content'); ?>>
+                                                <?php esc_html_e('Before Content', 'postpilot'); ?>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Content Summary -->
+                            <div class="postpilot-feature-item">
+                                <div class="postpilot-feature-header">
+                                    <div class="postpilot-feature-info">
+                                        <label class="postpilot-feature-title">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                            <?php esc_html_e('Content Summary', 'postpilot'); ?>
+                                        </label>
+                                        <p class="postpilot-feature-description">
+                                            <?php esc_html_e('Generate concise summaries of your posts for better engagement', 'postpilot'); ?>
+                                        </p>
+                                    </div>
+                                    <label class="postpilot-toggle">
+                                        <input 
+                                            type="checkbox" 
+                                            name="postpilot_enable_summary" 
+                                            value="1" 
+                                            <?php checked(get_option('postpilot_enable_summary'), '1'); ?>
+                                        />
+                                        <span class="postpilot-toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="postpilot-feature-options" id="summary-options">
+                                    <div class="postpilot-field-group">
+                                        <label for="postpilot_summary_position" class="postpilot-label-small">
+                                            <?php esc_html_e('Display Position', 'postpilot'); ?>
+                                        </label>
+                                        <select name="postpilot_summary_position" id="postpilot_summary_position" class="postpilot-select-small">
+                                            <option value="before_content" <?php selected(get_option('postpilot_summary_position', 'before_content'), 'before_content'); ?>>
+                                                <?php esc_html_e('Before Content', 'postpilot'); ?>
+                                            </option>
+                                            <option value="after_content" <?php selected(get_option('postpilot_summary_position'), 'after_content'); ?>>
+                                                <?php esc_html_e('After Content', 'postpilot'); ?>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Smart Internal Links -->
+                            <div class="postpilot-feature-item">
+                                <div class="postpilot-feature-header">
+                                    <div class="postpilot-feature-info">
+                                        <label class="postpilot-feature-title">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="2"/>
+                                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="2"/>
+                                            </svg>
+                                            <?php esc_html_e('Smart Internal Links', 'postpilot'); ?>
+                                        </label>
+                                        <p class="postpilot-feature-description">
+                                            <?php esc_html_e('Automatically suggest relevant internal links to improve SEO', 'postpilot'); ?>
+                                        </p>
+                                    </div>
+                                    <label class="postpilot-toggle">
+                                        <input 
+                                            type="checkbox" 
+                                            name="postpilot_enable_internal_links" 
+                                            value="1" 
+                                            <?php checked(get_option('postpilot_enable_internal_links'), '1'); ?>
+                                        />
+                                        <span class="postpilot-toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="postpilot-submit-wrapper">
+                    <?php submit_button(__('Save Settings', 'postpilot'), 'primary postpilot-btn-primary', 'submit', false); ?>
+                </div>
             </form>
         </div>
         <?php
     }
+
 
     /**
      * Render AI section description
