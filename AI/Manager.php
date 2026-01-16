@@ -309,4 +309,30 @@ class Manager
             ),
         );
     }
+
+    /**
+     * Test API connection
+     *
+     * @since 1.0.0
+     * @return true|WP_Error True if connection successful, WP_Error on failure
+     */
+    public function test_api_connection()
+    {
+        if (!$this->is_provider_available()) {
+            return new \WP_Error(
+                'no_provider',
+                __('No AI provider configured.', 'postpilot')
+            );
+        }
+
+        // Make a minimal test request
+        $test_prompt = 'Test';
+        $result = $this->provider->generate_completion($test_prompt, 5);
+
+        if (is_wp_error($result)) {
+            return $result; // Return the specific error from the provider
+        }
+
+        return true;
+    }
 }
