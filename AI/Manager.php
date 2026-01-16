@@ -64,7 +64,9 @@ class Manager
             case 'claude':
                 $api_key = get_option('postpilot_claude_api_key', '');
                 if (!empty($api_key)) {
-                    $this->provider = new Claude($api_key);
+                    // Decrypt the API key
+                    $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
+                    $this->provider = new Claude($decrypted_key);
                 }
                 break;
                 
@@ -72,7 +74,9 @@ class Manager
             default:
                 $api_key = get_option('postpilot_openai_api_key', '');
                 if (!empty($api_key)) {
-                    $this->provider = new OpenAI($api_key);
+                    // Decrypt the API key
+                    $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
+                    $this->provider = new OpenAI($decrypted_key);
                 }
                 break;
         }

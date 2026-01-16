@@ -29,12 +29,28 @@ class Sanitizer
      *
      * @since 1.0.0
      * @param string $api_key The API key to sanitize.
-     * @return string Sanitized API key
+     * @return string Sanitized and encrypted API key
      */
     public static function sanitize_api_key($api_key)
     {
-        // Only trim whitespace, preserve all other characters (API keys can have various formats)
-        return trim(sanitize_text_field($api_key));
+        // Sanitize the input
+        $sanitized = trim(sanitize_text_field($api_key));
+        
+        // If empty, return empty
+        if (empty($sanitized)) {
+            return '';
+        }
+        
+        // Encrypt the API key before storing
+        $encrypted = Encryption::encrypt($sanitized);
+        
+        // If encryption fails, log error and return sanitized (unencrypted) value
+        if ($encrypted === false) {
+            error_log('PostPilot: Failed to encrypt API key');
+            return $sanitized;
+        }
+        
+        return $encrypted;
     }
 
     /**

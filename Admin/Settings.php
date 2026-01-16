@@ -353,12 +353,16 @@ class Settings
                                     <?php endif; ?>
                                 </label>
                                 <div class="postpilot-input-group">
+                                    <?php
+                                    $openai_key = get_option('postpilot_openai_api_key');
+                                    $openai_key_decrypted = !empty($openai_key) ? \PostPilot\Helpers\Encryption::decrypt($openai_key) : '';
+                                    ?>
                                     <input 
                                         type="password" 
                                         name="postpilot_openai_api_key" 
                                         id="postpilot_openai_api_key"
                                         class="postpilot-input"
-                                        value="<?php echo esc_attr(get_option('postpilot_openai_api_key')); ?>"
+                                        value="<?php echo esc_attr($openai_key_decrypted); ?>"
                                         placeholder="sk-..."
                                     />
                                     <button type="button" class="postpilot-btn-icon" id="toggle-openai-key">
@@ -387,12 +391,16 @@ class Settings
                                     <?php endif; ?>
                                 </label>
                                 <div class="postpilot-input-group">
+                                    <?php
+                                    $claude_key = get_option('postpilot_claude_api_key');
+                                    $claude_key_decrypted = !empty($claude_key) ? \PostPilot\Helpers\Encryption::decrypt($claude_key) : '';
+                                    ?>
                                     <input 
                                         type="password" 
                                         name="postpilot_claude_api_key" 
                                         id="postpilot_claude_api_key"
                                         class="postpilot-input"
-                                        value="<?php echo esc_attr(get_option('postpilot_claude_api_key')); ?>"
+                                        value="<?php echo esc_attr($claude_key_decrypted); ?>"
                                         placeholder="sk-ant-..."
                                     />
                                     <button type="button" class="postpilot-btn-icon" id="toggle-claude-key">
