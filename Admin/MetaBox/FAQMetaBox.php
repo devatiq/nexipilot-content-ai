@@ -372,33 +372,51 @@ class FAQMetaBox
      */
     public function ajax_check_api_status()
     {
-        // Security checks
-        check_ajax_referer('postpilot_generate_faq', 'nonce');
+        try {
+            // Security checks
+            check_ajax_referer('postpilot_generate_faq', 'nonce');
 
-        // Check if AI provider is available
-        if (!$this->ai_manager->is_provider_available()) {
+            // Check if AI provider is available
+            if (!$this->ai_manager->is_provider_available()) {
+                wp_send_json_success(array(
+                    'available' => false,
+                    'message' => __('AI service is not configured. Please add your API key in PostPilot settings.', 'postpilot'),
+                ));
+                return;
+            }
+
+            // Try to make a test API call to check for quota/errors
+            $test_result = $this->ai_manager->test_api_connection();
+            
+            if (is_wp_error($test_result)) {
+                // API call failed - return the specific error message
+                Logger::info('API status check failed', array(
+                    'error' => $test_result->get_error_message(),
+                ));
+                
+                wp_send_json_success(array(
+                    'available' => false,
+                    'message' => $test_result->get_error_message(),
+                ));
+                return;
+            }
+
+            // API is working fine
             wp_send_json_success(array(
-                'available' => false,
-                'message' => __('AI service is not configured. Please add your API key in PostPilot settings.', 'postpilot'),
+                'available' => true,
+                'message' => __('AI service is available.', 'postpilot'),
+            ));
+            
+        } catch (\Exception $e) {
+            // Catch any PHP errors and return them
+            Logger::error('API status check exception', array(
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ));
+            
+            wp_send_json_error(array(
+                'message' => 'Error checking API status: ' . $e->getMessage(),
             ));
         }
-
-        // Try to make a test API call to check for quota/errors
-        // We'll use a minimal test prompt to check API status
-        $test_result = $this->ai_manager->test_api_connection();
-        
-        if (is_wp_error($test_result)) {
-            // API call failed - return the specific error message
-            wp_send_json_success(array(
-                'available' => false,
-                'message' => $test_result->get_error_message(),
-            ));
-        }
-
-        // API is working fine
-        wp_send_json_success(array(
-            'available' => true,
-            'message' => __('AI service is available.', 'postpilot'),
-        ));
     }
 }
