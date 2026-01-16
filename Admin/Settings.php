@@ -273,11 +273,32 @@ class Settings
                     </div>
                     <div class="postpilot-header-actions">
                         <?php
-                        // Check if AI provider is configured
+                        // Check if AI provider is configured and test connection
                         $ai_manager = new \PostPilot\AI\Manager();
-                        $is_connected = $ai_manager->is_provider_available();
+                        $is_connected = false;
+                        $status_text = __('API Not Connected', 'postpilot');
+                        
+                        if ($ai_manager->is_provider_available()) {
+                            // Test actual API connection
+                            $test_result = $ai_manager->test_api_connection();
+                            $is_connected = !is_wp_error($test_result);
+                            
+                            if ($is_connected) {
+                                $status_text = __('API Connected', 'postpilot');
+                            } else {
+                                // Show specific error if available
+                                $error_message = $test_result->get_error_message();
+                                if (strpos($error_message, 'quota') !== false) {
+                                    $status_text = __('Quota Exceeded', 'postpilot');
+                                } elseif (strpos($error_message, 'invalid') !== false || strpos($error_message, 'Incorrect') !== false) {
+                                    $status_text = __('Invalid API Key', 'postpilot');
+                                } else {
+                                    $status_text = __('Connection Failed', 'postpilot');
+                                }
+                            }
+                        }
+                        
                         $status_class = $is_connected ? 'postpilot-status-connected' : 'postpilot-status-disconnected';
-                        $status_text = $is_connected ? __('API Connected', 'postpilot') : __('API Not Connected', 'postpilot');
                         ?>
                         <span class="postpilot-status-badge <?php echo esc_attr($status_class); ?>" id="postpilot-api-status">
                             <span class="status-dot"></span>
