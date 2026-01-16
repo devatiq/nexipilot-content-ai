@@ -58,6 +58,7 @@ class FAQMetaBox
         add_action('save_post', array($this, 'save_meta_box'), 10, 2);
         add_action('wp_ajax_postpilot_generate_faq', array($this, 'ajax_generate_faq'));
         add_action('wp_ajax_postpilot_generate_demo_faq', array($this, 'ajax_generate_demo_faq'));
+        add_action('wp_ajax_postpilot_check_api_status', array($this, 'ajax_check_api_status'));
     }
 
     /**
@@ -361,5 +362,32 @@ class FAQMetaBox
             'html' => $html,
             'count' => count($demo_faq),
         ));
+    }
+
+    /**
+     * AJAX handler to check API status
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function ajax_check_api_status()
+    {
+        // Security checks
+        check_ajax_referer('postpilot_generate_faq', 'nonce');
+
+        // Check if AI provider is available
+        $is_available = $this->ai_manager->is_provider_available();
+        
+        if ($is_available) {
+            wp_send_json_success(array(
+                'available' => true,
+                'message' => __('AI service is available.', 'postpilot'),
+            ));
+        } else {
+            wp_send_json_success(array(
+                'available' => false,
+                'message' => __('AI service is not configured. Please add your API key in PostPilot settings.', 'postpilot'),
+            ));
+        }
     }
 }
