@@ -119,7 +119,7 @@ class RateLimiter
         }
 
         // Check if limit exceeded
-        return count($attempts) < self::POST_LIMIT;
+        return count($attempts) < self::get_post_limit();
     }
 
     /**
@@ -139,7 +139,7 @@ class RateLimiter
         }
 
         // Check if limit exceeded
-        return $count < self::DAILY_LIMIT;
+        return $count < self::get_daily_limit();
     }
 
     /**
@@ -162,7 +162,7 @@ class RateLimiter
         $attempts[] = time();
 
         // Keep only attempts within the window
-        $cutoff = time() - self::POST_WINDOW;
+        $cutoff = time() - self::get_post_window();
         $attempts = array_filter($attempts, function($timestamp) use ($cutoff) {
             return $timestamp > $cutoff;
         });
@@ -171,7 +171,7 @@ class RateLimiter
         $attempts = array_values($attempts);
 
         // Store with expiration
-        set_transient($key, $attempts, self::POST_WINDOW);
+        set_transient($key, $attempts, self::get_post_window());
     }
 
     /**
@@ -192,7 +192,7 @@ class RateLimiter
         $count++;
 
         // Store with 24-hour expiration
-        set_transient($key, $count, self::DAILY_WINDOW);
+        set_transient($key, $count, self::get_daily_window());
     }
 
     /**
@@ -208,10 +208,10 @@ class RateLimiter
         $attempts = get_transient($key);
 
         if ($attempts === false) {
-            return self::POST_LIMIT;
+            return self::get_post_limit();
         }
 
-        $remaining = self::POST_LIMIT - count($attempts);
+        $remaining = self::get_post_limit() - count($attempts);
         return max(0, $remaining);
     }
 
@@ -227,10 +227,10 @@ class RateLimiter
         $count = get_transient($key);
 
         if ($count === false) {
-            return self::DAILY_LIMIT;
+            return self::get_daily_limit();
         }
 
-        $remaining = self::DAILY_LIMIT - $count;
+        $remaining = self::get_daily_limit() - $count;
         return max(0, $remaining);
     }
 
@@ -247,10 +247,10 @@ class RateLimiter
         $post_key = self::get_post_transient_key($user_id, $post_id);
         $attempts = get_transient($post_key);
 
-        if ($attempts !== false && count($attempts) >= self::POST_LIMIT) {
+        if ($attempts !== false && count($attempts) >= self::get_post_limit()) {
             // Get oldest attempt timestamp
             $oldest = min($attempts);
-            $wait_until = $oldest + self::POST_WINDOW;
+            $wait_until = $oldest + self::get_post_window();
             $wait_time = $wait_until - time();
             
             if ($wait_time > 0) {
@@ -262,7 +262,7 @@ class RateLimiter
         $daily_key = self::get_daily_transient_key($user_id);
         $count = get_transient($daily_key);
 
-        if ($count !== false && $count >= self::DAILY_LIMIT) {
+        if ($count !== false && $count >= self::get_daily_limit()) {
             // Get transient timeout
             $timeout = get_option('_transient_timeout_' . $daily_key);
             if ($timeout) {
