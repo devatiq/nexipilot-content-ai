@@ -272,9 +272,16 @@ class Settings
                         </div>
                     </div>
                     <div class="postpilot-header-actions">
-                        <span class="postpilot-status-badge postpilot-status-connected" id="postpilot-api-status">
+                        <?php
+                        // Check if AI provider is configured
+                        $ai_manager = new \PostPilot\AI\Manager();
+                        $is_connected = $ai_manager->is_provider_available();
+                        $status_class = $is_connected ? 'postpilot-status-connected' : 'postpilot-status-disconnected';
+                        $status_text = $is_connected ? __('API Connected', 'postpilot') : __('API Not Connected', 'postpilot');
+                        ?>
+                        <span class="postpilot-status-badge <?php echo esc_attr($status_class); ?>" id="postpilot-api-status">
                             <span class="status-dot"></span>
-                            <?php esc_html_e('API Connected', 'postpilot'); ?>
+                            <?php echo esc_html($status_text); ?>
                         </span>
                     </div>
                 </div>
