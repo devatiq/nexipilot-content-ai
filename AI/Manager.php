@@ -167,7 +167,11 @@ class Manager
                 'post_id' => $post_id,
                 'error' => $summary->get_error_message()
             ));
-            return __('Summary generation failed. Please check your API key configuration.', 'postpilot');
+            // Return the actual error message from the API
+            return sprintf(
+                __('Summary generation failed: %s', 'postpilot'),
+                $summary->get_error_message()
+            );
         }
         
         if (!empty($summary)) {

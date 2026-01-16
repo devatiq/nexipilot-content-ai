@@ -33,8 +33,8 @@ class Sanitizer
      */
     public static function sanitize_api_key($api_key)
     {
-        // Remove any whitespace and special characters except hyphens and underscores
-        return preg_replace('/[^a-zA-Z0-9\-_]/', '', trim($api_key));
+        // Only trim whitespace, preserve all other characters (API keys can have various formats)
+        return trim(sanitize_text_field($api_key));
     }
 
     /**

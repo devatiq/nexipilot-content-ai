@@ -230,26 +230,36 @@ class OpenAI implements ProviderInterface
             )
         );
 
-        if (is_wp_error($response)) {
-            Logger::log_api_response('OpenAI', $response->get_error_message(), true);
-            return $response;
+        if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+            $error_body = wp_remote_retrieve_body($response);
+            $error_data = json_decode($error_body, true);
+            
+            $error_code = wp_remote_retrieve_response_code($response);
+            $error_message = isset($error_data['error']['message']) ? $error_data['error']['message'] : 'Unknown error';
+            $error_type = isset($error_data['error']['type']) ? $error_data['error']['type'] : '';
+            
+            Logger::error('API Response from OpenAI', array('response' => $error_body));
+            
+            // Provide user-friendly error messages for common errors
+            if ($error_type === 'insufficient_quota' || $error_code === 429) {
+                return new \WP_Error(
+                    'openai_quota_exceeded',
+                    __('OpenAI quota exceeded. Please add credits to your OpenAI account at platform.openai.com/account/billing', 'postpilot')
+                );
+            } elseif ($error_code === 401) {
+                return new \WP_Error(
+                    'openai_invalid_key',
+                    __('Invalid OpenAI API key. Please check your API key in PostPilot settings.', 'postpilot')
+                );
+            } else {
+                return new \WP_Error(
+                    'openai_api_error',
+                    sprintf(__('OpenAI API error (Code: %d): %s', 'postpilot'), $error_code, $error_message)
+                );
+            }
         }
 
-        $response_code = wp_remote_retrieve_response_code($response);
         $response_body = wp_remote_retrieve_body($response);
-
-        if ($response_code !== 200) {
-            Logger::log_api_response('OpenAI', $response_body, true);
-            return new \WP_Error(
-                'api_error',
-                sprintf(
-                    /* translators: %d: HTTP response code */
-                    __('OpenAI API error (Code: %d)', 'postpilot'),
-                    $response_code
-                )
-            );
-        }
-
         $data = json_decode($response_body, true);
         
         if (isset($data['choices'][0]['message']['content'])) {
