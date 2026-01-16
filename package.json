@@ -2,7 +2,7 @@
   "name": "postpilot",
   "version": "1.0.0",
   "description": "AI-Powered Content Enhancement for WordPress",
-  "author": "Your Name",
+  "author": "Nexiby LLC",
   "license": "GPL-2.0-or-later",
   "devDependencies": {
     "dir-archiver": "^2.1.0"

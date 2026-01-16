@@ -283,7 +283,21 @@
                             showConfirmButton: false
                         });
                     } else {
-                        // If generation failed, offer demo as fallback
+                        // Check if it's a rate limit error
+                        if (response.data && response.data.rate_limited) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: postpilotAdmin.i18n.rateLimitTitle || 'Rate Limit Reached',
+                                text: response.data.message,
+                                confirmButtonText: postpilotAdmin.i18n.okButton || 'OK',
+                                customClass: {
+                                    confirmButton: 'swal2-confirm swal2-styled'
+                                }
+                            });
+                            return; // Don't offer demo FAQ for rate limits
+                        }
+                        
+                        // If generation failed (not rate limited), offer demo as fallback
                         const errorMessage = response.data.message || 'FAQ generation failed';
                         
                         Swal.fire({

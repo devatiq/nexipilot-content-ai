@@ -103,6 +103,10 @@ class Assets
                         'useDemoButton' => __('Yes, use demo FAQ', 'postpilot'),
                         'demoAdded' => __('Demo FAQ Added', 'postpilot'),
                         'demoMessage' => __('Demo FAQ content has been added. You can edit it manually or add credits to your OpenAI account to generate real content.', 'postpilot'),
+                        'rateLimitTitle' => __('Rate Limit Reached', 'postpilot'),
+                        'errorTitle' => __('Error', 'postpilot'),
+                        'okButton' => __('OK', 'postpilot'),
+                        'genericError' => __('An error occurred. Please try again.', 'postpilot'),
                     ),
                 )
             );

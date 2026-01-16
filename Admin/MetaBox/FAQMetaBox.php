@@ -284,10 +284,39 @@ class FAQMetaBox
         check_ajax_referer('postpilot_generate_faq', 'nonce');
 
         $post_id = isset($_POST['post_id']) ? absint($_POST['post_id']) : 0;
+        $user_id = get_current_user_id();
 
         if (!$post_id || !current_user_can('edit_post', $post_id)) {
             wp_send_json_error(array(
                 'message' => __('Permission denied.', 'postpilot'),
+            ));
+        }
+
+        // Rate limit check
+        if (!\PostPilot\Helpers\RateLimiter::can_generate_faq($user_id, $post_id)) {
+            $wait_time = \PostPilot\Helpers\RateLimiter::get_wait_time($user_id, $post_id);
+            $post_remaining = \PostPilot\Helpers\RateLimiter::get_post_remaining($user_id, $post_id);
+            $daily_remaining = \PostPilot\Helpers\RateLimiter::get_daily_remaining($user_id);
+            
+            // Determine which limit was hit
+            if ($post_remaining === 0) {
+                $message = sprintf(
+                    __('You have generated FAQ for this post recently. Please wait %s before trying again.', 'postpilot'),
+                    human_time_diff(time(), time() + $wait_time)
+                );
+            } else {
+                $message = sprintf(
+                    __('You have reached your daily FAQ generation limit (%d per day). Please try again tomorrow.', 'postpilot'),
+                    \PostPilot\Helpers\RateLimiter::DAILY_LIMIT
+                );
+            }
+            
+            wp_send_json_error(array(
+                'message' => $message,
+                'rate_limited' => true,
+                'wait_time' => $wait_time,
+                'post_remaining' => $post_remaining,
+                'daily_remaining' => $daily_remaining,
             ));
         }
 
@@ -307,6 +336,9 @@ class FAQMetaBox
                 'message' => $faq_data->get_error_message(),
             ));
         }
+
+        // Record successful generation
+        \PostPilot\Helpers\RateLimiter::record_generation($user_id, $post_id);
 
         // Save to post meta
         update_post_meta($post_id, '_postpilot_faqs', $faq_data);
@@ -337,6 +369,7 @@ class FAQMetaBox
         check_ajax_referer('postpilot_generate_faq', 'nonce');
 
         $post_id = isset($_POST['post_id']) ? absint($_POST['post_id']) : 0;
+        $user_id = get_current_user_id();
 
         if (!$post_id || !current_user_can('edit_post', $post_id)) {
             wp_send_json_error(array(
@@ -344,8 +377,39 @@ class FAQMetaBox
             ));
         }
 
+        // Rate limit check (same as regular generation)
+        if (!\PostPilot\Helpers\RateLimiter::can_generate_faq($user_id, $post_id)) {
+            $wait_time = \PostPilot\Helpers\RateLimiter::get_wait_time($user_id, $post_id);
+            $post_remaining = \PostPilot\Helpers\RateLimiter::get_post_remaining($user_id, $post_id);
+            $daily_remaining = \PostPilot\Helpers\RateLimiter::get_daily_remaining($user_id);
+            
+            // Determine which limit was hit
+            if ($post_remaining === 0) {
+                $message = sprintf(
+                    __('You have generated FAQ for this post recently. Please wait %s before trying again.', 'postpilot'),
+                    human_time_diff(time(), time() + $wait_time)
+                );
+            } else {
+                $message = sprintf(
+                    __('You have reached your daily FAQ generation limit (%d per day). Please try again tomorrow.', 'postpilot'),
+                    \PostPilot\Helpers\RateLimiter::DAILY_LIMIT
+                );
+            }
+            
+            wp_send_json_error(array(
+                'message' => $message,
+                'rate_limited' => true,
+                'wait_time' => $wait_time,
+                'post_remaining' => $post_remaining,
+                'daily_remaining' => $daily_remaining,
+            ));
+        }
+
         // Get demo FAQ from AI Manager
         $demo_faq = $this->ai_manager->get_demo_faq();
+
+        // Record successful generation
+        \PostPilot\Helpers\RateLimiter::record_generation($user_id, $post_id);
 
         // Save to post meta
         update_post_meta($post_id, '_postpilot_faqs', $demo_faq);
