@@ -20,12 +20,48 @@ if (!defined('ABSPATH')) {
 class RateLimiter
 {
     /**
-     * Rate limit configuration
+     * Get per-post generation limit
+     * 
+     * @return int
      */
-    const POST_LIMIT = 2;           // Generations per post
-    const POST_WINDOW = 300;        // 5 minutes in seconds
-    const DAILY_LIMIT = 30;         // Generations per day
-    const DAILY_WINDOW = 86400;     // 24 hours in seconds
+    public static function get_post_limit()
+    {
+        // Allow premium versions to override via filter
+        return apply_filters('postpilot_rate_limit_post', 2);
+    }
+
+    /**
+     * Get per-post time window
+     *
+     * @return int Seconds
+     */
+    public static function get_post_window()
+    {
+        // Allow premium versions to override via filter
+        return apply_filters('postpilot_rate_limit_post_window', 300);
+    }
+
+    /**
+     * Get daily generation limit
+     *
+     * @return int
+     */
+    public static function get_daily_limit()
+    {
+        // Allow premium versions to override via filter
+        return apply_filters('postpilot_rate_limit_daily', 30);
+    }
+
+    /**
+     * Get daily time window
+     *
+     * @return int Seconds
+     */
+    public static function get_daily_window()
+    {
+        // Allow premium versions to override via filter
+        return apply_filters('postpilot_rate_limit_daily_window', 86400);
+    }
 
     /**
      * Check if user can generate FAQ for a post

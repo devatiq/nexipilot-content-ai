@@ -307,7 +307,7 @@ class FAQMetaBox
             } else {
                 $message = sprintf(
                     __('You have reached your daily FAQ generation limit (%d per day). Please try again tomorrow.', 'postpilot'),
-                    \PostPilot\Helpers\RateLimiter::DAILY_LIMIT
+                    \PostPilot\Helpers\RateLimiter::get_daily_limit()
                 );
             }
             
@@ -392,7 +392,7 @@ class FAQMetaBox
             } else {
                 $message = sprintf(
                     __('You have reached your daily FAQ generation limit (%d per day). Please try again tomorrow.', 'postpilot'),
-                    \PostPilot\Helpers\RateLimiter::DAILY_LIMIT
+                    \PostPilot\Helpers\RateLimiter::get_daily_limit()
                 );
             }
             
