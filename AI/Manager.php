@@ -325,9 +325,9 @@ class Manager
             );
         }
 
-        // Make a minimal test request
-        $test_prompt = 'Test';
-        $result = $this->provider->generate_completion($test_prompt, 5);
+        // Make a minimal test request using generate_summary
+        $test_prompt = 'Test content for API validation.';
+        $result = $this->provider->generate_summary($test_prompt);
 
         if (is_wp_error($result)) {
             return $result; // Return the specific error from the provider
