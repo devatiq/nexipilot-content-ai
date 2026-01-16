@@ -34,7 +34,10 @@ class Logger
      */
     public static function debug($message, $context = array())
     {
-        if (defined('WP_DEBUG') && WP_DEBUG) {
+        // Check if plugin debug logging is enabled
+        $debug_enabled = get_option('postpilot_enable_debug_logging', '');
+        
+        if (defined('WP_DEBUG') && WP_DEBUG && $debug_enabled === '1') {
             self::log('DEBUG', $message, $context);
         }
     }
@@ -49,7 +52,12 @@ class Logger
      */
     public static function info($message, $context = array())
     {
-        self::log('INFO', $message, $context);
+        // Check if plugin debug logging is enabled
+        $debug_enabled = get_option('postpilot_enable_debug_logging', '');
+        
+        if ($debug_enabled === '1') {
+            self::log('INFO', $message, $context);
+        }
     }
 
     /**
@@ -62,7 +70,12 @@ class Logger
      */
     public static function error($message, $context = array())
     {
-        self::log('ERROR', $message, $context);
+        // Check if plugin debug logging is enabled
+        $debug_enabled = get_option('postpilot_enable_debug_logging', '');
+        
+        if ($debug_enabled === '1') {
+            self::log('ERROR', $message, $context);
+        }
     }
 
     /**

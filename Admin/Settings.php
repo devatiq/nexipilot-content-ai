@@ -147,6 +147,16 @@ class Settings
             )
         );
 
+        register_setting(
+            'postpilot_settings',
+            'postpilot_enable_debug_logging',
+            array(
+                'type' => 'string',
+                'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
+                'default' => '',
+            )
+        );
+
         // Add settings sections
         add_settings_section(
             'postpilot_ai_section',
@@ -413,6 +423,36 @@ class Settings
                                 <p class="postpilot-field-description">
                                     <?php esc_html_e('Get your API key from', 'postpilot'); ?> 
                                     <a href="https://console.anthropic.com/" target="_blank" rel="noopener">console.anthropic.com</a>
+                                </p>
+                            </div>
+
+                            <!-- Debug Logging Toggle -->
+                            <div class="postpilot-field-group">
+                                <label class="postpilot-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
+                                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <?php esc_html_e('Debug Logging', 'postpilot'); ?>
+                                    <span class="postpilot-badge postpilot-badge-info" style="margin-left: 8px;">
+                                        <?php esc_html_e('Developer', 'postpilot'); ?>
+                                    </span>
+                                </label>
+                                <div class="postpilot-toggle-wrapper">
+                                    <label class="postpilot-toggle">
+                                        <input 
+                                            type="checkbox" 
+                                            name="postpilot_enable_debug_logging" 
+                                            value="1" 
+                                            <?php checked(get_option('postpilot_enable_debug_logging'), '1'); ?>
+                                        />
+                                        <span class="postpilot-toggle-slider"></span>
+                                    </label>
+                                    <span class="postpilot-toggle-label">
+                                        <?php esc_html_e('Enable API debug logging to debug.log', 'postpilot'); ?>
+                                    </span>
+                                </div>
+                                <p class="postpilot-field-description">
+                                    <?php esc_html_e('When enabled, all API requests and responses will be logged to debug.log. Useful for troubleshooting API issues. Keep disabled in production.', 'postpilot'); ?>
                                 </p>
                             </div>
                         </div>
