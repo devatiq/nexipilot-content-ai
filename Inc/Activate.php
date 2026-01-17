@@ -76,6 +76,7 @@ class Activate
             'postpilot_enable_summary' => '1',
             'postpilot_enable_internal_links' => '1',
             'postpilot_faq_position' => 'after_content',
+            'postpilot_faq_default_layout' => 'accordion',
             'postpilot_summary_position' => 'before_content',
             'postpilot_version' => POSTPILOT_VERSION,
         );

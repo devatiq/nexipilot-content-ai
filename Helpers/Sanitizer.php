@@ -106,6 +106,19 @@ class Sanitizer
     }
 
     /**
+     * Sanitize FAQ layout option
+     *
+     * @since 1.0.0
+     * @param string $layout The layout to sanitize.
+     * @return string Sanitized layout
+     */
+    public static function sanitize_faq_layout($layout)
+    {
+        $allowed_layouts = array('accordion', 'static', 'default');
+        return self::sanitize_select($layout, $allowed_layouts, 'accordion');
+    }
+
+    /**
      * Sanitize HTML content
      *
      * @since 1.0.0

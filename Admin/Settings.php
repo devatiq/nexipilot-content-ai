@@ -139,6 +139,16 @@ class Settings
 
         register_setting(
             'postpilot_settings',
+            'postpilot_faq_default_layout',
+            array(
+                'type' => 'string',
+                'sanitize_callback' => array(Sanitizer::class, 'sanitize_faq_layout'),
+                'default' => 'accordion',
+            )
+        );
+
+        register_setting(
+            'postpilot_settings',
             'postpilot_summary_position',
             array(
                 'type' => 'string',
@@ -210,6 +220,14 @@ class Settings
             'postpilot_faq_position',
             __('FAQ Position', 'postpilot'),
             array($this, 'render_faq_position_field'),
+            'postpilot-settings',
+            'postpilot_features_section'
+        );
+
+        add_settings_field(
+            'postpilot_faq_default_layout',
+            __('Default FAQ Display Style', 'postpilot'),
+            array($this, 'render_faq_default_layout_field'),
             'postpilot-settings',
             'postpilot_features_section'
         );
@@ -519,6 +537,22 @@ class Settings
                                                 <?php esc_html_e('Before Content', 'postpilot'); ?>
                                             </option>
                                         </select>
+                                    </div>
+                                    <div class="postpilot-field-group">
+                                        <label for="postpilot_faq_default_layout" class="postpilot-label-small">
+                                            <?php esc_html_e('Default Display Style', 'postpilot'); ?>
+                                        </label>
+                                        <select name="postpilot_faq_default_layout" id="postpilot_faq_default_layout" class="postpilot-select-small">
+                                            <option value="accordion" <?php selected(get_option('postpilot_faq_default_layout', 'accordion'), 'accordion'); ?>>
+                                                <?php esc_html_e('Accordion', 'postpilot'); ?>
+                                            </option>
+                                            <option value="static" <?php selected(get_option('postpilot_faq_default_layout', 'accordion'), 'static'); ?>>
+                                                <?php esc_html_e('Static', 'postpilot'); ?>
+                                            </option>
+                                        </select>
+                                        <p class="description" style="margin-top: 5px; font-size: 12px;">
+                                            <?php esc_html_e('Can be overridden per post', 'postpilot'); ?>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -864,6 +898,30 @@ class Settings
                 <?php esc_html_e('After Content', 'postpilot'); ?>
             </option>
         </select>
+        <?php
+    }
+
+    /**
+     * Render FAQ default layout field
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function render_faq_default_layout_field()
+    {
+        $value = get_option('postpilot_faq_default_layout', 'accordion');
+        ?>
+        <select name="postpilot_faq_default_layout" id="postpilot_faq_default_layout">
+            <option value="accordion" <?php selected($value, 'accordion'); ?>>
+                <?php esc_html_e('Accordion', 'postpilot'); ?>
+            </option>
+            <option value="static" <?php selected($value, 'static'); ?>>
+                <?php esc_html_e('Static', 'postpilot'); ?>
+            </option>
+        </select>
+        <p class="description">
+            <?php esc_html_e('Choose the default layout for FAQ display. This can be overridden per post.', 'postpilot'); ?>
+        </p>
         <?php
     }
 

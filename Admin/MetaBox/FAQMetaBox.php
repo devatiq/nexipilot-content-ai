@@ -117,6 +117,46 @@ class FAQMetaBox
                 </p>
             </div>
 
+            <!-- FAQ Display Style -->
+            <div class="postpilot-faq-layout" style="margin-top: 15px;">
+                <?php
+                $faq_display_style = get_post_meta($post->ID, '_postpilot_faq_display_style', true);
+                $global_default = get_option('postpilot_faq_default_layout', 'accordion');
+                $global_default_label = ucfirst($global_default);
+                ?>
+                <label>
+                    <strong><?php esc_html_e('FAQ Display Style:', 'postpilot'); ?></strong>
+                </label>
+                <p class="description" style="margin-top: 5px; margin-bottom: 10px;">
+                    <?php esc_html_e('Choose how FAQs should be displayed on the frontend.', 'postpilot'); ?>
+                </p>
+                <label style="display: block; margin-bottom: 8px;">
+                    <input type="radio" 
+                           name="postpilot_faq_display_style" 
+                           value="default" 
+                           <?php checked($faq_display_style, ''); ?>
+                           <?php checked($faq_display_style, 'default'); ?> />
+                    <?php 
+                    /* translators: %s: current global default layout */
+                    printf(esc_html__('Use Default (%s)', 'postpilot'), $global_default_label); 
+                    ?>
+                </label>
+                <label style="display: block; margin-bottom: 8px;">
+                    <input type="radio" 
+                           name="postpilot_faq_display_style" 
+                           value="accordion" 
+                           <?php checked($faq_display_style, 'accordion'); ?> />
+                    <?php esc_html_e('Accordion', 'postpilot'); ?>
+                </label>
+                <label style="display: block;">
+                    <input type="radio" 
+                           name="postpilot_faq_display_style" 
+                           value="static" 
+                           <?php checked($faq_display_style, 'static'); ?> />
+                    <?php esc_html_e('Static', 'postpilot'); ?>
+                </label>
+            </div>
+
             <!-- FAQ Repeater Fields -->
             <div class="postpilot-faq-fields" style="margin-top: 20px;">
                 <div class="postpilot-faq-header">
@@ -228,6 +268,16 @@ class FAQMetaBox
         // Save enabled status
         $faq_enabled = isset($_POST['postpilot_faq_enabled']) ? '1' : '0';
         update_post_meta($post_id, '_postpilot_faq_enabled', $faq_enabled);
+
+        // Save FAQ display style
+        if (isset($_POST['postpilot_faq_display_style'])) {
+            $display_style = sanitize_text_field($_POST['postpilot_faq_display_style']);
+            // Validate the value
+            $allowed_styles = array('default', 'accordion', 'static');
+            if (in_array($display_style, $allowed_styles, true)) {
+                update_post_meta($post_id, '_postpilot_faq_display_style', $display_style);
+            }
+        }
 
         // Save FAQ items
         if (isset($_POST['postpilot_faqs']) && is_array($_POST['postpilot_faqs'])) {
