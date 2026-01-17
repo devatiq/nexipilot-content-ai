@@ -123,38 +123,32 @@ class FAQMetaBox
                 $faq_display_style = get_post_meta($post->ID, '_postpilot_faq_display_style', true);
                 $global_default = get_option('postpilot_faq_default_layout', 'accordion');
                 $global_default_label = ucfirst($global_default);
+                
+                // Set default value if empty
+                if (empty($faq_display_style)) {
+                    $faq_display_style = 'default';
+                }
                 ?>
-                <label>
+                <label for="postpilot_faq_display_style" style="display: block; margin-bottom: 8px;">
                     <strong><?php esc_html_e('FAQ Display Style:', 'postpilot'); ?></strong>
                 </label>
-                <p class="description" style="margin-top: 5px; margin-bottom: 10px;">
+                <select name="postpilot_faq_display_style" id="postpilot_faq_display_style" style="width: 100%; max-width: 300px;">
+                    <option value="default" <?php selected($faq_display_style, 'default'); ?>>
+                        <?php 
+                        /* translators: %s: current global default layout */
+                        printf(esc_html__('Use Default (%s)', 'postpilot'), $global_default_label); 
+                        ?>
+                    </option>
+                    <option value="accordion" <?php selected($faq_display_style, 'accordion'); ?>>
+                        <?php esc_html_e('Accordion', 'postpilot'); ?>
+                    </option>
+                    <option value="static" <?php selected($faq_display_style, 'static'); ?>>
+                        <?php esc_html_e('Static', 'postpilot'); ?>
+                    </option>
+                </select>
+                <p class="description" style="margin-top: 5px;">
                     <?php esc_html_e('Choose how FAQs should be displayed on the frontend.', 'postpilot'); ?>
                 </p>
-                <label style="display: block; margin-bottom: 8px;">
-                    <input type="radio" 
-                           name="postpilot_faq_display_style" 
-                           value="default" 
-                           <?php checked($faq_display_style, ''); ?>
-                           <?php checked($faq_display_style, 'default'); ?> />
-                    <?php 
-                    /* translators: %s: current global default layout */
-                    printf(esc_html__('Use Default (%s)', 'postpilot'), $global_default_label); 
-                    ?>
-                </label>
-                <label style="display: block; margin-bottom: 8px;">
-                    <input type="radio" 
-                           name="postpilot_faq_display_style" 
-                           value="accordion" 
-                           <?php checked($faq_display_style, 'accordion'); ?> />
-                    <?php esc_html_e('Accordion', 'postpilot'); ?>
-                </label>
-                <label style="display: block;">
-                    <input type="radio" 
-                           name="postpilot_faq_display_style" 
-                           value="static" 
-                           <?php checked($faq_display_style, 'static'); ?> />
-                    <?php esc_html_e('Static', 'postpilot'); ?>
-                </label>
             </div>
 
             <!-- FAQ Repeater Fields -->
