@@ -33,6 +33,7 @@ class Assets
     {
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_styles'));
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
+        add_action('wp_enqueue_scripts', array($this, 'frontend_enqueue_scripts'));
     }
 
     /**
@@ -125,5 +126,67 @@ class Assets
                 )
             );
         }
+    }
+
+    /**
+     * Enqueue frontend scripts and styles
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function frontend_enqueue_scripts()
+    {
+        // Only on singular posts
+        if (!is_singular('post')) {
+            return;
+        }
+
+        global $post;
+
+        // Check if FAQ is enabled for this post
+        $faq_enabled = get_post_meta($post->ID, '_postpilot_faq_enabled', true);
+        if ($faq_enabled !== '1') {
+            return;
+        }
+
+        // Enqueue FAQ CSS
+        wp_enqueue_style(
+            'postpilot-faq',
+            POSTPILOT_URL . 'Frontend/Assets/css/faq.css',
+            array(),
+            POSTPILOT_VERSION
+        );
+
+        // Determine layout and enqueue JS if accordion
+        $layout = $this->get_faq_layout($post->ID);
+        if ($layout === 'accordion') {
+            wp_enqueue_script(
+                'postpilot-faq-accordion',
+                POSTPILOT_URL . 'Frontend/Assets/js/faq-accordion.js',
+                array(),
+                POSTPILOT_VERSION,
+                true
+            );
+        }
+    }
+
+    /**
+     * Get FAQ layout style for a post
+     *
+     * @since 1.0.0
+     * @param int $post_id The post ID.
+     * @return string The layout style (accordion or static).
+     */
+    private function get_faq_layout($post_id)
+    {
+        // Get per-post layout setting
+        $post_layout = get_post_meta($post_id, '_postpilot_faq_display_style', true);
+
+        // If default or empty, use global setting
+        if (empty($post_layout) || $post_layout === 'default') {
+            return get_option('postpilot_faq_default_layout', 'accordion');
+        }
+
+        return $post_layout;
     }
 }

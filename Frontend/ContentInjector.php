@@ -144,16 +144,30 @@ class ContentInjector
             return '';
         }
 
+        // Determine layout style
+        $layout = $this->get_faq_layout($post_id);
+
         ob_start();
         ?>
-        <div class="postpilot-faq">
-            <h2 class="postpilot-faq-title"><?php esc_html_e('Frequently Asked Questions', 'postpilot'); ?></h2>
-            <div class="postpilot-faq-items">
-                <?php foreach ($faq_data as $faq_item) : ?>
+        <div class="postpilot-faq postpilot-faq--<?php echo esc_attr($layout); ?>">
+            <h2 class="postpilot-faq__title"><?php esc_html_e('Frequently Asked Questions', 'postpilot'); ?></h2>
+            <div class="postpilot-faq__items">
+                <?php foreach ($faq_data as $index => $faq_item) : ?>
                     <?php if (isset($faq_item['question']) && isset($faq_item['answer'])) : ?>
-                        <div class="postpilot-faq-item">
-                            <h3 class="postpilot-faq-question"><?php echo esc_html($faq_item['question']); ?></h3>
-                            <div class="postpilot-faq-answer"><?php echo wp_kses_post($faq_item['answer']); ?></div>
+                        <div class="postpilot-faq__item">
+                            <?php if ($layout === 'accordion') : ?>
+                                <button class="postpilot-faq__question" type="button">
+                                    <?php echo esc_html($faq_item['question']); ?>
+                                </button>
+                                <div class="postpilot-faq__answer">
+                                    <p><?php echo wp_kses_post($faq_item['answer']); ?></p>
+                                </div>
+                            <?php else : ?>
+                                <h3 class="postpilot-faq__question"><?php echo esc_html($faq_item['question']); ?></h3>
+                                <div class="postpilot-faq__answer">
+                                    <p><?php echo wp_kses_post($faq_item['answer']); ?></p>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -169,8 +183,29 @@ class ContentInjector
          * @param string $output The FAQ HTML output.
          * @param int    $post_id The post ID.
          * @param array  $faq_data The FAQ data array.
+         * @param string $layout The layout style (accordion or static).
          */
-        return apply_filters('postpilot_faq_output', $output, $post_id, $faq_data);
+        return apply_filters('postpilot_faq_output', $output, $post_id, $faq_data, $layout);
+    }
+
+    /**
+     * Get FAQ layout style for a post
+     *
+     * @since 1.0.0
+     * @param int $post_id The post ID.
+     * @return string The layout style (accordion or static).
+     */
+    private function get_faq_layout($post_id)
+    {
+        // Get per-post layout setting
+        $post_layout = get_post_meta($post_id, '_postpilot_faq_display_style', true);
+        
+        // If default or empty, use global setting
+        if (empty($post_layout) || $post_layout === 'default') {
+            return get_option('postpilot_faq_default_layout', 'accordion');
+        }
+        
+        return $post_layout;
     }
 
     /**
