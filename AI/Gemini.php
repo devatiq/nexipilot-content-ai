@@ -71,7 +71,7 @@ class Gemini implements ProviderInterface
     public function generate_faq($content)
     {
         $prompt = sprintf(
-            'Based on the following content, generate 4-5 frequently asked questions with answers. Return the response as a JSON array with objects containing "question" and "answer" keys. Content: %s',
+            'Based on the following content, generate 4-5 frequently asked questions with answers. Return ONLY a valid JSON array with objects containing "question" and "answer" keys, without any markdown formatting or code blocks. Content: %s',
             wp_strip_all_tags($content)
         );
 
@@ -80,6 +80,9 @@ class Gemini implements ProviderInterface
         if (is_wp_error($response)) {
             return $response;
         }
+
+        // Strip markdown code blocks if present (Gemini often wraps JSON in ```json ... ```)
+        $response = $this->strip_markdown_code_blocks($response);
 
         // Parse JSON response
         $faq_data = json_decode($response, true);
@@ -135,7 +138,7 @@ class Gemini implements ProviderInterface
         }
 
         $prompt = sprintf(
-            'Analyze this content and suggest 3-5 relevant internal links from the available posts. Return as JSON array with "keyword" and "post_id" keys. Content: %s. Available posts: %s',
+            'Analyze this content and suggest 3-5 relevant internal links from the available posts. Return ONLY a valid JSON array with objects containing "keyword" and "post_id" keys, without any markdown formatting or code blocks. Content: %s. Available posts: %s',
             wp_strip_all_tags($content),
             implode('; ', $posts_list)
         );
@@ -145,6 +148,9 @@ class Gemini implements ProviderInterface
         if (is_wp_error($response)) {
             return $response;
         }
+
+        // Strip markdown code blocks if present
+        $response = $this->strip_markdown_code_blocks($response);
 
         // Parse JSON response
         $links_data = json_decode($response, true);
@@ -280,9 +286,35 @@ class Gemini implements ProviderInterface
             return $content;
         }
 
+
         return new \WP_Error(
             'invalid_response',
             __('Invalid response from Gemini API.', 'postpilot')
         );
     }
+
+    /**
+     * Strip markdown code blocks from response
+     *
+     * Gemini often wraps JSON responses in markdown code blocks like ```json ... ```
+     * This method removes those wrappers to get clean JSON.
+     *
+     * @since 1.0.0
+     * @param string $response The API response.
+     * @return string Cleaned response without markdown code blocks
+     */
+    private function strip_markdown_code_blocks($response)
+    {
+        // Remove markdown code blocks (```json ... ``` or ``` ... ```)
+        $response = trim($response);
+
+        // Pattern to match code blocks with optional language identifier
+        if (preg_match('/^```(?:json)?\s*\n(.*)\n```$/s', $response, $matches)) {
+            return trim($matches[1]);
+        }
+
+        // If no code block found, return original response
+        return $response;
+    }
 }
+
