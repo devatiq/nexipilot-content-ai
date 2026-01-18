@@ -71,7 +71,7 @@ class Gemini implements ProviderInterface
     public function generate_faq($content)
     {
         $prompt = sprintf(
-            'Based on the following content, generate 4-5 frequently asked questions with answers. Return ONLY a valid JSON array with objects containing "question" and "answer" keys, without any markdown formatting or code blocks. Content: %s',
+            "Generate exactly 4-5 FAQ items about the following content.\n\nIMPORTANT: Your response must be ONLY a valid JSON array starting with [ and ending with ].\nEach item must have \"question\" and \"answer\" keys.\nDo NOT use markdown code blocks.\nDo NOT truncate the response.\n\nContent: %s\n\nRespond with the complete JSON array:",
             wp_strip_all_tags($content)
         );
 
@@ -282,7 +282,7 @@ class Gemini implements ProviderInterface
             ),
             'generationConfig' => array(
                 'temperature' => 0.7,
-                'maxOutputTokens' => 1024,
+                'maxOutputTokens' => 2048,
             ),
         );
 
