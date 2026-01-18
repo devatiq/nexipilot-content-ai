@@ -365,12 +365,12 @@ class Settings
                         </div>
                     </div>
                     <div class="postpilot-header-actions">
-                        <?php
                         // Check if AI provider is configured and test connection
                         $ai_manager = new \PostPilot\AI\Manager();
                         $is_connected = false;
                         $status_text = __('API Not Connected', 'postpilot');
                         $status_class = 'postpilot-status-disconnected';
+                        $error_details = '';
                         
                         if ($ai_manager->is_provider_available()) {
                             // Test actual API connection
@@ -384,6 +384,7 @@ class Settings
                             } else {
                                 // API key exists but has an error
                                 $error_message = $test_result->get_error_message();
+                                $error_details = $error_message; // Store full error for display
                                 
                                 if (strpos($error_message, 'quota') !== false) {
                                     // Key is valid but quota exceeded
@@ -401,6 +402,12 @@ class Settings
                             <span class="status-dot"></span>
                             <?php echo esc_html($status_text); ?>
                         </span>
+                        <?php if (!empty($error_details)): ?>
+                            <div class="postpilot-error-details" style="margin-top: 8px; padding: 8px 12px; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px; font-size: 13px; color: #856404; max-width: 500px;">
+                                <strong><?php esc_html_e('Error Details:', 'postpilot'); ?></strong><br>
+                                <?php echo esc_html($error_details); ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
