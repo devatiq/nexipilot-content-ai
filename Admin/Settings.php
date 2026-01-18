@@ -365,6 +365,7 @@ class Settings
                         </div>
                     </div>
                     <div class="postpilot-header-actions">
+                        <?php
                         // Check if AI provider is configured and test connection
                         $ai_manager = new \PostPilot\AI\Manager();
                         $is_connected = false;
