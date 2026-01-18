@@ -81,22 +81,35 @@ class Gemini implements ProviderInterface
             return $response;
         }
 
+        Logger::debug('Gemini FAQ raw response', array('response' => substr($response, 0, 200)));
+
         // Strip markdown code blocks if present (Gemini often wraps JSON in ```json ... ```)
-        $response = $this->strip_markdown_code_blocks($response);
+        $cleaned_response = $this->strip_markdown_code_blocks($response);
+
+        Logger::debug('Gemini FAQ after stripping markdown', array(
+            'cleaned' => substr($cleaned_response, 0, 200),
+            'was_stripped' => $cleaned_response !== $response
+        ));
 
         // Parse JSON response
-        $faq_data = json_decode($response, true);
+        $faq_data = json_decode($cleaned_response, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
+            Logger::error('Gemini FAQ JSON parse error', array(
+                'error' => json_last_error_msg(),
+                'response' => substr($cleaned_response, 0, 500)
+            ));
+
             // If not valid JSON, create a simple structure
             return array(
                 array(
                     'question' => __('What is this content about?', 'postpilot'),
-                    'answer' => $response,
+                    'answer' => $cleaned_response,
                 ),
             );
         }
 
+        Logger::debug('Gemini FAQ parsed successfully', array('count' => count($faq_data)));
         return $faq_data;
     }
 
