@@ -86,21 +86,42 @@ class Gemini implements ProviderInterface
         // Strip markdown code blocks if present (Gemini often wraps JSON in ```json ... ```)
         $cleaned_response = $this->strip_markdown_code_blocks($response);
 
+        // Additional cleaning: remove BOM, trim whitespace
+        $cleaned_response = trim($cleaned_response);
+        $cleaned_response = preg_replace('/^\xEF\xBB\xBF/', '', $cleaned_response); // Remove UTF-8 BOM
+
         Logger::debug('Gemini FAQ after stripping markdown', array(
             'cleaned' => substr($cleaned_response, 0, 200),
-            'was_stripped' => $cleaned_response !== $response
+            'was_stripped' => $cleaned_response !== $response,
+            'length' => strlen($cleaned_response)
         ));
 
         // Parse JSON response
         $faq_data = json_decode($cleaned_response, true);
+        $json_error = json_last_error();
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        if ($json_error !== JSON_ERROR_NONE) {
             Logger::error('Gemini FAQ JSON parse error', array(
                 'error' => json_last_error_msg(),
-                'response' => substr($cleaned_response, 0, 500)
+                'error_code' => $json_error,
+                'response_preview' => substr($cleaned_response, 0, 500),
+                'response_length' => strlen($cleaned_response),
+                'first_char' => isset($cleaned_response[0]) ? ord($cleaned_response[0]) : 'empty',
+                'last_char' => isset($cleaned_response[strlen($cleaned_response) - 1]) ? ord($cleaned_response[strlen($cleaned_response) - 1]) : 'empty'
             ));
 
             // If not valid JSON, create a simple structure
+            return array(
+                array(
+                    'question' => __('What is this content about?', 'postpilot'),
+                    'answer' => $cleaned_response,
+                ),
+            );
+        }
+
+        // Validate that we got an array
+        if (!is_array($faq_data)) {
+            Logger::error('Gemini FAQ response is not an array', array('type' => gettype($faq_data)));
             return array(
                 array(
                     'question' => __('What is this content about?', 'postpilot'),
