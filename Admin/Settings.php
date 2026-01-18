@@ -398,16 +398,16 @@ class Settings
                             }
                         }
                         ?>
-                        <span class="postpilot-status-badge <?php echo esc_attr($status_class); ?>" id="postpilot-api-status">
+                        <span class="postpilot-status-badge <?php echo esc_attr($status_class); ?>" id="postpilot-api-status" <?php if (!empty($error_details)): ?>title="<?php echo esc_attr($error_details); ?>"<?php endif; ?>>
                             <span class="status-dot"></span>
                             <?php echo esc_html($status_text); ?>
+                            <?php if (!empty($error_details)): ?>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="margin-left: 4px; vertical-align: middle; opacity: 0.7;">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M12 16v-4m0-4h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            <?php endif; ?>
                         </span>
-                        <?php if (!empty($error_details)): ?>
-                            <div class="postpilot-error-details" style="margin-top: 8px; padding: 8px 12px; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px; font-size: 13px; color: #856404; max-width: 500px;">
-                                <strong><?php esc_html_e('Error Details:', 'postpilot'); ?></strong><br>
-                                <?php echo esc_html($error_details); ?>
-                            </div>
-                        <?php endif; ?>
                     </div>
                 </div>
             </div>
