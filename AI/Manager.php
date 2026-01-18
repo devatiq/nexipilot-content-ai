@@ -64,7 +64,7 @@ class Manager
         switch ($provider_name) {
             case 'gemini':
                 $api_key = get_option('postpilot_gemini_api_key', '');
-                $model = get_option('postpilot_gemini_model', 'gemini-1.5-flash');
+                $model = get_option('postpilot_gemini_model', 'gemini-2.5-flash');
                 if (!empty($api_key)) {
                     // Decrypt the API key
                     $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);

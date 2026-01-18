@@ -39,14 +39,14 @@ class Gemini implements ProviderInterface
      *
      * @var string
      */
-    private $api_endpoint_base = 'https://generativelanguage.googleapis.com/v1beta/models/';
+    private $api_endpoint_base = 'https://generativelanguage.googleapis.com/v1/models/';
 
     /**
      * Model to use
      *
      * @var string
      */
-    private $model = 'gemini-1.5-flash';
+    private $model = 'gemini-2.5-flash';
 
     /**
      * Constructor
@@ -55,7 +55,7 @@ class Gemini implements ProviderInterface
      * @param string $api_key The Gemini API key.
      * @param string $model Optional. The model to use.
      */
-    public function __construct($api_key, $model = 'gemini-1.5-flash')
+    public function __construct($api_key, $model = 'gemini-2.5-flash')
     {
         $this->api_key = $api_key;
         $this->model = $model;
