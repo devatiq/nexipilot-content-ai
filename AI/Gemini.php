@@ -1,8 +1,8 @@
 <?php
 /**
- * OpenAI.php
+ * Gemini.php
  *
- * OpenAI/ChatGPT provider implementation.
+ * Google Gemini provider implementation.
  *
  * @package PostPilot\AI
  * @since 1.0.0
@@ -18,14 +18,14 @@ if (!defined('ABSPATH')) {
 use PostPilot\Helpers\Logger;
 
 /**
- * OpenAI Provider Class
+ * Gemini Provider Class
  *
- * Implements the ProviderInterface for OpenAI/ChatGPT.
+ * Implements the ProviderInterface for Google Gemini.
  *
  * @package PostPilot\AI
  * @since 1.0.0
  */
-class OpenAI implements ProviderInterface
+class Gemini implements ProviderInterface
 {
     /**
      * API key
@@ -35,27 +35,27 @@ class OpenAI implements ProviderInterface
     private $api_key;
 
     /**
-     * API endpoint
+     * API endpoint base
      *
      * @var string
      */
-    private $api_endpoint = 'https://api.openai.com/v1/chat/completions';
+    private $api_endpoint_base = 'https://generativelanguage.googleapis.com/v1beta/models/';
 
     /**
      * Model to use
      *
      * @var string
      */
-    private $model = 'gpt-3.5-turbo';
+    private $model = 'gemini-1.5-flash';
 
     /**
      * Constructor
      *
      * @since 1.0.0
-     * @param string $api_key The OpenAI API key.
+     * @param string $api_key The Gemini API key.
      * @param string $model Optional. The model to use.
      */
-    public function __construct($api_key, $model = 'gpt-3.5-turbo')
+    public function __construct($api_key, $model = 'gemini-1.5-flash')
     {
         $this->api_key = $api_key;
         $this->model = $model;
@@ -165,67 +165,63 @@ class OpenAI implements ProviderInterface
      */
     public function validate_api_key($api_key)
     {
-        $response = wp_remote_get(
-            'https://api.openai.com/v1/models',
-            array(
-                'headers' => array(
-                    'Authorization' => 'Bearer ' . $api_key,
-                ),
-                'timeout' => 10,
-            )
-        );
+        // Make a simple test request
+        $test_response = $this->make_request('Hello', $api_key);
 
-        if (is_wp_error($response)) {
-            return $response;
+        if (is_wp_error($test_response)) {
+            return new \WP_Error(
+                'invalid_api_key',
+                __('Invalid Gemini API key.', 'postpilot')
+            );
         }
 
-        $response_code = wp_remote_retrieve_response_code($response);
-
-        if ($response_code === 200) {
-            return true;
-        }
-
-        return new \WP_Error(
-            'invalid_api_key',
-            __('Invalid OpenAI API key.', 'postpilot')
-        );
+        return true;
     }
 
     /**
      * Make API request
      *
      * @since 1.0.0
-     * @param string $prompt The prompt to send.
+     * @param string      $prompt The prompt to send.
+     * @param string|null $custom_api_key Optional custom API key for validation.
      * @return string|WP_Error Response text or WP_Error on failure
      */
-    private function make_request($prompt)
+    private function make_request($prompt, $custom_api_key = null)
     {
-        if (empty($this->api_key)) {
+        $api_key = $custom_api_key ?? $this->api_key;
+
+        if (empty($api_key)) {
             return new \WP_Error(
                 'missing_api_key',
-                __('OpenAI API key is not configured.', 'postpilot')
+                __('Gemini API key is not configured.', 'postpilot')
             );
         }
 
+        // Build the API endpoint with model
+        $endpoint = $this->api_endpoint_base . $this->model . ':generateContent?key=' . $api_key;
+
         $body = array(
-            'model' => $this->model,
-            'messages' => array(
+            'contents' => array(
                 array(
-                    'role' => 'user',
-                    'content' => $prompt,
+                    'parts' => array(
+                        array(
+                            'text' => $prompt,
+                        ),
+                    ),
                 ),
             ),
-            'temperature' => 0.7,
-            'max_tokens' => 500,
+            'generationConfig' => array(
+                'temperature' => 0.7,
+                'maxOutputTokens' => 1024,
+            ),
         );
 
-        Logger::log_api_request('OpenAI', $this->api_endpoint, $body);
+        Logger::log_api_request('Gemini', $endpoint, $body);
 
         $response = wp_remote_post(
-            $this->api_endpoint,
+            $endpoint,
             array(
                 'headers' => array(
-                    'Authorization' => 'Bearer ' . $this->api_key,
                     'Content-Type' => 'application/json',
                 ),
                 'body' => wp_json_encode($body),
@@ -233,47 +229,60 @@ class OpenAI implements ProviderInterface
             )
         );
 
-        if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
-            $error_body = wp_remote_retrieve_body($response);
-            $error_data = json_decode($error_body, true);
+        if (is_wp_error($response)) {
+            Logger::log_api_response('Gemini', $response->get_error_message(), true);
+            return $response;
+        }
 
-            $error_code = wp_remote_retrieve_response_code($response);
+        $response_code = wp_remote_retrieve_response_code($response);
+        $response_body = wp_remote_retrieve_body($response);
+
+        if ($response_code !== 200) {
+            $error_data = json_decode($response_body, true);
             $error_message = isset($error_data['error']['message']) ? $error_data['error']['message'] : 'Unknown error';
-            $error_type = isset($error_data['error']['type']) ? $error_data['error']['type'] : '';
 
-            Logger::error('API Response from OpenAI', array('response' => $error_body));
+            Logger::log_api_response('Gemini', $response_body, true);
 
             // Provide user-friendly error messages for common errors
-            if ($error_type === 'insufficient_quota' || $error_code === 429) {
+            if ($response_code === 400) {
                 return new \WP_Error(
-                    'openai_quota_exceeded',
-                    __('OpenAI quota exceeded. Please add credits to your OpenAI account at platform.openai.com/account/billing', 'postpilot')
+                    'gemini_bad_request',
+                    sprintf(__('Gemini API error: Invalid request format. %s', 'postpilot'), $error_message)
                 );
-            } elseif ($error_code === 401) {
+            } elseif ($response_code === 401 || $response_code === 403) {
                 return new \WP_Error(
-                    'openai_invalid_key',
-                    __('Invalid OpenAI API key. Please check your API key in PostPilot settings.', 'postpilot')
+                    'gemini_invalid_key',
+                    __('Invalid Gemini API key. Please check your API key in PostPilot settings.', 'postpilot')
+                );
+            } elseif ($response_code === 429) {
+                return new \WP_Error(
+                    'gemini_rate_limit',
+                    __('Gemini API rate limit exceeded. Please try again later.', 'postpilot')
+                );
+            } elseif (strpos($error_message, 'quota') !== false || strpos($error_message, 'RESOURCE_EXHAUSTED') !== false) {
+                return new \WP_Error(
+                    'gemini_quota_exceeded',
+                    __('Gemini quota exceeded. Please check your quota at https://aistudio.google.com/app/apikey', 'postpilot')
                 );
             } else {
                 return new \WP_Error(
-                    'openai_api_error',
-                    sprintf(__('OpenAI API error (Code: %d): %s', 'postpilot'), $error_code, $error_message)
+                    'gemini_api_error',
+                    sprintf(__('Gemini API error (Code: %d): %s', 'postpilot'), $response_code, $error_message)
                 );
             }
         }
 
-        $response_body = wp_remote_retrieve_body($response);
         $data = json_decode($response_body, true);
 
-        if (isset($data['choices'][0]['message']['content'])) {
-            $content = $data['choices'][0]['message']['content'];
-            Logger::log_api_response('OpenAI', $content);
+        if (isset($data['candidates'][0]['content']['parts'][0]['text'])) {
+            $content = $data['candidates'][0]['content']['parts'][0]['text'];
+            Logger::log_api_response('Gemini', $content);
             return $content;
         }
 
         return new \WP_Error(
             'invalid_response',
-            __('Invalid response from OpenAI API.', 'postpilot')
+            __('Invalid response from Gemini API.', 'postpilot')
         );
     }
 }

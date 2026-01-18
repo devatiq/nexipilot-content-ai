@@ -96,6 +96,47 @@ class Settings
             )
         );
 
+        register_setting(
+            'postpilot_settings',
+            'postpilot_gemini_api_key',
+            array(
+                'type' => 'string',
+                'sanitize_callback' => array(Sanitizer::class, 'sanitize_api_key'),
+                'default' => '',
+            )
+        );
+
+        // Register Model Selection Settings
+        register_setting(
+            'postpilot_settings',
+            'postpilot_openai_model',
+            array(
+                'type' => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'default' => 'gpt-3.5-turbo',
+            )
+        );
+
+        register_setting(
+            'postpilot_settings',
+            'postpilot_claude_model',
+            array(
+                'type' => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'default' => 'claude-3-haiku-20240307',
+            )
+        );
+
+        register_setting(
+            'postpilot_settings',
+            'postpilot_gemini_model',
+            array(
+                'type' => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'default' => 'gemini-1.5-flash',
+            )
+        );
+
         // Register Feature Settings
         register_setting(
             'postpilot_settings',
@@ -203,6 +244,39 @@ class Settings
             'postpilot_claude_api_key',
             __('Claude API Key', 'postpilot'),
             array($this, 'render_claude_api_key_field'),
+            'postpilot-settings',
+            'postpilot_ai_section'
+        );
+
+        add_settings_field(
+            'postpilot_gemini_api_key',
+            __('Gemini API Key', 'postpilot'),
+            array($this, 'render_gemini_api_key_field'),
+            'postpilot-settings',
+            'postpilot_ai_section'
+        );
+
+        // Add Model Selection Fields
+        add_settings_field(
+            'postpilot_openai_model',
+            __('OpenAI Model', 'postpilot'),
+            array($this, 'render_openai_model_field'),
+            'postpilot-settings',
+            'postpilot_ai_section'
+        );
+
+        add_settings_field(
+            'postpilot_claude_model',
+            __('Claude Model', 'postpilot'),
+            array($this, 'render_claude_model_field'),
+            'postpilot-settings',
+            'postpilot_ai_section'
+        );
+
+        add_settings_field(
+            'postpilot_gemini_model',
+            __('Gemini Model', 'postpilot'),
+            array($this, 'render_gemini_model_field'),
             'postpilot-settings',
             'postpilot_ai_section'
         );
@@ -389,6 +463,9 @@ class Settings
                                     <option value="claude" <?php selected(get_option('postpilot_ai_provider'), 'claude'); ?>>
                                         Claude (Anthropic)
                                     </option>
+                                    <option value="gemini" <?php selected(get_option('postpilot_ai_provider'), 'gemini'); ?>>
+                                        Google Gemini
+                                    </option>
                                 </select>
                                 <p class="postpilot-field-description">
                                     <?php esc_html_e('Choose your preferred AI provider', 'postpilot'); ?>
@@ -468,6 +545,108 @@ class Settings
                                 <p class="postpilot-field-description">
                                     <?php esc_html_e('Get your API key from', 'postpilot'); ?> 
                                     <a href="https://console.anthropic.com/" target="_blank" rel="noopener">console.anthropic.com</a>
+                                </p>
+                            </div>
+
+                            <div class="postpilot-field-group postpilot-api-key-field" id="gemini-api-key-field" style="display: none;">
+                                <label for="postpilot_gemini_api_key" class="postpilot-label">
+                                    <?php esc_html_e('Gemini API Key', 'postpilot'); ?>
+                                    <?php if (get_option('postpilot_gemini_api_key')): ?>
+                                        <span class="postpilot-badge postpilot-badge-success">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                            <?php esc_html_e('Saved', 'postpilot'); ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </label>
+                                <div class="postpilot-input-group">
+                                    <?php
+                                    $gemini_key = get_option('postpilot_gemini_api_key');
+                                    $gemini_key_decrypted = !empty($gemini_key) ? \PostPilot\Helpers\Encryption::decrypt($gemini_key) : '';
+                                    ?>
+                                    <input 
+                                        type="password" 
+                                        name="postpilot_gemini_api_key" 
+                                        id="postpilot_gemini_api_key"
+                                        class="postpilot-input"
+                                        value="<?php echo esc_attr($gemini_key_decrypted); ?>"
+                                        placeholder="AIza..."
+                                    />
+                                    <button type="button" class="postpilot-btn-icon" id="toggle-gemini-key">
+                                        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2"/>
+                                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="postpilot-field-description">
+                                    <?php esc_html_e('Get your API key from', 'postpilot'); ?> 
+                                    <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>
+                                </p>
+                            </div>
+
+                            <!-- Model Selection Fields -->
+                            <div class="postpilot-field-group" id="openai-model-field">
+                                <label for="postpilot_openai_model" class="postpilot-label">
+                                    <?php esc_html_e('OpenAI Model', 'postpilot'); ?>
+                                </label>
+                                <select name="postpilot_openai_model" id="postpilot_openai_model" class="postpilot-select">
+                                    <option value="gpt-4o" <?php selected(get_option('postpilot_openai_model', 'gpt-3.5-turbo'), 'gpt-4o'); ?>>
+                                        <?php esc_html_e('GPT-4o (Most Capable)', 'postpilot'); ?>
+                                    </option>
+                                    <option value="gpt-4o-mini" <?php selected(get_option('postpilot_openai_model', 'gpt-3.5-turbo'), 'gpt-4o-mini'); ?>>
+                                        <?php esc_html_e('GPT-4o Mini (Balanced)', 'postpilot'); ?>
+                                    </option>
+                                    <option value="gpt-4-turbo" <?php selected(get_option('postpilot_openai_model', 'gpt-3.5-turbo'), 'gpt-4-turbo'); ?>>
+                                        <?php esc_html_e('GPT-4 Turbo', 'postpilot'); ?>
+                                    </option>
+                                    <option value="gpt-3.5-turbo" <?php selected(get_option('postpilot_openai_model', 'gpt-3.5-turbo'), 'gpt-3.5-turbo'); ?>>
+                                        <?php esc_html_e('GPT-3.5 Turbo (Fastest)', 'postpilot'); ?>
+                                    </option>
+                                </select>
+                                <p class="postpilot-field-description">
+                                    <?php esc_html_e('Select the OpenAI model to use for content generation.', 'postpilot'); ?>
+                                </p>
+                            </div>
+
+                            <div class="postpilot-field-group" id="claude-model-field" style="display: none;">
+                                <label for="postpilot_claude_model" class="postpilot-label">
+                                    <?php esc_html_e('Claude Model', 'postpilot'); ?>
+                                </label>
+                                <select name="postpilot_claude_model" id="postpilot_claude_model" class="postpilot-select">
+                                    <option value="claude-3-5-sonnet-20241022" <?php selected(get_option('postpilot_claude_model', 'claude-3-haiku-20240307'), 'claude-3-5-sonnet-20241022'); ?>>
+                                        <?php esc_html_e('Claude 3.5 Sonnet (Most Capable)', 'postpilot'); ?>
+                                    </option>
+                                    <option value="claude-3-opus-20240229" <?php selected(get_option('postpilot_claude_model', 'claude-3-haiku-20240307'), 'claude-3-opus-20240229'); ?>>
+                                        <?php esc_html_e('Claude 3 Opus', 'postpilot'); ?>
+                                    </option>
+                                    <option value="claude-3-haiku-20240307" <?php selected(get_option('postpilot_claude_model', 'claude-3-haiku-20240307'), 'claude-3-haiku-20240307'); ?>>
+                                        <?php esc_html_e('Claude 3 Haiku (Fastest)', 'postpilot'); ?>
+                                    </option>
+                                </select>
+                                <p class="postpilot-field-description">
+                                    <?php esc_html_e('Select the Claude model to use for content generation.', 'postpilot'); ?>
+                                </p>
+                            </div>
+
+                            <div class="postpilot-field-group" id="gemini-model-field" style="display: none;">
+                                <label for="postpilot_gemini_model" class="postpilot-label">
+                                    <?php esc_html_e('Gemini Model', 'postpilot'); ?>
+                                </label>
+                                <select name="postpilot_gemini_model" id="postpilot_gemini_model" class="postpilot-select">
+                                    <option value="gemini-1.5-pro" <?php selected(get_option('postpilot_gemini_model', 'gemini-1.5-flash'), 'gemini-1.5-pro'); ?>>
+                                        <?php esc_html_e('Gemini 1.5 Pro (Most Capable)', 'postpilot'); ?>
+                                    </option>
+                                    <option value="gemini-1.5-flash" <?php selected(get_option('postpilot_gemini_model', 'gemini-1.5-flash'), 'gemini-1.5-flash'); ?>>
+                                        <?php esc_html_e('Gemini 1.5 Flash (Balanced)', 'postpilot'); ?>
+                                    </option>
+                                    <option value="gemini-1.0-pro" <?php selected(get_option('postpilot_gemini_model', 'gemini-1.5-flash'), 'gemini-1.0-pro'); ?>>
+                                        <?php esc_html_e('Gemini 1.0 Pro', 'postpilot'); ?>
+                                    </option>
+                                </select>
+                                <p class="postpilot-field-description">
+                                    <?php esc_html_e('Select the Gemini model to use for content generation.', 'postpilot'); ?>
                                 </p>
                             </div>
                         </div>
@@ -942,6 +1121,122 @@ class Settings
                    <?php checked($value, '1'); ?> />
             <?php esc_html_e('Enable AI-powered smart internal linking', 'postpilot'); ?>
         </label>
+        <?php
+    }
+
+    /**
+     * Render Gemini API key field
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function render_gemini_api_key_field()
+    {
+        $value = get_option('postpilot_gemini_api_key', '');
+        $has_key = !empty($value);
+        ?>
+        <input type="text" 
+               name="postpilot_gemini_api_key" 
+               id="postpilot_gemini_api_key" 
+               value="<?php echo esc_attr($value); ?>" 
+               class="regular-text" 
+               placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot') : esc_attr__('Enter your Gemini API key', 'postpilot'); ?>" />
+        <?php if ($has_key) : ?>
+            <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
+        <?php endif; ?>
+        <p class="description">
+            <?php
+            printf(
+                /* translators: %s: Google AI Studio URL */
+                esc_html__('Get your API key from %s', 'postpilot'),
+                '<a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>'
+            );
+            ?>
+        </p>
+        <?php
+    }
+
+    /**
+     * Render OpenAI model field
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function render_openai_model_field()
+    {
+        $value = get_option('postpilot_openai_model', 'gpt-3.5-turbo');
+        ?>
+        <select name="postpilot_openai_model" id="postpilot_openai_model">
+            <option value="gpt-4o" <?php selected($value, 'gpt-4o'); ?>>
+                <?php esc_html_e('GPT-4o (Most Capable)', 'postpilot'); ?>
+            </option>
+            <option value="gpt-4o-mini" <?php selected($value, 'gpt-4o-mini'); ?>>
+                <?php esc_html_e('GPT-4o Mini (Balanced)', 'postpilot'); ?>
+            </option>
+            <option value="gpt-4-turbo" <?php selected($value, 'gpt-4-turbo'); ?>>
+                <?php esc_html_e('GPT-4 Turbo', 'postpilot'); ?>
+            </option>
+            <option value="gpt-3.5-turbo" <?php selected($value, 'gpt-3.5-turbo'); ?>>
+                <?php esc_html_e('GPT-3.5 Turbo (Fastest)', 'postpilot'); ?>
+            </option>
+        </select>
+        <p class="description">
+            <?php esc_html_e('Select the OpenAI model to use for content generation.', 'postpilot'); ?>
+        </p>
+        <?php
+    }
+
+    /**
+     * Render Claude model field
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function render_claude_model_field()
+    {
+        $value = get_option('postpilot_claude_model', 'claude-3-haiku-20240307');
+        ?>
+        <select name="postpilot_claude_model" id="postpilot_claude_model">
+            <option value="claude-3-5-sonnet-20241022" <?php selected($value, 'claude-3-5-sonnet-20241022'); ?>>
+                <?php esc_html_e('Claude 3.5 Sonnet (Most Capable)', 'postpilot'); ?>
+            </option>
+            <option value="claude-3-opus-20240229" <?php selected($value, 'claude-3-opus-20240229'); ?>>
+                <?php esc_html_e('Claude 3 Opus', 'postpilot'); ?>
+            </option>
+            <option value="claude-3-haiku-20240307" <?php selected($value, 'claude-3-haiku-20240307'); ?>>
+                <?php esc_html_e('Claude 3 Haiku (Fastest)', 'postpilot'); ?>
+            </option>
+        </select>
+        <p class="description">
+            <?php esc_html_e('Select the Claude model to use for content generation.', 'postpilot'); ?>
+        </p>
+        <?php
+    }
+
+    /**
+     * Render Gemini model field
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function render_gemini_model_field()
+    {
+        $value = get_option('postpilot_gemini_model', 'gemini-1.5-flash');
+        ?>
+        <select name="postpilot_gemini_model" id="postpilot_gemini_model">
+            <option value="gemini-1.5-pro" <?php selected($value, 'gemini-1.5-pro'); ?>>
+                <?php esc_html_e('Gemini 1.5 Pro (Most Capable)', 'postpilot'); ?>
+            </option>
+            <option value="gemini-1.5-flash" <?php selected($value, 'gemini-1.5-flash'); ?>>
+                <?php esc_html_e('Gemini 1.5 Flash (Balanced)', 'postpilot'); ?>
+            </option>
+            <option value="gemini-1.0-pro" <?php selected($value, 'gemini-1.0-pro'); ?>>
+                <?php esc_html_e('Gemini 1.0 Pro', 'postpilot'); ?>
+            </option>
+        </select>
+        <p class="description">
+            <?php esc_html_e('Select the Gemini model to use for content generation.', 'postpilot'); ?>
+        </p>
         <?php
     }
 }

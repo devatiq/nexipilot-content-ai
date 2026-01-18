@@ -61,10 +61,12 @@ class Claude implements ProviderInterface
      *
      * @since 1.0.0
      * @param string $api_key The Claude API key.
+     * @param string $model Optional. The model to use.
      */
-    public function __construct($api_key)
+    public function __construct($api_key, $model = 'claude-3-haiku-20240307')
     {
         $this->api_key = $api_key;
+        $this->model = $model;
     }
 
     /**
@@ -89,7 +91,7 @@ class Claude implements ProviderInterface
 
         // Parse JSON response
         $faq_data = json_decode($response, true);
-        
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             // If not valid JSON, create a simple structure
             return array(
@@ -154,7 +156,7 @@ class Claude implements ProviderInterface
 
         // Parse JSON response
         $links_data = json_decode($response, true);
-        
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             return array();
         }
@@ -173,7 +175,7 @@ class Claude implements ProviderInterface
     {
         // Make a simple test request
         $test_response = $this->make_request('Hello', $api_key);
-        
+
         if (is_wp_error($test_response)) {
             return new \WP_Error(
                 'invalid_api_key',
@@ -250,7 +252,7 @@ class Claude implements ProviderInterface
         }
 
         $data = json_decode($response_body, true);
-        
+
         if (isset($data['content'][0]['text'])) {
             $content = $data['content'][0]['text'];
             Logger::log_api_response('Claude', $content);
