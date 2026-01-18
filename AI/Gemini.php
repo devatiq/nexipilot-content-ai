@@ -325,10 +325,33 @@ class Gemini implements ProviderInterface
                     __('Invalid Gemini API key. Please check your API key in PostPilot settings.', 'postpilot')
                 );
             } elseif ($response_code === 429) {
-                return new \WP_Error(
-                    'gemini_rate_limit',
-                    __('Gemini API rate limit exceeded. Please try again later.', 'postpilot')
-                );
+                // Extract retry time if available
+                $retry_info = '';
+                if (isset($error_data['error']['details'])) {
+                    foreach ($error_data['error']['details'] as $detail) {
+                        if (isset($detail['@type']) && strpos($detail['@type'], 'RetryInfo') !== false) {
+                            if (isset($detail['retryDelay'])) {
+                                $retry_info = sprintf(__(' Please retry in %s.', 'postpilot'), $detail['retryDelay']);
+                            }
+                        }
+                    }
+                }
+
+                // Check if it's a quota issue
+                if (strpos($error_message, 'quota') !== false || strpos($error_message, 'RESOURCE_EXHAUSTED') !== false) {
+                    return new \WP_Error(
+                        'gemini_quota_exceeded',
+                        sprintf(
+                            __('Gemini API quota exceeded. You have reached your daily request limit (20 requests/day on free tier).%s Upgrade your plan at https://ai.google.dev/pricing or wait for quota reset.', 'postpilot'),
+                            $retry_info
+                        )
+                    );
+                } else {
+                    return new \WP_Error(
+                        'gemini_rate_limit',
+                        sprintf(__('Gemini API rate limit exceeded.%s', 'postpilot'), $retry_info)
+                    );
+                }
             } elseif (strpos($error_message, 'quota') !== false || strpos($error_message, 'RESOURCE_EXHAUSTED') !== false) {
                 return new \WP_Error(
                     'gemini_quota_exceeded',
