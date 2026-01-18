@@ -94,7 +94,7 @@ class FAQMetaBox
         // Get saved data
         $faq_enabled = get_post_meta($post->ID, '_postpilot_faq_enabled', true);
         $faqs = get_post_meta($post->ID, '_postpilot_faqs', true);
-        
+
         // Default to enabled if not set
         if ($faq_enabled === '') {
             $faq_enabled = '1';
@@ -106,10 +106,7 @@ class FAQMetaBox
             <!-- Enable/Disable FAQ -->
             <div class="postpilot-faq-enable">
                 <label>
-                    <input type="checkbox" 
-                           name="postpilot_faq_enabled" 
-                           value="1" 
-                           <?php checked($faq_enabled, '1'); ?> />
+                    <input type="checkbox" name="postpilot_faq_enabled" value="1" <?php checked($faq_enabled, '1'); ?> />
                     <strong><?php esc_html_e('Display FAQ on this post?', 'postpilot'); ?></strong>
                 </label>
                 <p class="description">
@@ -123,7 +120,7 @@ class FAQMetaBox
                 $faq_display_style = get_post_meta($post->ID, '_postpilot_faq_display_style', true);
                 $global_default = get_option('postpilot_faq_default_layout', 'accordion');
                 $global_default_label = ucfirst($global_default);
-                
+
                 // Set default value if empty
                 if (empty($faq_display_style)) {
                     $faq_display_style = 'default';
@@ -132,11 +129,12 @@ class FAQMetaBox
                 <label for="postpilot_faq_display_style" style="display: block; margin-bottom: 8px;">
                     <strong><?php esc_html_e('FAQ Display Style:', 'postpilot'); ?></strong>
                 </label>
-                <select name="postpilot_faq_display_style" id="postpilot_faq_display_style" style="width: 100%; max-width: 300px;">
+                <select name="postpilot_faq_display_style" id="postpilot_faq_display_style"
+                    style="width: 100%; max-width: 300px;">
                     <option value="default" <?php selected($faq_display_style, 'default'); ?>>
-                        <?php 
+                        <?php
                         /* translators: %s: current global default layout */
-                        printf(esc_html__('Use Default (%s)', 'postpilot'), $global_default_label); 
+                        printf(esc_html__('Use Default (%s)', 'postpilot'), $global_default_label);
                         ?>
                     </option>
                     <option value="accordion" <?php selected($faq_display_style, 'accordion'); ?>>
@@ -155,8 +153,7 @@ class FAQMetaBox
             <div class="postpilot-faq-fields" style="margin-top: 20px;">
                 <div class="postpilot-faq-header">
                     <h4><?php esc_html_e('FAQ Items', 'postpilot'); ?></h4>
-                    <button type="button" 
-                            class="button button-secondary postpilot-add-faq-item">
+                    <button type="button" class="button button-secondary postpilot-add-faq-item">
                         <?php esc_html_e('+ Add FAQ Item', 'postpilot'); ?>
                     </button>
                 </div>
@@ -176,9 +173,8 @@ class FAQMetaBox
 
             <!-- Generate/Regenerate Button -->
             <div class="postpilot-faq-actions" style="margin-top: 20px;">
-                <button type="button" 
-                        class="button button-primary postpilot-generate-faq" 
-                        data-post-id="<?php echo esc_attr($post->ID); ?>">
+                <button type="button" class="button button-primary postpilot-generate-faq"
+                    data-post-id="<?php echo esc_attr($post->ID); ?>">
                     <?php echo $has_faqs ? esc_html__('Regenerate FAQ', 'postpilot') : esc_html__('Generate FAQ', 'postpilot'); ?>
                 </button>
                 <span class="spinner"></span>
@@ -190,8 +186,8 @@ class FAQMetaBox
 
         <!-- Hidden template for new FAQ items -->
         <script type="text/template" id="postpilot-faq-item-template">
-            <?php $this->render_faq_item('{{INDEX}}', array('question' => '', 'answer' => '')); ?>
-        </script>
+                    <?php $this->render_faq_item('{{INDEX}}', array('question' => '', 'answer' => '')); ?>
+                </script>
         <?php
     }
 
@@ -210,26 +206,24 @@ class FAQMetaBox
         ?>
         <div class="postpilot-faq-item" data-index="<?php echo esc_attr($index); ?>">
             <div class="postpilot-faq-item-header">
-                <span class="postpilot-faq-item-number"><?php echo esc_html(sprintf(__('FAQ #%s', 'postpilot'), is_numeric($index) ? ($index + 1) : '{{NUMBER}}')); ?></span>
-                <button type="button" class="button-link postpilot-remove-faq-item" title="<?php esc_attr_e('Remove this FAQ', 'postpilot'); ?>">
+                <span
+                    class="postpilot-faq-item-number"><?php echo esc_html(sprintf(__('FAQ #%s', 'postpilot'), is_numeric($index) ? ($index + 1) : '{{NUMBER}}')); ?></span>
+                <button type="button" class="button-link postpilot-remove-faq-item"
+                    title="<?php esc_attr_e('Remove this FAQ', 'postpilot'); ?>">
                     <span class="dashicons dashicons-trash"></span>
                 </button>
             </div>
             <div class="postpilot-faq-item-fields">
                 <div class="postpilot-faq-field">
                     <label><?php esc_html_e('Question:', 'postpilot'); ?></label>
-                    <input type="text" 
-                           name="postpilot_faqs[<?php echo esc_attr($index); ?>][question]" 
-                           value="<?php echo esc_attr($question); ?>" 
-                           class="widefat" 
-                           placeholder="<?php esc_attr_e('Enter question...', 'postpilot'); ?>" />
+                    <input type="text" name="postpilot_faqs[<?php echo esc_attr($index); ?>][question]"
+                        value="<?php echo esc_attr($question); ?>" class="widefat"
+                        placeholder="<?php esc_attr_e('Enter question...', 'postpilot'); ?>" />
                 </div>
                 <div class="postpilot-faq-field">
                     <label><?php esc_html_e('Answer:', 'postpilot'); ?></label>
-                    <textarea name="postpilot_faqs[<?php echo esc_attr($index); ?>][answer]" 
-                              class="widefat" 
-                              rows="3" 
-                              placeholder="<?php esc_attr_e('Enter answer...', 'postpilot'); ?>"><?php echo esc_textarea($answer); ?></textarea>
+                    <textarea name="postpilot_faqs[<?php echo esc_attr($index); ?>][answer]" class="widefat" rows="3"
+                        placeholder="<?php esc_attr_e('Enter answer...', 'postpilot'); ?>"><?php echo esc_textarea($answer); ?></textarea>
                 </div>
             </div>
         </div>
@@ -276,7 +270,7 @@ class FAQMetaBox
         // Save FAQ items
         if (isset($_POST['postpilot_faqs']) && is_array($_POST['postpilot_faqs'])) {
             $faqs = array();
-            
+
             foreach ($_POST['postpilot_faqs'] as $faq) {
                 if (!empty($faq['question']) || !empty($faq['answer'])) {
                     $faqs[] = array(
@@ -290,7 +284,7 @@ class FAQMetaBox
         } else {
             // If no FAQs submitted, check if we should auto-generate
             $existing_faqs = get_post_meta($post_id, '_postpilot_faqs', true);
-            
+
             // Auto-generate only if: enabled, no existing FAQs, and post is published
             if ($faq_enabled === '1' && empty($existing_faqs) && $post->post_status === 'publish') {
                 $this->auto_generate_faq($post_id, $post->post_content);
@@ -309,7 +303,7 @@ class FAQMetaBox
     private function auto_generate_faq($post_id, $content)
     {
         $faq_data = $this->ai_manager->get_faq($post_id, $content);
-        
+
         if (!is_wp_error($faq_data) && !empty($faq_data)) {
             update_post_meta($post_id, '_postpilot_faqs', $faq_data);
             Logger::info('FAQ auto-generated on publish', array('post_id' => $post_id));
@@ -341,7 +335,7 @@ class FAQMetaBox
             $wait_time = \PostPilot\Helpers\RateLimiter::get_wait_time($user_id, $post_id);
             $post_remaining = \PostPilot\Helpers\RateLimiter::get_post_remaining($user_id, $post_id);
             $daily_remaining = \PostPilot\Helpers\RateLimiter::get_daily_remaining($user_id);
-            
+
             // Determine which limit was hit
             if ($post_remaining === 0) {
                 $message = sprintf(
@@ -354,7 +348,7 @@ class FAQMetaBox
                     \PostPilot\Helpers\RateLimiter::get_daily_limit()
                 );
             }
-            
+
             wp_send_json_error(array(
                 'message' => $message,
                 'rate_limited' => true,
@@ -365,7 +359,7 @@ class FAQMetaBox
         }
 
         $post = get_post($post_id);
-        
+
         if (!$post) {
             wp_send_json_error(array(
                 'message' => __('Post not found.', 'postpilot'),
@@ -374,7 +368,16 @@ class FAQMetaBox
 
         // Generate FAQ
         $faq_data = $this->ai_manager->get_faq($post_id, $post->post_content);
-        
+
+        Logger::debug('FAQ AJAX: Data received from AI Manager', array(
+            'post_id' => $post_id,
+            'is_error' => is_wp_error($faq_data),
+            'is_array' => is_array($faq_data),
+            'type' => gettype($faq_data),
+            'count' => is_array($faq_data) ? count($faq_data) : 0,
+            'data_preview' => is_array($faq_data) ? json_encode(array_slice($faq_data, 0, 2)) : substr(print_r($faq_data, true), 0, 200)
+        ));
+
         if (is_wp_error($faq_data)) {
             wp_send_json_error(array(
                 'message' => $faq_data->get_error_message(),
@@ -386,6 +389,11 @@ class FAQMetaBox
 
         // Save to post meta
         update_post_meta($post_id, '_postpilot_faqs', $faq_data);
+
+        Logger::debug('FAQ AJAX: Data saved to post meta', array(
+            'post_id' => $post_id,
+            'saved_data' => json_encode($faq_data)
+        ));
 
         // Return HTML for FAQ items
         ob_start();
@@ -426,7 +434,7 @@ class FAQMetaBox
             $wait_time = \PostPilot\Helpers\RateLimiter::get_wait_time($user_id, $post_id);
             $post_remaining = \PostPilot\Helpers\RateLimiter::get_post_remaining($user_id, $post_id);
             $daily_remaining = \PostPilot\Helpers\RateLimiter::get_daily_remaining($user_id);
-            
+
             // Determine which limit was hit
             if ($post_remaining === 0) {
                 $message = sprintf(
@@ -439,7 +447,7 @@ class FAQMetaBox
                     \PostPilot\Helpers\RateLimiter::get_daily_limit()
                 );
             }
-            
+
             wp_send_json_error(array(
                 'message' => $message,
                 'rate_limited' => true,
@@ -483,7 +491,7 @@ class FAQMetaBox
         try {
             // Security checks
             check_ajax_referer('postpilot_generate_faq', 'nonce');
-            
+
             // Check if user has permission
             if (!current_user_can('edit_posts')) {
                 wp_send_json_error(array(
@@ -503,13 +511,13 @@ class FAQMetaBox
 
             // Try to make a test API call to check for quota/errors
             $test_result = $this->ai_manager->test_api_connection();
-            
+
             if (is_wp_error($test_result)) {
                 // API call failed - return the specific error message
                 Logger::info('API status check failed', array(
                     'error' => $test_result->get_error_message(),
                 ));
-                
+
                 wp_send_json_success(array(
                     'available' => false,
                     'message' => $test_result->get_error_message(),
@@ -522,14 +530,14 @@ class FAQMetaBox
                 'available' => true,
                 'message' => __('AI service is available.', 'postpilot'),
             ));
-            
+
         } catch (\Exception $e) {
             // Catch any PHP errors and return them
             Logger::error('API status check exception', array(
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ));
-            
+
             wp_send_json_error(array(
                 'message' => 'Error checking API status: ' . $e->getMessage(),
             ));

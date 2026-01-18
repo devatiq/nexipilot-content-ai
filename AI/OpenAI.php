@@ -53,10 +53,12 @@ class OpenAI implements ProviderInterface
      *
      * @since 1.0.0
      * @param string $api_key The OpenAI API key.
+     * @param string $model Optional. The model to use.
      */
-    public function __construct($api_key)
+    public function __construct($api_key, $model = 'gpt-3.5-turbo')
     {
         $this->api_key = $api_key;
+        $this->model = $model;
     }
 
     /**
@@ -81,7 +83,7 @@ class OpenAI implements ProviderInterface
 
         // Parse JSON response
         $faq_data = json_decode($response, true);
-        
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             // If not valid JSON, create a simple structure
             return array(
@@ -146,7 +148,7 @@ class OpenAI implements ProviderInterface
 
         // Parse JSON response
         $links_data = json_decode($response, true);
-        
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             return array();
         }
@@ -178,7 +180,7 @@ class OpenAI implements ProviderInterface
         }
 
         $response_code = wp_remote_retrieve_response_code($response);
-        
+
         if ($response_code === 200) {
             return true;
         }
@@ -234,13 +236,13 @@ class OpenAI implements ProviderInterface
         if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
             $error_body = wp_remote_retrieve_body($response);
             $error_data = json_decode($error_body, true);
-            
+
             $error_code = wp_remote_retrieve_response_code($response);
             $error_message = isset($error_data['error']['message']) ? $error_data['error']['message'] : 'Unknown error';
             $error_type = isset($error_data['error']['type']) ? $error_data['error']['type'] : '';
-            
+
             Logger::error('API Response from OpenAI', array('response' => $error_body));
-            
+
             // Provide user-friendly error messages for common errors
             if ($error_type === 'insufficient_quota' || $error_code === 429) {
                 return new \WP_Error(
@@ -262,7 +264,7 @@ class OpenAI implements ProviderInterface
 
         $response_body = wp_remote_retrieve_body($response);
         $data = json_decode($response_body, true);
-        
+
         if (isset($data['choices'][0]['message']['content'])) {
             $content = $data['choices'][0]['message']['content'];
             Logger::log_api_response('OpenAI', $content);

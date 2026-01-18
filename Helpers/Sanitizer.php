@@ -35,21 +35,21 @@ class Sanitizer
     {
         // Sanitize the input
         $sanitized = trim(sanitize_text_field($api_key));
-        
+
         // If empty, return empty
         if (empty($sanitized)) {
             return '';
         }
-        
+
         // Encrypt the API key before storing
         $encrypted = Encryption::encrypt($sanitized);
-        
+
         // If encryption fails, log error and return sanitized (unencrypted) value
         if ($encrypted === false) {
             error_log('PostPilot: Failed to encrypt API key');
             return $sanitized;
         }
-        
+
         return $encrypted;
     }
 
@@ -88,7 +88,7 @@ class Sanitizer
      */
     public static function sanitize_ai_provider($provider)
     {
-        $allowed_providers = array('openai', 'claude');
+        $allowed_providers = array('openai', 'claude', 'gemini');
         return self::sanitize_select($provider, $allowed_providers, 'openai');
     }
 

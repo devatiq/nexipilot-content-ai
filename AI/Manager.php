@@ -60,24 +60,36 @@ class Manager
     private function init_provider()
     {
         $provider_name = get_option('postpilot_ai_provider', 'openai');
-        
+
         switch ($provider_name) {
-            case 'claude':
-                $api_key = get_option('postpilot_claude_api_key', '');
+            case 'gemini':
+                $api_key = get_option('postpilot_gemini_api_key', '');
+                $model = get_option('postpilot_gemini_model', 'gemini-2.5-flash');
                 if (!empty($api_key)) {
                     // Decrypt the API key
                     $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
-                    $this->provider = new Claude($decrypted_key);
+                    $this->provider = new Gemini($decrypted_key, $model);
                 }
                 break;
-                
+
+            case 'claude':
+                $api_key = get_option('postpilot_claude_api_key', '');
+                $model = get_option('postpilot_claude_model', 'claude-3-haiku-20240307');
+                if (!empty($api_key)) {
+                    // Decrypt the API key
+                    $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
+                    $this->provider = new Claude($decrypted_key, $model);
+                }
+                break;
+
             case 'openai':
             default:
                 $api_key = get_option('postpilot_openai_api_key', '');
+                $model = get_option('postpilot_openai_model', 'gpt-3.5-turbo');
                 if (!empty($api_key)) {
                     // Decrypt the API key
                     $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
-                    $this->provider = new OpenAI($decrypted_key);
+                    $this->provider = new OpenAI($decrypted_key, $model);
                 }
                 break;
         }
@@ -113,7 +125,7 @@ class Manager
         // Check cache
         $cache_key = 'postpilot_faq_' . $post_id;
         $cached = get_transient($cache_key);
-        
+
         if ($cached !== false) {
             Logger::debug('FAQ retrieved from cache', array('post_id' => $post_id));
             return $cached;
@@ -121,7 +133,7 @@ class Manager
 
         // Generate new FAQ
         $faq = $this->provider->generate_faq($content);
-        
+
         if (is_wp_error($faq)) {
             Logger::error('FAQ generation failed', array(
                 'post_id' => $post_id,
@@ -130,7 +142,7 @@ class Manager
             // Return demo FAQ on error
             return $this->get_demo_faq();
         }
-        
+
         if (!empty($faq)) {
             set_transient($cache_key, $faq, $this->cache_expiration);
             Logger::debug('FAQ generated and cached', array('post_id' => $post_id));
@@ -158,7 +170,7 @@ class Manager
         // Check cache
         $cache_key = 'postpilot_summary_' . $post_id;
         $cached = get_transient($cache_key);
-        
+
         if ($cached !== false) {
             Logger::debug('Summary retrieved from cache', array('post_id' => $post_id));
             return $cached;
@@ -166,7 +178,7 @@ class Manager
 
         // Generate new summary
         $summary = $this->provider->generate_summary($content);
-        
+
         if (is_wp_error($summary)) {
             Logger::error('Summary generation failed', array(
                 'post_id' => $post_id,
@@ -178,7 +190,7 @@ class Manager
                 $summary->get_error_message()
             );
         }
-        
+
         if (!empty($summary)) {
             set_transient($cache_key, $summary, $this->cache_expiration);
             Logger::debug('Summary generated and cached', array('post_id' => $post_id));
@@ -207,7 +219,7 @@ class Manager
         // Check cache
         $cache_key = 'postpilot_links_' . $post_id;
         $cached = get_transient($cache_key);
-        
+
         if ($cached !== false) {
             Logger::debug('Internal links retrieved from cache', array('post_id' => $post_id));
             return $cached;
@@ -215,14 +227,14 @@ class Manager
 
         // Get available posts for linking
         $available_posts = $this->get_available_posts($post_id);
-        
+
         if (empty($available_posts)) {
             return array();
         }
 
         // Generate link suggestions
         $links = $this->provider->suggest_internal_links($content, $available_posts);
-        
+
         if (!is_wp_error($links)) {
             set_transient($cache_key, $links, $this->cache_expiration);
             Logger::debug('Internal links generated and cached', array('post_id' => $post_id));
@@ -264,7 +276,7 @@ class Manager
         delete_transient('postpilot_faq_' . $post_id);
         delete_transient('postpilot_summary_' . $post_id);
         delete_transient('postpilot_links_' . $post_id);
-        
+
         Logger::debug('Cache cleared for post', array('post_id' => $post_id));
     }
 
@@ -302,7 +314,7 @@ class Manager
             ),
             array(
                 'question' => __('What AI providers are supported?', 'postpilot'),
-                'answer' => __('PostPilot AI currently supports OpenAI (ChatGPT) and Claude (Anthropic). You can switch between providers in the settings.', 'postpilot'),
+                'answer' => __('PostPilot AI currently supports OpenAI (ChatGPT), Claude (Anthropic), and Google Gemini. You can switch between providers in the settings.', 'postpilot'),
             ),
             array(
                 'question' => __('Is this a demo FAQ?', 'postpilot'),

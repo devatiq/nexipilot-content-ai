@@ -73,6 +73,10 @@
         const providerSelect = $('#postpilot_ai_provider');
         const openaiField = $('#openai-api-key-field');
         const claudeField = $('#claude-api-key-field');
+        const geminiField = $('#gemini-api-key-field');
+        const openaiModelField = $('#openai-model-field');
+        const claudeModelField = $('#claude-model-field');
+        const geminiModelField = $('#gemini-model-field');
 
         function toggleApiKeyFields() {
             const selectedProvider = providerSelect.val();
@@ -80,9 +84,24 @@
             if (selectedProvider === 'openai') {
                 openaiField.show();
                 claudeField.hide();
+                geminiField.hide();
+                openaiModelField.show();
+                claudeModelField.hide();
+                geminiModelField.hide();
             } else if (selectedProvider === 'claude') {
                 openaiField.hide();
                 claudeField.show();
+                geminiField.hide();
+                openaiModelField.hide();
+                claudeModelField.show();
+                geminiModelField.hide();
+            } else if (selectedProvider === 'gemini') {
+                openaiField.hide();
+                claudeField.hide();
+                geminiField.show();
+                openaiModelField.hide();
+                claudeModelField.hide();
+                geminiModelField.show();
             }
         }
 
@@ -96,7 +115,7 @@
         // API KEY VISIBILITY TOGGLE
         // ========================================
 
-        $('#toggle-openai-key, #toggle-claude-key').on('click', function() {
+        $('#toggle-openai-key, #toggle-claude-key, #toggle-gemini-key').on('click', function() {
             const input = $(this).siblings('input');
             const type = input.attr('type');
             input.attr('type', type === 'password' ? 'text' : 'password');
