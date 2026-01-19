@@ -444,10 +444,10 @@ class Settings
                             $status_text = __('Not Connected', 'postpilot');
                             $status_class = 'postpilot-status-disconnected';
                         } elseif ($configured_count === $total_providers) {
-                            $status_text = sprintf(__('%d of %d Connected', 'postpilot'), $configured_count, $total_providers);
+                            $status_text = sprintf(__('%d of %d AI Connected', 'postpilot'), $configured_count, $total_providers);
                             $status_class = 'postpilot-status-connected';
                         } else {
-                            $status_text = sprintf(__('%d of %d Connected', 'postpilot'), $configured_count, $total_providers);
+                            $status_text = sprintf(__('%d of %d AI Connected', 'postpilot'), $configured_count, $total_providers);
                             $status_class = 'postpilot-status-partial';
                         }
                         ?>
