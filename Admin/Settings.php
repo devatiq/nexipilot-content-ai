@@ -41,6 +41,7 @@ class Settings
         add_action('update_option_postpilot_openai_api_key', array($this, 'validate_openai_key'), 10, 2);
         add_action('update_option_postpilot_claude_api_key', array($this, 'validate_claude_key'), 10, 2);
         add_action('update_option_postpilot_gemini_api_key', array($this, 'validate_gemini_key'), 10, 2);
+        add_action('update_option_postpilot_grok_api_key', array($this, 'validate_grok_key'), 10, 2);
     }
 
     /**

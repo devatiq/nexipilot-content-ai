@@ -122,6 +122,15 @@ class Manager
                 }
                 break;
 
+            case 'grok':
+                $api_key = get_option('postpilot_grok_api_key', '');
+                $model = get_option('postpilot_grok_model', 'grok-beta');
+                if (!empty($api_key)) {
+                    $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
+                    return new Grok($decrypted_key, $model);
+                }
+                break;
+
             case 'openai':
             default:
                 $api_key = get_option('postpilot_openai_api_key', '');
