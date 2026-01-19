@@ -476,11 +476,11 @@ class Settings
                                 </button>
                             </div>
 
-                    <form action="options.php" method="post" class="postpilot-settings-form">
-                        <?php settings_fields('postpilot_settings'); ?>
+                            <form action="options.php" method="post" class="postpilot-settings-form">
+                                <?php settings_fields('postpilot_settings'); ?>
 
-                        <!-- AI Providers Tab Content -->
-                        <div class="postpilot-tab-content" id="ai-providers-tab">
+                                <!-- AI Providers Tab Content -->
+                                <div class="postpilot-tab-content" id="ai-providers-tab">
                                     <div class="postpilot-settings-grid">
                                         <!-- OpenAI Provider Card -->
                                         <div class="postpilot-card postpilot-provider-card">
@@ -943,6 +943,39 @@ class Settings
                                                         </label>
                                                     </div>
                                                     <div class="postpilot-feature-options" id="faq-options">
+                                                        <!-- AI Provider Selection -->
+                                                        <div class="postpilot-field-group">
+                                                            <label for="postpilot_faq_provider" class="postpilot-label-small">
+                                                                <?php esc_html_e('AI Provider', 'postpilot'); ?>
+                                                            </label>
+                                                            <select name="postpilot_faq_provider" id="postpilot_faq_provider"
+                                                                class="postpilot-select-small">
+                                                                <option value="openai" <?php selected(get_option('postpilot_faq_provider', 'openai'), 'openai'); ?>>
+                                                                    OpenAI (ChatGPT)
+                                                                </option>
+                                                                <option value="claude" <?php selected(get_option('postpilot_faq_provider'), 'claude'); ?>>
+                                                                    Claude (Anthropic)
+                                                                </option>
+                                                                <option value="gemini" <?php selected(get_option('postpilot_faq_provider'), 'gemini'); ?>>
+                                                                    Google Gemini
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="postpilot-field-group" id="faq-model-display">
+                                                            <label class="postpilot-label-small">
+                                                                <?php esc_html_e('Model in Use', 'postpilot'); ?>
+                                                            </label>
+                                                            <span class="postpilot-badge postpilot-badge-info">
+                                                                <?php
+                                                                $faq_provider = get_option('postpilot_faq_provider', 'openai');
+                                                                $faq_model = get_option("postpilot_{$faq_provider}_model", '');
+                                                                echo esc_html($faq_model ?: __('Not configured', 'postpilot'));
+                                                                ?>
+                                                            </span>
+                                                            <p class="postpilot-field-description">
+                                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot'); ?>
+                                                            </p>
+                                                        </div>
                                                         <div class="postpilot-field-group">
                                                             <label for="postpilot_faq_position" class="postpilot-label-small">
                                                                 <?php esc_html_e('Display Position', 'postpilot'); ?>
@@ -998,6 +1031,38 @@ class Settings
                                                         </label>
                                                     </div>
                                                     <div class="postpilot-feature-options" id="summary-options">
+                                                        <!-- AI Provider Selection -->
+                                                        <div class="postpilot-field-group">
+                                                            <label for="postpilot_summary_provider" class="postpilot-label-small">
+                                                                <?php esc_html_e('AI Provider', 'postpilot'); ?>
+                                                            </label>
+                                                            <select name="postpilot_summary_provider" id="postpilot_summary_provider" class="postpilot-select-small">
+                                                                <option value="openai" <?php selected(get_option('postpilot_summary_provider', 'openai'), 'openai'); ?>>
+                                                                    OpenAI (ChatGPT)
+                                                                </option>
+                                                                <option value="claude" <?php selected(get_option('postpilot_summary_provider'), 'claude'); ?>>
+                                                                    Claude (Anthropic)
+                                                                </option>
+                                                                <option value="gemini" <?php selected(get_option('postpilot_summary_provider'), 'gemini'); ?>>
+                                                                    Google Gemini
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="postpilot-field-group" id="summary-model-display">
+                                                            <label class="postpilot-label-small">
+                                                                <?php esc_html_e('Model in Use', 'postpilot'); ?>
+                                                            </label>
+                                                            <span class="postpilot-badge postpilot-badge-info">
+                                                                <?php
+                                                                $summary_provider = get_option('postpilot_summary_provider', 'openai');
+                                                                $summary_model = get_option("postpilot_{$summary_provider}_model", '');
+                                                                echo esc_html($summary_model ?: __('Not configured', 'postpilot'));
+                                                                ?>
+                                                            </span>
+                                                            <p class="postpilot-field-description">
+                                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot'); ?>
+                                                            </p>
+                                                        </div>
                                                         <div class="postpilot-field-group">
                                                             <label for="postpilot_summary_position" class="postpilot-label-small">
                                                                 <?php esc_html_e('Display Position', 'postpilot'); ?>
@@ -1036,6 +1101,40 @@ class Settings
                                                             <input type="checkbox" name="postpilot_enable_internal_links" value="1" <?php checked(get_option('postpilot_enable_internal_links'), '1'); ?> />
                                                             <span class="postpilot-toggle-slider"></span>
                                                         </label>
+                                                    </div>
+                                                    <!-- AI Provider Selection for Internal Links -->
+                                                    <div class="postpilot-feature-options" id="links-options" style="margin-top: 15px;">
+                                                        <div class="postpilot-field-group">
+                                                            <label for="postpilot_internal_links_provider" class="postpilot-label-small">
+                                                                <?php esc_html_e('AI Provider', 'postpilot'); ?>
+                                                            </label>
+                                                            <select name="postpilot_internal_links_provider" id="postpilot_internal_links_provider" class="postpilot-select-small">
+                                                                <option value="openai" <?php selected(get_option('postpilot_internal_links_provider', 'openai'), 'openai'); ?>>
+                                                                    OpenAI (ChatGPT)
+                                                                </option>
+                                                                <option value="claude" <?php selected(get_option('postpilot_internal_links_provider'), 'claude'); ?>>
+                                                                    Claude (Anthropic)
+                                                                </option>
+                                                                <option value="gemini" <?php selected(get_option('postpilot_internal_links_provider'), 'gemini'); ?>>
+                                                                    Google Gemini
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="postpilot-field-group" id="links-model-display">
+                                                            <label class="postpilot-label-small">
+                                                                <?php esc_html_e('Model in Use', 'postpilot'); ?>
+                                                            </label>
+                                                            <span class="postpilot-badge postpilot-badge-info">
+                                                                <?php
+                                                                $links_provider = get_option('postpilot_internal_links_provider', 'openai');
+                                                                $links_model = get_option("postpilot_{$links_provider}_model", '');
+                                                                echo esc_html($links_model ?: __('Not configured', 'postpilot'));
+                                                                ?>
+                                                            </span>
+                                                            <p class="postpilot-field-description">
+                                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot'); ?>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
