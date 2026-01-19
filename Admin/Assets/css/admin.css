@@ -40,13 +40,15 @@
 
 /* SweetAlert2 Toast Positioning */
 .postpilot-toast.swal2-popup {
-    margin-top: 46px !important; /* Position below WordPress admin bar (32px) + some spacing */
+    margin-top: 46px !important;
+    /* Position below WordPress admin bar (32px) + some spacing */
 }
 
 /* Adjust for mobile admin bar */
 @media screen and (max-width: 782px) {
     .postpilot-toast.swal2-popup {
-        margin-top: 60px !important; /* Mobile admin bar is taller (46px) + spacing */
+        margin-top: 60px !important;
+        /* Mobile admin bar is taller (46px) + spacing */
     }
 }
 
@@ -133,9 +135,12 @@
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.5;
     }
@@ -269,6 +274,7 @@
 .postpilot-card-header {
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
     gap: 16px;
     padding: 24px;
     border-bottom: 1px solid #f3f4f6;
@@ -534,15 +540,15 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.postpilot-toggle input:checked + .postpilot-toggle-slider {
+.postpilot-toggle input:checked+.postpilot-toggle-slider {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.postpilot-toggle input:checked + .postpilot-toggle-slider:before {
+.postpilot-toggle input:checked+.postpilot-toggle-slider:before {
     transform: translateX(22px);
 }
 
-.postpilot-toggle input:focus + .postpilot-toggle-slider {
+.postpilot-toggle input:focus+.postpilot-toggle-slider {
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
@@ -739,22 +745,22 @@
     .postpilot-header {
         padding: 24px;
     }
-    
+
     .postpilot-header-content {
         flex-direction: column;
         align-items: flex-start;
         gap: 16px;
     }
-    
+
     .postpilot-header h1 {
         font-size: 24px;
     }
-    
+
     .postpilot-feature-header {
         flex-direction: column;
         gap: 12px;
     }
-    
+
     .postpilot-toggle {
         align-self: flex-start;
     }

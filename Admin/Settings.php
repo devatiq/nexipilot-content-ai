@@ -413,7 +413,8 @@ class Settings
 
                         foreach ($providers as $key => $name) {
                             $status = $this->get_provider_status($key);
-                            if ($status['status'] === 'connected' || $status['status'] === 'saved') {
+                            // Only count 'connected' (verified) as configured, not 'saved' (unverified)
+                            if ($status['status'] === 'connected') {
                                 $configured[] = $name . ' ' . $status['icon'];
                             } else {
                                 $not_configured[] = $name;
