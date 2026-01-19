@@ -52,47 +52,71 @@ class Manager
     }
 
     /**
-     * Initialize the AI provider
+     * Initialize the AI provider (legacy - for backward compatibility)
      *
      * @since 1.0.0
+     * @deprecated 2.0.0 Use get_provider_for_feature() instead
      * @return void
      */
     private function init_provider()
     {
         $provider_name = get_option('postpilot_ai_provider', 'openai');
+        $this->provider = $this->init_provider_by_name($provider_name);
+    }
 
+    /**
+     * Get provider instance for a specific feature
+     *
+     * @since 2.0.0
+     * @param string $feature Feature name: 'faq', 'summary', or 'internal_links'
+     * @return ProviderInterface|null
+     */
+    private function get_provider_for_feature($feature)
+    {
+        $provider_name = get_option("postpilot_{$feature}_provider", 'openai');
+        return $this->init_provider_by_name($provider_name);
+    }
+
+    /**
+     * Initialize a specific provider by name
+     *
+     * @since 2.0.0
+     * @param string $provider_name Provider name: 'openai', 'claude', or 'gemini'
+     * @return ProviderInterface|null
+     */
+    private function init_provider_by_name($provider_name)
+    {
         switch ($provider_name) {
             case 'gemini':
                 $api_key = get_option('postpilot_gemini_api_key', '');
                 $model = get_option('postpilot_gemini_model', 'gemini-2.5-flash');
                 if (!empty($api_key)) {
-                    // Decrypt the API key
                     $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
-                    $this->provider = new Gemini($decrypted_key, $model);
+                    return new Gemini($decrypted_key, $model);
                 }
                 break;
 
             case 'claude':
                 $api_key = get_option('postpilot_claude_api_key', '');
-                $model = get_option('postpilot_claude_model', 'claude-3-haiku-20240307');
+                $model = get_option('postpilot_claude_model', 'claude-3-5-sonnet-20241022');
                 if (!empty($api_key)) {
-                    // Decrypt the API key
                     $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
-                    $this->provider = new Claude($decrypted_key, $model);
+                    return new Claude($decrypted_key, $model);
                 }
                 break;
 
             case 'openai':
             default:
                 $api_key = get_option('postpilot_openai_api_key', '');
-                $model = get_option('postpilot_openai_model', 'gpt-3.5-turbo');
+                $model = get_option('postpilot_openai_model', 'gpt-4o');
                 if (!empty($api_key)) {
-                    // Decrypt the API key
                     $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
-                    $this->provider = new OpenAI($decrypted_key, $model);
+                    return new OpenAI($decrypted_key, $model);
                 }
                 break;
         }
+
+        return null;
     }
 
     /**
@@ -116,9 +140,12 @@ class Manager
      */
     public function get_faq($post_id, $content)
     {
-        if (!$this->is_provider_available()) {
+        // Get provider for FAQ feature
+        $provider = $this->get_provider_for_feature('faq');
+
+        if (!$provider) {
             // Return demo FAQ when no provider is configured
-            Logger::debug('No AI provider configured, returning demo FAQ', array('post_id' => $post_id));
+            Logger::debug('No AI provider configured for FAQ, returning demo FAQ', array('post_id' => $post_id));
             return $this->get_demo_faq();
         }
 
@@ -132,7 +159,7 @@ class Manager
         }
 
         // Generate new FAQ
-        $faq = $this->provider->generate_faq($content);
+        $faq = $provider->generate_faq($content);
 
         if (is_wp_error($faq)) {
             Logger::error('FAQ generation failed', array(
@@ -161,9 +188,12 @@ class Manager
      */
     public function get_summary($post_id, $content)
     {
-        if (!$this->is_provider_available()) {
+        // Get provider for Summary feature
+        $provider = $this->get_provider_for_feature('summary');
+
+        if (!$provider) {
             // Return demo summary when no provider is configured
-            Logger::debug('No AI provider configured, returning demo summary', array('post_id' => $post_id));
+            Logger::debug('No AI provider configured for Summary, returning demo summary', array('post_id' => $post_id));
             return __('This is a demo summary. Configure your AI provider API key in PostPilot settings to generate real AI-powered summaries.', 'postpilot');
         }
 
@@ -177,7 +207,7 @@ class Manager
         }
 
         // Generate new summary
-        $summary = $this->provider->generate_summary($content);
+        $summary = $provider->generate_summary($content);
 
         if (is_wp_error($summary)) {
             Logger::error('Summary generation failed', array(
@@ -209,10 +239,13 @@ class Manager
      */
     public function get_internal_links($post_id, $content)
     {
-        if (!$this->is_provider_available()) {
+        // Get provider for Internal Links feature
+        $provider = $this->get_provider_for_feature('internal_links');
+
+        if (!$provider) {
             return new \WP_Error(
                 'no_provider',
-                __('AI provider is not configured.', 'postpilot')
+                __('AI provider is not configured for Internal Links.', 'postpilot')
             );
         }
 
@@ -233,7 +266,7 @@ class Manager
         }
 
         // Generate link suggestions
-        $links = $this->provider->suggest_internal_links($content, $available_posts);
+        $links = $provider->suggest_internal_links($content, $available_posts);
 
         if (!is_wp_error($links)) {
             set_transient($cache_key, $links, $this->cache_expiration);
