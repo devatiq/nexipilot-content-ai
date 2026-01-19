@@ -60,7 +60,24 @@ class Manager
      */
     private function init_provider()
     {
-        $provider_name = get_option('postpilot_ai_provider', 'openai');
+        // Try to get provider from FAQ feature first (most commonly used)
+        $provider_name = get_option('postpilot_faq_provider', '');
+
+        // If FAQ provider not set, try summary
+        if (empty($provider_name)) {
+            $provider_name = get_option('postpilot_summary_provider', '');
+        }
+
+        // If summary provider not set, try internal links
+        if (empty($provider_name)) {
+            $provider_name = get_option('postpilot_internal_links_provider', '');
+        }
+
+        // Default to openai if nothing is configured
+        if (empty($provider_name)) {
+            $provider_name = 'openai';
+        }
+
         $this->provider = $this->init_provider_by_name($provider_name);
     }
 
