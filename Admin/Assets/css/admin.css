@@ -156,6 +156,37 @@
     animation: none;
 }
 
+/* New Status Classes for Provider Badges */
+.postpilot-status-green {
+    background-color: #10b981;
+    color: white;
+}
+
+.postpilot-status-yellow {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.postpilot-status-gray {
+    background-color: #6b7280;
+    color: white;
+}
+
+.postpilot-status-red {
+    background-color: #ef4444;
+    color: white;
+}
+
+.postpilot-status-partial .status-dot {
+    background: #f59e0b;
+    animation: none;
+}
+
+/* Tooltip styling (native browser tooltip via title attribute) */
+.postpilot-badge[title] {
+    cursor: help;
+}
+
 /* Tab Navigation */
 .postpilot-tabs {
     display: flex;
