@@ -83,14 +83,6 @@ class Gemini implements ProviderInterface
 
         Logger::debug('Gemini FAQ raw response', array('response' => substr($response, 0, 200)));
 
-        // EMERGENCY DEBUG - Write to file (no WP_DEBUG required)
-        file_put_contents(
-            WP_CONTENT_DIR . '/gemini-faq-debug.txt',
-            "=== FAQ Generation Debug ===\n" .
-            "Time: " . date('Y-m-d H:i:s') . "\n\n" .
-            "RAW RESPONSE:\n" . $response . "\n\n",
-            FILE_APPEND
-        );
 
         // Strip markdown code blocks if present (Gemini often wraps JSON in ```json ... ```)
         $cleaned_response = $this->strip_markdown_code_blocks($response);
@@ -109,18 +101,7 @@ class Gemini implements ProviderInterface
         $faq_data = json_decode($cleaned_response, true);
         $json_error = json_last_error();
 
-        // EMERGENCY DEBUG
-        file_put_contents(
-            WP_CONTENT_DIR . '/gemini-faq-debug.txt',
-            "CLEANED RESPONSE:\n" . substr($cleaned_response, 0, 500) . "\n\n" .
-            "JSON PARSE RESULT:\n" .
-            "Error Code: " . $json_error . "\n" .
-            "Error Message: " . json_last_error_msg() . "\n" .
-            "Is Array: " . (is_array($faq_data) ? 'YES' : 'NO') . "\n" .
-            "Type: " . gettype($faq_data) . "\n" .
-            "Count: " . (is_array($faq_data) ? count($faq_data) : 'N/A') . "\n\n",
-            FILE_APPEND
-        );
+
 
         if ($json_error !== JSON_ERROR_NONE) {
             Logger::error('Gemini FAQ JSON parse error', array(
@@ -131,14 +112,6 @@ class Gemini implements ProviderInterface
                 'first_char' => isset($cleaned_response[0]) ? ord($cleaned_response[0]) : 'empty',
                 'last_char' => isset($cleaned_response[strlen($cleaned_response) - 1]) ? ord($cleaned_response[strlen($cleaned_response) - 1]) : 'empty'
             ));
-
-            // EMERGENCY DEBUG
-            file_put_contents(
-                WP_CONTENT_DIR . '/gemini-faq-debug.txt',
-                "!!! JSON PARSE FAILED - USING FALLBACK !!!\n" .
-                "==========================================\n\n",
-                FILE_APPEND
-            );
 
             // If not valid JSON, create a simple structure
             return array(
