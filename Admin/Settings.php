@@ -696,17 +696,17 @@ class Settings
                                     </label>
                                     <select name="postpilot_gemini_model" id="postpilot_gemini_model_providers"
                                         class="postpilot-select">
-                                        <option value="gemini-2.0-flash-exp" <?php selected(get_option('postpilot_gemini_model', 'gemini-2.0-flash-exp'), 'gemini-2.0-flash-exp'); ?>>
-                                            Gemini 2.0 Flash (Experimental)
+                                        <option value="gemini-2.5-flash" <?php selected(get_option('postpilot_gemini_model', 'gemini-2.5-flash'), 'gemini-2.5-flash'); ?>>
+                                            Gemini 2.5 Flash (Recommended)
                                         </option>
-                                        <option value="gemini-1.5-pro" <?php selected(get_option('postpilot_gemini_model'), 'gemini-1.5-pro'); ?>>
-                                            Gemini 1.5 Pro
+                                        <option value="gemini-2.5-pro" <?php selected(get_option('postpilot_gemini_model'), 'gemini-2.5-pro'); ?>>
+                                            Gemini 2.5 Pro (Most Capable)
                                         </option>
-                                        <option value="gemini-1.5-flash" <?php selected(get_option('postpilot_gemini_model'), 'gemini-1.5-flash'); ?>>
-                                            Gemini 1.5 Flash
+                                        <option value="gemini-2.0-flash" <?php selected(get_option('postpilot_gemini_model'), 'gemini-2.0-flash'); ?>>
+                                            Gemini 2.0 Flash
                                         </option>
-                                        <option value="gemini-1.0-pro" <?php selected(get_option('postpilot_gemini_model'), 'gemini-1.0-pro'); ?>>
-                                            Gemini 1.0 Pro
+                                        <option value="gemini-2.5-flash-lite" <?php selected(get_option('postpilot_gemini_model'), 'gemini-2.5-flash-lite'); ?>>
+                                            Gemini 2.5 Flash-Lite (Fastest)
                                         </option>
                                     </select>
                                     <p class="postpilot-field-description">
