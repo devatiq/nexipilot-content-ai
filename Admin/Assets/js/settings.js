@@ -13,14 +13,14 @@
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 
-(function($) {
+(function ($) {
     'use strict';
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // ========================================
         // SETTINGS SAVED NOTIFICATION
         // ========================================
-        
+
         // Check if settings were just saved
         if ($('.postpilot-settings-wrap').data('settings-saved')) {
             Swal.fire({
@@ -47,21 +47,21 @@
             // Remove active class from all tabs and tab contents
             $('.postpilot-tab').removeClass('active');
             $('.postpilot-tab-content').removeClass('active');
-            
+
             // Add active class to clicked tab and corresponding content
             $('.postpilot-tab[data-tab="' + tabName + '"]').addClass('active');
             $('#' + tabName + '-tab').addClass('active');
-            
+
             // Save active tab to localStorage
             localStorage.setItem('postpilot_active_tab', tabName);
         }
-        
+
         // Restore last active tab on page load
         const lastActiveTab = localStorage.getItem('postpilot_active_tab') || 'general';
         switchTab(lastActiveTab);
-        
+
         // Handle tab clicks
-        $('.postpilot-tab').on('click', function() {
+        $('.postpilot-tab').on('click', function () {
             const tabName = $(this).data('tab');
             switchTab(tabName);
         });
@@ -80,7 +80,7 @@
 
         function toggleApiKeyFields() {
             const selectedProvider = providerSelect.val();
-            
+
             if (selectedProvider === 'openai') {
                 openaiField.show();
                 claudeField.hide();
@@ -115,7 +115,7 @@
         // API KEY VISIBILITY TOGGLE
         // ========================================
 
-        $('#toggle-openai-key, #toggle-claude-key, #toggle-gemini-key').on('click', function() {
+        $('#toggle-openai-key, #toggle-claude-key, #toggle-gemini-key').on('click', function () {
             const input = $(this).siblings('input');
             const type = input.attr('type');
             input.attr('type', type === 'password' ? 'text' : 'password');
@@ -147,8 +147,56 @@
         toggleFeatureOptions();
 
         // Update on toggle change
-        $('input[name="postpilot_enable_faq"], input[name="postpilot_enable_summary"]').on('change', function() {
+        $('input[name="postpilot_enable_faq"], input[name="postpilot_enable_summary"]').on('change', function () {
             toggleFeatureOptions();
+        });
+
+        // ========================================
+        // FEATURE PROVIDER MODEL DISPLAY UPDATE
+        // ========================================
+
+        // Update model display when feature provider changes
+        function updateFeatureModelDisplay(featureName, provider) {
+            const modelDisplayId = '#' + featureName + '-model-display';
+            const modelBadge = $(modelDisplayId + ' .postpilot-badge');
+
+            // Get the model for the selected provider
+            let modelValue = '';
+            if (provider === 'openai') {
+                modelValue = $('#postpilot_openai_model_providers').val() || $('#postpilot_openai_model').val() || 'Not configured';
+            } else if (provider === 'claude') {
+                modelValue = $('#postpilot_claude_model_providers').val() || $('#postpilot_claude_model').val() || 'Not configured';
+            } else if (provider === 'gemini') {
+                modelValue = $('#postpilot_gemini_model_providers').val() || $('#postpilot_gemini_model').val() || 'Not configured';
+            }
+
+            modelBadge.text(modelValue);
+        }
+
+        // Handle FAQ provider change
+        $('#postpilot_faq_provider').on('change', function () {
+            updateFeatureModelDisplay('faq', $(this).val());
+        });
+
+        // Handle Summary provider change
+        $('#postpilot_summary_provider').on('change', function () {
+            updateFeatureModelDisplay('summary', $(this).val());
+        });
+
+        // Handle Internal Links provider change
+        $('#postpilot_internal_links_provider').on('change', function () {
+            updateFeatureModelDisplay('links', $(this).val());
+        });
+
+        // ========================================
+        // PASSWORD VISIBILITY TOGGLE (ALL FIELDS)
+        // ========================================
+
+        // Handle all toggle-password buttons
+        $('.toggle-password').on('click', function () {
+            const input = $(this).siblings('input');
+            const type = input.attr('type');
+            input.attr('type', type === 'password' ? 'text' : 'password');
         });
     });
 
