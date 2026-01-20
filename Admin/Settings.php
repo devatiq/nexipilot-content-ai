@@ -494,21 +494,8 @@ class Settings
 
         // Check if settings were updated (for SweetAlert2 notification)
         $settings_updated = isset($_GET['settings-updated']) && $_GET['settings-updated'] === 'true';
-
-        // Check for validation errors from any provider (only if settings were updated)
-        $validation_error = null;
-        if ($settings_updated) {
-            $providers = array_keys($this->get_available_providers());
-            foreach ($providers as $provider) {
-                $validation = get_transient("postpilot_{$provider}_validation");
-                if (is_wp_error($validation)) {
-                    $validation_error = $validation->get_error_message();
-                    break; // Show the first error found
-                }
-            }
-        }
         ?>
-        <div class="wrap postpilot-settings-wrap" <?php echo $settings_updated ? 'data-settings-saved="true"' : ''; ?>         <?php echo $validation_error ? 'data-validation-error="' . esc_attr($validation_error) . '"' : ''; ?>>
+        <div class="wrap postpilot-settings-wrap" <?php echo $settings_updated ? 'data-settings-saved="true"' : ''; ?>>
             <!-- Header Section -->
             <div class="postpilot-header">
                 <div class="postpilot-header-content">
@@ -1785,21 +1772,12 @@ class Settings
             );
         }
 
-        // State 3: Invalid Key (or other error) - red
+        // State 3: Invalid Key - red
         if (is_wp_error($validation_result)) {
-            $error_code = $validation_result->get_error_code();
-            $status_text = __('Invalid Key', 'postpilot');
-
-            if (strpos($error_code, 'quota') !== false) {
-                $status_text = __('Quota Exceeded', 'postpilot');
-            } elseif (strpos($error_code, 'rate_limit') !== false) {
-                $status_text = __('Rate Limited', 'postpilot');
-            }
-
             return array(
                 'status' => 'invalid',
                 'icon' => '❌',
-                'text' => $status_text,
+                'text' => __('Invalid Key', 'postpilot'),
                 'class' => 'postpilot-status-red',
                 'tooltip' => $validation_result->get_error_message()
             );
