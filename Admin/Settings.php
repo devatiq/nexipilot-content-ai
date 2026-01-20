@@ -494,8 +494,19 @@ class Settings
 
         // Check if settings were updated (for SweetAlert2 notification)
         $settings_updated = isset($_GET['settings-updated']) && $_GET['settings-updated'] === 'true';
+
+        // Check for validation errors from any provider
+        $validation_error = null;
+        $providers = array_keys($this->get_available_providers());
+        foreach ($providers as $provider) {
+            $validation = get_transient("postpilot_{$provider}_validation");
+            if (is_wp_error($validation)) {
+                $validation_error = $validation->get_error_message();
+                break; // Show the first error found
+            }
+        }
         ?>
-        <div class="wrap postpilot-settings-wrap" <?php echo $settings_updated ? 'data-settings-saved="true"' : ''; ?>>
+        <div class="wrap postpilot-settings-wrap" <?php echo $settings_updated ? 'data-settings-saved="true"' : ''; ?>         <?php echo $validation_error ? 'data-validation-error="' . esc_attr($validation_error) . '"' : ''; ?>>
             <!-- Header Section -->
             <div class="postpilot-header">
                 <div class="postpilot-header-content">

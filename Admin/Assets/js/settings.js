@@ -38,6 +38,18 @@
             });
         }
 
+        // Check for validation errors
+        const validationError = $('.postpilot-settings-wrap').data('validation-error');
+        if (validationError) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Integration Error',
+                text: validationError,
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#ef4444'
+            });
+        }
+
         // ========================================
         // TAB NAVIGATION WITH PERSISTENCE
         // ========================================
