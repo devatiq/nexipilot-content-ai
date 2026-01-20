@@ -212,10 +212,7 @@ class Gemini implements ProviderInterface
         $test_response = $this->make_request('Hello', $api_key);
 
         if (is_wp_error($test_response)) {
-            return new \WP_Error(
-                'invalid_api_key',
-                __('Invalid Gemini API key.', 'postpilot')
-            );
+            return $test_response;
         }
 
         return true;

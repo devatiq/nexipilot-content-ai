@@ -1772,12 +1772,21 @@ class Settings
             );
         }
 
-        // State 3: Invalid Key - red
+        // State 3: Invalid Key (or other error) - red
         if (is_wp_error($validation_result)) {
+            $error_code = $validation_result->get_error_code();
+            $status_text = __('Invalid Key', 'postpilot');
+
+            if (strpos($error_code, 'quota') !== false) {
+                $status_text = __('Quota Exceeded', 'postpilot');
+            } elseif (strpos($error_code, 'rate_limit') !== false) {
+                $status_text = __('Rate Limited', 'postpilot');
+            }
+
             return array(
                 'status' => 'invalid',
                 'icon' => '❌',
-                'text' => __('Invalid Key', 'postpilot'),
+                'text' => $status_text,
                 'class' => 'postpilot-status-red',
                 'tooltip' => $validation_result->get_error_message()
             );
