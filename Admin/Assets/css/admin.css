@@ -692,8 +692,8 @@
 /* Checkbox Group - Grid Layout for AI Providers */
 .postpilot-checkbox-group {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
     margin-top: 12px;
 }
 
@@ -717,17 +717,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 24px 16px;
+    padding: 16px 12px;
     background: white;
     border: 2px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: 10px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     height: 100%;
-    min-height: 120px;
+    min-height: 100px;
     position: relative;
     overflow: hidden;
     text-align: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 /* Hover Effects */
@@ -746,12 +746,12 @@
 }
 
 .postpilot-checkbox-card__icon {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
+    border-radius: 8px;
     background: #f3f4f6;
     color: #6b7280;
     transition: all 0.2s ease;
@@ -764,12 +764,12 @@
 }
 
 .postpilot-checkbox-card__icon svg {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
 }
 
 .postpilot-checkbox-card__label {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: #374151;
     transition: color 0.2s ease;
@@ -782,10 +782,10 @@
 /* Checkmark Badge */
 .postpilot-checkbox-card__status {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 24px;
-    height: 24px;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
     background: #10b981;
     border-radius: 50%;
     display: flex;
