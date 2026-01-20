@@ -328,6 +328,26 @@ class Settings
 
         register_setting(
             'postpilot_settings',
+            'postpilot_external_ai_copilot',
+            array(
+                'type' => 'string',
+                'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
+                'default' => '1',
+            )
+        );
+
+        register_setting(
+            'postpilot_settings',
+            'postpilot_external_ai_google',
+            array(
+                'type' => 'string',
+                'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
+                'default' => '1',
+            )
+        );
+
+        register_setting(
+            'postpilot_settings',
             'postpilot_external_ai_heading',
             array(
                 'type' => 'string',
@@ -1191,52 +1211,60 @@ class Settings
                                                                 </option>
                                                                 <option value="after_content" <?php selected(get_option('postpilot_external_ai_position', 'before_content'), 'after_content'); ?>>
                                                                     <?php esc_html_e('After Content', 'postpilot'); ?>
-                                                                        </option>
-                                                                        <option value="both" <?php selected(get_option('postpilot_external_ai_position', 'before_content'), 'both'); ?>>
-                                                                            <?php esc_html_e('Both', 'postpilot'); ?>
+                                                                </option>
+                                                                <option value="both" <?php selected(get_option('postpilot_external_ai_position', 'before_content'), 'both'); ?>>
+                                                                    <?php esc_html_e('Both', 'postpilot'); ?>
                                                                 </option>
                                                             </select>
                                                         </div>
-                                                <div class="postpilot-field-group">
-                                                    <label for="postpilot_external_ai_heading" class="postpilot-label-small">
-                                                        <?php esc_html_e('Heading Text', 'postpilot'); ?>
-                                                    </label>
-                                                    <input type="text" name="postpilot_external_ai_heading" id="postpilot_external_ai_heading"
-                                                        class="postpilot-input-small" 
-                                                        value="<?php echo esc_attr(get_option('postpilot_external_ai_heading', 'Summarize this post with:')); ?>" 
-                                                        placeholder="<?php esc_attr_e('Summarize this post with:', 'postpilot'); ?>" />
-                                                    <p class="postpilot-field-description">
-                                                        <?php esc_html_e('Customize the heading text displayed above the AI sharing buttons', 'postpilot'); ?>
-                                                    </p>
-                                                </div>
-                                                <div class="postpilot-field-group">
-                                                    <label class="postpilot-label-small">
-                                                        <?php esc_html_e('Enabled AI Providers', 'postpilot'); ?>
-                                                    </label>
-                                                    <div class="postpilot-checkbox-group">
-                                                        <label class="postpilot-checkbox-label">
-                                                            <input type="checkbox" name="postpilot_external_ai_chatgpt" value="1" <?php checked(get_option('postpilot_external_ai_chatgpt', '1'), '1'); ?> />
-                                                            <span><?php esc_html_e('ChatGPT', 'postpilot'); ?></span>
-                                                        </label>
-                                                        <label class="postpilot-checkbox-label">
-                                                            <input type="checkbox" name="postpilot_external_ai_claude" value="1" <?php checked(get_option('postpilot_external_ai_claude', '1'), '1'); ?> />
-                                                            <span><?php esc_html_e('Claude', 'postpilot'); ?></span>
-                                                        </label>
-                                                        <label class="postpilot-checkbox-label">
-                                                            <input type="checkbox" name="postpilot_external_ai_perplexity" value="1"
-                                                                <?php checked(get_option('postpilot_external_ai_perplexity', '1'), '1'); ?> />
-                                                            <span><?php esc_html_e('Perplexity', 'postpilot'); ?></span>
-                                                        </label>
-                                                        <label class="postpilot-checkbox-label">
-                                                            <input type="checkbox" name="postpilot_external_ai_grok" value="1" <?php checked(get_option('postpilot_external_ai_grok', '1'), '1'); ?> />
-                                                            <span><?php esc_html_e('Grok', 'postpilot'); ?></span>
-                                                        </label>
+                                                        <div class="postpilot-field-group">
+                                                            <label for="postpilot_external_ai_heading" class="postpilot-label-small">
+                                                                <?php esc_html_e('Heading Text', 'postpilot'); ?>
+                                                            </label>
+                                                            <input type="text" name="postpilot_external_ai_heading"
+                                                                id="postpilot_external_ai_heading" class="postpilot-input-small"
+                                                                value="<?php echo esc_attr(get_option('postpilot_external_ai_heading', 'Summarize this post with:')); ?>"
+                                                                placeholder="<?php esc_attr_e('Summarize this post with:', 'postpilot'); ?>" />
+                                                            <p class="postpilot-field-description">
+                                                                <?php esc_html_e('Customize the heading text displayed above the AI sharing buttons', 'postpilot'); ?>
+                                                            </p>
+                                                        </div>
+                                                        <div class="postpilot-field-group">
+                                                            <label class="postpilot-label-small">
+                                                                <?php esc_html_e('Enabled AI Providers', 'postpilot'); ?>
+                                                            </label>
+                                                            <div class="postpilot-checkbox-group">
+                                                                <label class="postpilot-checkbox-label">
+                                                                    <input type="checkbox" name="postpilot_external_ai_chatgpt" value="1" <?php checked(get_option('postpilot_external_ai_chatgpt', '1'), '1'); ?> />
+                                                                    <span><?php esc_html_e('ChatGPT', 'postpilot'); ?></span>
+                                                                </label>
+                                                                <label class="postpilot-checkbox-label">
+                                                                    <input type="checkbox" name="postpilot_external_ai_claude" value="1" <?php checked(get_option('postpilot_external_ai_claude', '1'), '1'); ?> />
+                                                                    <span><?php esc_html_e('Claude', 'postpilot'); ?></span>
+                                                                </label>
+                                                                <label class="postpilot-checkbox-label">
+                                                                    <input type="checkbox" name="postpilot_external_ai_perplexity" value="1"
+                                                                        <?php checked(get_option('postpilot_external_ai_perplexity', '1'), '1'); ?> />
+                                                                    <span><?php esc_html_e('Perplexity', 'postpilot'); ?></span>
+                                                                </label>
+                                                                <label class="postpilot-checkbox-label">
+                                                                    <input type="checkbox" name="postpilot_external_ai_grok" value="1" <?php checked(get_option('postpilot_external_ai_grok', '1'), '1'); ?> />
+                                                                    <span><?php esc_html_e('Grok', 'postpilot'); ?></span>
+                                                                </label>
+                                                                <label class="postpilot-checkbox-label">
+                                                                    <input type="checkbox" name="postpilot_external_ai_copilot" value="1" <?php checked(get_option('postpilot_external_ai_copilot', '1'), '1'); ?> />
+                                                                    <span><?php esc_html_e('Microsoft Copilot', 'postpilot'); ?></span>
+                                                                </label>
+                                                                <label class="postpilot-checkbox-label">
+                                                                    <input type="checkbox" name="postpilot_external_ai_google" value="1" <?php checked(get_option('postpilot_external_ai_google', '1'), '1'); ?> />
+                                                                    <span><?php esc_html_e('Google AI Overview', 'postpilot'); ?></span>
+                                                                </label>
+                                                            </div>
+                                                            <p class="postpilot-field-description">
+                                                                <?php esc_html_e('Select which external AI tools to show to your readers', 'postpilot'); ?>
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                    <p class="postpilot-field-description">
-                                                        <?php esc_html_e('Select which external AI tools to show to your readers', 'postpilot'); ?>
-                                                    </p>
-                                                </div>
-                                            </div>
                                                 </div>
                                             </div>
                                         </div>
