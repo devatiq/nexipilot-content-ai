@@ -495,14 +495,16 @@ class Settings
         // Check if settings were updated (for SweetAlert2 notification)
         $settings_updated = isset($_GET['settings-updated']) && $_GET['settings-updated'] === 'true';
 
-        // Check for validation errors from any provider
+        // Check for validation errors from any provider (only if settings were updated)
         $validation_error = null;
-        $providers = array_keys($this->get_available_providers());
-        foreach ($providers as $provider) {
-            $validation = get_transient("postpilot_{$provider}_validation");
-            if (is_wp_error($validation)) {
-                $validation_error = $validation->get_error_message();
-                break; // Show the first error found
+        if ($settings_updated) {
+            $providers = array_keys($this->get_available_providers());
+            foreach ($providers as $provider) {
+                $validation = get_transient("postpilot_{$provider}_validation");
+                if (is_wp_error($validation)) {
+                    $validation_error = $validation->get_error_message();
+                    break; // Show the first error found
+                }
             }
         }
         ?>
