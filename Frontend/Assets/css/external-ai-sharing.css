@@ -1,0 +1,116 @@
+/**
+ * External AI Sharing Styles
+ *
+ * Styles for the external AI sharing buttons that allow readers
+ * to summarize posts with external AI tools.
+ *
+ * @package PostPilot
+ * @since 1.0.0
+ */
+
+.postpilot-external-ai-sharing {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+.postpilot-external-ai-sharing__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.postpilot-external-ai-sharing__icon {
+    font-size: 1.25rem;
+}
+
+.postpilot-external-ai-sharing__title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #212529;
+}
+
+.postpilot-external-ai-sharing__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.postpilot-external-ai-sharing__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: #fff;
+    background: #6c757d;
+    border: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.postpilot-external-ai-sharing__button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    color: #fff;
+}
+
+.postpilot-external-ai-sharing__button:active {
+    transform: translateY(0);
+}
+
+/* Provider-specific colors */
+.postpilot-external-ai-sharing__button--chatgpt {
+    background: #10a37f;
+}
+
+.postpilot-external-ai-sharing__button--chatgpt:hover {
+    background: #0d8f6f;
+    box-shadow: 0 4px 12px rgba(16, 163, 127, 0.3);
+}
+
+.postpilot-external-ai-sharing__button--claude {
+    background: #cc785c;
+}
+
+.postpilot-external-ai-sharing__button--claude:hover {
+    background: #b8654d;
+    box-shadow: 0 4px 12px rgba(204, 120, 92, 0.3);
+}
+
+.postpilot-external-ai-sharing__button--perplexity {
+    background: #20808d;
+}
+
+.postpilot-external-ai-sharing__button--perplexity:hover {
+    background: #1a6b76;
+    box-shadow: 0 4px 12px rgba(32, 128, 141, 0.3);
+}
+
+.postpilot-external-ai-sharing__button--grok {
+    background: #000;
+}
+
+.postpilot-external-ai-sharing__button--grok:hover {
+    background: #1a1a1a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .postpilot-external-ai-sharing__buttons {
+        flex-direction: column;
+    }
+
+    .postpilot-external-ai-sharing__button {
+        width: 100%;
+    }
+}
