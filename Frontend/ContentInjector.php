@@ -438,8 +438,8 @@ class ContentInjector
             $post_url
         );
 
-        // URL encode the prompt
-        $encoded_prompt = rawurlencode($prompt);
+        // URL encode the prompt using application/x-www-form-urlencoded format (+ for spaces)
+        $encoded_prompt = urlencode($prompt);
 
         // Build provider-specific URLs
         $urls = array(
