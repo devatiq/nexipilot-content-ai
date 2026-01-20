@@ -699,10 +699,12 @@
 
 /* Provider Selection Cards */
 .postpilot-checkbox-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
     position: relative;
     user-select: none;
+    height: 100%;
 }
 
 .postpilot-checkbox-card input[type="checkbox"] {
@@ -710,6 +712,7 @@
     opacity: 0;
     width: 0;
     height: 0;
+    pointer-events: none;
 }
 
 .postpilot-checkbox-card__content {
@@ -722,12 +725,14 @@
     border: 2px solid #e5e7eb;
     border-radius: 8px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    height: 100%;
-    min-height: 50px;
+    flex: 1;
+    min-height: 80px;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     text-align: center;
     gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Hover Effects */
