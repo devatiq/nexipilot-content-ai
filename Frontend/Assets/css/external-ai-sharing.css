@@ -9,108 +9,184 @@
  */
 
 .postpilot-external-ai-sharing {
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 1px solid #e1e4e8;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+}
+
+.postpilot-external-ai-sharing:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .postpilot-external-ai-sharing__header {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
 }
 
 .postpilot-external-ai-sharing__icon {
-    font-size: 1.25rem;
+    flex-shrink: 0;
+    color: #6366f1;
+    filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.2));
 }
 
 .postpilot-external-ai-sharing__title {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 600;
-    color: #212529;
+    color: #1f2937;
+    letter-spacing: -0.01em;
 }
 
 .postpilot-external-ai-sharing__buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
 .postpilot-external-ai-sharing__button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.625rem 1.25rem;
-    font-size: 0.875rem;
-    font-weight: 500;
+    gap: 0.625rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
     text-decoration: none;
     color: #fff;
     background: #6c757d;
     border: none;
-    border-radius: 6px;
-    transition: all 0.2s ease;
+    border-radius: 8px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.postpilot-external-ai-sharing__button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.postpilot-external-ai-sharing__button:hover::before {
+    opacity: 1;
 }
 
 .postpilot-external-ai-sharing__button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     text-decoration: none;
     color: #fff;
 }
 
 .postpilot-external-ai-sharing__button:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* Provider-specific colors */
+.postpilot-external-ai-sharing__button-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.postpilot-external-ai-sharing__button-logo svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.postpilot-external-ai-sharing__button-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* Provider-specific colors with gradients */
 .postpilot-external-ai-sharing__button--chatgpt {
-    background: #10a37f;
+    background: linear-gradient(135deg, #10a37f 0%, #0d8f6f 100%);
 }
 
 .postpilot-external-ai-sharing__button--chatgpt:hover {
-    background: #0d8f6f;
-    box-shadow: 0 4px 12px rgba(16, 163, 127, 0.3);
+    background: linear-gradient(135deg, #0d8f6f 0%, #0a7a5e 100%);
+    box-shadow: 0 6px 16px rgba(16, 163, 127, 0.35);
 }
 
 .postpilot-external-ai-sharing__button--claude {
-    background: #cc785c;
+    background: linear-gradient(135deg, #cc785c 0%, #b8654d 100%);
 }
 
 .postpilot-external-ai-sharing__button--claude:hover {
-    background: #b8654d;
-    box-shadow: 0 4px 12px rgba(204, 120, 92, 0.3);
+    background: linear-gradient(135deg, #b8654d 0%, #a4563e 100%);
+    box-shadow: 0 6px 16px rgba(204, 120, 92, 0.35);
 }
 
 .postpilot-external-ai-sharing__button--perplexity {
-    background: #20808d;
+    background: linear-gradient(135deg, #20808d 0%, #1a6b76 100%);
 }
 
 .postpilot-external-ai-sharing__button--perplexity:hover {
-    background: #1a6b76;
-    box-shadow: 0 4px 12px rgba(32, 128, 141, 0.3);
+    background: linear-gradient(135deg, #1a6b76 0%, #145660 100%);
+    box-shadow: 0 6px 16px rgba(32, 128, 141, 0.35);
 }
 
 .postpilot-external-ai-sharing__button--grok {
-    background: #000;
+    background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
 }
 
 .postpilot-external-ai-sharing__button--grok:hover {
-    background: #1a1a1a;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
+    .postpilot-external-ai-sharing {
+        padding: 1.5rem;
+    }
+
+    .postpilot-external-ai-sharing__header {
+        margin-bottom: 1.25rem;
+    }
+
+    .postpilot-external-ai-sharing__title {
+        font-size: 1rem;
+    }
+
     .postpilot-external-ai-sharing__buttons {
         flex-direction: column;
+        gap: 0.875rem;
     }
 
     .postpilot-external-ai-sharing__button {
         width: 100%;
+        justify-content: center;
+        padding: 0.875rem 1.25rem;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .postpilot-external-ai-sharing {
+        background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        border-color: #374151;
+    }
+
+    .postpilot-external-ai-sharing__title {
+        color: #f9fafb;
     }
 }
