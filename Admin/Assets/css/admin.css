@@ -979,4 +979,37 @@
     .postpilot-toggle {
         align-self: flex-start;
     }
+
+    /* Checkbox Group Responsive */
+    .postpilot-checkbox-group {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .postpilot-checkbox-group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .postpilot-checkbox-card__content {
+        padding: 10px 6px;
+        min-height: 70px;
+    }
+
+    .postpilot-checkbox-card__icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .postpilot-checkbox-card__icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .postpilot-checkbox-card__label {
+        font-size: 12px;
+    }
 }
