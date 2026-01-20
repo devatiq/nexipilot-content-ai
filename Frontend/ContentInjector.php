@@ -118,15 +118,18 @@ class ContentInjector
 
         // Inject External AI Sharing
         if (get_option('postpilot_enable_external_ai_sharing', '1') === '1') {
-            $external_ai_position = get_option('postpilot_external_ai_position', 'after_content');
+            $external_ai_position = get_option('postpilot_external_ai_position', 'before_content');
             $external_ai_html = $this->get_external_ai_sharing_html($post->ID);
 
             if ($external_ai_position === 'before_content') {
                 $modified_content = $external_ai_html . $modified_content;
-            } else {
+            } elseif ($external_ai_position === 'after_content') {
                 $modified_content .= $external_ai_html;
+            } elseif ($external_ai_position === 'both') {
+                $modified_content = $external_ai_html . $modified_content . $external_ai_html;
             }
         }
+
 
         return $modified_content;
     }
@@ -373,34 +376,34 @@ class ContentInjector
 
         ob_start();
         ?>
-                <div class="postpilot-external-ai-sharing">
-                    <div class="postpilot-external-ai-sharing__header">
-                        <span class="postpilot-external-ai-sharing__icon">🔗</span>
-                        <h3 class="postpilot-external-ai-sharing__title"><?php esc_html_e('Summarize this post with:', 'postpilot'); ?></h3>
-                    </div>
-                    <div class="postpilot-external-ai-sharing__buttons">
-                        <?php foreach ($enabled_providers as $key => $name): ?>
-                                <a href="<?php echo esc_url($this->get_external_ai_url($key, $post_url)); ?>" 
-                                   class="postpilot-external-ai-sharing__button postpilot-external-ai-sharing__button--<?php echo esc_attr($key); ?>"
-                                   target="_blank"
-                                   rel="noopener noreferrer">
-                                    <?php echo esc_html($name); ?>
-                                </a>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-                <?php
-                $output = ob_get_clean();
+        <div class="postpilot-external-ai-sharing">
+            <div class="postpilot-external-ai-sharing__header">
+                <span class="postpilot-external-ai-sharing__icon">🔗</span>
+                <h3 class="postpilot-external-ai-sharing__title"><?php esc_html_e('Summarize this post with:', 'postpilot'); ?>
+                </h3>
+            </div>
+            <div class="postpilot-external-ai-sharing__buttons">
+                <?php foreach ($enabled_providers as $key => $name): ?>
+                    <a href="<?php echo esc_url($this->get_external_ai_url($key, $post_url)); ?>"
+                        class="postpilot-external-ai-sharing__button postpilot-external-ai-sharing__button--<?php echo esc_attr($key); ?>"
+                        target="_blank" rel="noopener noreferrer">
+                        <?php echo esc_html($name); ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php
+        $output = ob_get_clean();
 
-                /**
-                 * Filter the external AI sharing output
-                 *
-                 * @since 1.0.0
-                 * @param string $output The external AI sharing HTML output.
-                 * @param int    $post_id The post ID.
-                 * @param array  $enabled_providers The enabled providers array.
-                 */
-                return apply_filters('postpilot_external_ai_sharing_output', $output, $post_id, $enabled_providers);
+        /**
+         * Filter the external AI sharing output
+         *
+         * @since 1.0.0
+         * @param string $output The external AI sharing HTML output.
+         * @param int    $post_id The post ID.
+         * @param array  $enabled_providers The enabled providers array.
+         */
+        return apply_filters('postpilot_external_ai_sharing_output', $output, $post_id, $enabled_providers);
     }
 
     /**

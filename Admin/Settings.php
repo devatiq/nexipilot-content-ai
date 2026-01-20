@@ -1176,11 +1176,14 @@ class Settings
                                             </label>
                                             <select name="postpilot_external_ai_position" id="postpilot_external_ai_position"
                                                 class="postpilot-select-small">
-                                                <option value="before_content" <?php selected(get_option('postpilot_external_ai_position', 'after_content'), 'before_content'); ?>>
+                                                <option value="before_content" <?php selected(get_option('postpilot_external_ai_position', 'before_content'), 'before_content'); ?>>
                                                     <?php esc_html_e('Before Content', 'postpilot'); ?>
                                                 </option>
-                                                <option value="after_content" <?php selected(get_option('postpilot_external_ai_position', 'after_content'), 'after_content'); ?>>
+                                                <option value="after_content" <?php selected(get_option('postpilot_external_ai_position', 'before_content'), 'after_content'); ?>>
                                                     <?php esc_html_e('After Content', 'postpilot'); ?>
+                                                        </option>
+                                                        <option value="both" <?php selected(get_option('postpilot_external_ai_position', 'before_content'), 'both'); ?>>
+                                                            <?php esc_html_e('Both', 'postpilot'); ?>
                                                 </option>
                                             </select>
                                         </div>
