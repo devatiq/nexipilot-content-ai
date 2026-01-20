@@ -149,13 +149,21 @@
             } else {
                 $('#links-options').removeClass('active');
             }
+
+            // External AI Sharing options
+            const externalAiEnabled = $('input[name="postpilot_enable_external_ai_sharing"]').is(':checked');
+            if (externalAiEnabled) {
+                $('#external-ai-sharing-options').addClass('active');
+            } else {
+                $('#external-ai-sharing-options').removeClass('active');
+            }
         }
 
         // Initialize on page load
         toggleFeatureOptions();
 
         // Update on toggle change
-        $('input[name="postpilot_enable_faq"], input[name="postpilot_enable_summary"], input[name="postpilot_enable_internal_links"]').on('change', function () {
+        $('input[name="postpilot_enable_faq"], input[name="postpilot_enable_summary"], input[name="postpilot_enable_internal_links"], input[name="postpilot_enable_external_ai_sharing"]').on('change', function () {
             toggleFeatureOptions();
         });
 
