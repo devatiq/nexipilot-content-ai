@@ -12,7 +12,8 @@ PostPilot AI enhances your WordPress content with AI-generated features:
 
 ## Features
 
-- 🤖 Multiple AI provider support (OpenAI, Claude)
+- 🤖 Multiple AI provider support (OpenAI, Claude, **Gemini**, **Grok**)
+- 🔗 **External AI Sharing**: Share content directly with Microsoft Copilot and Google AI Overview
 - 🎨 Clean, modern UI for generated content
 - ⚡ Built-in caching for optimal performance
 - 🎯 Hook-based architecture for maximum extensibility
@@ -24,7 +25,7 @@ PostPilot AI enhances your WordPress content with AI-generated features:
 
 - WordPress 5.8 or higher
 - PHP 7.4 or higher
-- An API key from OpenAI or Anthropic (Claude)
+- An API key from one of the supported providers (OpenAI, Anthropic, Google, xAI)
 
 ## Installation
 
@@ -38,16 +39,19 @@ PostPilot AI enhances your WordPress content with AI-generated features:
 
 ### AI Provider Setup
 
-1. Choose your AI provider (OpenAI or Claude)
+1. Choose your AI provider (OpenAI, Claude, Gemini, or Grok)
 2. Enter your API key:
    - **OpenAI**: Get your key from [OpenAI Platform](https://platform.openai.com/api-keys)
    - **Claude**: Get your key from [Anthropic Console](https://console.anthropic.com/)
+   - **Gemini**: Get your key from [Google AI Studio](https://aistudio.google.com/)
+   - **Grok**: Get your key from [xAI Console](https://console.x.ai/)
 
 ### Feature Settings
 
 - **FAQ Generator**: Enable/disable and choose position (before or after content)
 - **Content Summary**: Enable/disable and choose position (before or after content)
 - **Smart Internal Links**: Enable/disable automatic internal linking
+- **External AI Sharing**: Enable buttons to let users summarize your content with Copilot or Google AI Overview
 
 ## Usage
 
@@ -131,9 +135,11 @@ This plugin is licensed under the GPL-2.0-or-later license.
 
 ### 1.0.0
 - Initial release
-- OpenAI and Claude provider support
+- Multiple AI provider support: OpenAI, Claude, Gemini, Grok
+- External AI Sharing: Microsoft Copilot, Google AI Overview
 - FAQ Generator feature
 - Content Summary feature
 - Smart Internal Links feature
 - Caching system
-- WordPress Settings API integration
+- Modern, responsive admin UI
+- Robust error handling and API key validation
