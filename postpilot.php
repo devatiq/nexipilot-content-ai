@@ -101,7 +101,6 @@ final class PostPilot
     private function init_hooks()
     {
         add_action('plugins_loaded', [$this, 'plugin_loaded']);
-        add_action('init', [$this, 'register_textdomain']);
         register_activation_hook(POSTPILOT_FILE, [$this, 'activate']);
         register_deactivation_hook(POSTPILOT_FILE, [$this, 'deactivate']);
     }
@@ -120,20 +119,6 @@ final class PostPilot
         }
     }
 
-    /**
-     * Register text domain for translations
-     *
-     * @since 1.0.0
-     * @return void
-     */
-    public function register_textdomain()
-    {
-        load_plugin_textdomain(
-            'postpilot',
-            false,
-            dirname(plugin_basename(__FILE__)) . '/languages'
-        );
-    }
 
     /**
      * Plugin activation callback
