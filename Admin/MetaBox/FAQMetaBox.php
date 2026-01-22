@@ -186,8 +186,8 @@ class FAQMetaBox
 
         <!-- Hidden template for new FAQ items -->
         <script type="text/template" id="postpilot-faq-item-template">
-                    <?php $this->render_faq_item('{{INDEX}}', array('question' => '', 'answer' => '')); ?>
-                </script>
+                                                                                    <?php $this->render_faq_item('{{INDEX}}', array('question' => '', 'answer' => '')); ?>
+                                                                                </script>
         <?php
     }
 
@@ -207,7 +207,7 @@ class FAQMetaBox
         <div class="postpilot-faq-item" data-index="<?php echo esc_attr($index); ?>">
             <div class="postpilot-faq-item-header">
                 <span
-                    class="postpilot-faq-item-number"><?php echo esc_html(sprintf(__('FAQ #%s', 'postpilot'), is_numeric($index) ? ($index + 1) : '{{NUMBER}}')); ?></span>
+                    class="postpilot-faq-item-number"><?php echo esc_html(sprintf(esc_html__('FAQ #%s', 'postpilot'), is_numeric($index) ? ($index + 1) : '{{NUMBER}}')); ?></span>
                 <button type="button" class="button-link postpilot-remove-faq-item"
                     title="<?php esc_attr_e('Remove this FAQ', 'postpilot'); ?>">
                     <span class="dashicons dashicons-trash"></span>
@@ -326,7 +326,7 @@ class FAQMetaBox
 
         if (!$post_id || !current_user_can('edit_post', $post_id)) {
             wp_send_json_error(array(
-                'message' => __('Permission denied.', 'postpilot'),
+                'message' => esc_html__('Permission denied.', 'postpilot'),
             ));
         }
 
@@ -339,7 +339,7 @@ class FAQMetaBox
             // Determine which limit was hit
             if ($post_remaining === 0) {
                 $message = sprintf(
-                    __('You have generated FAQ for this post recently. Please wait %s before trying again.', 'postpilot'),
+                    esc_html__('You have generated FAQ for this post recently. Please wait %s before trying again.', 'postpilot'),
                     human_time_diff(time(), time() + $wait_time)
                 );
             } else {
@@ -362,7 +362,7 @@ class FAQMetaBox
 
         if (!$post) {
             wp_send_json_error(array(
-                'message' => __('Post not found.', 'postpilot'),
+                'message' => esc_html__('Post not found.', 'postpilot'),
             ));
         }
 
@@ -403,7 +403,7 @@ class FAQMetaBox
         $html = ob_get_clean();
 
         wp_send_json_success(array(
-            'message' => __('FAQ generated successfully!', 'postpilot'),
+            'message' => esc_html__('FAQ generated successfully!', 'postpilot'),
             'html' => $html,
             'count' => count($faq_data),
         ));
@@ -425,7 +425,7 @@ class FAQMetaBox
 
         if (!$post_id || !current_user_can('edit_post', $post_id)) {
             wp_send_json_error(array(
-                'message' => __('Permission denied.', 'postpilot'),
+                'message' => esc_html__('Permission denied.', 'postpilot'),
             ));
         }
 
@@ -438,12 +438,12 @@ class FAQMetaBox
             // Determine which limit was hit
             if ($post_remaining === 0) {
                 $message = sprintf(
-                    __('You have generated FAQ for this post recently. Please wait %s before trying again.', 'postpilot'),
+                    esc_html__('You have generated FAQ for this post recently. Please wait %s before trying again.', 'postpilot'),
                     human_time_diff(time(), time() + $wait_time)
                 );
             } else {
                 $message = sprintf(
-                    __('You have reached your daily FAQ generation limit (%d per day). Please try again tomorrow.', 'postpilot'),
+                    esc_html__('You have reached your daily FAQ generation limit (%d per day). Please try again tomorrow.', 'postpilot'),
                     \PostPilot\Helpers\RateLimiter::get_daily_limit()
                 );
             }
@@ -474,7 +474,7 @@ class FAQMetaBox
         $html = ob_get_clean();
 
         wp_send_json_success(array(
-            'message' => __('Demo FAQ added successfully!', 'postpilot'),
+            'message' => esc_html__('Demo FAQ added successfully!', 'postpilot'),
             'html' => $html,
             'count' => count($demo_faq),
         ));
@@ -495,7 +495,7 @@ class FAQMetaBox
             // Check if user has permission
             if (!current_user_can('edit_posts')) {
                 wp_send_json_error(array(
-                    'message' => __('Permission denied.', 'postpilot'),
+                    'message' => esc_html__('Permission denied.', 'postpilot'),
                 ));
                 return;
             }
@@ -504,7 +504,7 @@ class FAQMetaBox
             if (!$this->ai_manager->is_provider_available()) {
                 wp_send_json_success(array(
                     'available' => false,
-                    'message' => __('AI service is not configured. Please add your API key in PostPilot settings.', 'postpilot'),
+                    'message' => esc_html__('AI service is not configured. Please add your API key in PostPilot settings.', 'postpilot'),
                 ));
                 return;
             }
@@ -528,7 +528,7 @@ class FAQMetaBox
             // API is working fine
             wp_send_json_success(array(
                 'available' => true,
-                'message' => __('AI service is available.', 'postpilot'),
+                'message' => esc_html__('AI service is available.', 'postpilot'),
             ));
 
         } catch (\Exception $e) {
