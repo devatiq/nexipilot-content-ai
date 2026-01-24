@@ -552,10 +552,21 @@ class Settings
                             $status_text = __('Not Connected', 'postpilot');
                             $status_class = 'postpilot-status-disconnected';
                         } elseif ($configured_count === $total_providers) {
-                            $status_text = sprintf(__('%d of %d AI Connected', 'postpilot'), $configured_count, $total_providers);
+                            
+							$status_text = sprintf(
+								/* translators: 1: number of connected AI providers, 2: total available AI providers */
+								esc_html__('%1$d of %2$d AI Connected', 'postpilot'),
+								$configured_count,
+								$total_providers
+							);
                             $status_class = 'postpilot-status-connected';
                         } else {
-                            $status_text = sprintf(__('%d of %d AI Connected', 'postpilot'), $configured_count, $total_providers);
+                              $status_text = sprintf(
+								/* translators: 1: number of connected AI providers, 2: total available AI providers */
+								esc_html__('%1$d of %2$d AI Connected', 'postpilot'),
+								$configured_count,
+								$total_providers
+							);
                             $status_class = 'postpilot-status-partial';
                         }
                         ?>
@@ -1274,7 +1285,7 @@ class Settings
                                                                 <?php echo $provider['logo']; ?>
                                                             </div>
                                                             <span
-                                                                class="postpilot-checkbox-card__label"><?php esc_html_e($provider['name'], 'postpilot'); ?></span>
+                                                                class="postpilot-checkbox-card__label"><?php echo esc_html($provider['name']); ?></span>
                                                             <div class="postpilot-checkbox-card__status">
                                                                 <svg class="postpilot-checkmark" width="16" height="16"
                                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
