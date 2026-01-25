@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: PostPilot AI
+ * Plugin Name: PostPilot
  * Plugin URI: https://github.com/devatiq/postpilot
  * Description: AI-powered WordPress plugin that generates FAQs, content summaries, and smart internal links for your posts.
  * Version: 1.0.0

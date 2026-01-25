@@ -9,15 +9,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-16T20:23:31+00:00\n"
+"POT-Creation-Date: 2026-01-25T14:31:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: postpilot\n"
 
 #. Plugin Name of the plugin
 #: postpilot.php
-#: Admin/Settings.php:50
-#: Admin/Settings.php:51
+#: Admin/Settings.php:56
+#: Admin/Settings.php:57
 msgid "PostPilot AI"
 msgstr ""
 
@@ -69,64 +69,64 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-#: Admin/Assets/Assets.php:108
+#: Admin/Assets/Assets.php:109
 msgid "Are you sure you want to remove this FAQ item?"
 msgstr ""
 
-#: Admin/Assets/Assets.php:109
+#: Admin/Assets/Assets.php:110
 msgid "Yes, remove it"
 msgstr ""
 
-#: Admin/Assets/Assets.php:110
+#: Admin/Assets/Assets.php:111
 msgid "Cancel"
 msgstr ""
 
-#: Admin/Assets/Assets.php:111
+#: Admin/Assets/Assets.php:112
 msgid "Generating FAQ..."
 msgstr ""
 
-#: Admin/Assets/Assets.php:112
+#: Admin/Assets/Assets.php:113
 msgid "Please wait while we generate FAQs from your content."
 msgstr ""
 
-#: Admin/Assets/Assets.php:113
+#: Admin/Assets/Assets.php:114
 msgid "Success!"
 msgstr ""
 
-#: Admin/Assets/Assets.php:114
-#: Admin/Assets/Assets.php:121
+#: Admin/Assets/Assets.php:115
+#: Admin/Assets/Assets.php:122
 msgid "Error"
 msgstr ""
 
-#: Admin/Assets/Assets.php:115
+#: Admin/Assets/Assets.php:116
 msgid "API Quota Exceeded"
 msgstr ""
 
-#: Admin/Assets/Assets.php:116
+#: Admin/Assets/Assets.php:117
 msgid "Your OpenAI quota has been exceeded. Would you like to use demo FAQ content instead?"
 msgstr ""
 
-#: Admin/Assets/Assets.php:117
+#: Admin/Assets/Assets.php:118
 msgid "Yes, use demo FAQ"
 msgstr ""
 
-#: Admin/Assets/Assets.php:118
+#: Admin/Assets/Assets.php:119
 msgid "Demo FAQ Added"
 msgstr ""
 
-#: Admin/Assets/Assets.php:119
+#: Admin/Assets/Assets.php:120
 msgid "Demo FAQ content has been added. You can edit it manually or add credits to your OpenAI account to generate real content."
 msgstr ""
 
-#: Admin/Assets/Assets.php:120
+#: Admin/Assets/Assets.php:121
 msgid "Rate Limit Reached"
 msgstr ""
 
-#: Admin/Assets/Assets.php:122
+#: Admin/Assets/Assets.php:123
 msgid "OK"
 msgstr ""
 
-#: Admin/Assets/Assets.php:123
+#: Admin/Assets/Assets.php:124
 msgid "An error occurred. Please try again."
 msgstr ""
 
@@ -134,437 +134,786 @@ msgstr ""
 msgid "PostPilot AI - FAQ Generator"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:113
+#: Admin/MetaBox/FAQMetaBox.php:110
 msgid "Display FAQ on this post?"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:116
+#: Admin/MetaBox/FAQMetaBox.php:113
 msgid "Check this to show AI-generated FAQs on the frontend."
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:123
+#: Admin/MetaBox/FAQMetaBox.php:130
+msgid "FAQ Display Style:"
+msgstr ""
+
+#. translators: %s: current global default layout
+#: Admin/MetaBox/FAQMetaBox.php:138
+#, php-format
+msgid "Use Default (%s)"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:144
+#: Admin/Settings.php:1055
+#: Admin/Settings.php:1611
+msgid "Accordion"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:147
+#: Admin/Settings.php:1058
+#: Admin/Settings.php:1614
+msgid "Static"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:151
+msgid "Choose how FAQs should be displayed on the frontend."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:158
 msgid "FAQ Items"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:126
+#: Admin/MetaBox/FAQMetaBox.php:160
 msgid "+ Add FAQ Item"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:137
+#: Admin/MetaBox/FAQMetaBox.php:171
 msgid "No FAQs yet. Click \"Generate FAQ\" to create them automatically."
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:148
+#: Admin/MetaBox/FAQMetaBox.php:181
 msgid "Regenerate FAQ"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:148
+#: Admin/MetaBox/FAQMetaBox.php:181
 msgid "Generate FAQ"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:152
+#: Admin/MetaBox/FAQMetaBox.php:185
 msgid "Generate FAQs using AI based on your post content."
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:179
+#. translators: %1$s: FAQ item number
+#: Admin/MetaBox/FAQMetaBox.php:216
 #, php-format
-msgid "FAQ #%s"
+msgid "FAQ #%1$s"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:180
+#: Admin/MetaBox/FAQMetaBox.php:226
 msgid "Remove this FAQ"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:186
+#: Admin/MetaBox/FAQMetaBox.php:232
 msgid "Question:"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:191
+#: Admin/MetaBox/FAQMetaBox.php:235
 msgid "Enter question..."
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:194
+#: Admin/MetaBox/FAQMetaBox.php:238
 msgid "Answer:"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:198
+#: Admin/MetaBox/FAQMetaBox.php:240
 msgid "Enter answer..."
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:291
-#: Admin/MetaBox/FAQMetaBox.php:376
-#: Admin/MetaBox/FAQMetaBox.php:446
+#: Admin/MetaBox/FAQMetaBox.php:358
+#: Admin/MetaBox/FAQMetaBox.php:467
+#: Admin/MetaBox/FAQMetaBox.php:548
 msgid "Permission denied."
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:304
-#: Admin/MetaBox/FAQMetaBox.php:389
+#. translators: %1$s: remaining wait time before FAQ generation is allowed again
+#: Admin/MetaBox/FAQMetaBox.php:372
+#: Admin/MetaBox/FAQMetaBox.php:482
 #, php-format
-msgid "You have generated FAQ for this post recently. Please wait %s before trying again."
+msgid "You have generated FAQ for this post recently. Please wait %1$s before trying again."
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:309
-#: Admin/MetaBox/FAQMetaBox.php:394
+#. translators: %1$d: maximum number of FAQ generations allowed per day
+#: Admin/MetaBox/FAQMetaBox.php:381
+#: Admin/MetaBox/FAQMetaBox.php:493
 #, php-format
-msgid "You have reached your daily FAQ generation limit (%d per day). Please try again tomorrow."
+msgid "You have reached your daily FAQ generation limit (%1$d per day). Please try again tomorrow."
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:327
+#: Admin/MetaBox/FAQMetaBox.php:402
 msgid "Post not found."
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:354
+#: Admin/MetaBox/FAQMetaBox.php:445
 msgid "FAQ generated successfully!"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:425
+#: Admin/MetaBox/FAQMetaBox.php:527
 msgid "Demo FAQ added successfully!"
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:455
+#: Admin/MetaBox/FAQMetaBox.php:557
 msgid "AI service is not configured. Please add your API key in PostPilot settings."
 msgstr ""
 
-#: Admin/MetaBox/FAQMetaBox.php:479
+#: Admin/MetaBox/FAQMetaBox.php:581
 msgid "AI service is available."
 msgstr ""
 
-#: Admin/Settings.php:163
-#: Admin/Settings.php:358
+#: Admin/Settings.php:362
 msgid "AI Provider Configuration"
 msgstr ""
 
-#: Admin/Settings.php:170
-#: Admin/Settings.php:478
+#: Admin/Settings.php:369
+#: Admin/Settings.php:974
 msgid "Feature Settings"
 msgstr ""
 
-#: Admin/Settings.php:178
-#: Admin/Settings.php:365
+#: Admin/Settings.php:377
+#: Admin/Settings.php:1005
+#: Admin/Settings.php:1092
+#: Admin/Settings.php:1164
 msgid "AI Provider"
 msgstr ""
 
-#: Admin/Settings.php:186
-#: Admin/Settings.php:382
+#: Admin/Settings.php:385
 msgid "OpenAI API Key"
 msgstr ""
 
-#: Admin/Settings.php:194
-#: Admin/Settings.php:420
+#: Admin/Settings.php:393
 msgid "Claude API Key"
 msgstr ""
 
-#: Admin/Settings.php:203
+#: Admin/Settings.php:401
+msgid "Gemini API Key"
+msgstr ""
+
+#: Admin/Settings.php:410
+msgid "OpenAI Model"
+msgstr ""
+
+#: Admin/Settings.php:418
+msgid "Claude Model"
+msgstr ""
+
+#: Admin/Settings.php:426
+msgid "Gemini Model"
+msgstr ""
+
+#: Admin/Settings.php:435
 msgid "Enable FAQ Generator"
 msgstr ""
 
-#: Admin/Settings.php:211
+#: Admin/Settings.php:443
 msgid "FAQ Position"
 msgstr ""
 
-#: Admin/Settings.php:219
+#: Admin/Settings.php:451
+msgid "Default FAQ Display Style"
+msgstr ""
+
+#: Admin/Settings.php:459
 msgid "Enable Content Summary"
 msgstr ""
 
-#: Admin/Settings.php:227
+#: Admin/Settings.php:467
 msgid "Summary Position"
 msgstr ""
 
-#: Admin/Settings.php:235
+#: Admin/Settings.php:475
 msgid "Enable Smart Internal Links"
 msgstr ""
 
-#: Admin/Settings.php:272
+#: Admin/Settings.php:521
 msgid "AI-Powered Content Enhancement for WordPress"
 msgstr ""
 
-#: Admin/Settings.php:280
-msgid "API Not Connected"
+#: Admin/Settings.php:548
+msgid "Connected: "
 msgstr ""
 
-#: Admin/Settings.php:290
-msgid "API Connected"
+#: Admin/Settings.php:551
+msgid "Not configured: "
 msgstr ""
 
-#: Admin/Settings.php:298
-msgid "Connected - Quota Exceeded"
+#: Admin/Settings.php:557
+msgid "Not Connected"
 msgstr ""
 
-#: Admin/Settings.php:301
-msgid "Invalid API Key"
+#. translators: 1: number of connected AI providers, 2: total available AI providers
+#: Admin/Settings.php:563
+#: Admin/Settings.php:571
+#, php-format
+msgid "%1$d of %2$d AI Connected"
 msgstr ""
 
-#: Admin/Settings.php:303
-msgid "Connection Failed"
-msgstr ""
-
-#: Admin/Settings.php:324
-msgid "General"
-msgstr ""
-
-#: Admin/Settings.php:331
+#: Admin/Settings.php:594
 msgid "Features"
 msgstr ""
 
-#: Admin/Settings.php:337
+#: Admin/Settings.php:601
+msgid "AI Providers"
+msgstr ""
+
+#: Admin/Settings.php:608
 msgid "Troubleshooting"
 msgstr ""
 
-#: Admin/Settings.php:359
-msgid "Configure your AI provider and API credentials"
-msgstr ""
-
-#: Admin/Settings.php:376
-msgid "Choose your preferred AI provider"
-msgstr ""
-
-#: Admin/Settings.php:388
-#: Admin/Settings.php:426
-msgid "Saved"
-msgstr ""
-
-#: Admin/Settings.php:413
-#: Admin/Settings.php:451
-msgid "Get your API key from"
-msgstr ""
-
-#: Admin/Settings.php:461
-#: Admin/Settings.php:599
-#: Admin/Settings.php:668
-msgid "Save Settings"
-msgstr ""
-
-#: Admin/Settings.php:479
-msgid "Enable or disable AI-powered features"
-msgstr ""
-
-#: Admin/Settings.php:493
-msgid "FAQ Generator"
-msgstr ""
-
-#: Admin/Settings.php:496
-msgid "Automatically generate frequently asked questions based on your content"
-msgstr ""
-
-#: Admin/Settings.php:512
-#: Admin/Settings.php:553
-msgid "Display Position"
-msgstr ""
-
-#: Admin/Settings.php:516
-#: Admin/Settings.php:560
-#: Admin/Settings.php:823
-#: Admin/Settings.php:864
-msgid "After Content"
-msgstr ""
-
-#: Admin/Settings.php:519
-#: Admin/Settings.php:557
-#: Admin/Settings.php:820
-#: Admin/Settings.php:861
-msgid "Before Content"
-msgstr ""
-
-#: Admin/Settings.php:534
-msgid "Content Summary"
-msgstr ""
-
-#: Admin/Settings.php:537
-msgid "Generate concise summaries of your posts for better engagement"
-msgstr ""
-
-#: Admin/Settings.php:576
-msgid "Smart Internal Links"
-msgstr ""
-
-#: Admin/Settings.php:579
-msgid "Automatically suggest relevant internal links to improve SEO"
-msgstr ""
-
-#: Admin/Settings.php:615
-msgid "Debug Logging"
-msgstr ""
-
-#: Admin/Settings.php:616
-msgid "Enable debug logging for troubleshooting API issues"
-msgstr ""
-
-#: Admin/Settings.php:626
-msgid "Enable Debug Logging"
-msgstr ""
-
-#: Admin/Settings.php:639
-msgid "Log all API requests and responses to debug.log"
-msgstr ""
-
-#: Admin/Settings.php:643
-msgid "When enabled, all API requests and responses will be logged to debug.log. This is useful for troubleshooting API connection issues. Keep this disabled in production environments to avoid filling up your debug log."
-msgstr ""
-
-#: Admin/Settings.php:652
-msgid "Debug Log Location:"
-msgstr ""
-
-#: Admin/Settings.php:657
-msgid "Make sure WP_DEBUG and WP_DEBUG_LOG are enabled in wp-config.php for debug logging to work."
-msgstr ""
-
-#: Admin/Settings.php:686
-msgid "Configure your AI provider and API credentials."
-msgstr ""
-
-#: Admin/Settings.php:697
-msgid "Enable or disable AI-powered features and configure their display."
-msgstr ""
-
-#: Admin/Settings.php:712
+#: Admin/Settings.php:628
+#: Admin/Settings.php:1453
 msgid "OpenAI (ChatGPT)"
 msgstr ""
 
-#: Admin/Settings.php:715
+#: Admin/Settings.php:629
+msgid "Configure OpenAI API credentials and model selection"
+msgstr ""
+
+#: Admin/Settings.php:644
+#: Admin/Settings.php:728
+#: Admin/Settings.php:812
+#: Admin/Settings.php:899
+msgid "API Key"
+msgstr ""
+
+#: Admin/Settings.php:651
+#: Admin/Settings.php:735
+#: Admin/Settings.php:819
+#: Admin/Settings.php:906
+msgid "Saved"
+msgstr ""
+
+#: Admin/Settings.php:672
+#: Admin/Settings.php:756
+#: Admin/Settings.php:840
+#: Admin/Settings.php:927
+msgid "Get your API key from"
+msgstr ""
+
+#: Admin/Settings.php:681
+#: Admin/Settings.php:765
+#: Admin/Settings.php:849
+#: Admin/Settings.php:935
+msgid "Model"
+msgstr ""
+
+#: Admin/Settings.php:696
+msgid "This model will be used for ALL features that use OpenAI"
+msgstr ""
+
+#: Admin/Settings.php:712
+msgid "Anthropic Claude"
+msgstr ""
+
+#: Admin/Settings.php:713
+msgid "Configure Claude API credentials and model selection"
+msgstr ""
+
+#: Admin/Settings.php:780
+msgid "This model will be used for ALL features that use Claude"
+msgstr ""
+
+#: Admin/Settings.php:796
+msgid "Google Gemini"
+msgstr ""
+
+#: Admin/Settings.php:797
+msgid "Configure Gemini API credentials and model selection"
+msgstr ""
+
+#: Admin/Settings.php:867
+msgid "This model will be used for ALL features that use Gemini"
+msgstr ""
+
+#: Admin/Settings.php:883
+msgid "xAI Grok"
+msgstr ""
+
+#: Admin/Settings.php:884
+msgid "Configure Grok API credentials and model selection"
+msgstr ""
+
+#: Admin/Settings.php:947
+msgid "This model will be used for ALL features that use Grok"
+msgstr ""
+
+#: Admin/Settings.php:955
+#: Admin/Settings.php:1341
+#: Admin/Settings.php:1409
+msgid "Save Settings"
+msgstr ""
+
+#: Admin/Settings.php:975
+msgid "Enable or disable AI-powered features"
+msgstr ""
+
+#: Admin/Settings.php:990
+msgid "FAQ Generator"
+msgstr ""
+
+#: Admin/Settings.php:993
+msgid "Automatically generate frequently asked questions based on your content"
+msgstr ""
+
+#: Admin/Settings.php:1021
+#: Admin/Settings.php:1108
+#: Admin/Settings.php:1180
+msgid "Model in Use"
+msgstr ""
+
+#: Admin/Settings.php:1027
+#: Admin/Settings.php:1114
+#: Admin/Settings.php:1186
+msgid "Not configured"
+msgstr ""
+
+#: Admin/Settings.php:1031
+#: Admin/Settings.php:1118
+#: Admin/Settings.php:1190
+msgid "Model is configured in the AI Providers tab"
+msgstr ""
+
+#: Admin/Settings.php:1036
+#: Admin/Settings.php:1123
+#: Admin/Settings.php:1221
+msgid "Display Position"
+msgstr ""
+
+#: Admin/Settings.php:1041
+#: Admin/Settings.php:1131
+#: Admin/Settings.php:1229
+#: Admin/Settings.php:1555
+#: Admin/Settings.php:1593
+msgid "After Content"
+msgstr ""
+
+#: Admin/Settings.php:1044
+#: Admin/Settings.php:1128
+#: Admin/Settings.php:1226
+#: Admin/Settings.php:1552
+#: Admin/Settings.php:1590
+msgid "Before Content"
+msgstr ""
+
+#: Admin/Settings.php:1050
+msgid "Default Display Style"
+msgstr ""
+
+#: Admin/Settings.php:1062
+msgid "Can be overridden per post"
+msgstr ""
+
+#: Admin/Settings.php:1077
+msgid "Content Summary"
+msgstr ""
+
+#: Admin/Settings.php:1080
+msgid "Generate concise summaries of your posts for better engagement"
+msgstr ""
+
+#: Admin/Settings.php:1149
+msgid "Smart Internal Links"
+msgstr ""
+
+#: Admin/Settings.php:1152
+msgid "Automatically suggest relevant internal links to improve SEO"
+msgstr ""
+
+#: Admin/Settings.php:1207
+msgid "External AI Sharing"
+msgstr ""
+
+#: Admin/Settings.php:1210
+msgid "Allow readers to summarize posts with external AI tools"
+msgstr ""
+
+#: Admin/Settings.php:1232
+msgid "Both"
+msgstr ""
+
+#: Admin/Settings.php:1238
+msgid "Heading Text"
+msgstr ""
+
+#: Admin/Settings.php:1243
+msgid "Summarize this post with:"
+msgstr ""
+
+#: Admin/Settings.php:1245
+msgid "Customize the heading text displayed above the AI sharing buttons"
+msgstr ""
+
+#: Admin/Settings.php:1250
+msgid "Enabled AI Providers"
+msgstr ""
+
+#: Admin/Settings.php:1330
+msgid "Select which external AI tools to show to your readers"
+msgstr ""
+
+#: Admin/Settings.php:1358
+msgid "Debug Logging"
+msgstr ""
+
+#: Admin/Settings.php:1359
+msgid "Enable debug logging for troubleshooting API issues"
+msgstr ""
+
+#: Admin/Settings.php:1371
+msgid "Enable Debug Logging"
+msgstr ""
+
+#: Admin/Settings.php:1379
+msgid "Log all API requests and responses to debug.log"
+msgstr ""
+
+#: Admin/Settings.php:1383
+msgid "When enabled, all API requests and responses will be logged to debug.log. This is useful for troubleshooting API connection issues. Keep this disabled in production environments to avoid filling up your debug log."
+msgstr ""
+
+#: Admin/Settings.php:1393
+msgid "Debug Log Location:"
+msgstr ""
+
+#: Admin/Settings.php:1398
+msgid "Make sure WP_DEBUG and WP_DEBUG_LOG are enabled in wp-config.php for debug logging to work."
+msgstr ""
+
+#: Admin/Settings.php:1427
+msgid "Configure your AI provider and API credentials."
+msgstr ""
+
+#: Admin/Settings.php:1438
+msgid "Enable or disable AI-powered features and configure their display."
+msgstr ""
+
+#: Admin/Settings.php:1456
 msgid "Claude (Anthropic)"
 msgstr ""
 
-#: Admin/Settings.php:719
+#: Admin/Settings.php:1460
 msgid "Select your preferred AI provider."
 msgstr ""
 
-#: Admin/Settings.php:740
-#: Admin/Settings.php:772
+#: Admin/Settings.php:1478
+#: Admin/Settings.php:1507
+#: Admin/Settings.php:1653
 msgid "API key is saved"
 msgstr ""
 
-#: Admin/Settings.php:740
+#: Admin/Settings.php:1478
 msgid "Enter your OpenAI API key"
 msgstr ""
 
 #. translators: %s: OpenAI API URL
 #. translators: %s: Anthropic API URL
-#: Admin/Settings.php:748
-#: Admin/Settings.php:780
+#. translators: %s: Google AI Studio URL
+#: Admin/Settings.php:1486
+#: Admin/Settings.php:1515
+#: Admin/Settings.php:1661
 #, php-format
 msgid "Get your API key from %s"
 msgstr ""
 
-#: Admin/Settings.php:772
+#: Admin/Settings.php:1507
 msgid "Enter your Claude API key"
 msgstr ""
 
-#: Admin/Settings.php:803
+#: Admin/Settings.php:1535
 msgid "Enable AI-generated FAQ section"
 msgstr ""
 
-#: Admin/Settings.php:844
+#: Admin/Settings.php:1573
 msgid "Enable AI-generated content summary"
 msgstr ""
 
-#: Admin/Settings.php:885
+#: Admin/Settings.php:1618
+msgid "Choose the default layout for FAQ display. This can be overridden per post."
+msgstr ""
+
+#: Admin/Settings.php:1635
 msgid "Enable AI-powered smart internal linking"
 msgstr ""
 
-#: AI/Claude.php:97
-#: AI/OpenAI.php:89
+#: Admin/Settings.php:1653
+msgid "Enter your Gemini API key"
+msgstr ""
+
+#: Admin/Settings.php:1681
+msgid "GPT-4o (Most Capable)"
+msgstr ""
+
+#: Admin/Settings.php:1684
+msgid "GPT-4o Mini (Balanced)"
+msgstr ""
+
+#: Admin/Settings.php:1687
+msgid "GPT-4 Turbo"
+msgstr ""
+
+#: Admin/Settings.php:1690
+msgid "GPT-3.5 Turbo (Fastest)"
+msgstr ""
+
+#: Admin/Settings.php:1694
+msgid "Select the OpenAI model to use for content generation."
+msgstr ""
+
+#: Admin/Settings.php:1711
+msgid "Claude 3.5 Sonnet (Most Capable)"
+msgstr ""
+
+#: Admin/Settings.php:1714
+msgid "Claude 3 Opus"
+msgstr ""
+
+#: Admin/Settings.php:1717
+msgid "Claude 3 Haiku (Fastest)"
+msgstr ""
+
+#: Admin/Settings.php:1721
+msgid "Select the Claude model to use for content generation."
+msgstr ""
+
+#: Admin/Settings.php:1738
+msgid "Gemini 1.5 Pro (Most Capable)"
+msgstr ""
+
+#: Admin/Settings.php:1741
+msgid "Gemini 1.5 Flash (Balanced)"
+msgstr ""
+
+#: Admin/Settings.php:1744
+msgid "Gemini 1.0 Pro"
+msgstr ""
+
+#: Admin/Settings.php:1748
+msgid "Select the Gemini model to use for content generation."
+msgstr ""
+
+#: Admin/Settings.php:1795
+msgid "Missing Key"
+msgstr ""
+
+#: Admin/Settings.php:1797
+msgid "No API key configured. Add one if you plan to use this provider."
+msgstr ""
+
+#: Admin/Settings.php:1809
+msgid "Key Saved"
+msgstr ""
+
+#: Admin/Settings.php:1811
+msgid "API key saved but not verified. Save settings to validate."
+msgstr ""
+
+#: Admin/Settings.php:1820
+msgid "Invalid Key"
+msgstr ""
+
+#: Admin/Settings.php:1830
+msgid "Connected"
+msgstr ""
+
+#: Admin/Settings.php:1832
+msgid "API key verified and working"
+msgstr ""
+
+#: AI/Claude.php:99
+#: AI/Gemini.php:119
+#: AI/Gemini.php:130
+#: AI/OpenAI.php:91
 msgid "What is this content about?"
 msgstr ""
 
-#: AI/Claude.php:180
+#: AI/Claude.php:182
 msgid "Invalid Claude API key."
 msgstr ""
 
-#: AI/Claude.php:202
+#: AI/Claude.php:204
 msgid "Claude API key is not configured."
 msgstr ""
 
 #. translators: %d: HTTP response code
-#: AI/Claude.php:246
+#: AI/Claude.php:248
 #, php-format
 msgid "Claude API error (Code: %d)"
 msgstr ""
 
-#: AI/Claude.php:262
+#: AI/Claude.php:264
 msgid "Invalid response from Claude API."
 msgstr ""
 
-#: AI/Manager.php:155
+#: AI/Gemini.php:217
+msgid "Invalid Gemini API key."
+msgstr ""
+
+#: AI/Gemini.php:239
+msgid "Gemini API key is not configured."
+msgstr ""
+
+#. translators: %1$s: Gemini API error message
+#: AI/Gemini.php:295
+#, php-format
+msgid "Gemini API error: Invalid request format. %1$s"
+msgstr ""
+
+#: AI/Gemini.php:302
+msgid "Invalid Gemini API key. Please check your API key in PostPilot settings."
+msgstr ""
+
+#. translators: %1$s: retry delay (e.g., "30s", "2 minutes")
+#: AI/Gemini.php:313
+#, php-format
+msgid " Please retry in %1$s."
+msgstr ""
+
+#. translators: %1$s: retry information message (e.g., " Please retry in 2 minutes.")
+#: AI/Gemini.php:327
+#, php-format
+msgid "Gemini API quota exceeded. You have reached your daily request limit (20 requests/day on free tier).%1$s Upgrade your plan at https://ai.google.dev/pricing or wait for quota reset."
+msgstr ""
+
+#. translators: %1$s: retry information message (e.g., " Please retry in 30 seconds.")
+#: AI/Gemini.php:340
+#, php-format
+msgid "Gemini API rate limit exceeded.%1$s"
+msgstr ""
+
+#: AI/Gemini.php:348
+msgid "Gemini quota exceeded. Please check your quota at https://aistudio.google.com/app/apikey"
+msgstr ""
+
+#. translators: 1: Gemini API error code, 2: Gemini API error message
+#: AI/Gemini.php:355
+#, php-format
+msgid "Gemini API error (Code: %1$d): %2$s"
+msgstr ""
+
+#: AI/Gemini.php:374
+msgid "Invalid response from Gemini API."
+msgstr ""
+
+#: AI/Grok.php:96
+msgid "Failed to parse FAQ response from Grok."
+msgstr ""
+
+#: AI/Grok.php:104
+msgid "Invalid FAQ response format from Grok."
+msgstr ""
+
+#: AI/Grok.php:164
+msgid "Failed to parse internal links response from Grok."
+msgstr ""
+
+#: AI/Grok.php:186
+msgid "Invalid Grok API key."
+msgstr ""
+
+#: AI/Grok.php:208
+msgid "Grok API key is not configured."
+msgstr ""
+
+#: AI/Grok.php:258
+msgid "Unknown error from Grok API."
+msgstr ""
+
+#. translators: %1$s: Grok API error message
+#: AI/Grok.php:270
+#, php-format
+msgid "Grok API error: %1$s"
+msgstr ""
+
+#: AI/Grok.php:285
+msgid "Failed to parse response from Grok."
+msgstr ""
+
+#: AI/Grok.php:295
+msgid "Invalid response structure from Grok."
+msgstr ""
+
+#: AI/Manager.php:223
 msgid "This is a demo summary. Configure your AI provider API key in PostPilot settings to generate real AI-powered summaries."
 msgstr ""
 
-#: AI/Manager.php:177
+#. translators: %1$s: error message returned while generating the summary
+#: AI/Manager.php:246
 #, php-format
-msgid "Summary generation failed: %s"
+msgid "Summary generation failed: %1$s"
 msgstr ""
 
-#: AI/Manager.php:203
-#: AI/Manager.php:283
+#: AI/Manager.php:276
+msgid "AI provider is not configured for Internal Links."
+msgstr ""
+
+#: AI/Manager.php:359
 msgid "AI provider is not configured."
 msgstr ""
 
-#: AI/Manager.php:300
+#: AI/Manager.php:376
 msgid "How do I configure PostPilot AI?"
 msgstr ""
 
-#: AI/Manager.php:301
+#: AI/Manager.php:377
 msgid "Go to PostPilot AI in your WordPress admin menu, select your AI provider (OpenAI or Claude), enter your API key, and enable the features you want to use."
 msgstr ""
 
-#: AI/Manager.php:304
+#: AI/Manager.php:380
 msgid "What AI providers are supported?"
 msgstr ""
 
-#: AI/Manager.php:305
-msgid "PostPilot AI currently supports OpenAI (ChatGPT) and Claude (Anthropic). You can switch between providers in the settings."
+#: AI/Manager.php:381
+msgid "PostPilot AI currently supports OpenAI (ChatGPT), Claude (Anthropic), and Google Gemini. You can switch between providers in the settings."
 msgstr ""
 
-#: AI/Manager.php:308
+#: AI/Manager.php:384
 msgid "Is this a demo FAQ?"
 msgstr ""
 
-#: AI/Manager.php:309
+#: AI/Manager.php:385
 msgid "Yes! This is demo content shown because no AI provider is configured. Add your API key in the settings to generate real AI-powered FAQs."
 msgstr ""
 
-#: AI/Manager.php:312
+#: AI/Manager.php:388
 msgid "How do I get an API key?"
 msgstr ""
 
-#: AI/Manager.php:313
+#: AI/Manager.php:389
 msgid "For OpenAI, visit platform.openai.com/api-keys. For Claude, visit console.anthropic.com. Both services require account registration."
 msgstr ""
 
-#: AI/Manager.php:329
+#: AI/Manager.php:405
 msgid "No AI provider configured."
 msgstr ""
 
-#: AI/OpenAI.php:188
+#: AI/OpenAI.php:190
 msgid "Invalid OpenAI API key."
 msgstr ""
 
-#: AI/OpenAI.php:204
+#: AI/OpenAI.php:206
 msgid "OpenAI API key is not configured."
 msgstr ""
 
-#: AI/OpenAI.php:248
+#: AI/OpenAI.php:250
 msgid "OpenAI quota exceeded. Please add credits to your OpenAI account at platform.openai.com/account/billing"
 msgstr ""
 
-#: AI/OpenAI.php:253
+#: AI/OpenAI.php:255
 msgid "Invalid OpenAI API key. Please check your API key in PostPilot settings."
 msgstr ""
 
-#: AI/OpenAI.php:258
+#. translators: 1: OpenAI API error code, 2: OpenAI API error message
+#: AI/OpenAI.php:262
 #, php-format
-msgid "OpenAI API error (Code: %d): %s"
+msgid "OpenAI API error (Code: %1$d): %2$s"
 msgstr ""
 
-#: AI/OpenAI.php:274
+#: AI/OpenAI.php:281
 msgid "Invalid response from OpenAI API."
 msgstr ""
 
-#: Frontend/ContentInjector.php:150
+#: Frontend/ContentInjector.php:168
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: Frontend/ContentInjector.php:197
+#: Frontend/ContentInjector.php:247
 msgid "Summary:"
 msgstr ""
 

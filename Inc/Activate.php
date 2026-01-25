@@ -66,8 +66,9 @@ class Activate
      * @since 1.0.0
      * @return void
      */
-    private static function set_default_options()
+    private static function set_default_options(): void
     {
+
         $default_options = array(
             'postpilot_ai_provider' => 'openai',
             'postpilot_openai_api_key' => '',
@@ -75,14 +76,15 @@ class Activate
             'postpilot_enable_faq' => '1',
             'postpilot_enable_summary' => '1',
             'postpilot_enable_internal_links' => '1',
+            'postpilot_enable_debug_logging' => '0', //  default off
             'postpilot_faq_position' => 'after_content',
             'postpilot_faq_default_layout' => 'accordion',
             'postpilot_summary_position' => 'before_content',
-            'postpilot_version' => POSTPILOT_VERSION,
+            'postpilot_version' => defined('POSTPILOT_VERSION') ? POSTPILOT_VERSION : '1.0.0',
         );
 
         foreach ($default_options as $option_name => $option_value) {
-            if (get_option($option_name) === false) {
+            if (false === get_option($option_name, false)) {
                 add_option($option_name, $option_value);
             }
         }

@@ -316,10 +316,13 @@ class Manager
         $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'posts_per_page' => 20,
-            'post__not_in' => array($exclude_post_id),
+            'posts_per_page' => 20,            
             'orderby' => 'date',
             'order' => 'DESC',
+			// Excluding a single known post ID (current post).
+			// This is safe and intentional.
+			// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
+			'post__not_in'   => array( (int) $exclude_post_id ),
         );
 
         return get_posts($args);

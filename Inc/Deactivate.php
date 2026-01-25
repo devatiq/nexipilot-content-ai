@@ -13,7 +13,7 @@ namespace PostPilot;
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-
+use PostPilot\Helpers\Cache;
 /**
  * Deactivate Class
  *
@@ -47,23 +47,8 @@ class Deactivate
      */
     private static function clear_cache()
     {
-        // Delete transients used by the plugin
-	global $wpdb;
-
-	$like = $wpdb->esc_like( '_transient_postpilot_' ) . '%';
-
-	$transients = $wpdb->get_col(
-		$wpdb->prepare(
-			"SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
-			$like
-		)
-	);
-
-	if ( empty( $transients ) ) {
-		return;
-	}
-
-	foreach ( $transients as $option_name ) {
-		delete_option( $option_name );
-	}
+        if (class_exists('\PostPilot\Helpers\Cache')) {
+            Cache::clear_all();
+        }
+    }
 }
