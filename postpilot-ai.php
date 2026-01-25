@@ -28,12 +28,12 @@ if (!defined('ABSPATH')) {
  *
  * @since 1.0.0
  */
-final class PostPilot
+final class PostPilotAI
 {
     /**
      * Plugin instance
      *
-     * @var PostPilot|null
+     * @var PostPilotAI|null
      */
     private static $instance = null;
 
@@ -53,7 +53,7 @@ final class PostPilot
      * Get singleton instance
      *
      * @since 1.0.0
-     * @return PostPilot
+     * @return PostPilotAI
      */
     public static function get_instance()
     {
@@ -171,11 +171,11 @@ final class PostPilot
  * Bootstrap the plugin
  *
  * @since 1.0.0
- * @return PostPilot
+ * @return PostPilotAI
  */
 function postpilotai()
 {
-    return PostPilot::get_instance();
+    return PostPilotAI::get_instance();
 }
 
 // Initialize the plugin
