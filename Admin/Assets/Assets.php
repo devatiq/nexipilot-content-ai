@@ -4,11 +4,11 @@
  *
  * Handles admin assets enqueuing.
  *
- * @package PostPilot\Admin\Assets
+ * @package PostPilotAI\Admin\Assets
  * @since 1.0.0
  */
 
-namespace PostPilot\Admin\Assets;
+namespace PostPilotAI\Admin\Assets;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
  *
  * Handles the enqueuing of admin CSS and JavaScript files.
  *
- * @package PostPilot\Admin\Assets
+ * @package PostPilotAI\Admin\Assets
  * @since 1.0.0
  */
 class Assets
@@ -46,12 +46,12 @@ class Assets
     public function admin_enqueue_styles($hook_suffix)
     {
         // Load on PostPilot settings page and post edit pages
-        if ('toplevel_page_postpilot-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
+        if ('toplevel_page_postpilotai-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_style(
-                'postpilot-admin-style',
-                POSTPILOT_ADMIN_ASSETS . '/css/admin.css',
+                'postpilotai-admin-style',
+                POSTPILOTAI_ADMIN_ASSETS . '/css/admin.css',
                 array(),
-                POSTPILOT_VERSION
+                POSTPILOTAI_VERSION
             );
         }
     }
@@ -66,10 +66,10 @@ class Assets
     public function admin_enqueue_scripts($hook_suffix)
     {
         // Enqueue SweetAlert2 on settings page and post edit pages
-        if ('toplevel_page_postpilot-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
+        if ('toplevel_page_postpilotai-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_script(
                 'sweetalert2',
-                POSTPILOT_ADMIN_ASSETS . '/js/sweetalert2.js',
+                POSTPILOTAI_ADMIN_ASSETS . '/js/sweetalert2.js',
                 array(),
                 '11.0.0',
                 true
@@ -77,12 +77,12 @@ class Assets
         }
 
         // Enqueue settings.js only on PostPilot settings page
-        if ('toplevel_page_postpilot-settings' === $hook_suffix) {
+        if ('toplevel_page_postpilotai-settings' === $hook_suffix) {
             wp_enqueue_script(
-                'postpilot-settings-script',
-                POSTPILOT_ADMIN_ASSETS . '/js/settings.js',
+                'postpilotai-settings-script',
+                POSTPILOTAI_ADMIN_ASSETS . '/js/settings.js',
                 array('jquery', 'sweetalert2'),
-                POSTPILOT_VERSION,
+                POSTPILOTAI_VERSION,
                 true
             );
         }
@@ -90,21 +90,21 @@ class Assets
         // Enqueue faq-metabox.js only on post edit pages
         if ('post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_script(
-                'postpilot-faq-metabox-script',
-                POSTPILOT_ADMIN_ASSETS . '/js/faq-metabox.js',
+                'postpilotai-faq-metabox-script',
+                POSTPILOTAI_ADMIN_ASSETS . '/js/faq-metabox.js',
                 array('jquery', 'sweetalert2'),
-                POSTPILOT_VERSION,
+                POSTPILOTAI_VERSION,
                 true
             );
 
             // Localize script for FAQ metabox
             wp_localize_script(
-                'postpilot-faq-metabox-script',
+                'postpilotai-faq-metabox-script',
                 'postpilotAdmin',
                 array(
                     'ajaxurl' => admin_url('admin-ajax.php'),
-                    'nonce' => wp_create_nonce('postpilot_nonce'),
-                    'generateFaqNonce' => wp_create_nonce('postpilot_generate_faq'),
+                    'nonce' => wp_create_nonce('postpilotai_nonce'),
+                    'generateFaqNonce' => wp_create_nonce('postpilotai_generate_faq'),
                     'i18n' => array(
                         'confirmRemove' => __('Are you sure you want to remove this FAQ item?', 'postpilot'),
                         'removeButton' => __('Yes, remove it', 'postpilot'),
@@ -144,27 +144,27 @@ class Assets
         global $post;
 
         // Check if FAQ is enabled for this post
-        $faq_enabled = get_post_meta($post->ID, '_postpilot_faq_enabled', true);
+        $faq_enabled = get_post_meta($post->ID, '_postpilotai_faq_enabled', true);
         if ($faq_enabled !== '1') {
             return;
         }
 
         // Enqueue FAQ CSS
         wp_enqueue_style(
-            'postpilot-faq',
-            POSTPILOT_URL . 'Frontend/Assets/css/faq.css',
+            'postpilotai-faq',
+            POSTPILOTAI_URL . 'Frontend/Assets/css/faq.css',
             array(),
-            POSTPILOT_VERSION
+            POSTPILOTAI_VERSION
         );
 
         // Determine layout and enqueue JS if accordion
         $layout = $this->get_faq_layout($post->ID);
         if ($layout === 'accordion') {
             wp_enqueue_script(
-                'postpilot-faq-accordion',
-                POSTPILOT_URL . 'Frontend/Assets/js/faq-accordion.js',
+                'postpilotai-faq-accordion',
+                POSTPILOTAI_URL . 'Frontend/Assets/js/faq-accordion.js',
                 array(),
-                POSTPILOT_VERSION,
+                POSTPILOTAI_VERSION,
                 true
             );
         }
@@ -180,11 +180,11 @@ class Assets
     private function get_faq_layout($post_id)
     {
         // Get per-post layout setting
-        $post_layout = get_post_meta($post_id, '_postpilot_faq_display_style', true);
+        $post_layout = get_post_meta($post_id, '_postpilotai_faq_display_style', true);
 
         // If default or empty, use global setting
         if (empty($post_layout) || $post_layout === 'default') {
-            return get_option('postpilot_faq_default_layout', 'accordion');
+            return get_option('postpilotai_faq_default_layout', 'accordion');
         }
 
         return $post_layout;

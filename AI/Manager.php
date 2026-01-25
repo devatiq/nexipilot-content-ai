@@ -4,25 +4,25 @@
  *
  * AI Manager for provider abstraction and caching.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 
-namespace PostPilot\AI;
+namespace PostPilotAI\AI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilot\Helpers\Logger;
+use PostPilotAI\Helpers\Logger;
 
 /**
  * AI Manager Class
  *
  * Manages AI provider selection, caching, and request handling.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  */
 class Manager
@@ -61,16 +61,16 @@ class Manager
     private function init_provider()
     {
         // Try to get provider from FAQ feature first (most commonly used)
-        $provider_name = get_option('postpilot_faq_provider', '');
+        $provider_name = get_option('postpilotai_faq_provider', '');
 
         // If FAQ provider not set, try summary
         if (empty($provider_name)) {
-            $provider_name = get_option('postpilot_summary_provider', '');
+            $provider_name = get_option('postpilotai_summary_provider', '');
         }
 
         // If summary provider not set, try internal links
         if (empty($provider_name)) {
-            $provider_name = get_option('postpilot_internal_links_provider', '');
+            $provider_name = get_option('postpilotai_internal_links_provider', '');
         }
 
         // Default to openai if nothing is configured
@@ -90,7 +90,7 @@ class Manager
      */
     private function get_provider_for_feature($feature)
     {
-        $provider_name = get_option("postpilot_{$feature}_provider", 'openai');
+        $provider_name = get_option("postpilotai_{$feature}_provider", 'openai');
         return $this->init_provider_by_name($provider_name);
     }
 
@@ -105,38 +105,38 @@ class Manager
     {
         switch ($provider_name) {
             case 'gemini':
-                $api_key = get_option('postpilot_gemini_api_key', '');
-                $model = get_option('postpilot_gemini_model', 'gemini-2.5-flash');
+                $api_key = get_option('postpilotai_gemini_api_key', '');
+                $model = get_option('postpilotai_gemini_model', 'gemini-2.5-flash');
                 if (!empty($api_key)) {
-                    $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \PostPilotAI\Helpers\Encryption::decrypt($api_key);
                     return new Gemini($decrypted_key, $model);
                 }
                 break;
 
             case 'claude':
-                $api_key = get_option('postpilot_claude_api_key', '');
-                $model = get_option('postpilot_claude_model', 'claude-3-5-sonnet-20241022');
+                $api_key = get_option('postpilotai_claude_api_key', '');
+                $model = get_option('postpilotai_claude_model', 'claude-3-5-sonnet-20241022');
                 if (!empty($api_key)) {
-                    $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \PostPilotAI\Helpers\Encryption::decrypt($api_key);
                     return new Claude($decrypted_key, $model);
                 }
                 break;
 
             case 'grok':
-                $api_key = get_option('postpilot_grok_api_key', '');
-                $model = get_option('postpilot_grok_model', 'grok-beta');
+                $api_key = get_option('postpilotai_grok_api_key', '');
+                $model = get_option('postpilotai_grok_model', 'grok-beta');
                 if (!empty($api_key)) {
-                    $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \PostPilotAI\Helpers\Encryption::decrypt($api_key);
                     return new Grok($decrypted_key, $model);
                 }
                 break;
 
             case 'openai':
             default:
-                $api_key = get_option('postpilot_openai_api_key', '');
-                $model = get_option('postpilot_openai_model', 'gpt-4o');
+                $api_key = get_option('postpilotai_openai_api_key', '');
+                $model = get_option('postpilotai_openai_model', 'gpt-4o');
                 if (!empty($api_key)) {
-                    $decrypted_key = \PostPilot\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \PostPilotAI\Helpers\Encryption::decrypt($api_key);
                     return new OpenAI($decrypted_key, $model);
                 }
                 break;
@@ -176,7 +176,7 @@ class Manager
         }
 
         // Check cache
-        $cache_key = 'postpilot_faq_' . $post_id;
+        $cache_key = 'postpilotai_faq_' . $post_id;
         $cached = get_transient($cache_key);
 
         if ($cached !== false) {
@@ -224,7 +224,7 @@ class Manager
         }
 
         // Check cache
-        $cache_key = 'postpilot_summary_' . $post_id;
+        $cache_key = 'postpilotai_summary_' . $post_id;
         $cached = get_transient($cache_key);
 
         if ($cached !== false) {
@@ -241,11 +241,11 @@ class Manager
                 'error' => $summary->get_error_message()
             ));
             // Return the actual error message from the API
-			return sprintf(
-				/* translators: %1$s: error message returned while generating the summary */
-				__( 'Summary generation failed: %1$s', 'postpilot' ),
-				$summary->get_error_message()
-			);
+            return sprintf(
+                /* translators: %1$s: error message returned while generating the summary */
+                __('Summary generation failed: %1$s', 'postpilot'),
+                $summary->get_error_message()
+            );
 
         }
 
@@ -278,7 +278,7 @@ class Manager
         }
 
         // Check cache
-        $cache_key = 'postpilot_links_' . $post_id;
+        $cache_key = 'postpilotai_links_' . $post_id;
         $cached = get_transient($cache_key);
 
         if ($cached !== false) {
@@ -316,13 +316,13 @@ class Manager
         $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'posts_per_page' => 20,            
+            'posts_per_page' => 20,
             'orderby' => 'date',
             'order' => 'DESC',
-			// Excluding a single known post ID (current post).
-			// This is safe and intentional.
-			// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
-			'post__not_in'   => array( (int) $exclude_post_id ),
+            // Excluding a single known post ID (current post).
+            // This is safe and intentional.
+            // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
+            'post__not_in' => array((int) $exclude_post_id),
         );
 
         return get_posts($args);
@@ -337,9 +337,9 @@ class Manager
      */
     public function clear_post_cache($post_id)
     {
-        delete_transient('postpilot_faq_' . $post_id);
-        delete_transient('postpilot_summary_' . $post_id);
-        delete_transient('postpilot_links_' . $post_id);
+        delete_transient('postpilotai_faq_' . $post_id);
+        delete_transient('postpilotai_summary_' . $post_id);
+        delete_transient('postpilotai_links_' . $post_id);
 
         Logger::debug('Cache cleared for post', array('post_id' => $post_id));
     }

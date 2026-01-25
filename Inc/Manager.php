@@ -6,18 +6,18 @@
  * the initialization of the required configurations and functionalities
  * for the PostPilot plugin.
  *
- * @package PostPilot\Inc
+ * @package PostPilotAI\Inc
  * @since 1.0.0
  */
 
-namespace PostPilot;
+namespace PostPilotAI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilot\Admin\AdminManager;
-use PostPilot\Frontend\FrontendManager;
+use PostPilotAI\Admin\AdminManager;
+use PostPilotAI\Frontend\FrontendManager;
 
 /**
  * The manager class for PostPilot
@@ -25,7 +25,7 @@ use PostPilot\Frontend\FrontendManager;
  * This class handles the initialization of the required configurations and functionalities
  * for the PostPilot plugin. It orchestrates the Admin and Frontend components.
  *
- * @package PostPilot\Inc
+ * @package PostPilotAI\Inc
  * @since 1.0.0
  */
 class Manager

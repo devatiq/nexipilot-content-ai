@@ -8,11 +8,11 @@
  * - This avoids direct DB queries ($wpdb) to satisfy PHPCS.
  * - Add your transient keys in get_transient_keys().
  *
- * @package PostPilot\Helpers
+ * @package PostPilotAI\Helpers
  * @since 1.0.0
  */
 
-namespace PostPilot\Helpers;
+namespace PostPilotAI\Helpers;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -27,7 +27,7 @@ class Cache
      * @since 1.0.0
      * @var string
      */
-    private static $prefix = 'postpilot_';
+    private static $prefix = 'postpilotai_';
 
     /**
      * Return all transient keys used by the plugin.

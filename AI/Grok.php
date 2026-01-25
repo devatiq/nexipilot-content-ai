@@ -4,25 +4,25 @@
  *
  * xAI Grok provider implementation.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 
-namespace PostPilot\AI;
+namespace PostPilotAI\AI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilot\Helpers\Logger;
+use PostPilotAI\Helpers\Logger;
 
 /**
  * Grok Provider Class
  *
  * Implements the ProviderInterface for xAI Grok.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  */
 class Grok implements ProviderInterface
@@ -264,13 +264,13 @@ class Grok implements ProviderInterface
             ));
 
             return new \WP_Error(
-				'api_error',
-				sprintf(
-					/* translators: %1$s: Grok API error message */
-					__( 'Grok API error: %1$s', 'postpilot' ),
-					$error_message
-				)
-			);
+                'api_error',
+                sprintf(
+                    /* translators: %1$s: Grok API error message */
+                    __('Grok API error: %1$s', 'postpilot'),
+                    $error_message
+                )
+            );
         }
 
         $data = json_decode($response_body, true);

@@ -4,25 +4,25 @@
  *
  * OpenAI/ChatGPT provider implementation.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 
-namespace PostPilot\AI;
+namespace PostPilotAI\AI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilot\Helpers\Logger;
+use PostPilotAI\Helpers\Logger;
 
 /**
  * OpenAI Provider Class
  *
  * Implements the ProviderInterface for OpenAI/ChatGPT.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  */
 class OpenAI implements ProviderInterface
@@ -256,14 +256,14 @@ class OpenAI implements ProviderInterface
                 );
             } else {
                 return new \WP_Error(
-					'openai_api_error',
-					sprintf(
-						/* translators: 1: OpenAI API error code, 2: OpenAI API error message */
-						__( 'OpenAI API error (Code: %1$d): %2$s', 'postpilot' ),
-						$error_code,
-						$error_message
-					)
-				);
+                    'openai_api_error',
+                    sprintf(
+                        /* translators: 1: OpenAI API error code, 2: OpenAI API error message */
+                        __('OpenAI API error (Code: %1$d): %2$s', 'postpilot'),
+                        $error_code,
+                        $error_message
+                    )
+                );
             }
         }
 

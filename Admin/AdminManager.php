@@ -5,24 +5,24 @@
  * This file contains the AdminManager class, which is responsible for handling the
  * initialization and configuration of the PostPilot Admin.
  *
- * @package PostPilot\Admin
+ * @package PostPilotAI\Admin
  * @since 1.0.0
  */
 
-namespace PostPilot\Admin;
+namespace PostPilotAI\Admin;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilot\Admin\Assets\Assets;
+use PostPilotAI\Admin\Assets\Assets;
 
 /**
  * Class AdminManager
  *
  * Handles the initialization and configuration of the PostPilot Admin.
  *
- * @package PostPilot\Admin
+ * @package PostPilotAI\Admin
  * @since 1.0.0
  */
 class AdminManager
@@ -68,7 +68,7 @@ class AdminManager
      */
     public function set_constants()
     {
-        define('POSTPILOT_ADMIN_ASSETS', plugin_dir_url(__FILE__) . 'Assets');
+        define('POSTPILOTAI_ADMIN_ASSETS', plugin_dir_url(__FILE__) . 'Assets');
     }
 
     /**
@@ -92,8 +92,8 @@ class AdminManager
      */
     public function init_hooks()
     {
-        add_action('wp_ajax_postpilot_save_setting', array($this, 'postpilot_save_setting'));
-        add_filter('plugin_action_links_' . POSTPILOT_BASENAME, array($this, 'add_plugin_settings_link'));
+        add_action('wp_ajax_postpilotai_save_setting', array($this, 'postpilotai_save_setting'));
+        add_filter('plugin_action_links_' . POSTPILOTAI_BASENAME, array($this, 'add_plugin_settings_link'));
         add_filter('plugin_row_meta', array($this, 'plugin_row_meta'), 10, 2);
     }
 
@@ -103,10 +103,10 @@ class AdminManager
      * @since 1.0.0
      * @return void
      */
-    public function postpilot_save_setting()
+    public function postpilotai_save_setting()
     {
         // Verify nonce for security
-        check_ajax_referer('postpilot_nonce', 'nonce');
+        check_ajax_referer('postpilotai_nonce', 'nonce');
 
         // Ensure the user has the proper capability
         if (!current_user_can('manage_options')) {
@@ -147,7 +147,7 @@ class AdminManager
     {
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
-            esc_url(admin_url('admin.php?page=postpilot-settings')),
+            esc_url(admin_url('admin.php?page=postpilotai-settings')),
             esc_html__('Settings', 'postpilot')
         );
 
@@ -167,7 +167,7 @@ class AdminManager
      */
     public function plugin_row_meta($links, $file)
     {
-        if (POSTPILOT_BASENAME === $file) {
+        if (POSTPILOTAI_BASENAME === $file) {
             $row_meta = array(
                 'docs' => '<a href="https://github.com/devatiq/postpilot" target="_blank">' . esc_html__('Documentation', 'postpilot') . '</a>',
                 'support' => '<a href="https://github.com/devatiq/postpilot/issues" target="_blank">' . esc_html__('Support', 'postpilot') . '</a>',

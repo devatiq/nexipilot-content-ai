@@ -1,5 +1,5 @@
 {
-  "name": "nexibyllc/postpilot-ai",
+  "name": "nexibyllc/postpilotai-ai",
   "description": "AI-powered WordPress plugin for generating FAQs, content summaries, and smart internal links",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
@@ -12,11 +12,11 @@
   ],
   "autoload": {
     "psr-4": {
-      "PostPilot\\": "Inc/",
-      "PostPilot\\Admin\\": "Admin/",
-      "PostPilot\\Frontend\\": "Frontend/",
-      "PostPilot\\AI\\": "AI/",
-      "PostPilot\\Helpers\\": "Helpers/"
+      "PostPilotAI\\": "Inc/",
+      "PostPilotAI\\Admin\\": "Admin/",
+      "PostPilotAI\\Frontend\\": "Frontend/",
+      "PostPilotAI\\AI\\": "AI/",
+      "PostPilotAI\\Helpers\\": "Helpers/"
     }
   },
   "require": {

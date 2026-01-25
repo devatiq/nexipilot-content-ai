@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: PostPilot
+ * Plugin Name: PostPilot AI
  * Plugin URI: https://github.com/devatiq/postpilot
  * Description: AI-powered WordPress plugin that generates FAQs, content summaries, and smart internal links for your posts.
  * Version: 1.0.0
@@ -71,12 +71,12 @@ final class PostPilot
      */
     private function define_constants()
     {
-        define('POSTPILOT_VERSION', '1.0.0');
-        define('POSTPILOT_PATH', plugin_dir_path(__FILE__));
-        define('POSTPILOT_URL', plugin_dir_url(__FILE__));
-        define('POSTPILOT_FILE', __FILE__);
-        define('POSTPILOT_BASENAME', plugin_basename(__FILE__));
-        define('POSTPILOT_NAME', 'PostPilot AI');
+        define('POSTPILOTAI_VERSION', '1.0.0');
+        define('POSTPILOTAI_PATH', plugin_dir_path(__FILE__));
+        define('POSTPILOTAI_URL', plugin_dir_url(__FILE__));
+        define('POSTPILOTAI_FILE', __FILE__);
+        define('POSTPILOTAI_BASENAME', plugin_basename(__FILE__));
+        define('POSTPILOTAI_NAME', 'PostPilot AI');
     }
 
     /**
@@ -87,8 +87,8 @@ final class PostPilot
      */
     private function include_files()
     {
-        if (file_exists(POSTPILOT_PATH . 'vendor/autoload.php')) {
-            require_once POSTPILOT_PATH . 'vendor/autoload.php';
+        if (file_exists(POSTPILOTAI_PATH . 'vendor/autoload.php')) {
+            require_once POSTPILOTAI_PATH . 'vendor/autoload.php';
         }
     }
 
@@ -101,8 +101,8 @@ final class PostPilot
     private function init_hooks()
     {
         add_action('plugins_loaded', [$this, 'plugin_loaded']);
-        register_activation_hook(POSTPILOT_FILE, [$this, 'activate']);
-        register_deactivation_hook(POSTPILOT_FILE, [$this, 'deactivate']);
+        register_activation_hook(POSTPILOTAI_FILE, [$this, 'activate']);
+        register_deactivation_hook(POSTPILOTAI_FILE, [$this, 'deactivate']);
     }
 
     /**
@@ -114,8 +114,8 @@ final class PostPilot
     public function plugin_loaded()
     {
         // Initialize the main manager after all plugins are loaded
-        if (class_exists('PostPilot\Manager')) {
-            new PostPilot\Manager();
+        if (class_exists('PostPilotAI\Manager')) {
+            new PostPilotAI\Manager();
         }
     }
 
@@ -128,8 +128,8 @@ final class PostPilot
      */
     public function activate()
     {
-        if (class_exists('PostPilot\Activate')) {
-            PostPilot\Activate::activate();
+        if (class_exists('PostPilotAI\Activate')) {
+            PostPilotAI\Activate::activate();
         }
     }
 
@@ -141,8 +141,8 @@ final class PostPilot
      */
     public function deactivate()
     {
-        if (class_exists('PostPilot\Deactivate')) {
-            PostPilot\Deactivate::deactivate();
+        if (class_exists('PostPilotAI\Deactivate')) {
+            PostPilotAI\Deactivate::deactivate();
         }
     }
 
@@ -173,10 +173,10 @@ final class PostPilot
  * @since 1.0.0
  * @return PostPilot
  */
-function postpilot()
+function postpilotai()
 {
     return PostPilot::get_instance();
 }
 
 // Initialize the plugin
-postpilot();
+postpilotai();

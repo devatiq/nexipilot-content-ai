@@ -4,25 +4,25 @@
  *
  * Handles content injection for AI-generated features.
  *
- * @package PostPilot\Frontend
+ * @package PostPilotAI\Frontend
  * @since 1.0.0
  */
 
-namespace PostPilot\Frontend;
+namespace PostPilotAI\Frontend;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilot\AI\Manager as AIManager;
-use PostPilot\Helpers\Logger;
+use PostPilotAI\AI\Manager as AIManager;
+use PostPilotAI\Helpers\Logger;
 
 /**
  * ContentInjector Class
  *
  * Injects AI-generated content into posts using WordPress hooks.
  *
- * @package PostPilot\Frontend
+ * @package PostPilotAI\Frontend
  * @since 1.0.0
  */
 class ContentInjector
@@ -80,8 +80,8 @@ class ContentInjector
         $modified_content = $content;
 
         // Inject Summary
-        if (get_option('postpilot_enable_summary', '1') === '1') {
-            $summary_position = get_option('postpilot_summary_position', 'before_content');
+        if (get_option('postpilotai_enable_summary', '1') === '1') {
+            $summary_position = get_option('postpilotai_summary_position', 'before_content');
             $summary = $this->get_summary($post->ID, $post->post_content);
 
             if ($summary_position === 'before_content') {
@@ -90,13 +90,13 @@ class ContentInjector
         }
 
         // Inject Internal Links
-        if (get_option('postpilot_enable_internal_links', '1') === '1') {
+        if (get_option('postpilotai_enable_internal_links', '1') === '1') {
             $modified_content = $this->inject_internal_links($post->ID, $modified_content);
         }
 
         // Inject FAQ
-        if (get_option('postpilot_enable_faq', '1') === '1') {
-            $faq_position = get_option('postpilot_faq_position', 'after_content');
+        if (get_option('postpilotai_enable_faq', '1') === '1') {
+            $faq_position = get_option('postpilotai_faq_position', 'after_content');
             $faq = $this->get_faq($post->ID, $post->post_content);
 
             if ($faq_position === 'after_content') {
@@ -107,8 +107,8 @@ class ContentInjector
         }
 
         // Inject Summary (if after content)
-        if (get_option('postpilot_enable_summary', '1') === '1') {
-            $summary_position = get_option('postpilot_summary_position', 'before_content');
+        if (get_option('postpilotai_enable_summary', '1') === '1') {
+            $summary_position = get_option('postpilotai_summary_position', 'before_content');
 
             if ($summary_position === 'after_content') {
                 $summary = $this->get_summary($post->ID, $post->post_content);
@@ -117,8 +117,8 @@ class ContentInjector
         }
 
         // Inject External AI Sharing
-        if (get_option('postpilot_enable_external_ai_sharing', '1') === '1') {
-            $external_ai_position = get_option('postpilot_external_ai_position', 'before_content');
+        if (get_option('postpilotai_enable_external_ai_sharing', '1') === '1') {
+            $external_ai_position = get_option('postpilotai_external_ai_position', 'before_content');
             $external_ai_html = $this->get_external_ai_sharing_html($post->ID);
 
             if ($external_ai_position === 'before_content') {
@@ -145,14 +145,14 @@ class ContentInjector
     private function get_faq($post_id, $content)
     {
         // Check if FAQ is enabled for this post
-        $faq_enabled = get_post_meta($post_id, '_postpilot_faq_enabled', true);
+        $faq_enabled = get_post_meta($post_id, '_postpilotai_faq_enabled', true);
 
         if ($faq_enabled !== '1') {
             return '';
         }
 
         // Get FAQ data from post meta
-        $faq_data = get_post_meta($post_id, '_postpilot_faqs', true);
+        $faq_data = get_post_meta($post_id, '_postpilotai_faqs', true);
 
         if (empty($faq_data) || !is_array($faq_data)) {
             Logger::debug('No FAQ data found in post meta', array('post_id' => $post_id));
@@ -164,43 +164,43 @@ class ContentInjector
 
         ob_start();
         ?>
-        <div class="postpilot-faq postpilot-faq--<?php echo esc_attr($layout); ?>">
-            <h2 class="postpilot-faq__title"><?php esc_html_e('Frequently Asked Questions', 'postpilot'); ?></h2>
-            <div class="postpilot-faq__items">
-                <?php foreach ($faq_data as $index => $faq_item): ?>
-                    <?php if (isset($faq_item['question']) && isset($faq_item['answer'])): ?>
-                        <div class="postpilot-faq__item">
-                            <?php if ($layout === 'accordion'): ?>
-                                <button class="postpilot-faq__question" type="button">
-                                    <?php echo esc_html($faq_item['question']); ?>
-                                </button>
-                                <div class="postpilot-faq__answer">
-                                    <p><?php echo wp_kses_post($faq_item['answer']); ?></p>
-                                </div>
-                            <?php else: ?>
-                                <h3 class="postpilot-faq__question"><?php echo esc_html($faq_item['question']); ?></h3>
-                                <div class="postpilot-faq__answer">
-                                    <p><?php echo wp_kses_post($faq_item['answer']); ?></p>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-        </div>
-        <?php
-        $output = ob_get_clean();
+                <div class="postpilotai-faq postpilotai-faq--<?php echo esc_attr($layout); ?>">
+                    <h2 class="postpilotai-faq__title"><?php esc_html_e('Frequently Asked Questions', 'postpilot'); ?></h2>
+                    <div class="postpilotai-faq__items">
+                        <?php foreach ($faq_data as $index => $faq_item): ?>
+                                <?php if (isset($faq_item['question']) && isset($faq_item['answer'])): ?>
+                                        <div class="postpilotai-faq__item">
+                                            <?php if ($layout === 'accordion'): ?>
+                                                    <button class="postpilotai-faq__question" type="button">
+                                                        <?php echo esc_html($faq_item['question']); ?>
+                                                    </button>
+                                                    <div class="postpilotai-faq__answer">
+                                                        <p><?php echo wp_kses_post($faq_item['answer']); ?></p>
+                                                    </div>
+                                            <?php else: ?>
+                                                    <h3 class="postpilotai-faq__question"><?php echo esc_html($faq_item['question']); ?></h3>
+                                                    <div class="postpilotai-faq__answer">
+                                                        <p><?php echo wp_kses_post($faq_item['answer']); ?></p>
+                                                    </div>
+                                            <?php endif; ?>
+                                        </div>
+                                <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <?php
+                $output = ob_get_clean();
 
-        /**
-         * Filter the FAQ output
-         *
-         * @since 1.0.0
-         * @param string $output The FAQ HTML output.
-         * @param int    $post_id The post ID.
-         * @param array  $faq_data The FAQ data array.
-         * @param string $layout The layout style (accordion or static).
-         */
-        return apply_filters('postpilot_faq_output', $output, $post_id, $faq_data, $layout);
+                /**
+                 * Filter the FAQ output
+                 *
+                 * @since 1.0.0
+                 * @param string $output The FAQ HTML output.
+                 * @param int    $post_id The post ID.
+                 * @param array  $faq_data The FAQ data array.
+                 * @param string $layout The layout style (accordion or static).
+                 */
+                return apply_filters('postpilotai_faq_output', $output, $post_id, $faq_data, $layout);
     }
 
     /**
@@ -213,11 +213,11 @@ class ContentInjector
     private function get_faq_layout($post_id)
     {
         // Get per-post layout setting
-        $post_layout = get_post_meta($post_id, '_postpilot_faq_display_style', true);
+        $post_layout = get_post_meta($post_id, '_postpilotai_faq_display_style', true);
 
         // If default or empty, use global setting
         if (empty($post_layout) || $post_layout === 'default') {
-            return get_option('postpilot_faq_default_layout', 'accordion');
+            return get_option('postpilotai_faq_default_layout', 'accordion');
         }
 
         return $post_layout;
@@ -242,24 +242,24 @@ class ContentInjector
 
         ob_start();
         ?>
-        <div class="postpilot-summary">
-            <div class="postpilot-summary-content">
-                <strong><?php esc_html_e('Summary:', 'postpilot'); ?></strong>
-                <?php echo wp_kses_post($summary_text); ?>
-            </div>
-        </div>
-        <?php
-        $output = ob_get_clean();
+                <div class="postpilotai-summary">
+                    <div class="postpilotai-summary-content">
+                        <strong><?php esc_html_e('Summary:', 'postpilot'); ?></strong>
+                        <?php echo wp_kses_post($summary_text); ?>
+                    </div>
+                </div>
+                <?php
+                $output = ob_get_clean();
 
-        /**
-         * Filter the summary output
-         *
-         * @since 1.0.0
-         * @param string $output The summary HTML output.
-         * @param int    $post_id The post ID.
-         * @param string $summary_text The summary text.
-         */
-        return apply_filters('postpilot_summary_output', $output, $post_id, $summary_text);
+                /**
+                 * Filter the summary output
+                 *
+                 * @since 1.0.0
+                 * @param string $output The summary HTML output.
+                 * @param int    $post_id The post ID.
+                 * @param string $summary_text The summary text.
+                 */
+                return apply_filters('postpilotai_summary_output', $output, $post_id, $summary_text);
     }
 
     /**
@@ -296,7 +296,7 @@ class ContentInjector
 
             // Create the link
             $link = sprintf(
-                '<a href="%s" class="postpilot-internal-link">%s</a>',
+                '<a href="%s" class="postpilotai-internal-link">%s</a>',
                 esc_url($permalink),
                 esc_html($keyword)
             );
@@ -318,7 +318,7 @@ class ContentInjector
          * @param int    $post_id The post ID.
          * @param array  $link_suggestions The link suggestions array.
          */
-        return apply_filters('postpilot_internal_links_output', $modified_content, $post_id, $link_suggestions);
+        return apply_filters('postpilotai_internal_links_output', $modified_content, $post_id, $link_suggestions);
     }
 
     /**
@@ -350,22 +350,22 @@ class ContentInjector
         // Get enabled providers
         $enabled_providers = array();
 
-        if (get_option('postpilot_external_ai_chatgpt', '1') === '1') {
+        if (get_option('postpilotai_external_ai_chatgpt', '1') === '1') {
             $enabled_providers['chatgpt'] = 'ChatGPT';
         }
-        if (get_option('postpilot_external_ai_claude', '1') === '1') {
+        if (get_option('postpilotai_external_ai_claude', '1') === '1') {
             $enabled_providers['claude'] = 'Claude';
         }
-        if (get_option('postpilot_external_ai_perplexity', '1') === '1') {
+        if (get_option('postpilotai_external_ai_perplexity', '1') === '1') {
             $enabled_providers['perplexity'] = 'Perplexity';
         }
-        if (get_option('postpilot_external_ai_grok', '1') === '1') {
+        if (get_option('postpilotai_external_ai_grok', '1') === '1') {
             $enabled_providers['grok'] = 'Grok';
         }
-        if (get_option('postpilot_external_ai_copilot', '1') === '1') {
+        if (get_option('postpilotai_external_ai_copilot', '1') === '1') {
             $enabled_providers['copilot'] = 'Microsoft Copilot';
         }
-        if (get_option('postpilot_external_ai_google', '1') === '1') {
+        if (get_option('postpilotai_external_ai_google', '1') === '1') {
             $enabled_providers['google'] = 'Google AI Overview';
         }
 
@@ -381,7 +381,7 @@ class ContentInjector
         }
 
         // Get customizable heading text
-        $heading_text = get_option('postpilot_external_ai_heading', 'Summarize this post with:');
+        $heading_text = get_option('postpilotai_external_ai_heading', 'Summarize this post with:');
 
         // Provider logos (SVG)
         $logos = array(
@@ -393,67 +393,67 @@ class ContentInjector
             'google' => '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>'
         );
 
-			$allowed_svg = array(
-			'svg'  => array(
-				'xmlns'       => true,
-				'width'       => true,
-				'height'      => true,
-				'viewBox'     => true,
-				'fill'        => true,
-				'class'       => true,
-				'aria-hidden' => true,
-				'role'        => true,
-				'focusable'   => true,
-			),
-			'path' => array(
-				'd'    => true,
-				'fill' => true,
-			),
-			'circle' => array(
-				'cx'           => true,
-				'cy'           => true,
-				'r'            => true,
-				'fill'         => true,
-				'stroke'       => true,
-				'stroke-width' => true,
-			),
-		);	
-		
+        $allowed_svg = array(
+            'svg' => array(
+                'xmlns' => true,
+                'width' => true,
+                'height' => true,
+                'viewBox' => true,
+                'fill' => true,
+                'class' => true,
+                'aria-hidden' => true,
+                'role' => true,
+                'focusable' => true,
+            ),
+            'path' => array(
+                'd' => true,
+                'fill' => true,
+            ),
+            'circle' => array(
+                'cx' => true,
+                'cy' => true,
+                'r' => true,
+                'fill' => true,
+                'stroke' => true,
+                'stroke-width' => true,
+            ),
+        );
+
         ob_start();
         ?>
-        <div class="postpilot-external-ai-sharing">
-            <div class="postpilot-external-ai-sharing__header">
-                <svg class="postpilot-external-ai-sharing__icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <h3 class="postpilot-external-ai-sharing__title"><?php echo esc_html($heading_text); ?></h3>
-            </div>
-            <div class="postpilot-external-ai-sharing__buttons">
-                <?php foreach ($enabled_providers as $key => $name): ?>
-                    <a href="<?php echo esc_url($this->get_external_ai_url($key, $post_url)); ?>"
-                        class="postpilot-external-ai-sharing__button postpilot-external-ai-sharing__button--<?php echo esc_attr($key); ?>"
-                        target="_blank" rel="noopener noreferrer">
-                        <span class="postpilot-external-ai-sharing__button-logo">
-                            <?php echo wp_kses( $logos[$key], $allowed_svg ); ?>
-                        </span>
-                        <span class="postpilot-external-ai-sharing__button-text"><?php echo esc_html($name); ?></span>
-                    </a>
-                <?php endforeach; ?>
-            </div>
-        </div>
-        <?php
-        $output = ob_get_clean();
+                <div class="postpilotai-external-ai-sharing">
+                    <div class="postpilotai-external-ai-sharing__header">
+                        <svg class="postpilotai-external-ai-sharing__icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <h3 class="postpilotai-external-ai-sharing__title"><?php echo esc_html($heading_text); ?></h3>
+                    </div>
+                    <div class="postpilotai-external-ai-sharing__buttons">
+                        <?php foreach ($enabled_providers as $key => $name): ?>
+                                <a href="<?php echo esc_url($this->get_external_ai_url($key, $post_url)); ?>"
+                                    class="postpilotai-external-ai-sharing__button postpilotai-external-ai-sharing__button--<?php echo esc_attr($key); ?>"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <span class="postpilotai-external-ai-sharing__button-logo">
+                                        <?php echo wp_kses($logos[$key], $allowed_svg); ?>
+                                    </span>
+                                    <span class="postpilotai-external-ai-sharing__button-text"><?php echo esc_html($name); ?></span>
+                                </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <?php
+                $output = ob_get_clean();
 
-        /**
-         * Filter the external AI sharing output
-         *
-         * @since 1.0.0
-         * @param string $output The external AI sharing HTML output.
-         * @param int    $post_id The post ID.
-         * @param array  $enabled_providers The enabled providers array.
-         */
-        return apply_filters('postpilot_external_ai_sharing_output', $output, $post_id, $enabled_providers);
+                /**
+                 * Filter the external AI sharing output
+                 *
+                 * @since 1.0.0
+                 * @param string $output The external AI sharing HTML output.
+                 * @param int    $post_id The post ID.
+                 * @param array  $enabled_providers The enabled providers array.
+                 */
+                return apply_filters('postpilotai_external_ai_sharing_output', $output, $post_id, $enabled_providers);
     }
 
     /**

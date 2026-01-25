@@ -4,11 +4,11 @@
  *
  * Provides sanitization utilities for the plugin.
  *
- * @package PostPilot\Helpers
+ * @package PostPilotAI\Helpers
  * @since 1.0.0
  */
 
-namespace PostPilot\Helpers;
+namespace PostPilotAI\Helpers;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
  *
  * Provides methods for sanitizing various types of input data.
  *
- * @package PostPilot\Helpers
+ * @package PostPilotAI\Helpers
  * @since 1.0.0
  */
 class Sanitizer
@@ -45,16 +45,16 @@ class Sanitizer
         $encrypted = Encryption::encrypt($sanitized);
 
         // If encryption fails, log error and return sanitized (unencrypted) value
-        if ($encrypted === false) { 
-			Logger::error(
-				'PostPilot: Failed to encrypt API key',
-				array(
-					'context' => 'sanitize_api_key',
-				)
-		);
+        if ($encrypted === false) {
+            Logger::error(
+                'PostPilot: Failed to encrypt API key',
+                array(
+                    'context' => 'sanitize_api_key',
+                )
+            );
 
-			// Backward compatibility / fail-safe
-			return $sanitized;
+            // Backward compatibility / fail-safe
+            return $sanitized;
         }
 
         return $encrypted;

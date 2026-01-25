@@ -22,7 +22,7 @@
         // ========================================
 
         // Check if settings were just saved
-        if ($('.postpilot-settings-wrap').data('settings-saved')) {
+        if ($('.postpilotai-settings-wrap').data('settings-saved')) {
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -33,7 +33,7 @@
                 background: '#fff',
                 iconColor: '#10b981',
                 customClass: {
-                    popup: 'postpilot-toast'
+                    popup: 'postpilotai-toast'
                 }
             });
         }
@@ -45,23 +45,23 @@
         // Tab switching function
         function switchTab(tabName) {
             // Remove active class from all tabs and tab contents
-            $('.postpilot-tab').removeClass('active');
-            $('.postpilot-tab-content').removeClass('active');
+            $('.postpilotai-tab').removeClass('active');
+            $('.postpilotai-tab-content').removeClass('active');
 
             // Add active class to clicked tab and corresponding content
-            $('.postpilot-tab[data-tab="' + tabName + '"]').addClass('active');
+            $('.postpilotai-tab[data-tab="' + tabName + '"]').addClass('active');
             $('#' + tabName + '-tab').addClass('active');
 
             // Save active tab to localStorage
-            localStorage.setItem('postpilot_active_tab', tabName);
+            localStorage.setItem('postpilotai_active_tab', tabName);
         }
 
         // Restore last active tab on page load
-        const lastActiveTab = localStorage.getItem('postpilot_active_tab') || 'general';
+        const lastActiveTab = localStorage.getItem('postpilotai_active_tab') || 'general';
         switchTab(lastActiveTab);
 
         // Handle tab clicks
-        $('.postpilot-tab').on('click', function () {
+        $('.postpilotai-tab').on('click', function () {
             const tabName = $(this).data('tab');
             switchTab(tabName);
         });
@@ -70,7 +70,7 @@
         // API PROVIDER FIELD TOGGLING
         // ========================================
 
-        const providerSelect = $('#postpilot_ai_provider');
+        const providerSelect = $('#postpilotai_ai_provider');
         const openaiField = $('#openai-api-key-field');
         const claudeField = $('#claude-api-key-field');
         const geminiField = $('#gemini-api-key-field');
@@ -127,7 +127,7 @@
 
         function toggleFeatureOptions() {
             // FAQ options
-            const faqEnabled = $('input[name="postpilot_enable_faq"]').is(':checked');
+            const faqEnabled = $('input[name="postpilotai_enable_faq"]').is(':checked');
             if (faqEnabled) {
                 $('#faq-options').addClass('active');
             } else {
@@ -135,7 +135,7 @@
             }
 
             // Summary options
-            const summaryEnabled = $('input[name="postpilot_enable_summary"]').is(':checked');
+            const summaryEnabled = $('input[name="postpilotai_enable_summary"]').is(':checked');
             if (summaryEnabled) {
                 $('#summary-options').addClass('active');
             } else {
@@ -143,7 +143,7 @@
             }
 
             // Internal Links options
-            const linksEnabled = $('input[name="postpilot_enable_internal_links"]').is(':checked');
+            const linksEnabled = $('input[name="postpilotai_enable_internal_links"]').is(':checked');
             if (linksEnabled) {
                 $('#links-options').addClass('active');
             } else {
@@ -151,7 +151,7 @@
             }
 
             // External AI Sharing options
-            const externalAiEnabled = $('input[name="postpilot_enable_external_ai_sharing"]').is(':checked');
+            const externalAiEnabled = $('input[name="postpilotai_enable_external_ai_sharing"]').is(':checked');
             if (externalAiEnabled) {
                 $('#external-ai-sharing-options').addClass('active');
             } else {
@@ -163,7 +163,7 @@
         toggleFeatureOptions();
 
         // Update on toggle change
-        $('input[name="postpilot_enable_faq"], input[name="postpilot_enable_summary"], input[name="postpilot_enable_internal_links"], input[name="postpilot_enable_external_ai_sharing"]').on('change', function () {
+        $('input[name="postpilotai_enable_faq"], input[name="postpilotai_enable_summary"], input[name="postpilotai_enable_internal_links"], input[name="postpilotai_enable_external_ai_sharing"]').on('change', function () {
             toggleFeatureOptions();
         });
 
@@ -174,33 +174,33 @@
         // Update model display when feature provider changes
         function updateFeatureModelDisplay(featureName, provider) {
             const modelDisplayId = '#' + featureName + '-model-display';
-            const modelBadge = $(modelDisplayId + ' .postpilot-badge');
+            const modelBadge = $(modelDisplayId + ' .postpilotai-badge');
 
             // Get the model for the selected provider
             let modelValue = '';
             if (provider === 'openai') {
-                modelValue = $('#postpilot_openai_model_providers').val() || $('#postpilot_openai_model').val() || 'Not configured';
+                modelValue = $('#postpilotai_openai_model_providers').val() || $('#postpilotai_openai_model').val() || 'Not configured';
             } else if (provider === 'claude') {
-                modelValue = $('#postpilot_claude_model_providers').val() || $('#postpilot_claude_model').val() || 'Not configured';
+                modelValue = $('#postpilotai_claude_model_providers').val() || $('#postpilotai_claude_model').val() || 'Not configured';
             } else if (provider === 'gemini') {
-                modelValue = $('#postpilot_gemini_model_providers').val() || $('#postpilot_gemini_model').val() || 'Not configured';
+                modelValue = $('#postpilotai_gemini_model_providers').val() || $('#postpilotai_gemini_model').val() || 'Not configured';
             }
 
             modelBadge.text(modelValue);
         }
 
         // Handle FAQ provider change
-        $('#postpilot_faq_provider').on('change', function () {
+        $('#postpilotai_faq_provider').on('change', function () {
             updateFeatureModelDisplay('faq', $(this).val());
         });
 
         // Handle Summary provider change
-        $('#postpilot_summary_provider').on('change', function () {
+        $('#postpilotai_summary_provider').on('change', function () {
             updateFeatureModelDisplay('summary', $(this).val());
         });
 
         // Handle Internal Links provider change
-        $('#postpilot_internal_links_provider').on('change', function () {
+        $('#postpilotai_internal_links_provider').on('change', function () {
             updateFeatureModelDisplay('links', $(this).val());
         });
 

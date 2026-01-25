@@ -17,22 +17,22 @@
     'use strict';
 
     $(document).ready(function() {
-        let faqIndex = $('.postpilot-faq-item').length;
+        let faqIndex = $('.postpilotai-faq-item').length;
 
         // ========================================
         // ADD FAQ ITEM
         // ========================================
 
-        $(document).on('click', '.postpilot-add-faq-item', function(e) {
+        $(document).on('click', '.postpilotai-add-faq-item', function(e) {
             e.preventDefault();
             
-            const template = $('#postpilot-faq-item-template').html();
+            const template = $('#postpilotai-faq-item-template').html();
             const newItem = template
                 .replace(/\{\{INDEX\}\}/g, faqIndex)
                 .replace(/\{\{NUMBER\}\}/g, faqIndex + 1);
             
-            $('.postpilot-faq-items').append(newItem);
-            $('.postpilot-no-faqs').remove();
+            $('.postpilotai-faq-items').append(newItem);
+            $('.postpilotai-no-faqs').remove();
             faqIndex++;
         });
 
@@ -40,10 +40,10 @@
         // REMOVE FAQ ITEM
         // ========================================
 
-        $(document).on('click', '.postpilot-remove-faq-item', function(e) {
+        $(document).on('click', '.postpilotai-remove-faq-item', function(e) {
             e.preventDefault();
             
-            const faqItem = $(this).closest('.postpilot-faq-item');
+            const faqItem = $(this).closest('.postpilotai-faq-item');
             
             Swal.fire({
                 title: postpilotAdmin.i18n.confirmRemove,
@@ -59,13 +59,13 @@
                         $(this).remove();
                         
                         // Show "no FAQs" message if all items removed
-                        if ($('.postpilot-faq-item').length === 0) {
-                            $('.postpilot-faq-items').html('<p class="postpilot-no-faqs">No FAQs yet. Click "Generate FAQ" to create them automatically.</p>');
+                        if ($('.postpilotai-faq-item').length === 0) {
+                            $('.postpilotai-faq-items').html('<p class="postpilotai-no-faqs">No FAQs yet. Click "Generate FAQ" to create them automatically.</p>');
                         }
                         
                         // Renumber remaining items
-                        $('.postpilot-faq-item').each(function(index) {
-                            $(this).find('.postpilot-faq-item-number').text('FAQ #' + (index + 1));
+                        $('.postpilotai-faq-item').each(function(index) {
+                            $(this).find('.postpilotai-faq-item-number').text('FAQ #' + (index + 1));
                         });
                     });
                 }
@@ -76,7 +76,7 @@
         // GENERATE FAQ VIA AJAX
         // ========================================
 
-        $(document).on('click', '.postpilot-generate-faq', function(e) {
+        $(document).on('click', '.postpilotai-generate-faq', function(e) {
             e.preventDefault();
             
             const button = $(this);
@@ -106,7 +106,7 @@
                 url: ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'postpilot_check_api_status',
+                    action: 'postpilotai_check_api_status',
                     nonce: postpilotAdmin.generateFaqNonce
                 },
                 success: function(response) {
@@ -196,15 +196,15 @@
                 url: ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'postpilot_generate_faq',
+                    action: 'postpilotai_generate_faq',
                     nonce: postpilotAdmin.generateFaqNonce,
                     post_id: postId
                 },
                 success: function(response) {
                     if (response.success) {
                         // Replace FAQ items with generated ones
-                        $('.postpilot-faq-items').html(response.data.html);
-                        $('.postpilot-no-faqs').remove();
+                        $('.postpilotai-faq-items').html(response.data.html);
+                        $('.postpilotai-no-faqs').remove();
                         
                         // Update button text
                         button.text('Regenerate FAQ');
@@ -283,15 +283,15 @@
                 url: ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'postpilot_generate_demo_faq',
+                    action: 'postpilotai_generate_demo_faq',
                     nonce: postpilotAdmin.generateFaqNonce,
                     post_id: postId
                 },
                 success: function(response) {
                     if (response.success) {
                         // Replace FAQ items with demo ones
-                        $('.postpilot-faq-items').html(response.data.html);
-                        $('.postpilot-no-faqs').remove();
+                        $('.postpilotai-faq-items').html(response.data.html);
+                        $('.postpilotai-no-faqs').remove();
                         
                         // Update button text
                         button.text('Regenerate FAQ');

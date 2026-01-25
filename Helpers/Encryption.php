@@ -8,7 +8,7 @@
  * @since 1.0.0
  */
 
-namespace PostPilot\Helpers;
+namespace PostPilotAI\Helpers;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -38,7 +38,7 @@ class Encryption
         // Use WordPress AUTH_KEY and SECURE_AUTH_KEY for encryption
         // These are unique per WordPress installation
         $key = AUTH_KEY . SECURE_AUTH_KEY;
-        
+
         // Hash to get consistent 32-byte key for AES-256
         return hash('sha256', $key, true);
     }
@@ -75,18 +75,18 @@ class Encryption
 
             // Combine IV and encrypted data, then base64 encode
             return base64_encode($iv . $encrypted);
-        } catch ( \Exception $e ) {
-			if ( '1' === get_option( 'postpilot_enable_debug_logging', '' ) ) {
-				Logger::error(
-					'PostPilot Encryption Error',
-					array(
-						'exception' => $e->getMessage(),
-					)
-				);
-			}
+        } catch (\Exception $e) {
+            if ('1' === get_option('postpilotai_enable_debug_logging', '')) {
+                Logger::error(
+                    'PostPilot Encryption Error',
+                    array(
+                        'exception' => $e->getMessage(),
+                    )
+                );
+            }
 
-			return false;
-		}
+            return false;
+        }
     }
 
     /**
@@ -104,7 +104,7 @@ class Encryption
         try {
             // Base64 decode
             $decoded = base64_decode($data, true);
-            
+
             if ($decoded === false) {
                 // If base64 decode fails, data might not be encrypted
                 // Return original data for backward compatibility
@@ -133,11 +133,11 @@ class Encryption
             return $decrypted;
         } catch (\Exception $e) {
             Logger::error(
-				'PostPilot Decryption Error',
-				array(
-					'exception' => $e->getMessage(),
-				)
-			);
+                'PostPilot Decryption Error',
+                array(
+                    'exception' => $e->getMessage(),
+                )
+            );
             // Return original data if decryption fails (backward compatibility)
             return $data;
         }
@@ -157,14 +157,14 @@ class Encryption
 
         // Check if data is base64 encoded (encrypted data is base64)
         $decoded = base64_decode($data, true);
-        
+
         if ($decoded === false) {
             return false;
         }
 
         // Check if decoded data has correct IV length
         $iv_length = openssl_cipher_iv_length(self::$method);
-        
+
         return strlen($decoded) > $iv_length;
     }
 }

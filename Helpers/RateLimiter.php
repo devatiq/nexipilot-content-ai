@@ -8,7 +8,7 @@
  * @since 1.0.0
  */
 
-namespace PostPilot\Helpers;
+namespace PostPilotAI\Helpers;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -27,7 +27,7 @@ class RateLimiter
     public static function get_post_limit()
     {
         // Allow premium versions to override via filter
-        return apply_filters('postpilot_rate_limit_post', 2);
+        return apply_filters('postpilotai_rate_limit_post', 2);
     }
 
     /**
@@ -38,7 +38,7 @@ class RateLimiter
     public static function get_post_window()
     {
         // Allow premium versions to override via filter
-        return apply_filters('postpilot_rate_limit_post_window', 300);
+        return apply_filters('postpilotai_rate_limit_post_window', 300);
     }
 
     /**
@@ -49,7 +49,7 @@ class RateLimiter
     public static function get_daily_limit()
     {
         // Allow premium versions to override via filter
-        return apply_filters('postpilot_rate_limit_daily', 30);
+        return apply_filters('postpilotai_rate_limit_daily', 30);
     }
 
     /**
@@ -60,7 +60,7 @@ class RateLimiter
     public static function get_daily_window()
     {
         // Allow premium versions to override via filter
-        return apply_filters('postpilot_rate_limit_daily_window', 86400);
+        return apply_filters('postpilotai_rate_limit_daily_window', 86400);
     }
 
     /**
@@ -163,7 +163,7 @@ class RateLimiter
 
         // Keep only attempts within the window
         $cutoff = time() - self::get_post_window();
-        $attempts = array_filter($attempts, function($timestamp) use ($cutoff) {
+        $attempts = array_filter($attempts, function ($timestamp) use ($cutoff) {
             return $timestamp > $cutoff;
         });
 
@@ -252,7 +252,7 @@ class RateLimiter
             $oldest = min($attempts);
             $wait_until = $oldest + self::get_post_window();
             $wait_time = $wait_until - time();
-            
+
             if ($wait_time > 0) {
                 return $wait_time;
             }
@@ -283,7 +283,7 @@ class RateLimiter
      */
     private static function get_post_transient_key($user_id, $post_id)
     {
-        return sprintf('postpilot_rate_post_%d_%d', $post_id, $user_id);
+        return sprintf('postpilotai_rate_post_%d_%d', $post_id, $user_id);
     }
 
     /**
@@ -294,7 +294,7 @@ class RateLimiter
      */
     private static function get_daily_transient_key($user_id)
     {
-        return sprintf('postpilot_rate_daily_%d', $user_id);
+        return sprintf('postpilotai_rate_daily_%d', $user_id);
     }
 
     /**

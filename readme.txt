@@ -1,4 +1,4 @@
-=== PostPilot ===
+=== PostPilot AI ===
 Contributors: nexibyllc
 Tags: ai summarization, faq, internal-links, content generation
 Requires at least: 5.8

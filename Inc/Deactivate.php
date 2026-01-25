@@ -4,22 +4,22 @@
  *
  * Handles plugin deactivation tasks.
  *
- * @package PostPilot\Inc
+ * @package PostPilotAI\Inc
  * @since 1.0.0
  */
 
-namespace PostPilot;
+namespace PostPilotAI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-use PostPilot\Helpers\Cache;
+use PostPilotAI\Helpers\Cache;
 /**
  * Deactivate Class
  *
  * Handles all plugin deactivation tasks including cleanup.
  *
- * @package PostPilot\Inc
+ * @package PostPilotAI\Inc
  * @since 1.0.0
  */
 class Deactivate
@@ -47,7 +47,7 @@ class Deactivate
      */
     private static function clear_cache()
     {
-        if (class_exists('\PostPilot\Helpers\Cache')) {
+        if (class_exists('\PostPilotAI\Helpers\Cache')) {
             Cache::clear_all();
         }
     }

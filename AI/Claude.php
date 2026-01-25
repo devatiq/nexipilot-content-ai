@@ -4,25 +4,25 @@
  *
  * Claude (Anthropic) provider implementation.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 
-namespace PostPilot\AI;
+namespace PostPilotAI\AI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilot\Helpers\Logger;
+use PostPilotAI\Helpers\Logger;
 
 /**
  * Claude Provider Class
  *
  * Implements the ProviderInterface for Claude (Anthropic).
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */

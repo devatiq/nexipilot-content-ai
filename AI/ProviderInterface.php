@@ -4,11 +4,11 @@
  *
  * Interface for AI providers.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  */
 
-namespace PostPilot\AI;
+namespace PostPilotAI\AI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
  *
  * Defines the contract that all AI providers must implement.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  */
 interface ProviderInterface

@@ -4,25 +4,25 @@
  *
  * Google Gemini provider implementation.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 
-namespace PostPilot\AI;
+namespace PostPilotAI\AI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilot\Helpers\Logger;
+use PostPilotAI\Helpers\Logger;
 
 /**
  * Gemini Provider Class
  *
  * Implements the ProviderInterface for Google Gemini.
  *
- * @package PostPilot\AI
+ * @package PostPilotAI\AI
  * @since 1.0.0
  */
 class Gemini implements ProviderInterface
@@ -289,13 +289,13 @@ class Gemini implements ProviderInterface
             // Provide user-friendly error messages for common errors
             if ($response_code === 400) {
                 return new \WP_Error(
-					'gemini_bad_request',
-					sprintf(
-						/* translators: %1$s: Gemini API error message */
-						__( 'Gemini API error: Invalid request format. %1$s', 'postpilot' ),
-						$error_message
-					)
-				);
+                    'gemini_bad_request',
+                    sprintf(
+                        /* translators: %1$s: Gemini API error message */
+                        __('Gemini API error: Invalid request format. %1$s', 'postpilot'),
+                        $error_message
+                    )
+                );
             } elseif ($response_code === 401 || $response_code === 403) {
                 return new \WP_Error(
                     'gemini_invalid_key',
@@ -309,10 +309,10 @@ class Gemini implements ProviderInterface
                         if (isset($detail['@type']) && strpos($detail['@type'], 'RetryInfo') !== false) {
                             if (isset($detail['retryDelay'])) {
                                 $retry_info = sprintf(
-									/* translators: %1$s: retry delay (e.g., "30s", "2 minutes") */
-									esc_html__( ' Please retry in %1$s.', 'postpilot' ),
-									$detail['retryDelay']
-								);
+                                    /* translators: %1$s: retry delay (e.g., "30s", "2 minutes") */
+                                    esc_html__(' Please retry in %1$s.', 'postpilot'),
+                                    $detail['retryDelay']
+                                );
                             }
                         }
                     }
@@ -323,24 +323,23 @@ class Gemini implements ProviderInterface
                     return new \WP_Error(
                         'gemini_quota_exceeded',
                         sprintf(
-							/* translators: %1$s: retry information message (e.g., " Please retry in 2 minutes.") */
-							esc_html__(
-								'Gemini API quota exceeded. You have reached your daily request limit (20 requests/day on free tier).%1$s Upgrade your plan at https://ai.google.dev/pricing or wait for quota reset.',
-								'postpilot'
-							),
-							$retry_info
-						);
-
+                            /* translators: %1$s: retry information message (e.g., " Please retry in 2 minutes.") */
+                            esc_html__(
+                                'Gemini API quota exceeded. You have reached your daily request limit (20 requests/day on free tier).%1$s Upgrade your plan at https://ai.google.dev/pricing or wait for quota reset.',
+                                'postpilot'
+                            ),
+                            $retry_info
+                        )
                     );
                 } else {
                     return new \WP_Error(
-						'gemini_rate_limit',
-						sprintf(
-							/* translators: %1$s: retry information message (e.g., " Please retry in 30 seconds.") */
-							__( 'Gemini API rate limit exceeded.%1$s', 'postpilot' ),
-							$retry_info
-						)
-					);
+                        'gemini_rate_limit',
+                        sprintf(
+                            /* translators: %1$s: retry information message (e.g., " Please retry in 30 seconds.") */
+                            __('Gemini API rate limit exceeded.%1$s', 'postpilot'),
+                            $retry_info
+                        )
+                    );
                 }
             } elseif (strpos($error_message, 'quota') !== false || strpos($error_message, 'RESOURCE_EXHAUSTED') !== false) {
                 return new \WP_Error(
@@ -349,14 +348,14 @@ class Gemini implements ProviderInterface
                 );
             } else {
                 return new \WP_Error(
-					'gemini_api_error',
-					sprintf(
-						/* translators: 1: Gemini API error code, 2: Gemini API error message */
-						__( 'Gemini API error (Code: %1$d): %2$s', 'postpilot' ),
-						$response_code,
-						$error_message
-					)
-				);
+                    'gemini_api_error',
+                    sprintf(
+                        /* translators: 1: Gemini API error code, 2: Gemini API error message */
+                        __('Gemini API error (Code: %1$d): %2$s', 'postpilot'),
+                        $response_code,
+                        $error_message
+                    )
+                );
             }
         }
 

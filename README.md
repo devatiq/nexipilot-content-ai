@@ -67,19 +67,19 @@ PostPilot AI is built with extensibility in mind. Use these filters to customize
 
 ```php
 // Customize FAQ output
-add_filter('postpilot_faq_output', function($output, $post_id, $faq_data) {
+add_filter('postpilotai_faq_output', function($output, $post_id, $faq_data) {
     // Modify $output
     return $output;
 }, 10, 3);
 
 // Customize summary output
-add_filter('postpilot_summary_output', function($output, $post_id, $summary_text) {
+add_filter('postpilotai_summary_output', function($output, $post_id, $summary_text) {
     // Modify $output
     return $output;
 }, 10, 3);
 
 // Customize internal links output
-add_filter('postpilot_internal_links_output', function($content, $post_id, $link_suggestions) {
+add_filter('postpilotai_internal_links_output', function($content, $post_id, $link_suggestions) {
     // Modify $content
     return $content;
 }, 10, 3);

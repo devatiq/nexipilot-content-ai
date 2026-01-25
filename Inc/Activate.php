@@ -4,11 +4,11 @@
  *
  * Handles plugin activation tasks.
  *
- * @package PostPilot\Inc
+ * @package PostPilotAI\Inc
  * @since 1.0.0
  */
 
-namespace PostPilot;
+namespace PostPilotAI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
  * Handles all plugin activation tasks including setting default options
  * and checking system requirements.
  *
- * @package PostPilot\Inc
+ * @package PostPilotAI\Inc
  * @since 1.0.0
  */
 class Activate
@@ -35,7 +35,7 @@ class Activate
     {
         // Check WordPress version
         if (version_compare(get_bloginfo('version'), '5.8', '<')) {
-            deactivate_plugins(plugin_basename(POSTPILOT_FILE));
+            deactivate_plugins(plugin_basename(POSTPILOTAI_FILE));
             wp_die(
                 esc_html__('PostPilot AI requires WordPress 5.8 or higher.', 'postpilot'),
                 esc_html__('Plugin Activation Error', 'postpilot'),
@@ -45,7 +45,7 @@ class Activate
 
         // Check PHP version
         if (version_compare(PHP_VERSION, '7.4', '<')) {
-            deactivate_plugins(plugin_basename(POSTPILOT_FILE));
+            deactivate_plugins(plugin_basename(POSTPILOTAI_FILE));
             wp_die(
                 esc_html__('PostPilot AI requires PHP 7.4 or higher.', 'postpilot'),
                 esc_html__('Plugin Activation Error', 'postpilot'),
@@ -70,17 +70,17 @@ class Activate
     {
 
         $default_options = array(
-            'postpilot_ai_provider' => 'openai',
-            'postpilot_openai_api_key' => '',
-            'postpilot_claude_api_key' => '',
-            'postpilot_enable_faq' => '1',
-            'postpilot_enable_summary' => '1',
-            'postpilot_enable_internal_links' => '1',
-            'postpilot_enable_debug_logging' => '0', //  default off
-            'postpilot_faq_position' => 'after_content',
-            'postpilot_faq_default_layout' => 'accordion',
-            'postpilot_summary_position' => 'before_content',
-            'postpilot_version' => defined('POSTPILOT_VERSION') ? POSTPILOT_VERSION : '1.0.0',
+            'postpilotai_ai_provider' => 'openai',
+            'postpilotai_openai_api_key' => '',
+            'postpilotai_claude_api_key' => '',
+            'postpilotai_enable_faq' => '1',
+            'postpilotai_enable_summary' => '1',
+            'postpilotai_enable_internal_links' => '1',
+            'postpilotai_enable_debug_logging' => '0', //  default off
+            'postpilotai_faq_position' => 'after_content',
+            'postpilotai_faq_default_layout' => 'accordion',
+            'postpilotai_summary_position' => 'before_content',
+            'postpilotai_version' => defined('POSTPILOTAI_VERSION') ? POSTPILOTAI_VERSION : '1.0.0',
         );
 
         foreach ($default_options as $option_name => $option_value) {

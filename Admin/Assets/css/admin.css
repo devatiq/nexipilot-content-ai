@@ -10,9 +10,9 @@
    ======================================== */
 
 /* WordPress Admin Notices */
-.postpilot-settings-wrap .notice,
-.postpilot-settings-wrap .updated,
-.postpilot-settings-wrap .error {
+.postpilotai-settings-wrap .notice,
+.postpilotai-settings-wrap .updated,
+.postpilotai-settings-wrap .error {
     margin: 0 0 20px 0;
     padding: 12px 16px;
     border-left: 4px solid;
@@ -21,17 +21,17 @@
     border-radius: 4px;
 }
 
-.postpilot-settings-wrap .updated,
-.postpilot-settings-wrap .notice-success {
+.postpilotai-settings-wrap .updated,
+.postpilotai-settings-wrap .notice-success {
     border-left-color: #10b981;
 }
 
-.postpilot-settings-wrap .error,
-.postpilot-settings-wrap .notice-error {
+.postpilotai-settings-wrap .error,
+.postpilotai-settings-wrap .notice-error {
     border-left-color: #ef4444;
 }
 
-.postpilot-settings-wrap .notice p {
+.postpilotai-settings-wrap .notice p {
     margin: 0;
     font-size: 14px;
     color: #374151;
@@ -39,28 +39,28 @@
 }
 
 /* SweetAlert2 Toast Positioning */
-.postpilot-toast.swal2-popup {
+.postpilotai-toast.swal2-popup {
     margin-top: 46px !important;
     /* Position below WordPress admin bar (32px) + some spacing */
 }
 
 /* Adjust for mobile admin bar */
 @media screen and (max-width: 782px) {
-    .postpilot-toast.swal2-popup {
+    .postpilotai-toast.swal2-popup {
         margin-top: 60px !important;
         /* Mobile admin bar is taller (46px) + spacing */
     }
 }
 
 /* Main Wrapper */
-.postpilot-settings-wrap {
+.postpilotai-settings-wrap {
     margin: 20px 20px 0 0;
     background: #f9fafb;
     min-height: calc(100vh - 32px);
 }
 
 /* Header Section */
-.postpilot-header {
+.postpilotai-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     padding: 40px;
@@ -69,7 +69,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.postpilot-header-content {
+.postpilotai-header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -77,13 +77,13 @@
     margin: 0 auto;
 }
 
-.postpilot-header-title {
+.postpilotai-header-title {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.postpilot-icon {
+.postpilotai-icon {
     width: 60px;
     height: 60px;
     background: rgba(255, 255, 255, 0.2);
@@ -94,11 +94,11 @@
     backdrop-filter: blur(10px);
 }
 
-.postpilot-icon svg {
+.postpilotai-icon svg {
     color: white;
 }
 
-.postpilot-header h1 {
+.postpilotai-header h1 {
     margin: 0;
     font-size: 32px;
     font-weight: 700;
@@ -106,7 +106,7 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.postpilot-subtitle {
+.postpilotai-subtitle {
     margin: 8px 0 0 0;
     font-size: 16px;
     opacity: 0.95;
@@ -114,7 +114,7 @@
 }
 
 /* Status Badge */
-.postpilot-status-badge {
+.postpilotai-status-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -147,53 +147,53 @@
 }
 
 /* Status Badge States */
-.postpilot-status-connected .status-dot {
+.postpilotai-status-connected .status-dot {
     background: #10b981;
 }
 
-.postpilot-status-disconnected .status-dot {
+.postpilotai-status-disconnected .status-dot {
     background: #ef4444;
     animation: none;
 }
 
-.postpilot-status-warning .status-dot {
+.postpilotai-status-warning .status-dot {
     background: #f59e0b;
     animation: none;
 }
 
 /* New Status Classes for Provider Badges */
-.postpilot-status-green {
+.postpilotai-status-green {
     background-color: #10b981;
     color: white;
 }
 
-.postpilot-status-yellow {
+.postpilotai-status-yellow {
     background-color: #f59e0b;
     color: white;
 }
 
-.postpilot-status-gray {
+.postpilotai-status-gray {
     background-color: #6b7280;
     color: white;
 }
 
-.postpilot-status-red {
+.postpilotai-status-red {
     background-color: #ef4444;
     color: white;
 }
 
-.postpilot-status-partial .status-dot {
+.postpilotai-status-partial .status-dot {
     background: #f59e0b;
     animation: none;
 }
 
 /* Tooltip styling (native browser tooltip via title attribute) */
-.postpilot-badge[title] {
+.postpilotai-badge[title] {
     cursor: help;
 }
 
 /* Tab Navigation */
-.postpilot-tabs {
+.postpilotai-tabs {
     display: flex;
     gap: 12px;
     max-width: 1400px;
@@ -201,7 +201,7 @@
     padding: 0;
 }
 
-.postpilot-tab {
+.postpilotai-tab {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -216,39 +216,39 @@
     transition: all 0.2s ease;
 }
 
-.postpilot-tab svg {
+.postpilotai-tab svg {
     color: #9ca3af;
     transition: color 0.2s ease;
 }
 
-.postpilot-tab:hover {
+.postpilotai-tab:hover {
     border-color: #d1d5db;
     background: #f9fafb;
     color: #374151;
 }
 
-.postpilot-tab.active {
+.postpilotai-tab.active {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-color: transparent;
     color: white;
     box-shadow: 0 4px 6px -1px rgba(102, 126, 234, 0.3);
 }
 
-.postpilot-tab.active svg {
+.postpilotai-tab.active svg {
     color: white;
 }
 
 /* Tab Content */
-.postpilot-tab-content {
+.postpilotai-tab-content {
     display: none;
 }
 
-.postpilot-tab-content.active {
+.postpilotai-tab-content.active {
     display: block;
 }
 
 /* Settings Grid */
-.postpilot-settings-grid {
+.postpilotai-settings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 24px;
@@ -258,7 +258,7 @@
 }
 
 /* Card Styles */
-.postpilot-card {
+.postpilotai-card {
     background: white;
     border-radius: 12px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -266,12 +266,12 @@
     overflow: hidden;
 }
 
-.postpilot-card:hover {
+.postpilotai-card:hover {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     transform: translateY(-2px);
 }
 
-.postpilot-card-header {
+.postpilotai-card-header {
     display: flex;
     align-items: flex-start;
     gap: 16px;
@@ -279,11 +279,11 @@
     border-bottom: 1px solid #f3f4f6;
 }
 
-.postpilot-card-header .postpilot-badge {
+.postpilotai-card-header .postpilotai-badge {
     margin-left: auto;
 }
 
-.postpilot-card-icon {
+.postpilotai-card-icon {
     width: 48px;
     height: 48px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -294,37 +294,37 @@
     flex-shrink: 0;
 }
 
-.postpilot-card-icon svg {
+.postpilotai-card-icon svg {
     color: white;
 }
 
-.postpilot-card-header h2 {
+.postpilotai-card-header h2 {
     margin: 0 0 4px 0;
     font-size: 20px;
     font-weight: 600;
     color: #111827;
 }
 
-.postpilot-card-header p {
+.postpilotai-card-header p {
     margin: 0;
     font-size: 14px;
     color: #6b7280;
 }
 
-.postpilot-card-body {
+.postpilotai-card-body {
     padding: 24px;
 }
 
 /* Field Groups */
-.postpilot-field-group {
+.postpilotai-field-group {
     margin-bottom: 24px;
 }
 
-.postpilot-field-group:last-child {
+.postpilotai-field-group:last-child {
     margin-bottom: 0;
 }
 
-.postpilot-label {
+.postpilotai-label {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -334,7 +334,7 @@
     margin-bottom: 8px;
 }
 
-.postpilot-label-small {
+.postpilotai-label-small {
     display: block;
     font-size: 13px;
     font-weight: 500;
@@ -343,7 +343,7 @@
 }
 
 /* Badge */
-.postpilot-badge {
+.postpilotai-badge {
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -353,19 +353,19 @@
     font-weight: 500;
 }
 
-.postpilot-badge-success {
+.postpilotai-badge-success {
     background: #d1fae5;
     color: #065f46;
 }
 
-.postpilot-badge svg {
+.postpilotai-badge svg {
     width: 12px;
     height: 12px;
 }
 
 /* Input Styles */
-.postpilot-select,
-.postpilot-input {
+.postpilotai-select,
+.postpilotai-input {
     width: 100%;
     padding: 10px 14px;
     border: 1px solid #d1d5db;
@@ -376,14 +376,14 @@
     transition: all 0.2s ease;
 }
 
-.postpilot-select:focus,
-.postpilot-input:focus {
+.postpilotai-select:focus,
+.postpilotai-input:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.postpilot-select-small {
+.postpilotai-select-small {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid #e5e7eb;
@@ -394,17 +394,17 @@
 }
 
 /* Input Group */
-.postpilot-input-group {
+.postpilotai-input-group {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.postpilot-input-group .postpilot-input {
+.postpilotai-input-group .postpilotai-input {
     padding-right: 45px;
 }
 
-.postpilot-btn-icon {
+.postpilotai-btn-icon {
     position: absolute;
     right: 8px;
     background: none;
@@ -418,30 +418,30 @@
     justify-content: center;
 }
 
-.postpilot-btn-icon:hover {
+.postpilotai-btn-icon:hover {
     color: #667eea;
 }
 
 /* Field Description */
-.postpilot-field-description {
+.postpilotai-field-description {
     margin: 6px 0 0 0;
     font-size: 13px;
     color: #6b7280;
     line-height: 1.5;
 }
 
-.postpilot-field-description a {
+.postpilotai-field-description a {
     color: #667eea;
     text-decoration: none;
     font-weight: 500;
 }
 
-.postpilot-field-description a:hover {
+.postpilotai-field-description a:hover {
     text-decoration: underline;
 }
 
 /* Feature Items */
-.postpilot-feature-item {
+.postpilotai-feature-item {
     padding: 20px;
     border: 1px solid #f3f4f6;
     border-radius: 8px;
@@ -449,27 +449,27 @@
     transition: all 0.2s ease;
 }
 
-.postpilot-feature-item:last-child {
+.postpilotai-feature-item:last-child {
     margin-bottom: 0;
 }
 
-.postpilot-feature-item:hover {
+.postpilotai-feature-item:hover {
     border-color: #e5e7eb;
     background: #f9fafb;
 }
 
-.postpilot-feature-header {
+.postpilotai-feature-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 16px;
 }
 
-.postpilot-feature-info {
+.postpilotai-feature-info {
     flex: 1;
 }
 
-.postpilot-feature-title {
+.postpilotai-feature-title {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -480,31 +480,31 @@
     cursor: pointer;
 }
 
-.postpilot-feature-title svg {
+.postpilotai-feature-title svg {
     color: #667eea;
     flex-shrink: 0;
 }
 
-.postpilot-feature-description {
+.postpilotai-feature-description {
     margin: 0;
     font-size: 13px;
     color: #6b7280;
     line-height: 1.5;
 }
 
-.postpilot-feature-options {
+.postpilotai-feature-options {
     margin-top: 16px;
     padding-top: 16px;
     border-top: 1px solid #f3f4f6;
     display: none;
 }
 
-.postpilot-feature-options.active {
+.postpilotai-feature-options.active {
     display: block;
 }
 
 /* Toggle Switch */
-.postpilot-toggle {
+.postpilotai-toggle {
     position: relative;
     display: inline-block;
     width: 48px;
@@ -512,13 +512,13 @@
     flex-shrink: 0;
 }
 
-.postpilot-toggle input {
+.postpilotai-toggle input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.postpilot-toggle-slider {
+.postpilotai-toggle-slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -530,7 +530,7 @@
     border-radius: 26px;
 }
 
-.postpilot-toggle-slider:before {
+.postpilotai-toggle-slider:before {
     position: absolute;
     content: "";
     height: 20px;
@@ -543,26 +543,26 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.postpilot-toggle input:checked+.postpilot-toggle-slider {
+.postpilotai-toggle input:checked+.postpilotai-toggle-slider {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.postpilot-toggle input:checked+.postpilot-toggle-slider:before {
+.postpilotai-toggle input:checked+.postpilotai-toggle-slider:before {
     transform: translateX(22px);
 }
 
-.postpilot-toggle input:focus+.postpilot-toggle-slider {
+.postpilotai-toggle input:focus+.postpilotai-toggle-slider {
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
 /* Submit Button */
-.postpilot-submit-wrapper {
+.postpilotai-submit-wrapper {
     max-width: 1400px;
     margin: 0 auto;
     padding: 24px 0;
 }
 
-.postpilot-btn-primary {
+.postpilotai-btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     border: none !important;
     padding: 12px 32px !important;
@@ -575,12 +575,12 @@
     height: auto !important;
 }
 
-.postpilot-btn-primary:hover {
+.postpilotai-btn-primary:hover {
     transform: translateY(-1px) !important;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
 }
 
-.postpilot-btn-primary:active {
+.postpilotai-btn-primary:active {
     transform: translateY(0) !important;
 }
 
@@ -589,16 +589,16 @@
    ======================================== */
 
 /* FAQ Meta Box Container */
-#postpilot-faq-metabox {
+#postpilotai-faq-metabox {
     padding: 0;
 }
 
-.postpilot-faq-container {
+.postpilotai-faq-container {
     padding: 20px;
 }
 
 /* FAQ Header */
-.postpilot-faq-header {
+.postpilotai-faq-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -607,24 +607,24 @@
     border-bottom: 2px solid #f0f0f1;
 }
 
-.postpilot-faq-enable {
+.postpilotai-faq-enable {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.postpilot-faq-enable label {
+.postpilotai-faq-enable label {
     font-weight: 600;
     color: #1d2327;
     margin: 0;
 }
 
 /* FAQ Items */
-.postpilot-faq-items {
+.postpilotai-faq-items {
     margin-bottom: 20px;
 }
 
-.postpilot-faq-item {
+.postpilotai-faq-item {
     background: #f9fafb;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
@@ -633,33 +633,33 @@
     transition: all 0.2s ease;
 }
 
-.postpilot-faq-item:hover {
+.postpilotai-faq-item:hover {
     border-color: #d1d5db;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.postpilot-faq-item-header {
+.postpilotai-faq-item-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
 }
 
-.postpilot-faq-number {
+.postpilotai-faq-number {
     font-weight: 600;
     color: #667eea;
     font-size: 14px;
 }
 
-.postpilot-faq-field {
+.postpilotai-faq-field {
     margin-bottom: 12px;
 }
 
-.postpilot-faq-field:last-child {
+.postpilotai-faq-field:last-child {
     margin-bottom: 0;
 }
 
-.postpilot-faq-field label {
+.postpilotai-faq-field label {
     display: block;
     font-weight: 500;
     color: #374151;
@@ -667,8 +667,8 @@
     font-size: 13px;
 }
 
-.postpilot-faq-field input[type="text"],
-.postpilot-faq-field textarea {
+.postpilotai-faq-field input[type="text"],
+.postpilotai-faq-field textarea {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid #d1d5db;
@@ -677,20 +677,20 @@
     transition: all 0.2s ease;
 }
 
-.postpilot-faq-field input[type="text"]:focus,
-.postpilot-faq-field textarea:focus {
+.postpilotai-faq-field input[type="text"]:focus,
+.postpilotai-faq-field textarea:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.postpilot-faq-field textarea {
+.postpilotai-faq-field textarea {
     min-height: 80px;
     resize: vertical;
 }
 
 /* Checkbox Group - Grid Layout for AI Providers */
-.postpilot-checkbox-group {
+.postpilotai-checkbox-group {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 10px;
@@ -698,7 +698,7 @@
 }
 
 /* Provider Selection Cards */
-.postpilot-checkbox-card {
+.postpilotai-checkbox-card {
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -707,7 +707,7 @@
     height: 100%;
 }
 
-.postpilot-checkbox-card input[type="checkbox"] {
+.postpilotai-checkbox-card input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     width: 0;
@@ -715,7 +715,7 @@
     pointer-events: none;
 }
 
-.postpilot-checkbox-card__content {
+.postpilotai-checkbox-card__content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -736,7 +736,7 @@
 }
 
 /* Hover Effects */
-.postpilot-checkbox-card:hover .postpilot-checkbox-card__content {
+.postpilotai-checkbox-card:hover .postpilotai-checkbox-card__content {
     border-color: #d1d5db;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     background: #f9fafb;
@@ -744,13 +744,13 @@
 }
 
 /* Selected State */
-.postpilot-checkbox-card input[type="checkbox"]:checked+.postpilot-checkbox-card__content {
+.postpilotai-checkbox-card input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
     background: #f0fdf4;
     border-color: #10b981;
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
 }
 
-.postpilot-checkbox-card__icon {
+.postpilotai-checkbox-card__icon {
     width: 32px;
     height: 32px;
     display: flex;
@@ -762,18 +762,18 @@
     transition: all 0.2s ease;
 }
 
-.postpilot-checkbox-card input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__icon {
+.postpilotai-checkbox-card input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
     background: white;
     color: #10b981;
     transform: scale(1.1);
 }
 
-.postpilot-checkbox-card__icon svg {
+.postpilotai-checkbox-card__icon svg {
     width: 18px;
     height: 18px;
 }
 
-.postpilot-checkbox-card__label {
+.postpilotai-checkbox-card__label {
     font-size: 13px;
     font-weight: 600;
     color: #374151;
@@ -781,12 +781,12 @@
     line-height: 1.2;
 }
 
-.postpilot-checkbox-card input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__label {
+.postpilotai-checkbox-card input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
     color: #065f46;
 }
 
 /* Checkmark Badge */
-.postpilot-checkbox-card__status {
+.postpilotai-checkbox-card__status {
     position: absolute;
     top: 6px;
     right: 6px;
@@ -803,118 +803,118 @@
     color: white;
 }
 
-.postpilot-checkbox-card input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__status {
+.postpilotai-checkbox-card input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status {
     opacity: 1;
     transform: scale(1);
 }
 
 /* Reduce checkmark icon size */
-.postpilot-checkbox-card__status svg {
+.postpilotai-checkbox-card__status svg {
     width: 10px;
     height: 10px;
 }
 
 /* Brand Specific Colors (Optional enhancements) */
-.postpilot-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilot-checkbox-card__content {
+.postpilotai-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
     background: #f0fdf9;
     border-color: #10a37f;
 }
 
-.postpilot-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__status,
-.postpilot-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__icon {
+.postpilotai-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
+.postpilotai-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
     background-color: #10a37f;
     color: white;
 }
 
-.postpilot-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__label {
+.postpilotai-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
     color: #10a37f;
 }
 
-.postpilot-checkbox-card--claude input[type="checkbox"]:checked+.postpilot-checkbox-card__content {
+.postpilotai-checkbox-card--claude input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
     background: #fff7ed;
     border-color: #d97757;
 }
 
-.postpilot-checkbox-card--claude input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__status,
-.postpilot-checkbox-card--claude input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__icon {
+.postpilotai-checkbox-card--claude input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
+.postpilotai-checkbox-card--claude input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
     background-color: #d97757;
     color: white;
 }
 
-.postpilot-checkbox-card--claude input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__label {
+.postpilotai-checkbox-card--claude input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
     color: #d97757;
 }
 
-.postpilot-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilot-checkbox-card__content {
+.postpilotai-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
     background: #f0fdfa;
     border-color: #20808d;
 }
 
-.postpilot-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__status,
-.postpilot-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__icon {
+.postpilotai-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
+.postpilotai-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
     background-color: #20808d;
     color: white;
 }
 
-.postpilot-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__label {
+.postpilotai-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
     color: #20808d;
 }
 
-.postpilot-checkbox-card--grok input[type="checkbox"]:checked+.postpilot-checkbox-card__content {
+.postpilotai-checkbox-card--grok input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
     background: #f9fafb;
     border-color: #000000;
 }
 
-.postpilot-checkbox-card--grok input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__status,
-.postpilot-checkbox-card--grok input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__icon {
+.postpilotai-checkbox-card--grok input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
+.postpilotai-checkbox-card--grok input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
     background-color: #000000;
     color: white;
 }
 
-.postpilot-checkbox-card--grok input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__label {
+.postpilotai-checkbox-card--grok input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
     color: #000000;
 }
 
-.postpilot-checkbox-card--copilot input[type="checkbox"]:checked+.postpilot-checkbox-card__content {
+.postpilotai-checkbox-card--copilot input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
     background: #eff6ff;
     border-color: #0078d4;
 }
 
-.postpilot-checkbox-card--copilot input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__status,
-.postpilot-checkbox-card--copilot input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__icon {
+.postpilotai-checkbox-card--copilot input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
+.postpilotai-checkbox-card--copilot input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
     background-color: #0078d4;
     color: white;
 }
 
-.postpilot-checkbox-card--copilot input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__label {
+.postpilotai-checkbox-card--copilot input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
     color: #0078d4;
 }
 
-.postpilot-checkbox-card--google input[type="checkbox"]:checked+.postpilot-checkbox-card__content {
+.postpilotai-checkbox-card--google input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
     background: #fef2f2;
     border-color: #4285f4;
 }
 
-.postpilot-checkbox-card--google input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__status,
-.postpilot-checkbox-card--google input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__icon {
+.postpilotai-checkbox-card--google input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
+.postpilotai-checkbox-card--google input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
     background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #ea4335 100%);
     color: white;
 }
 
-.postpilot-checkbox-card--google input[type="checkbox"]:checked+.postpilot-checkbox-card__content .postpilot-checkbox-card__label {
+.postpilotai-checkbox-card--google input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
     color: #4285f4;
 }
 
 
 /* FAQ Actions */
-.postpilot-faq-actions {
+.postpilotai-faq-actions {
     display: flex;
     gap: 10px;
     margin-top: 16px;
 }
 
-.button.postpilot-add-faq,
-.button.postpilot-generate-faq {
+.button.postpilotai-add-faq,
+.button.postpilotai-generate-faq {
     background: #667eea;
     color: white;
     border: none;
@@ -924,14 +924,14 @@
     transition: all 0.2s ease;
 }
 
-.button.postpilot-add-faq:hover,
-.button.postpilot-generate-faq:hover {
+.button.postpilotai-add-faq:hover,
+.button.postpilotai-generate-faq:hover {
     background: #5568d3;
     color: white;
     transform: translateY(-1px);
 }
 
-.button.postpilot-remove-faq {
+.button.postpilotai-remove-faq {
     background: #ef4444;
     color: white;
     border: none;
@@ -941,13 +941,13 @@
     transition: all 0.2s ease;
 }
 
-.button.postpilot-remove-faq:hover {
+.button.postpilotai-remove-faq:hover {
     background: #dc2626;
     color: white;
     transform: translateY(-1px);
 }
 
-.postpilot-no-faqs {
+.postpilotai-no-faqs {
     text-align: center;
     padding: 40px 20px;
     color: #6b7280;
@@ -956,65 +956,65 @@
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-    .postpilot-settings-grid {
+    .postpilotai-settings-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 782px) {
-    .postpilot-header {
+    .postpilotai-header {
         padding: 24px;
     }
 
-    .postpilot-header-content {
+    .postpilotai-header-content {
         flex-direction: column;
         align-items: flex-start;
         gap: 16px;
     }
 
-    .postpilot-header h1 {
+    .postpilotai-header h1 {
         font-size: 24px;
     }
 
-    .postpilot-feature-header {
+    .postpilotai-feature-header {
         flex-direction: column;
         gap: 12px;
     }
 
-    .postpilot-toggle {
+    .postpilotai-toggle {
         align-self: flex-start;
     }
 
     /* Checkbox Group Responsive */
-    .postpilot-checkbox-group {
+    .postpilotai-checkbox-group {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
     }
 }
 
 @media (max-width: 600px) {
-    .postpilot-checkbox-group {
+    .postpilotai-checkbox-group {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 480px) {
-    .postpilot-checkbox-card__content {
+    .postpilotai-checkbox-card__content {
         padding: 10px 6px;
         min-height: 70px;
     }
 
-    .postpilot-checkbox-card__icon {
+    .postpilotai-checkbox-card__icon {
         width: 28px;
         height: 28px;
     }
 
-    .postpilot-checkbox-card__icon svg {
+    .postpilotai-checkbox-card__icon svg {
         width: 16px;
         height: 16px;
     }
 
-    .postpilot-checkbox-card__label {
+    .postpilotai-checkbox-card__label {
         font-size: 12px;
     }
 }

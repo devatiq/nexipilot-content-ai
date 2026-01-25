@@ -5,24 +5,24 @@
  * This file contains the FrontendManager class, which is responsible for handling the
  * initialization and configuration of the PostPilot Frontend.
  *
- * @package PostPilot\Frontend
+ * @package PostPilotAI\Frontend
  * @since 1.0.0
  */
 
-namespace PostPilot\Frontend;
+namespace PostPilotAI\Frontend;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilot\Frontend\Assets\Assets;
+use PostPilotAI\Frontend\Assets\Assets;
 
 /**
  * Class FrontendManager
  *
  * Handles the initialization and configuration of the PostPilot Frontend.
  *
- * @package PostPilot\Frontend
+ * @package PostPilotAI\Frontend
  * @since 1.0.0
  */
 class FrontendManager
@@ -60,7 +60,7 @@ class FrontendManager
      */
     public function set_constants()
     {
-        define('POSTPILOT_FRONTEND_ASSETS', plugin_dir_url(__FILE__) . 'Assets');
+        define('POSTPILOTAI_FRONTEND_ASSETS', plugin_dir_url(__FILE__) . 'Assets');
     }
 
     /**

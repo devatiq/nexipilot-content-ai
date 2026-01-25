@@ -4,11 +4,11 @@
  *
  * Handles frontend assets enqueuing.
  *
- * @package PostPilot\Frontend\Assets
+ * @package PostPilotAI\Frontend\Assets
  * @since 1.0.0
  */
 
-namespace PostPilot\Frontend\Assets;
+namespace PostPilotAI\Frontend\Assets;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
  *
  * Handles the enqueuing of frontend CSS files.
  *
- * @package PostPilot\Frontend\Assets
+ * @package PostPilotAI\Frontend\Assets
  * @since 1.0.0
  */
 class Assets
@@ -48,19 +48,19 @@ class Assets
         }
 
         wp_enqueue_style(
-            'postpilot-frontend-style',
-            POSTPILOT_FRONTEND_ASSETS . '/css/frontend.css',
+            'postpilotai-frontend-style',
+            POSTPILOTAI_FRONTEND_ASSETS . '/css/frontend.css',
             array(),
-            POSTPILOT_VERSION
+            POSTPILOTAI_VERSION
         );
 
         // Enqueue external AI sharing styles if feature is enabled
-        if (get_option('postpilot_enable_external_ai_sharing', '1') === '1') {
+        if (get_option('postpilotai_enable_external_ai_sharing', '1') === '1') {
             wp_enqueue_style(
-                'postpilot-external-ai-sharing',
-                POSTPILOT_FRONTEND_ASSETS . '/css/external-ai-sharing.css',
+                'postpilotai-external-ai-sharing',
+                POSTPILOTAI_FRONTEND_ASSETS . '/css/external-ai-sharing.css',
                 array(),
-                POSTPILOT_VERSION
+                POSTPILOTAI_VERSION
             );
         }
     }

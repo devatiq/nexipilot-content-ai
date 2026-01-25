@@ -4,11 +4,11 @@
  *
  * Provides logging functionality for the plugin.
  *
- * @package PostPilot\Helpers
+ * @package PostPilotAI\Helpers
  * @since 1.0.0
  */
 
-namespace PostPilot\Helpers;
+namespace PostPilotAI\Helpers;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
  *
  * Provides methods for logging debug information and errors.
  *
- * @package PostPilot\Helpers
+ * @package PostPilotAI\Helpers
  * @since 1.0.0
  */
 class Logger
@@ -35,7 +35,7 @@ class Logger
     public static function debug($message, $context = array())
     {
         // Check if plugin debug logging is enabled
-        $debug_enabled = get_option('postpilot_enable_debug_logging', '');
+        $debug_enabled = get_option('postpilotai_enable_debug_logging', '');
 
         if (defined('WP_DEBUG') && WP_DEBUG && $debug_enabled === '1') {
             self::log('DEBUG', $message, $context);
@@ -53,7 +53,7 @@ class Logger
     public static function info($message, $context = array())
     {
         // Check if plugin debug logging is enabled
-        $debug_enabled = get_option('postpilot_enable_debug_logging', '');
+        $debug_enabled = get_option('postpilotai_enable_debug_logging', '');
 
         if ($debug_enabled === '1') {
             self::log('INFO', $message, $context);
@@ -71,7 +71,7 @@ class Logger
     public static function error($message, $context = array())
     {
         // Check if plugin debug logging is enabled
-        $debug_enabled = get_option('postpilot_enable_debug_logging', '');
+        $debug_enabled = get_option('postpilotai_enable_debug_logging', '');
 
         if ($debug_enabled === '1') {
             self::log('ERROR', $message, $context);
