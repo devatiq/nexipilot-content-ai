@@ -256,9 +256,14 @@ class OpenAI implements ProviderInterface
                 );
             } else {
                 return new \WP_Error(
-                    'openai_api_error',
-                    sprintf(__('OpenAI API error (Code: %d): %s', 'postpilot'), $error_code, $error_message)
-                );
+					'openai_api_error',
+					sprintf(
+						/* translators: 1: OpenAI API error code, 2: OpenAI API error message */
+						__( 'OpenAI API error (Code: %1$d): %2$s', 'postpilot' ),
+						$error_code,
+						$error_message
+					)
+				);
             }
         }
 

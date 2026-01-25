@@ -241,10 +241,12 @@ class Manager
                 'error' => $summary->get_error_message()
             ));
             // Return the actual error message from the API
-            return sprintf(
-                __('Summary generation failed: %s', 'postpilot'),
-                $summary->get_error_message()
-            );
+			return sprintf(
+				/* translators: %1$s: error message returned while generating the summary */
+				__( 'Summary generation failed: %1$s', 'postpilot' ),
+				$summary->get_error_message()
+			);
+
         }
 
         if (!empty($summary)) {

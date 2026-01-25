@@ -264,9 +264,13 @@ class Grok implements ProviderInterface
             ));
 
             return new \WP_Error(
-                'api_error',
-                sprintf(__('Grok API error: %s', 'postpilot'), $error_message)
-            );
+				'api_error',
+				sprintf(
+					/* translators: %1$s: Grok API error message */
+					__( 'Grok API error: %1$s', 'postpilot' ),
+					$error_message
+				)
+			);
         }
 
         $data = json_decode($response_body, true);

@@ -133,8 +133,11 @@ class FAQMetaBox
                     style="width: 100%; max-width: 300px;">
                     <option value="default" <?php selected($faq_display_style, 'default'); ?>>
                         <?php
-                        /* translators: %s: current global default layout */
-                        printf(esc_html__('Use Default (%s)', 'postpilot'), $global_default_label);
+                        printf(
+								/* translators: %s: current global default layout */
+								esc_html__( 'Use Default (%s)', 'postpilot' ),
+								esc_html( $global_default_label )
+							);
                         ?>
                     </option>
                     <option value="accordion" <?php selected($faq_display_style, 'accordion'); ?>>
@@ -206,8 +209,19 @@ class FAQMetaBox
         ?>
         <div class="postpilot-faq-item" data-index="<?php echo esc_attr($index); ?>">
             <div class="postpilot-faq-item-header">
-                <span
-                    class="postpilot-faq-item-number"><?php echo esc_html(sprintf(esc_html__('FAQ #%s', 'postpilot'), is_numeric($index) ? ($index + 1) : '{{NUMBER}}')); ?></span>
+                <span class="postpilot-faq-item-number">
+					<?php
+					echo sprintf(
+							/* translators: %1$s: FAQ item number */
+							esc_html__( 'FAQ #%1$s', 'postpilot' ),
+							esc_html(
+								is_numeric( $index )
+									? (string) ( $index + 1 )
+									: '{{NUMBER}}'
+							)
+						);
+					?>
+				</span>
                 <button type="button" class="button-link postpilot-remove-faq-item"
                     title="<?php esc_attr_e('Remove this FAQ', 'postpilot'); ?>">
                     <span class="dashicons dashicons-trash"></span>
@@ -337,16 +351,24 @@ class FAQMetaBox
             $daily_remaining = \PostPilot\Helpers\RateLimiter::get_daily_remaining($user_id);
 
             // Determine which limit was hit
-            if ($post_remaining === 0) {
-                $message = sprintf(
-                    esc_html__('You have generated FAQ for this post recently. Please wait %s before trying again.', 'postpilot'),
-                    human_time_diff(time(), time() + $wait_time)
-                );
-            } else {
-                $message = sprintf(
-                    __('You have reached your daily FAQ generation limit (%d per day). Please try again tomorrow.', 'postpilot'),
-                    \PostPilot\Helpers\RateLimiter::get_daily_limit()
-                );
+            if ( $post_remaining === 0 ) {
+				$message = sprintf(
+					/* translators: %1$s: remaining wait time before FAQ generation is allowed again */
+					esc_html__(
+						'You have generated FAQ for this post recently. Please wait %1$s before trying again.',
+						'postpilot'
+					),
+					human_time_diff( time(), time() + $wait_time )
+				);
+			} else {
+				$message = sprintf(
+					/* translators: %1$d: maximum number of FAQ generations allowed per day */
+					esc_html__(
+						'You have reached your daily FAQ generation limit (%1$d per day). Please try again tomorrow.',
+						'postpilot'
+					),
+					\PostPilot\Helpers\RateLimiter::get_daily_limit()
+				);
             }
 
             wp_send_json_error(array(
@@ -436,17 +458,28 @@ class FAQMetaBox
             $daily_remaining = \PostPilot\Helpers\RateLimiter::get_daily_remaining($user_id);
 
             // Determine which limit was hit
-            if ($post_remaining === 0) {
-                $message = sprintf(
-                    esc_html__('You have generated FAQ for this post recently. Please wait %s before trying again.', 'postpilot'),
-                    human_time_diff(time(), time() + $wait_time)
-                );
-            } else {
-                $message = sprintf(
-                    esc_html__('You have reached your daily FAQ generation limit (%d per day). Please try again tomorrow.', 'postpilot'),
-                    \PostPilot\Helpers\RateLimiter::get_daily_limit()
-                );
-            }
+			if ( $post_remaining === 0 ) {
+
+				$message = sprintf(
+					/* translators: %1$s: remaining wait time before FAQ generation is allowed again */
+					esc_html__(
+						'You have generated FAQ for this post recently. Please wait %1$s before trying again.',
+						'postpilot'
+					),
+					human_time_diff( time(), time() + $wait_time )
+				);
+
+			} else {
+
+				$message = sprintf(
+					/* translators: %1$d: maximum number of FAQ generations allowed per day */
+					esc_html__(
+						'You have reached your daily FAQ generation limit (%1$d per day). Please try again tomorrow.',
+						'postpilot'
+					),
+					\PostPilot\Helpers\RateLimiter::get_daily_limit()
+				);
+			}
 
             wp_send_json_error(array(
                 'message' => $message,
