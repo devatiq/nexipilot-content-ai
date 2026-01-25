@@ -53,8 +53,8 @@ class Settings
     public function add_admin_menu()
     {
         add_menu_page(
-            __('PostPilot AI', 'postpilot'),
-            __('PostPilot AI', 'postpilot'),
+            __('PostPilot AI', 'postpilot-ai'),
+            __('PostPilot AI', 'postpilot-ai'),
             'manage_options',
             'postpilotai-settings',
             array($this, 'render_settings_page'),
@@ -359,14 +359,14 @@ class Settings
         // Add settings sections
         add_settings_section(
             'postpilotai_ai_section',
-            __('AI Provider Configuration', 'postpilot'),
+            __('AI Provider Configuration', 'postpilot-ai'),
             array($this, 'render_ai_section_description'),
             'postpilotai-settings'
         );
 
         add_settings_section(
             'postpilotai_features_section',
-            __('Feature Settings', 'postpilot'),
+            __('Feature Settings', 'postpilot-ai'),
             array($this, 'render_features_section_description'),
             'postpilotai-settings'
         );
@@ -374,7 +374,7 @@ class Settings
         // Add settings fields - AI Provider
         add_settings_field(
             'postpilotai_ai_provider',
-            __('AI Provider', 'postpilot'),
+            __('AI Provider', 'postpilot-ai'),
             array($this, 'render_ai_provider_field'),
             'postpilotai-settings',
             'postpilotai_ai_section'
@@ -382,7 +382,7 @@ class Settings
 
         add_settings_field(
             'postpilotai_openai_api_key',
-            __('OpenAI API Key', 'postpilot'),
+            __('OpenAI API Key', 'postpilot-ai'),
             array($this, 'render_openai_api_key_field'),
             'postpilotai-settings',
             'postpilotai_ai_section'
@@ -390,7 +390,7 @@ class Settings
 
         add_settings_field(
             'postpilotai_claude_api_key',
-            __('Claude API Key', 'postpilot'),
+            __('Claude API Key', 'postpilot-ai'),
             array($this, 'render_claude_api_key_field'),
             'postpilotai-settings',
             'postpilotai_ai_section'
@@ -398,7 +398,7 @@ class Settings
 
         add_settings_field(
             'postpilotai_gemini_api_key',
-            __('Gemini API Key', 'postpilot'),
+            __('Gemini API Key', 'postpilot-ai'),
             array($this, 'render_gemini_api_key_field'),
             'postpilotai-settings',
             'postpilotai_ai_section'
@@ -407,7 +407,7 @@ class Settings
         // Add Model Selection Fields
         add_settings_field(
             'postpilotai_openai_model',
-            __('OpenAI Model', 'postpilot'),
+            __('OpenAI Model', 'postpilot-ai'),
             array($this, 'render_openai_model_field'),
             'postpilotai-settings',
             'postpilotai_ai_section'
@@ -415,7 +415,7 @@ class Settings
 
         add_settings_field(
             'postpilotai_claude_model',
-            __('Claude Model', 'postpilot'),
+            __('Claude Model', 'postpilot-ai'),
             array($this, 'render_claude_model_field'),
             'postpilotai-settings',
             'postpilotai_ai_section'
@@ -423,7 +423,7 @@ class Settings
 
         add_settings_field(
             'postpilotai_gemini_model',
-            __('Gemini Model', 'postpilot'),
+            __('Gemini Model', 'postpilot-ai'),
             array($this, 'render_gemini_model_field'),
             'postpilotai-settings',
             'postpilotai_ai_section'
@@ -432,7 +432,7 @@ class Settings
         // Add settings fields - Features
         add_settings_field(
             'postpilotai_enable_faq',
-            __('Enable FAQ Generator', 'postpilot'),
+            __('Enable FAQ Generator', 'postpilot-ai'),
             array($this, 'render_enable_faq_field'),
             'postpilotai-settings',
             'postpilotai_features_section'
@@ -440,7 +440,7 @@ class Settings
 
         add_settings_field(
             'postpilotai_faq_position',
-            __('FAQ Position', 'postpilot'),
+            __('FAQ Position', 'postpilot-ai'),
             array($this, 'render_faq_position_field'),
             'postpilotai-settings',
             'postpilotai_features_section'
@@ -448,7 +448,7 @@ class Settings
 
         add_settings_field(
             'postpilotai_faq_default_layout',
-            __('Default FAQ Display Style', 'postpilot'),
+            __('Default FAQ Display Style', 'postpilot-ai'),
             array($this, 'render_faq_default_layout_field'),
             'postpilotai-settings',
             'postpilotai_features_section'
@@ -456,7 +456,7 @@ class Settings
 
         add_settings_field(
             'postpilotai_enable_summary',
-            __('Enable Content Summary', 'postpilot'),
+            __('Enable Content Summary', 'postpilot-ai'),
             array($this, 'render_enable_summary_field'),
             'postpilotai-settings',
             'postpilotai_features_section'
@@ -464,7 +464,7 @@ class Settings
 
         add_settings_field(
             'postpilotai_summary_position',
-            __('Summary Position', 'postpilot'),
+            __('Summary Position', 'postpilot-ai'),
             array($this, 'render_summary_position_field'),
             'postpilotai-settings',
             'postpilotai_features_section'
@@ -472,7 +472,7 @@ class Settings
 
         add_settings_field(
             'postpilotai_enable_internal_links',
-            __('Enable Smart Internal Links', 'postpilot'),
+            __('Enable Smart Internal Links', 'postpilot-ai'),
             array($this, 'render_enable_internal_links_field'),
             'postpilotai-settings',
             'postpilotai_features_section'
@@ -495,10 +495,20 @@ class Settings
         // Check if settings were updated (for SweetAlert2 notification)
         $settings_updated = false;
 
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only core parameter added by options.php redirect. No user action performed.
-        if (isset($_GET['settings-updated'])) {
-            $settings_updated = ('true' === sanitize_text_field(wp_unslash($_GET['settings-updated'])));
-        }
+		/**
+			 * settings-updated is a core query arg added by options.php after a successful settings save.
+			 * It's read-only and only used here to display a UI notice, no state change or action is performed.
+			 */
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Core read-only redirect flag from options.php, used only for UI.
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['settings-updated'], $_GET['page'] ) ) {
+			$page = sanitize_key( wp_unslash( $_GET['page'] ) );
+
+			if ( 'postpilotai-settings' === $page ) {
+				$settings_updated = ( 'true' === sanitize_text_field( wp_unslash( $_GET['settings-updated'] ) ) );
+			}
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 
         ?>
@@ -520,7 +530,7 @@ class Settings
                         <div>
                             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
                             <p class="postpilotai-subtitle">
-                                <?php esc_html_e('AI-Powered Content Enhancement for WordPress', 'postpilot'); ?>
+                                <?php esc_html_e('AI-Powered Content Enhancement for WordPress', 'postpilot-ai'); ?>
                             </p>
                         </div>
                     </div>
@@ -547,22 +557,22 @@ class Settings
                         // Build tooltip
                         $tooltip_parts = array();
                         if (!empty($configured)) {
-                            $tooltip_parts[] = __('Connected: ', 'postpilot') . implode(', ', $configured);
+                            $tooltip_parts[] = __('Connected: ', 'postpilot-ai') . implode(', ', $configured);
                         }
                         if (!empty($not_configured)) {
-                            $tooltip_parts[] = __('Not configured: ', 'postpilot') . implode(', ', $not_configured);
+                            $tooltip_parts[] = __('Not configured: ', 'postpilot-ai') . implode(', ', $not_configured);
                         }
                         $tooltip = implode("\n", $tooltip_parts);
 
                         // Determine badge text and class
                         if ($configured_count === 0) {
-                            $status_text = __('Not Connected', 'postpilot');
+                            $status_text = __('Not Connected', 'postpilot-ai');
                             $status_class = 'postpilotai-status-disconnected';
                         } elseif ($configured_count === $total_providers) {
 
                             $status_text = sprintf(
                                 /* translators: 1: number of connected AI providers, 2: total available AI providers */
-                                esc_html__('%1$d of %2$d AI Connected', 'postpilot'),
+                                esc_html__('%1$d of %2$d AI Connected', 'postpilot-ai'),
                                 $configured_count,
                                 $total_providers
                             );
@@ -570,7 +580,7 @@ class Settings
                         } else {
                             $status_text = sprintf(
                                 /* translators: 1: number of connected AI providers, 2: total available AI providers */
-                                esc_html__('%1$d of %2$d AI Connected', 'postpilot'),
+                                esc_html__('%1$d of %2$d AI Connected', 'postpilot-ai'),
                                 $configured_count,
                                 $total_providers
                             );
@@ -593,21 +603,21 @@ class Settings
                         <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                         <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
                     </svg>
-                    <?php esc_html_e('Features', 'postpilot'); ?>
+                    <?php esc_html_e('Features', 'postpilot-ai'); ?>
                 </button>
                 <button type="button" class="postpilotai-tab" data-tab="ai-providers">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                    <?php esc_html_e('AI Providers', 'postpilot'); ?>
+                    <?php esc_html_e('AI Providers', 'postpilot-ai'); ?>
                 </button>
                 <button type="button" class="postpilotai-tab" data-tab="troubleshooting">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                         <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <?php esc_html_e('Troubleshooting', 'postpilot'); ?>
+                    <?php esc_html_e('Troubleshooting', 'postpilot-ai'); ?>
                 </button>
             </div>
 
@@ -627,8 +637,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('OpenAI (ChatGPT)', 'postpilot'); ?></h2>
-                                    <p><?php esc_html_e('Configure OpenAI API credentials and model selection', 'postpilot'); ?>
+                                    <h2><?php esc_html_e('OpenAI (ChatGPT)', 'postpilot-ai'); ?></h2>
+                                    <p><?php esc_html_e('Configure OpenAI API credentials and model selection', 'postpilot-ai'); ?>
                                     </p>
                                 </div>
                                 <?php
@@ -643,14 +653,14 @@ class Settings
                                 <!-- API Key Field -->
                                 <div class="postpilotai-field-group">
                                     <label for="postpilotai_openai_api_key_providers" class="postpilotai-label">
-                                        <?php esc_html_e('API Key', 'postpilot'); ?>
+                                        <?php esc_html_e('API Key', 'postpilot-ai'); ?>
                                         <?php if (get_option('postpilotai_openai_api_key')): ?>
                                             <span class="postpilotai-badge postpilotai-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
                                                 </svg>
-                                                <?php esc_html_e('Saved', 'postpilot'); ?>
+                                                <?php esc_html_e('Saved', 'postpilot-ai'); ?>
                                             </span>
                                         <?php endif; ?>
                                     </label>
@@ -671,7 +681,7 @@ class Settings
                                         </button>
                                     </div>
                                     <p class="postpilotai-field-description">
-                                        <?php esc_html_e('Get your API key from', 'postpilot'); ?>
+                                        <?php esc_html_e('Get your API key from', 'postpilot-ai'); ?>
                                         <a href="https://platform.openai.com/api-keys" target="_blank"
                                             rel="noopener">platform.openai.com/api-keys</a>
                                     </p>
@@ -680,7 +690,7 @@ class Settings
                                 <!-- Model Selection -->
                                 <div class="postpilotai-field-group">
                                     <label for="postpilotai_openai_model_providers" class="postpilotai-label">
-                                        <?php esc_html_e('Model', 'postpilot'); ?>
+                                        <?php esc_html_e('Model', 'postpilot-ai'); ?>
                                     </label>
                                     <select name="postpilotai_openai_model" id="postpilotai_openai_model_providers"
                                         class="postpilotai-select">
@@ -695,7 +705,7 @@ class Settings
                                         </option>
                                     </select>
                                     <p class="postpilotai-field-description">
-                                        <strong><?php esc_html_e('This model will be used for ALL features that use OpenAI', 'postpilot'); ?></strong>
+                                        <strong><?php esc_html_e('This model will be used for ALL features that use OpenAI', 'postpilot-ai'); ?></strong>
                                     </p>
                                 </div>
                             </div>
@@ -711,8 +721,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('Anthropic Claude', 'postpilot'); ?></h2>
-                                    <p><?php esc_html_e('Configure Claude API credentials and model selection', 'postpilot'); ?>
+                                    <h2><?php esc_html_e('Anthropic Claude', 'postpilot-ai'); ?></h2>
+                                    <p><?php esc_html_e('Configure Claude API credentials and model selection', 'postpilot-ai'); ?>
                                     </p>
                                 </div>
                                 <?php
@@ -727,14 +737,14 @@ class Settings
                                 <!-- API Key Field -->
                                 <div class="postpilotai-field-group">
                                     <label for="postpilotai_claude_api_key_providers" class="postpilotai-label">
-                                        <?php esc_html_e('API Key', 'postpilot'); ?>
+                                        <?php esc_html_e('API Key', 'postpilot-ai'); ?>
                                         <?php if (get_option('postpilotai_claude_api_key')): ?>
                                             <span class="postpilotai-badge postpilotai-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
                                                 </svg>
-                                                <?php esc_html_e('Saved', 'postpilot'); ?>
+                                                <?php esc_html_e('Saved', 'postpilot-ai'); ?>
                                             </span>
                                         <?php endif; ?>
                                     </label>
@@ -755,7 +765,7 @@ class Settings
                                         </button>
                                     </div>
                                     <p class="postpilotai-field-description">
-                                        <?php esc_html_e('Get your API key from', 'postpilot'); ?>
+                                        <?php esc_html_e('Get your API key from', 'postpilot-ai'); ?>
                                         <a href="https://console.anthropic.com" target="_blank"
                                             rel="noopener">console.anthropic.com</a>
                                     </p>
@@ -764,7 +774,7 @@ class Settings
                                 <!-- Model Selection -->
                                 <div class="postpilotai-field-group">
                                     <label for="postpilotai_claude_model_providers" class="postpilotai-label">
-                                        <?php esc_html_e('Model', 'postpilot'); ?>
+                                        <?php esc_html_e('Model', 'postpilot-ai'); ?>
                                     </label>
                                     <select name="postpilotai_claude_model" id="postpilotai_claude_model_providers"
                                         class="postpilotai-select">
@@ -779,7 +789,7 @@ class Settings
                                         </option>
                                     </select>
                                     <p class="postpilotai-field-description">
-                                        <strong><?php esc_html_e('This model will be used for ALL features that use Claude', 'postpilot'); ?></strong>
+                                        <strong><?php esc_html_e('This model will be used for ALL features that use Claude', 'postpilot-ai'); ?></strong>
                                     </p>
                                 </div>
                             </div>
@@ -795,8 +805,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('Google Gemini', 'postpilot'); ?></h2>
-                                    <p><?php esc_html_e('Configure Gemini API credentials and model selection', 'postpilot'); ?>
+                                    <h2><?php esc_html_e('Google Gemini', 'postpilot-ai'); ?></h2>
+                                    <p><?php esc_html_e('Configure Gemini API credentials and model selection', 'postpilot-ai'); ?>
                                     </p>
                                 </div>
                                 <?php
@@ -811,14 +821,14 @@ class Settings
                                 <!-- API Key Field -->
                                 <div class="postpilotai-field-group">
                                     <label for="postpilotai_gemini_api_key_providers" class="postpilotai-label">
-                                        <?php esc_html_e('API Key', 'postpilot'); ?>
+                                        <?php esc_html_e('API Key', 'postpilot-ai'); ?>
                                         <?php if (get_option('postpilotai_gemini_api_key')): ?>
                                             <span class="postpilotai-badge postpilotai-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
                                                 </svg>
-                                                <?php esc_html_e('Saved', 'postpilot'); ?>
+                                                <?php esc_html_e('Saved', 'postpilot-ai'); ?>
                                             </span>
                                         <?php endif; ?>
                                     </label>
@@ -839,7 +849,7 @@ class Settings
                                         </button>
                                     </div>
                                     <p class="postpilotai-field-description">
-                                        <?php esc_html_e('Get your API key from', 'postpilot'); ?>
+                                        <?php esc_html_e('Get your API key from', 'postpilot-ai'); ?>
                                         <a href="https://aistudio.google.com/app/apikey" target="_blank"
                                             rel="noopener">aistudio.google.com/app/apikey</a>
                                     </p>
@@ -848,7 +858,7 @@ class Settings
                                 <!-- Model Selection -->
                                 <div class="postpilotai-field-group">
                                     <label for="postpilotai_gemini_model_providers" class="postpilotai-label">
-                                        <?php esc_html_e('Model', 'postpilot'); ?>
+                                        <?php esc_html_e('Model', 'postpilot-ai'); ?>
                                     </label>
                                     <select name="postpilotai_gemini_model" id="postpilotai_gemini_model_providers"
                                         class="postpilotai-select">
@@ -866,7 +876,7 @@ class Settings
                                         </option>
                                     </select>
                                     <p class="postpilotai-field-description">
-                                        <strong><?php esc_html_e('This model will be used for ALL features that use Gemini', 'postpilot'); ?></strong>
+                                        <strong><?php esc_html_e('This model will be used for ALL features that use Gemini', 'postpilot-ai'); ?></strong>
                                     </p>
                                 </div>
                             </div>
@@ -882,8 +892,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('xAI Grok', 'postpilot'); ?></h2>
-                                    <p><?php esc_html_e('Configure Grok API credentials and model selection', 'postpilot'); ?>
+                                    <h2><?php esc_html_e('xAI Grok', 'postpilot-ai'); ?></h2>
+                                    <p><?php esc_html_e('Configure Grok API credentials and model selection', 'postpilot-ai'); ?>
                                     </p>
                                 </div>
                                 <?php
@@ -898,14 +908,14 @@ class Settings
                                 <!-- API Key Field -->
                                 <div class="postpilotai-field-group">
                                     <label for="postpilotai_grok_api_key_providers" class="postpilotai-label">
-                                        <?php esc_html_e('API Key', 'postpilot'); ?>
+                                        <?php esc_html_e('API Key', 'postpilot-ai'); ?>
                                         <?php if (get_option('postpilotai_grok_api_key')): ?>
                                             <span class="postpilotai-badge postpilotai-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
                                                 </svg>
-                                                <?php esc_html_e('Saved', 'postpilot'); ?>
+                                                <?php esc_html_e('Saved', 'postpilot-ai'); ?>
                                             </span>
                                         <?php endif; ?>
                                     </label>
@@ -926,7 +936,7 @@ class Settings
                                         </button>
                                     </div>
                                     <p class="postpilotai-field-description">
-                                        <?php esc_html_e('Get your API key from', 'postpilot'); ?>
+                                        <?php esc_html_e('Get your API key from', 'postpilot-ai'); ?>
                                         <a href="https://console.x.ai/" target="_blank" rel="noopener">console.x.ai</a>
                                     </p>
                                 </div>
@@ -934,7 +944,7 @@ class Settings
                                 <!-- Model Selection -->
                                 <div class="postpilotai-field-group">
                                     <label for="postpilotai_grok_model_providers" class="postpilotai-label">
-                                        <?php esc_html_e('Model', 'postpilot'); ?>
+                                        <?php esc_html_e('Model', 'postpilot-ai'); ?>
                                     </label>
                                     <select name="postpilotai_grok_model" id="postpilotai_grok_model_providers"
                                         class="postpilotai-select">
@@ -946,7 +956,7 @@ class Settings
                                         </option>
                                     </select>
                                     <p class="postpilotai-field-description">
-                                        <strong><?php esc_html_e('This model will be used for ALL features that use Grok', 'postpilot'); ?></strong>
+                                        <strong><?php esc_html_e('This model will be used for ALL features that use Grok', 'postpilot-ai'); ?></strong>
                                     </p>
                                 </div>
                             </div>
@@ -954,7 +964,7 @@ class Settings
                     </div>
 
                     <div class="postpilotai-submit-wrapper">
-                        <?php submit_button(__('Save Settings', 'postpilot'), 'primary postpilotai-btn-primary', 'submit', false); ?>
+                        <?php submit_button(__('Save Settings', 'postpilot-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
                     </div>
                 </div>
 
@@ -973,8 +983,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('Feature Settings', 'postpilot'); ?></h2>
-                                    <p><?php esc_html_e('Enable or disable AI-powered features', 'postpilot'); ?></p>
+                                    <h2><?php esc_html_e('Feature Settings', 'postpilot-ai'); ?></h2>
+                                    <p><?php esc_html_e('Enable or disable AI-powered features', 'postpilot-ai'); ?></p>
                                 </div>
                             </div>
                             <div class="postpilotai-card-body">
@@ -989,10 +999,10 @@ class Settings
                                                         stroke-width="2" />
                                                     <circle cx="12" cy="17" r="1" fill="currentColor" />
                                                 </svg>
-                                                <?php esc_html_e('FAQ Generator', 'postpilot'); ?>
+                                                <?php esc_html_e('FAQ Generator', 'postpilot-ai'); ?>
                                             </label>
                                             <p class="postpilotai-feature-description">
-                                                <?php esc_html_e('Automatically generate frequently asked questions based on your content', 'postpilot'); ?>
+                                                <?php esc_html_e('Automatically generate frequently asked questions based on your content', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                         <label class="postpilotai-toggle">
@@ -1004,7 +1014,7 @@ class Settings
                                         <!-- AI Provider Selection -->
                                         <div class="postpilotai-field-group">
                                             <label for="postpilotai_faq_provider" class="postpilotai-label-small">
-                                                <?php esc_html_e('AI Provider', 'postpilot'); ?>
+                                                <?php esc_html_e('AI Provider', 'postpilot-ai'); ?>
                                             </label>
                                             <select name="postpilotai_faq_provider" id="postpilotai_faq_provider"
                                                 class="postpilotai-select-small">
@@ -1020,48 +1030,48 @@ class Settings
                                         </div>
                                         <div class="postpilotai-field-group" id="faq-model-display">
                                             <label class="postpilotai-label-small">
-                                                <?php esc_html_e('Model in Use', 'postpilot'); ?>
+                                                <?php esc_html_e('Model in Use', 'postpilot-ai'); ?>
                                             </label>
                                             <span class="postpilotai-badge postpilotai-badge-info">
                                                 <?php
                                                 $faq_provider = get_option('postpilotai_faq_provider', 'openai');
                                                 $faq_model = get_option("postpilotai_{$faq_provider}_model", '');
-                                                echo esc_html($faq_model ?: __('Not configured', 'postpilot'));
+                                                echo esc_html($faq_model ?: __('Not configured', 'postpilot-ai'));
                                                 ?>
                                             </span>
                                             <p class="postpilotai-field-description">
-                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot'); ?>
+                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                         <div class="postpilotai-field-group">
                                             <label for="postpilotai_faq_position" class="postpilotai-label-small">
-                                                <?php esc_html_e('Display Position', 'postpilot'); ?>
+                                                <?php esc_html_e('Display Position', 'postpilot-ai'); ?>
                                             </label>
                                             <select name="postpilotai_faq_position" id="postpilotai_faq_position"
                                                 class="postpilotai-select-small">
                                                 <option value="after_content" <?php selected(get_option('postpilotai_faq_position', 'after_content'), 'after_content'); ?>>
-                                                    <?php esc_html_e('After Content', 'postpilot'); ?>
+                                                    <?php esc_html_e('After Content', 'postpilot-ai'); ?>
                                                 </option>
                                                 <option value="before_content" <?php selected(get_option('postpilotai_faq_position'), 'before_content'); ?>>
-                                                    <?php esc_html_e('Before Content', 'postpilot'); ?>
+                                                    <?php esc_html_e('Before Content', 'postpilot-ai'); ?>
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="postpilotai-field-group">
                                             <label for="postpilotai_faq_default_layout" class="postpilotai-label-small">
-                                                <?php esc_html_e('Default Display Style', 'postpilot'); ?>
+                                                <?php esc_html_e('Default Display Style', 'postpilot-ai'); ?>
                                             </label>
                                             <select name="postpilotai_faq_default_layout" id="postpilotai_faq_default_layout"
                                                 class="postpilotai-select-small">
                                                 <option value="accordion" <?php selected(get_option('postpilotai_faq_default_layout', 'accordion'), 'accordion'); ?>>
-                                                    <?php esc_html_e('Accordion', 'postpilot'); ?>
+                                                    <?php esc_html_e('Accordion', 'postpilot-ai'); ?>
                                                 </option>
                                                 <option value="static" <?php selected(get_option('postpilotai_faq_default_layout', 'accordion'), 'static'); ?>>
-                                                    <?php esc_html_e('Static', 'postpilot'); ?>
+                                                    <?php esc_html_e('Static', 'postpilot-ai'); ?>
                                                 </option>
                                             </select>
                                             <p class="description" style="margin-top: 5px; font-size: 12px;">
-                                                <?php esc_html_e('Can be overridden per post', 'postpilot'); ?>
+                                                <?php esc_html_e('Can be overridden per post', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -1076,10 +1086,10 @@ class Settings
                                                     <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
                                                 </svg>
-                                                <?php esc_html_e('Content Summary', 'postpilot'); ?>
+                                                <?php esc_html_e('Content Summary', 'postpilot-ai'); ?>
                                             </label>
                                             <p class="postpilotai-feature-description">
-                                                <?php esc_html_e('Generate concise summaries of your posts for better engagement', 'postpilot'); ?>
+                                                <?php esc_html_e('Generate concise summaries of your posts for better engagement', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                         <label class="postpilotai-toggle">
@@ -1091,7 +1101,7 @@ class Settings
                                         <!-- AI Provider Selection -->
                                         <div class="postpilotai-field-group">
                                             <label for="postpilotai_summary_provider" class="postpilotai-label-small">
-                                                <?php esc_html_e('AI Provider', 'postpilot'); ?>
+                                                <?php esc_html_e('AI Provider', 'postpilot-ai'); ?>
                                             </label>
                                             <select name="postpilotai_summary_provider" id="postpilotai_summary_provider"
                                                 class="postpilotai-select-small">
@@ -1107,30 +1117,30 @@ class Settings
                                         </div>
                                         <div class="postpilotai-field-group" id="summary-model-display">
                                             <label class="postpilotai-label-small">
-                                                <?php esc_html_e('Model in Use', 'postpilot'); ?>
+                                                <?php esc_html_e('Model in Use', 'postpilot-ai'); ?>
                                             </label>
                                             <span class="postpilotai-badge postpilotai-badge-info">
                                                 <?php
                                                 $summary_provider = get_option('postpilotai_summary_provider', 'openai');
                                                 $summary_model = get_option("postpilotai_{$summary_provider}_model", '');
-                                                echo esc_html($summary_model ?: __('Not configured', 'postpilot'));
+                                                echo esc_html($summary_model ?: __('Not configured', 'postpilot-ai'));
                                                 ?>
                                             </span>
                                             <p class="postpilotai-field-description">
-                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot'); ?>
+                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                         <div class="postpilotai-field-group">
                                             <label for="postpilotai_summary_position" class="postpilotai-label-small">
-                                                <?php esc_html_e('Display Position', 'postpilot'); ?>
+                                                <?php esc_html_e('Display Position', 'postpilot-ai'); ?>
                                             </label>
                                             <select name="postpilotai_summary_position" id="postpilotai_summary_position"
                                                 class="postpilotai-select-small">
                                                 <option value="before_content" <?php selected(get_option('postpilotai_summary_position', 'before_content'), 'before_content'); ?>>
-                                                    <?php esc_html_e('Before Content', 'postpilot'); ?>
+                                                    <?php esc_html_e('Before Content', 'postpilot-ai'); ?>
                                                 </option>
                                                 <option value="after_content" <?php selected(get_option('postpilotai_summary_position'), 'after_content'); ?>>
-                                                    <?php esc_html_e('After Content', 'postpilot'); ?>
+                                                    <?php esc_html_e('After Content', 'postpilot-ai'); ?>
                                                 </option>
                                             </select>
                                         </div>
@@ -1148,10 +1158,10 @@ class Settings
                                                     <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
                                                         stroke="currentColor" stroke-width="2" />
                                                 </svg>
-                                                <?php esc_html_e('Smart Internal Links', 'postpilot'); ?>
+                                                <?php esc_html_e('Smart Internal Links', 'postpilot-ai'); ?>
                                             </label>
                                             <p class="postpilotai-feature-description">
-                                                <?php esc_html_e('Automatically suggest relevant internal links to improve SEO', 'postpilot'); ?>
+                                                <?php esc_html_e('Automatically suggest relevant internal links to improve SEO', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                         <label class="postpilotai-toggle">
@@ -1163,7 +1173,7 @@ class Settings
                                     <div class="postpilotai-feature-options" id="links-options" style="margin-top: 15px;">
                                         <div class="postpilotai-field-group">
                                             <label for="postpilotai_internal_links_provider" class="postpilotai-label-small">
-                                                <?php esc_html_e('AI Provider', 'postpilot'); ?>
+                                                <?php esc_html_e('AI Provider', 'postpilot-ai'); ?>
                                             </label>
                                             <select name="postpilotai_internal_links_provider"
                                                 id="postpilotai_internal_links_provider" class="postpilotai-select-small">
@@ -1179,17 +1189,17 @@ class Settings
                                         </div>
                                         <div class="postpilotai-field-group" id="links-model-display">
                                             <label class="postpilotai-label-small">
-                                                <?php esc_html_e('Model in Use', 'postpilot'); ?>
+                                                <?php esc_html_e('Model in Use', 'postpilot-ai'); ?>
                                             </label>
                                             <span class="postpilotai-badge postpilotai-badge-info">
                                                 <?php
                                                 $links_provider = get_option('postpilotai_internal_links_provider', 'openai');
                                                 $links_model = get_option("postpilotai_{$links_provider}_model", '');
-                                                echo esc_html($links_model ?: __('Not configured', 'postpilot'));
+                                                echo esc_html($links_model ?: __('Not configured', 'postpilot-ai'));
                                                 ?>
                                             </span>
                                             <p class="postpilotai-field-description">
-                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot'); ?>
+                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -1206,10 +1216,10 @@ class Settings
                                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round" />
                                                 </svg>
-                                                <?php esc_html_e('External AI Sharing', 'postpilot'); ?>
+                                                <?php esc_html_e('External AI Sharing', 'postpilot-ai'); ?>
                                             </label>
                                             <p class="postpilotai-feature-description">
-                                                <?php esc_html_e('Allow readers to summarize posts with external AI tools', 'postpilot'); ?>
+                                                <?php esc_html_e('Allow readers to summarize posts with external AI tools', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                         <label class="postpilotai-toggle">
@@ -1220,36 +1230,36 @@ class Settings
                                     <div class="postpilotai-feature-options" id="external-ai-sharing-options">
                                         <div class="postpilotai-field-group">
                                             <label for="postpilotai_external_ai_position" class="postpilotai-label-small">
-                                                <?php esc_html_e('Display Position', 'postpilot'); ?>
+                                                <?php esc_html_e('Display Position', 'postpilot-ai'); ?>
                                             </label>
                                             <select name="postpilotai_external_ai_position"
                                                 id="postpilotai_external_ai_position" class="postpilotai-select-small">
                                                 <option value="before_content" <?php selected(get_option('postpilotai_external_ai_position', 'before_content'), 'before_content'); ?>>
-                                                    <?php esc_html_e('Before Content', 'postpilot'); ?>
+                                                    <?php esc_html_e('Before Content', 'postpilot-ai'); ?>
                                                 </option>
                                                 <option value="after_content" <?php selected(get_option('postpilotai_external_ai_position', 'before_content'), 'after_content'); ?>>
-                                                    <?php esc_html_e('After Content', 'postpilot'); ?>
+                                                    <?php esc_html_e('After Content', 'postpilot-ai'); ?>
                                                 </option>
                                                 <option value="both" <?php selected(get_option('postpilotai_external_ai_position', 'before_content'), 'both'); ?>>
-                                                    <?php esc_html_e('Both', 'postpilot'); ?>
+                                                    <?php esc_html_e('Both', 'postpilot-ai'); ?>
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="postpilotai-field-group">
                                             <label for="postpilotai_external_ai_heading" class="postpilotai-label-small">
-                                                <?php esc_html_e('Heading Text', 'postpilot'); ?>
+                                                <?php esc_html_e('Heading Text', 'postpilot-ai'); ?>
                                             </label>
                                             <input type="text" name="postpilotai_external_ai_heading"
                                                 id="postpilotai_external_ai_heading" class="postpilotai-input-small"
                                                 value="<?php echo esc_attr(get_option('postpilotai_external_ai_heading', 'Summarize this post with:')); ?>"
-                                                placeholder="<?php esc_attr_e('Summarize this post with:', 'postpilot'); ?>" />
+                                                placeholder="<?php esc_attr_e('Summarize this post with:', 'postpilot-ai'); ?>" />
                                             <p class="postpilotai-field-description">
-                                                <?php esc_html_e('Customize the heading text displayed above the AI sharing buttons', 'postpilot'); ?>
+                                                <?php esc_html_e('Customize the heading text displayed above the AI sharing buttons', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                         <div class="postpilotai-field-group">
                                             <label class="postpilotai-label-small">
-                                                <?php esc_html_e('Enabled AI Providers', 'postpilot'); ?>
+                                                <?php esc_html_e('Enabled AI Providers', 'postpilot-ai'); ?>
                                             </label>
                                             <div class="postpilotai-checkbox-group">
                                                 <?php
@@ -1329,7 +1339,7 @@ class Settings
                                                 <?php } ?>
                                             </div>
                                             <p class="postpilotai-field-description">
-                                                <?php esc_html_e('Select which external AI tools to show to your readers', 'postpilot'); ?>
+                                                <?php esc_html_e('Select which external AI tools to show to your readers', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -1340,7 +1350,7 @@ class Settings
                     <!-- End Features Tab -->
 
                     <div class="postpilotai-submit-wrapper">
-                        <?php submit_button(__('Save Settings', 'postpilot'), 'primary postpilotai-btn-primary', 'submit', false); ?>
+                        <?php submit_button(__('Save Settings', 'postpilot-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
                     </div>
                 </div>
 
@@ -1357,8 +1367,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('Debug Logging', 'postpilot'); ?></h2>
-                                    <p><?php esc_html_e('Enable debug logging for troubleshooting API issues', 'postpilot'); ?>
+                                    <h2><?php esc_html_e('Debug Logging', 'postpilot-ai'); ?></h2>
+                                    <p><?php esc_html_e('Enable debug logging for troubleshooting API issues', 'postpilot-ai'); ?>
                                     </p>
                                 </div>
                             </div>
@@ -1370,7 +1380,7 @@ class Settings
                                             <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
-                                        <?php esc_html_e('Enable Debug Logging', 'postpilot'); ?>
+                                        <?php esc_html_e('Enable Debug Logging', 'postpilot-ai'); ?>
                                     </label>
                                     <div class="postpilotai-toggle-wrapper">
                                         <label class="postpilotai-toggle">
@@ -1378,11 +1388,11 @@ class Settings
                                             <span class="postpilotai-toggle-slider"></span>
                                         </label>
                                         <span class="postpilotai-toggle-label">
-                                            <?php esc_html_e('Log all API requests and responses to debug.log', 'postpilot'); ?>
+                                            <?php esc_html_e('Log all API requests and responses to debug.log', 'postpilot-ai'); ?>
                                         </span>
                                     </div>
                                     <p class="postpilotai-field-description">
-                                        <?php esc_html_e('When enabled, all API requests and responses will be logged to debug.log. This is useful for troubleshooting API connection issues. Keep this disabled in production environments to avoid filling up your debug log.', 'postpilot'); ?>
+                                        <?php esc_html_e('When enabled, all API requests and responses will be logged to debug.log. This is useful for troubleshooting API connection issues. Keep this disabled in production environments to avoid filling up your debug log.', 'postpilot-ai'); ?>
                                     </p>
 
                                     <div class="postpilotai-info-box" style="margin-top: 16px;">
@@ -1392,12 +1402,12 @@ class Settings
                                                 stroke-linecap="round" />
                                         </svg>
                                         <div>
-                                            <strong><?php esc_html_e('Debug Log Location:', 'postpilot'); ?></strong>
+                                            <strong><?php esc_html_e('Debug Log Location:', 'postpilot-ai'); ?></strong>
                                             <p style="margin: 4px 0 0 0; font-size: 13px; opacity: 0.8;">
                                                 <?php echo esc_html(WP_CONTENT_DIR . '/debug.log'); ?>
                                             </p>
                                             <p style="margin: 8px 0 0 0; font-size: 13px; opacity: 0.8;">
-                                                <?php esc_html_e('Make sure WP_DEBUG and WP_DEBUG_LOG are enabled in wp-config.php for debug logging to work.', 'postpilot'); ?>
+                                                <?php esc_html_e('Make sure WP_DEBUG and WP_DEBUG_LOG are enabled in wp-config.php for debug logging to work.', 'postpilot-ai'); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -1408,7 +1418,7 @@ class Settings
                     <!-- End Troubleshooting Tab -->
 
                     <div class="postpilotai-submit-wrapper">
-                        <?php submit_button(__('Save Settings', 'postpilot'), 'primary postpilotai-btn-primary', 'submit', false); ?>
+                        <?php submit_button(__('Save Settings', 'postpilot-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
                     </div>
                 </div>
 
@@ -1426,7 +1436,7 @@ class Settings
      */
     public function render_ai_section_description()
     {
-        echo '<p>' . esc_html__('Configure your AI provider and API credentials.', 'postpilot') . '</p>';
+        echo '<p>' . esc_html__('Configure your AI provider and API credentials.', 'postpilot-ai') . '</p>';
     }
 
     /**
@@ -1437,7 +1447,7 @@ class Settings
      */
     public function render_features_section_description()
     {
-        echo '<p>' . esc_html__('Enable or disable AI-powered features and configure their display.', 'postpilot') . '</p>';
+        echo '<p>' . esc_html__('Enable or disable AI-powered features and configure their display.', 'postpilot-ai') . '</p>';
     }
 
     /**
@@ -1452,14 +1462,14 @@ class Settings
         ?>
         <select name="postpilotai_ai_provider" id="postpilotai_ai_provider">
             <option value="openai" <?php selected($value, 'openai'); ?>>
-                <?php esc_html_e('OpenAI (ChatGPT)', 'postpilot'); ?>
+                <?php esc_html_e('OpenAI (ChatGPT)', 'postpilot-ai'); ?>
             </option>
             <option value="claude" <?php selected($value, 'claude'); ?>>
-                <?php esc_html_e('Claude (Anthropic)', 'postpilot'); ?>
+                <?php esc_html_e('Claude (Anthropic)', 'postpilot-ai'); ?>
             </option>
         </select>
         <p class="description">
-            <?php esc_html_e('Select your preferred AI provider.', 'postpilot'); ?>
+            <?php esc_html_e('Select your preferred AI provider.', 'postpilot-ai'); ?>
         </p>
         <?php
     }
@@ -1477,7 +1487,7 @@ class Settings
         ?>
         <input type="text" name="postpilotai_openai_api_key" id="postpilotai_openai_api_key"
             value="<?php echo esc_attr($value); ?>" class="regular-text"
-            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot') : esc_attr__('Enter your OpenAI API key', 'postpilot'); ?>" />
+            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot-ai') : esc_attr__('Enter your OpenAI API key', 'postpilot-ai'); ?>" />
         <?php if ($has_key): ?>
             <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
         <?php endif; ?>
@@ -1485,7 +1495,7 @@ class Settings
             <?php
             printf(
                 /* translators: %s: OpenAI API URL */
-                esc_html__('Get your API key from %s', 'postpilot'),
+                esc_html__('Get your API key from %s', 'postpilot-ai'),
                 '<a href="https://platform.openai.com/api-keys" target="_blank">OpenAI</a>'
             );
             ?>
@@ -1506,7 +1516,7 @@ class Settings
         ?>
         <input type="text" name="postpilotai_claude_api_key" id="postpilotai_claude_api_key"
             value="<?php echo esc_attr($value); ?>" class="regular-text"
-            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot') : esc_attr__('Enter your Claude API key', 'postpilot'); ?>" />
+            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot-ai') : esc_attr__('Enter your Claude API key', 'postpilot-ai'); ?>" />
         <?php if ($has_key): ?>
             <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
         <?php endif; ?>
@@ -1514,7 +1524,7 @@ class Settings
             <?php
             printf(
                 /* translators: %s: Anthropic API URL */
-                esc_html__('Get your API key from %s', 'postpilot'),
+                esc_html__('Get your API key from %s', 'postpilot-ai'),
                 '<a href="https://console.anthropic.com/" target="_blank">Anthropic</a>'
             );
             ?>
@@ -1534,7 +1544,7 @@ class Settings
         ?>
         <label>
             <input type="checkbox" name="postpilotai_enable_faq" value="1" <?php checked($value, '1'); ?> />
-            <?php esc_html_e('Enable AI-generated FAQ section', 'postpilot'); ?>
+            <?php esc_html_e('Enable AI-generated FAQ section', 'postpilot-ai'); ?>
         </label>
         <?php
     }
@@ -1551,10 +1561,10 @@ class Settings
         ?>
         <select name="postpilotai_faq_position" id="postpilotai_faq_position">
             <option value="before_content" <?php selected($value, 'before_content'); ?>>
-                <?php esc_html_e('Before Content', 'postpilot'); ?>
+                <?php esc_html_e('Before Content', 'postpilot-ai'); ?>
             </option>
             <option value="after_content" <?php selected($value, 'after_content'); ?>>
-                <?php esc_html_e('After Content', 'postpilot'); ?>
+                <?php esc_html_e('After Content', 'postpilot-ai'); ?>
             </option>
         </select>
         <?php
@@ -1572,7 +1582,7 @@ class Settings
         ?>
         <label>
             <input type="checkbox" name="postpilotai_enable_summary" value="1" <?php checked($value, '1'); ?> />
-            <?php esc_html_e('Enable AI-generated content summary', 'postpilot'); ?>
+            <?php esc_html_e('Enable AI-generated content summary', 'postpilot-ai'); ?>
         </label>
         <?php
     }
@@ -1589,10 +1599,10 @@ class Settings
         ?>
         <select name="postpilotai_summary_position" id="postpilotai_summary_position">
             <option value="before_content" <?php selected($value, 'before_content'); ?>>
-                <?php esc_html_e('Before Content', 'postpilot'); ?>
+                <?php esc_html_e('Before Content', 'postpilot-ai'); ?>
             </option>
             <option value="after_content" <?php selected($value, 'after_content'); ?>>
-                <?php esc_html_e('After Content', 'postpilot'); ?>
+                <?php esc_html_e('After Content', 'postpilot-ai'); ?>
             </option>
         </select>
         <?php
@@ -1610,14 +1620,14 @@ class Settings
         ?>
         <select name="postpilotai_faq_default_layout" id="postpilotai_faq_default_layout">
             <option value="accordion" <?php selected($value, 'accordion'); ?>>
-                <?php esc_html_e('Accordion', 'postpilot'); ?>
+                <?php esc_html_e('Accordion', 'postpilot-ai'); ?>
             </option>
             <option value="static" <?php selected($value, 'static'); ?>>
-                <?php esc_html_e('Static', 'postpilot'); ?>
+                <?php esc_html_e('Static', 'postpilot-ai'); ?>
             </option>
         </select>
         <p class="description">
-            <?php esc_html_e('Choose the default layout for FAQ display. This can be overridden per post.', 'postpilot'); ?>
+            <?php esc_html_e('Choose the default layout for FAQ display. This can be overridden per post.', 'postpilot-ai'); ?>
         </p>
         <?php
     }
@@ -1634,7 +1644,7 @@ class Settings
         ?>
         <label>
             <input type="checkbox" name="postpilotai_enable_internal_links" value="1" <?php checked($value, '1'); ?> />
-            <?php esc_html_e('Enable AI-powered smart internal linking', 'postpilot'); ?>
+            <?php esc_html_e('Enable AI-powered smart internal linking', 'postpilot-ai'); ?>
         </label>
         <?php
     }
@@ -1652,7 +1662,7 @@ class Settings
         ?>
         <input type="text" name="postpilotai_gemini_api_key" id="postpilotai_gemini_api_key"
             value="<?php echo esc_attr($value); ?>" class="regular-text"
-            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot') : esc_attr__('Enter your Gemini API key', 'postpilot'); ?>" />
+            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot-ai') : esc_attr__('Enter your Gemini API key', 'postpilot-ai'); ?>" />
         <?php if ($has_key): ?>
             <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
         <?php endif; ?>
@@ -1660,7 +1670,7 @@ class Settings
             <?php
             printf(
                 /* translators: %s: Google AI Studio URL */
-                esc_html__('Get your API key from %s', 'postpilot'),
+                esc_html__('Get your API key from %s', 'postpilot-ai'),
                 '<a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>'
             );
             ?>
@@ -1680,20 +1690,20 @@ class Settings
         ?>
         <select name="postpilotai_openai_model" id="postpilotai_openai_model">
             <option value="gpt-4o" <?php selected($value, 'gpt-4o'); ?>>
-                <?php esc_html_e('GPT-4o (Most Capable)', 'postpilot'); ?>
+                <?php esc_html_e('GPT-4o (Most Capable)', 'postpilot-ai'); ?>
             </option>
             <option value="gpt-4o-mini" <?php selected($value, 'gpt-4o-mini'); ?>>
-                <?php esc_html_e('GPT-4o Mini (Balanced)', 'postpilot'); ?>
+                <?php esc_html_e('GPT-4o Mini (Balanced)', 'postpilot-ai'); ?>
             </option>
             <option value="gpt-4-turbo" <?php selected($value, 'gpt-4-turbo'); ?>>
-                <?php esc_html_e('GPT-4 Turbo', 'postpilot'); ?>
+                <?php esc_html_e('GPT-4 Turbo', 'postpilot-ai'); ?>
             </option>
             <option value="gpt-3.5-turbo" <?php selected($value, 'gpt-3.5-turbo'); ?>>
-                <?php esc_html_e('GPT-3.5 Turbo (Fastest)', 'postpilot'); ?>
+                <?php esc_html_e('GPT-3.5 Turbo (Fastest)', 'postpilot-ai'); ?>
             </option>
         </select>
         <p class="description">
-            <?php esc_html_e('Select the OpenAI model to use for content generation.', 'postpilot'); ?>
+            <?php esc_html_e('Select the OpenAI model to use for content generation.', 'postpilot-ai'); ?>
         </p>
         <?php
     }
@@ -1710,17 +1720,17 @@ class Settings
         ?>
         <select name="postpilotai_claude_model" id="postpilotai_claude_model">
             <option value="claude-3-5-sonnet-20241022" <?php selected($value, 'claude-3-5-sonnet-20241022'); ?>>
-                <?php esc_html_e('Claude 3.5 Sonnet (Most Capable)', 'postpilot'); ?>
+                <?php esc_html_e('Claude 3.5 Sonnet (Most Capable)', 'postpilot-ai'); ?>
             </option>
             <option value="claude-3-opus-20240229" <?php selected($value, 'claude-3-opus-20240229'); ?>>
-                <?php esc_html_e('Claude 3 Opus', 'postpilot'); ?>
+                <?php esc_html_e('Claude 3 Opus', 'postpilot-ai'); ?>
             </option>
             <option value="claude-3-haiku-20240307" <?php selected($value, 'claude-3-haiku-20240307'); ?>>
-                <?php esc_html_e('Claude 3 Haiku (Fastest)', 'postpilot'); ?>
+                <?php esc_html_e('Claude 3 Haiku (Fastest)', 'postpilot-ai'); ?>
             </option>
         </select>
         <p class="description">
-            <?php esc_html_e('Select the Claude model to use for content generation.', 'postpilot'); ?>
+            <?php esc_html_e('Select the Claude model to use for content generation.', 'postpilot-ai'); ?>
         </p>
         <?php
     }
@@ -1737,17 +1747,17 @@ class Settings
         ?>
         <select name="postpilotai_gemini_model" id="postpilotai_gemini_model">
             <option value="gemini-1.5-pro" <?php selected($value, 'gemini-1.5-pro'); ?>>
-                <?php esc_html_e('Gemini 1.5 Pro (Most Capable)', 'postpilot'); ?>
+                <?php esc_html_e('Gemini 1.5 Pro (Most Capable)', 'postpilot-ai'); ?>
             </option>
             <option value="gemini-1.5-flash" <?php selected($value, 'gemini-1.5-flash'); ?>>
-                <?php esc_html_e('Gemini 1.5 Flash (Balanced)', 'postpilot'); ?>
+                <?php esc_html_e('Gemini 1.5 Flash (Balanced)', 'postpilot-ai'); ?>
             </option>
             <option value="gemini-1.0-pro" <?php selected($value, 'gemini-1.0-pro'); ?>>
-                <?php esc_html_e('Gemini 1.0 Pro', 'postpilot'); ?>
+                <?php esc_html_e('Gemini 1.0 Pro', 'postpilot-ai'); ?>
             </option>
         </select>
         <p class="description">
-            <?php esc_html_e('Select the Gemini model to use for content generation.', 'postpilot'); ?>
+            <?php esc_html_e('Select the Gemini model to use for content generation.', 'postpilot-ai'); ?>
         </p>
         <?php
     }
@@ -1794,9 +1804,9 @@ class Settings
             return array(
                 'status' => 'missing',
                 'icon' => '⚪',
-                'text' => __('Missing Key', 'postpilot'),
+                'text' => __('Missing Key', 'postpilot-ai'),
                 'class' => 'postpilotai-status-gray',
-                'tooltip' => __('No API key configured. Add one if you plan to use this provider.', 'postpilot')
+                'tooltip' => __('No API key configured. Add one if you plan to use this provider.', 'postpilot-ai')
             );
         }
 
@@ -1808,9 +1818,9 @@ class Settings
             return array(
                 'status' => 'saved',
                 'icon' => '🟡',
-                'text' => __('Key Saved', 'postpilot'),
+                'text' => __('Key Saved', 'postpilot-ai'),
                 'class' => 'postpilotai-status-yellow',
-                'tooltip' => __('API key saved but not verified. Save settings to validate.', 'postpilot')
+                'tooltip' => __('API key saved but not verified. Save settings to validate.', 'postpilot-ai')
             );
         }
 
@@ -1819,7 +1829,7 @@ class Settings
             return array(
                 'status' => 'invalid',
                 'icon' => '❌',
-                'text' => __('Invalid Key', 'postpilot'),
+                'text' => __('Invalid Key', 'postpilot-ai'),
                 'class' => 'postpilotai-status-red',
                 'tooltip' => $validation_result->get_error_message()
             );
@@ -1829,9 +1839,9 @@ class Settings
         return array(
             'status' => 'connected',
             'icon' => '✅',
-            'text' => __('Connected', 'postpilot'),
+            'text' => __('Connected', 'postpilot-ai'),
             'class' => 'postpilotai-status-green',
-            'tooltip' => __('API key verified and working', 'postpilot')
+            'tooltip' => __('API key verified and working', 'postpilot-ai')
         );
     }
 

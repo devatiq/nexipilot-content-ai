@@ -110,13 +110,13 @@ class AdminManager
 
         // Ensure the user has the proper capability
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(array('message' => __('Unauthorized', 'postpilot')));
+            wp_send_json_error(array('message' => __('Unauthorized', 'postpilot-ai')));
             wp_die();
         }
 
         // Check if the required fields are set
         if (!isset($_POST['settingName']) || !isset($_POST['value'])) {
-            wp_send_json_error(array('message' => __('Missing data', 'postpilot')));
+            wp_send_json_error(array('message' => __('Missing data', 'postpilot-ai')));
             wp_die();
         }
 
@@ -128,9 +128,9 @@ class AdminManager
 
         // Save the setting in the options table
         if (update_option($setting_name, $value)) {
-            wp_send_json_success(array('message' => __('Setting saved.', 'postpilot')));
+            wp_send_json_success(array('message' => __('Setting saved.', 'postpilot-ai')));
         } else {
-            wp_send_json_error(array('message' => __('Failed to save setting.', 'postpilot')));
+            wp_send_json_error(array('message' => __('Failed to save setting.', 'postpilot-ai')));
         }
 
         wp_die();
@@ -148,7 +148,7 @@ class AdminManager
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
             esc_url(admin_url('admin.php?page=postpilotai-settings')),
-            esc_html__('Settings', 'postpilot')
+            esc_html__('Settings', 'postpilot-ai')
         );
 
         // Prepend the settings link
@@ -169,8 +169,8 @@ class AdminManager
     {
         if (POSTPILOTAI_BASENAME === $file) {
             $row_meta = array(
-                'docs' => '<a href="https://github.com/devatiq/postpilot" target="_blank">' . esc_html__('Documentation', 'postpilot') . '</a>',
-                'support' => '<a href="https://github.com/devatiq/postpilot/issues" target="_blank">' . esc_html__('Support', 'postpilot') . '</a>',
+                'docs' => '<a href="https://github.com/devatiq/postpilot" target="_blank">' . esc_html__('Documentation', 'postpilot-ai') . '</a>',
+                'support' => '<a href="https://github.com/devatiq/postpilot/issues" target="_blank">' . esc_html__('Support', 'postpilot-ai') . '</a>',
             );
             return array_merge($links, $row_meta);
         }

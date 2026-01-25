@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name: PostPilot AI
- * Plugin URI: https://github.com/devatiq/postpilot
+ * Plugin URI: https://github.com/devatiq/postpilot-ai
  * Description: AI-powered WordPress plugin that generates FAQs, content summaries, and smart internal links for your posts.
  * Version: 1.0.0
  * Author: Nexiby LLC
  * Author URI: https://nexiby.com
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: postpilot
+ * Text Domain: postpilot-ai
  * Domain Path: /languages
  * Requires at least: 5.8
  * Requires PHP: 7.4

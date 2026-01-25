@@ -93,7 +93,7 @@ class Grok implements ProviderInterface
             ));
             return new \WP_Error(
                 'json_parse_error',
-                __('Failed to parse FAQ response from Grok.', 'postpilot')
+                __('Failed to parse FAQ response from Grok.', 'postpilot-ai')
             );
         }
 
@@ -101,7 +101,7 @@ class Grok implements ProviderInterface
             Logger::error('Grok FAQ response is not an array', array('type' => gettype($faq_data)));
             return new \WP_Error(
                 'invalid_response',
-                __('Invalid FAQ response format from Grok.', 'postpilot')
+                __('Invalid FAQ response format from Grok.', 'postpilot-ai')
             );
         }
 
@@ -161,7 +161,7 @@ class Grok implements ProviderInterface
         if (json_last_error() !== JSON_ERROR_NONE) {
             return new \WP_Error(
                 'json_parse_error',
-                __('Failed to parse internal links response from Grok.', 'postpilot')
+                __('Failed to parse internal links response from Grok.', 'postpilot-ai')
             );
         }
 
@@ -183,7 +183,7 @@ class Grok implements ProviderInterface
         if (is_wp_error($test_response)) {
             return new \WP_Error(
                 'invalid_api_key',
-                __('Invalid Grok API key.', 'postpilot')
+                __('Invalid Grok API key.', 'postpilot-ai')
             );
         }
 
@@ -205,7 +205,7 @@ class Grok implements ProviderInterface
         if (empty($api_key)) {
             return new \WP_Error(
                 'missing_api_key',
-                __('Grok API key is not configured.', 'postpilot')
+                __('Grok API key is not configured.', 'postpilot-ai')
             );
         }
 
@@ -255,7 +255,7 @@ class Grok implements ProviderInterface
             $error_data = json_decode($response_body, true);
             $error_message = isset($error_data['error']['message'])
                 ? $error_data['error']['message']
-                : __('Unknown error from Grok API.', 'postpilot');
+                : __('Unknown error from Grok API.', 'postpilot-ai');
 
             Logger::error('Grok API error response', array(
                 'code' => $response_code,
@@ -267,7 +267,7 @@ class Grok implements ProviderInterface
                 'api_error',
                 sprintf(
                     /* translators: %1$s: Grok API error message */
-                    __('Grok API error: %1$s', 'postpilot'),
+                    __('Grok API error: %1$s', 'postpilot-ai'),
                     $error_message
                 )
             );
@@ -282,7 +282,7 @@ class Grok implements ProviderInterface
             ));
             return new \WP_Error(
                 'json_parse_error',
-                __('Failed to parse response from Grok.', 'postpilot')
+                __('Failed to parse response from Grok.', 'postpilot-ai')
             );
         }
 
@@ -292,7 +292,7 @@ class Grok implements ProviderInterface
             ));
             return new \WP_Error(
                 'invalid_response',
-                __('Invalid response structure from Grok.', 'postpilot')
+                __('Invalid response structure from Grok.', 'postpilot-ai')
             );
         }
 

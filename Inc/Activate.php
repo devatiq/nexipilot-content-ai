@@ -37,8 +37,8 @@ class Activate
         if (version_compare(get_bloginfo('version'), '5.8', '<')) {
             deactivate_plugins(plugin_basename(POSTPILOTAI_FILE));
             wp_die(
-                esc_html__('PostPilot AI requires WordPress 5.8 or higher.', 'postpilot'),
-                esc_html__('Plugin Activation Error', 'postpilot'),
+                esc_html__('PostPilot AI requires WordPress 5.8 or higher.', 'postpilot-ai'),
+                esc_html__('Plugin Activation Error', 'postpilot-ai'),
                 array('back_link' => true)
             );
         }
@@ -47,8 +47,8 @@ class Activate
         if (version_compare(PHP_VERSION, '7.4', '<')) {
             deactivate_plugins(plugin_basename(POSTPILOTAI_FILE));
             wp_die(
-                esc_html__('PostPilot AI requires PHP 7.4 or higher.', 'postpilot'),
-                esc_html__('Plugin Activation Error', 'postpilot'),
+                esc_html__('PostPilot AI requires PHP 7.4 or higher.', 'postpilot-ai'),
+                esc_html__('Plugin Activation Error', 'postpilot-ai'),
                 array('back_link' => true)
             );
         }

@@ -71,7 +71,7 @@ class FAQMetaBox
     {
         add_meta_box(
             'postpilotai_faq_metabox',
-            __('PostPilot AI - FAQ Generator', 'postpilot'),
+            __('PostPilot AI - FAQ Generator', 'postpilot-ai'),
             array($this, 'render_meta_box'),
             'post',
             'normal',
@@ -102,96 +102,96 @@ class FAQMetaBox
 
         $has_faqs = !empty($faqs) && is_array($faqs);
         ?>
-                <div class="postpilotai-faq-metabox">
-                    <!-- Enable/Disable FAQ -->
-                    <div class="postpilotai-faq-enable">
-                        <label>
-                            <input type="checkbox" name="postpilotai_faq_enabled" value="1" <?php checked($faq_enabled, '1'); ?> />
-                            <strong><?php esc_html_e('Display FAQ on this post?', 'postpilot'); ?></strong>
-                        </label>
-                        <p class="description">
-                            <?php esc_html_e('Check this to show AI-generated FAQs on the frontend.', 'postpilot'); ?>
-                        </p>
-                    </div>
+        <div class="postpilotai-faq-metabox">
+            <!-- Enable/Disable FAQ -->
+            <div class="postpilotai-faq-enable">
+                <label>
+                    <input type="checkbox" name="postpilotai_faq_enabled" value="1" <?php checked($faq_enabled, '1'); ?> />
+                    <strong><?php esc_html_e('Display FAQ on this post?', 'postpilot-ai'); ?></strong>
+                </label>
+                <p class="description">
+                    <?php esc_html_e('Check this to show AI-generated FAQs on the frontend.', 'postpilot-ai'); ?>
+                </p>
+            </div>
 
-                    <!-- FAQ Display Style -->
-                    <div class="postpilotai-faq-layout" style="margin-top: 15px;">
+            <!-- FAQ Display Style -->
+            <div class="postpilotai-faq-layout" style="margin-top: 15px;">
+                <?php
+                $faq_display_style = get_post_meta($post->ID, '_postpilotai_faq_display_style', true);
+                $global_default = get_option('postpilotai_faq_default_layout', 'accordion');
+                $global_default_label = ucfirst($global_default);
+
+                // Set default value if empty
+                if (empty($faq_display_style)) {
+                    $faq_display_style = 'default';
+                }
+                ?>
+                <label for="postpilotai_faq_display_style" style="display: block; margin-bottom: 8px;">
+                    <strong><?php esc_html_e('FAQ Display Style:', 'postpilot-ai'); ?></strong>
+                </label>
+                <select name="postpilotai_faq_display_style" id="postpilotai_faq_display_style"
+                    style="width: 100%; max-width: 300px;">
+                    <option value="default" <?php selected($faq_display_style, 'default'); ?>>
                         <?php
-                        $faq_display_style = get_post_meta($post->ID, '_postpilotai_faq_display_style', true);
-                        $global_default = get_option('postpilotai_faq_default_layout', 'accordion');
-                        $global_default_label = ucfirst($global_default);
-
-                        // Set default value if empty
-                        if (empty($faq_display_style)) {
-                            $faq_display_style = 'default';
-                        }
+                        printf(
+                            /* translators: %s: current global default layout */
+                            esc_html__('Use Default (%s)', 'postpilot-ai'),
+                            esc_html($global_default_label)
+                        );
                         ?>
-                        <label for="postpilotai_faq_display_style" style="display: block; margin-bottom: 8px;">
-                            <strong><?php esc_html_e('FAQ Display Style:', 'postpilot'); ?></strong>
-                        </label>
-                        <select name="postpilotai_faq_display_style" id="postpilotai_faq_display_style"
-                            style="width: 100%; max-width: 300px;">
-                            <option value="default" <?php selected($faq_display_style, 'default'); ?>>
-                                <?php
-                                printf(
-                                    /* translators: %s: current global default layout */
-                                    esc_html__('Use Default (%s)', 'postpilot'),
-                                    esc_html($global_default_label)
-                                );
-                                ?>
-                            </option>
-                            <option value="accordion" <?php selected($faq_display_style, 'accordion'); ?>>
-                                <?php esc_html_e('Accordion', 'postpilot'); ?>
-                            </option>
-                            <option value="static" <?php selected($faq_display_style, 'static'); ?>>
-                                <?php esc_html_e('Static', 'postpilot'); ?>
-                            </option>
-                        </select>
-                        <p class="description" style="margin-top: 5px;">
-                            <?php esc_html_e('Choose how FAQs should be displayed on the frontend.', 'postpilot'); ?>
-                        </p>
-                    </div>
+                    </option>
+                    <option value="accordion" <?php selected($faq_display_style, 'accordion'); ?>>
+                        <?php esc_html_e('Accordion', 'postpilot-ai'); ?>
+                    </option>
+                    <option value="static" <?php selected($faq_display_style, 'static'); ?>>
+                        <?php esc_html_e('Static', 'postpilot-ai'); ?>
+                    </option>
+                </select>
+                <p class="description" style="margin-top: 5px;">
+                    <?php esc_html_e('Choose how FAQs should be displayed on the frontend.', 'postpilot-ai'); ?>
+                </p>
+            </div>
 
-                    <!-- FAQ Repeater Fields -->
-                    <div class="postpilotai-faq-fields" style="margin-top: 20px;">
-                        <div class="postpilotai-faq-header">
-                            <h4><?php esc_html_e('FAQ Items', 'postpilot'); ?></h4>
-                            <button type="button" class="button button-secondary postpilotai-add-faq-item">
-                                <?php esc_html_e('+ Add FAQ Item', 'postpilot'); ?>
-                            </button>
-                        </div>
-
-                        <div class="postpilotai-faq-items">
-                            <?php
-                            if ($has_faqs) {
-                                foreach ($faqs as $index => $faq) {
-                                    $this->render_faq_item($index, $faq);
-                                }
-                            } else {
-                                echo '<p class="postpilotai-no-faqs">' . esc_html__('No FAQs yet. Click "Generate FAQ" to create them automatically.', 'postpilot') . '</p>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-
-                    <!-- Generate/Regenerate Button -->
-                    <div class="postpilotai-faq-actions" style="margin-top: 20px;">
-                        <button type="button" class="button button-primary postpilotai-generate-faq"
-                            data-post-id="<?php echo esc_attr($post->ID); ?>">
-                            <?php echo $has_faqs ? esc_html__('Regenerate FAQ', 'postpilot') : esc_html__('Generate FAQ', 'postpilot'); ?>
-                        </button>
-                        <span class="spinner"></span>
-                        <p class="description">
-                            <?php esc_html_e('Generate FAQs using AI based on your post content.', 'postpilot'); ?>
-                        </p>
-                    </div>
+            <!-- FAQ Repeater Fields -->
+            <div class="postpilotai-faq-fields" style="margin-top: 20px;">
+                <div class="postpilotai-faq-header">
+                    <h4><?php esc_html_e('FAQ Items', 'postpilot-ai'); ?></h4>
+                    <button type="button" class="button button-secondary postpilotai-add-faq-item">
+                        <?php esc_html_e('+ Add FAQ Item', 'postpilot-ai'); ?>
+                    </button>
                 </div>
 
-                <!-- Hidden template for new FAQ items -->
-                <script type="text/template" id="postpilotai-faq-item-template">
-                                                                                                                                                                                    <?php $this->render_faq_item('{{INDEX}}', array('question' => '', 'answer' => '')); ?>
-                                                                                                                                                                                </script>
-                <?php
+                <div class="postpilotai-faq-items">
+                    <?php
+                    if ($has_faqs) {
+                        foreach ($faqs as $index => $faq) {
+                            $this->render_faq_item($index, $faq);
+                        }
+                    } else {
+                        echo '<p class="postpilotai-no-faqs">' . esc_html__('No FAQs yet. Click "Generate FAQ" to create them automatically.', 'postpilot-ai') . '</p>';
+                    }
+                    ?>
+                </div>
+            </div>
+
+            <!-- Generate/Regenerate Button -->
+            <div class="postpilotai-faq-actions" style="margin-top: 20px;">
+                <button type="button" class="button button-primary postpilotai-generate-faq"
+                    data-post-id="<?php echo esc_attr($post->ID); ?>">
+                    <?php echo $has_faqs ? esc_html__('Regenerate FAQ', 'postpilot-ai') : esc_html__('Generate FAQ', 'postpilot-ai'); ?>
+                </button>
+                <span class="spinner"></span>
+                <p class="description">
+                    <?php esc_html_e('Generate FAQs using AI based on your post content.', 'postpilot-ai'); ?>
+                </p>
+            </div>
+        </div>
+
+        <!-- Hidden template for new FAQ items -->
+        <script type="text/template" id="postpilotai-faq-item-template">
+                                                                                                                                                                                            <?php $this->render_faq_item('{{INDEX}}', array('question' => '', 'answer' => '')); ?>
+                                                                                                                                                                                        </script>
+        <?php
     }
 
     /**
@@ -207,41 +207,41 @@ class FAQMetaBox
         $question = isset($faq['question']) ? $faq['question'] : '';
         $answer = isset($faq['answer']) ? $faq['answer'] : '';
         ?>
-                <div class="postpilotai-faq-item" data-index="<?php echo esc_attr($index); ?>">
-                    <div class="postpilotai-faq-item-header">
-                        <span class="postpilotai-faq-item-number">
-                            <?php
-                            echo sprintf(
-                                /* translators: %1$s: FAQ item number */
-                                esc_html__('FAQ #%1$s', 'postpilot'),
-                                esc_html(
-                                    is_numeric($index)
-                                    ? (string) ($index + 1)
-                                    : '{{NUMBER}}'
-                                )
-                            );
-                            ?>
-                        </span>
-                        <button type="button" class="button-link postpilotai-remove-faq-item"
-                            title="<?php esc_attr_e('Remove this FAQ', 'postpilot'); ?>">
-                            <span class="dashicons dashicons-trash"></span>
-                        </button>
-                    </div>
-                    <div class="postpilotai-faq-item-fields">
-                        <div class="postpilotai-faq-field">
-                            <label><?php esc_html_e('Question:', 'postpilot'); ?></label>
-                            <input type="text" name="postpilotai_faqs[<?php echo esc_attr($index); ?>][question]"
-                                value="<?php echo esc_attr($question); ?>" class="widefat"
-                                placeholder="<?php esc_attr_e('Enter question...', 'postpilot'); ?>" />
-                        </div>
-                        <div class="postpilotai-faq-field">
-                            <label><?php esc_html_e('Answer:', 'postpilot'); ?></label>
-                            <textarea name="postpilotai_faqs[<?php echo esc_attr($index); ?>][answer]" class="widefat" rows="3"
-                                placeholder="<?php esc_attr_e('Enter answer...', 'postpilot'); ?>"><?php echo esc_textarea($answer); ?></textarea>
-                        </div>
-                    </div>
+        <div class="postpilotai-faq-item" data-index="<?php echo esc_attr($index); ?>">
+            <div class="postpilotai-faq-item-header">
+                <span class="postpilotai-faq-item-number">
+                    <?php
+                    echo sprintf(
+                        /* translators: %1$s: FAQ item number */
+                        esc_html__('FAQ #%1$s', 'postpilot-ai'),
+                        esc_html(
+                            is_numeric($index)
+                            ? (string) ($index + 1)
+                            : '{{NUMBER}}'
+                        )
+                    );
+                    ?>
+                </span>
+                <button type="button" class="button-link postpilotai-remove-faq-item"
+                    title="<?php esc_attr_e('Remove this FAQ', 'postpilot-ai'); ?>">
+                    <span class="dashicons dashicons-trash"></span>
+                </button>
+            </div>
+            <div class="postpilotai-faq-item-fields">
+                <div class="postpilotai-faq-field">
+                    <label><?php esc_html_e('Question:', 'postpilot-ai'); ?></label>
+                    <input type="text" name="postpilotai_faqs[<?php echo esc_attr($index); ?>][question]"
+                        value="<?php echo esc_attr($question); ?>" class="widefat"
+                        placeholder="<?php esc_attr_e('Enter question...', 'postpilot-ai'); ?>" />
                 </div>
-                <?php
+                <div class="postpilotai-faq-field">
+                    <label><?php esc_html_e('Answer:', 'postpilot-ai'); ?></label>
+                    <textarea name="postpilotai_faqs[<?php echo esc_attr($index); ?>][answer]" class="widefat" rows="3"
+                        placeholder="<?php esc_attr_e('Enter answer...', 'postpilot-ai'); ?>"><?php echo esc_textarea($answer); ?></textarea>
+                </div>
+            </div>
+        </div>
+        <?php
     }
 
     /**
@@ -355,7 +355,7 @@ class FAQMetaBox
 
         if (!$post_id || !current_user_can('edit_post', $post_id)) {
             wp_send_json_error(array(
-                'message' => esc_html__('Permission denied.', 'postpilot'),
+                'message' => esc_html__('Permission denied.', 'postpilot-ai'),
             ));
         }
 
@@ -371,7 +371,7 @@ class FAQMetaBox
                     /* translators: %1$s: remaining wait time before FAQ generation is allowed again */
                     esc_html__(
                         'You have generated FAQ for this post recently. Please wait %1$s before trying again.',
-                        'postpilot'
+                        'postpilot-ai'
                     ),
                     human_time_diff(time(), time() + $wait_time)
                 );
@@ -380,7 +380,7 @@ class FAQMetaBox
                     /* translators: %1$d: maximum number of FAQ generations allowed per day */
                     esc_html__(
                         'You have reached your daily FAQ generation limit (%1$d per day). Please try again tomorrow.',
-                        'postpilot'
+                        'postpilot-ai'
                     ),
                     \PostPilotAI\Helpers\RateLimiter::get_daily_limit()
                 );
@@ -399,7 +399,7 @@ class FAQMetaBox
 
         if (!$post) {
             wp_send_json_error(array(
-                'message' => esc_html__('Post not found.', 'postpilot'),
+                'message' => esc_html__('Post not found.', 'postpilot-ai'),
             ));
         }
 
@@ -442,7 +442,7 @@ class FAQMetaBox
         $html = ob_get_clean();
 
         wp_send_json_success(array(
-            'message' => esc_html__('FAQ generated successfully!', 'postpilot'),
+            'message' => esc_html__('FAQ generated successfully!', 'postpilot-ai'),
             'html' => $html,
             'count' => count($faq_data),
         ));
@@ -464,7 +464,7 @@ class FAQMetaBox
 
         if (!$post_id || !current_user_can('edit_post', $post_id)) {
             wp_send_json_error(array(
-                'message' => esc_html__('Permission denied.', 'postpilot'),
+                'message' => esc_html__('Permission denied.', 'postpilot-ai'),
             ));
         }
 
@@ -481,7 +481,7 @@ class FAQMetaBox
                     /* translators: %1$s: remaining wait time before FAQ generation is allowed again */
                     esc_html__(
                         'You have generated FAQ for this post recently. Please wait %1$s before trying again.',
-                        'postpilot'
+                        'postpilot-ai'
                     ),
                     human_time_diff(time(), time() + $wait_time)
                 );
@@ -492,7 +492,7 @@ class FAQMetaBox
                     /* translators: %1$d: maximum number of FAQ generations allowed per day */
                     esc_html__(
                         'You have reached your daily FAQ generation limit (%1$d per day). Please try again tomorrow.',
-                        'postpilot'
+                        'postpilot-ai'
                     ),
                     \PostPilotAI\Helpers\RateLimiter::get_daily_limit()
                 );
@@ -524,7 +524,7 @@ class FAQMetaBox
         $html = ob_get_clean();
 
         wp_send_json_success(array(
-            'message' => esc_html__('Demo FAQ added successfully!', 'postpilot'),
+            'message' => esc_html__('Demo FAQ added successfully!', 'postpilot-ai'),
             'html' => $html,
             'count' => count($demo_faq),
         ));
@@ -545,7 +545,7 @@ class FAQMetaBox
             // Check if user has permission
             if (!current_user_can('edit_posts')) {
                 wp_send_json_error(array(
-                    'message' => esc_html__('Permission denied.', 'postpilot'),
+                    'message' => esc_html__('Permission denied.', 'postpilot-ai'),
                 ));
                 return;
             }
@@ -554,7 +554,7 @@ class FAQMetaBox
             if (!$this->ai_manager->is_provider_available()) {
                 wp_send_json_success(array(
                     'available' => false,
-                    'message' => esc_html__('AI service is not configured. Please add your API key in PostPilot settings.', 'postpilot'),
+                    'message' => esc_html__('AI service is not configured. Please add your API key in PostPilot settings.', 'postpilot-ai'),
                 ));
                 return;
             }
@@ -578,7 +578,7 @@ class FAQMetaBox
             // API is working fine
             wp_send_json_success(array(
                 'available' => true,
-                'message' => esc_html__('AI service is available.', 'postpilot'),
+                'message' => esc_html__('AI service is available.', 'postpilot-ai'),
             ));
 
         } catch (\Exception $e) {

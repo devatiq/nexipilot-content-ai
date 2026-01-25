@@ -220,7 +220,7 @@ class Manager
         if (!$provider) {
             // Return demo summary when no provider is configured
             Logger::debug('No AI provider configured for Summary, returning demo summary', array('post_id' => $post_id));
-            return __('This is a demo summary. Configure your AI provider API key in PostPilot settings to generate real AI-powered summaries.', 'postpilot');
+            return __('This is a demo summary. Configure your AI provider API key in PostPilot settings to generate real AI-powered summaries.', 'postpilot-ai');
         }
 
         // Check cache
@@ -243,7 +243,7 @@ class Manager
             // Return the actual error message from the API
             return sprintf(
                 /* translators: %1$s: error message returned while generating the summary */
-                __('Summary generation failed: %1$s', 'postpilot'),
+                __('Summary generation failed: %1$s', 'postpilot-ai'),
                 $summary->get_error_message()
             );
 
@@ -273,7 +273,7 @@ class Manager
         if (!$provider) {
             return new \WP_Error(
                 'no_provider',
-                __('AI provider is not configured for Internal Links.', 'postpilot')
+                __('AI provider is not configured for Internal Links.', 'postpilot-ai')
             );
         }
 
@@ -356,7 +356,7 @@ class Manager
         if (!$this->is_provider_available()) {
             return new \WP_Error(
                 'no_provider',
-                __('AI provider is not configured.', 'postpilot')
+                __('AI provider is not configured.', 'postpilot-ai')
             );
         }
 
@@ -373,20 +373,20 @@ class Manager
     {
         return array(
             array(
-                'question' => __('How do I configure PostPilot AI?', 'postpilot'),
-                'answer' => __('Go to PostPilot AI in your WordPress admin menu, select your AI provider (OpenAI or Claude), enter your API key, and enable the features you want to use.', 'postpilot'),
+                'question' => __('How do I configure PostPilot AI?', 'postpilot-ai'),
+                'answer' => __('Go to PostPilot AI in your WordPress admin menu, select your AI provider (OpenAI or Claude), enter your API key, and enable the features you want to use.', 'postpilot-ai'),
             ),
             array(
-                'question' => __('What AI providers are supported?', 'postpilot'),
-                'answer' => __('PostPilot AI currently supports OpenAI (ChatGPT), Claude (Anthropic), and Google Gemini. You can switch between providers in the settings.', 'postpilot'),
+                'question' => __('What AI providers are supported?', 'postpilot-ai'),
+                'answer' => __('PostPilot AI currently supports OpenAI (ChatGPT), Claude (Anthropic), and Google Gemini. You can switch between providers in the settings.', 'postpilot-ai'),
             ),
             array(
-                'question' => __('Is this a demo FAQ?', 'postpilot'),
-                'answer' => __('Yes! This is demo content shown because no AI provider is configured. Add your API key in the settings to generate real AI-powered FAQs.', 'postpilot'),
+                'question' => __('Is this a demo FAQ?', 'postpilot-ai'),
+                'answer' => __('Yes! This is demo content shown because no AI provider is configured. Add your API key in the settings to generate real AI-powered FAQs.', 'postpilot-ai'),
             ),
             array(
-                'question' => __('How do I get an API key?', 'postpilot'),
-                'answer' => __('For OpenAI, visit platform.openai.com/api-keys. For Claude, visit console.anthropic.com. Both services require account registration.', 'postpilot'),
+                'question' => __('How do I get an API key?', 'postpilot-ai'),
+                'answer' => __('For OpenAI, visit platform.openai.com/api-keys. For Claude, visit console.anthropic.com. Both services require account registration.', 'postpilot-ai'),
             ),
         );
     }
@@ -402,7 +402,7 @@ class Manager
         if (!$this->is_provider_available()) {
             return new \WP_Error(
                 'no_provider',
-                __('No AI provider configured.', 'postpilot')
+                __('No AI provider configured.', 'postpilot-ai')
             );
         }
 

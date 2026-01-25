@@ -96,7 +96,7 @@ class Claude implements ProviderInterface
             // If not valid JSON, create a simple structure
             return array(
                 array(
-                    'question' => __('What is this content about?', 'postpilot'),
+                    'question' => __('What is this content about?', 'postpilot-ai'),
                     'answer' => $response,
                 ),
             );
@@ -179,7 +179,7 @@ class Claude implements ProviderInterface
         if (is_wp_error($test_response)) {
             return new \WP_Error(
                 'invalid_api_key',
-                __('Invalid Claude API key.', 'postpilot')
+                __('Invalid Claude API key.', 'postpilot-ai')
             );
         }
 
@@ -201,7 +201,7 @@ class Claude implements ProviderInterface
         if (empty($api_key)) {
             return new \WP_Error(
                 'missing_api_key',
-                __('Claude API key is not configured.', 'postpilot')
+                __('Claude API key is not configured.', 'postpilot-ai')
             );
         }
 
@@ -245,7 +245,7 @@ class Claude implements ProviderInterface
                 'api_error',
                 sprintf(
                     /* translators: %d: HTTP response code */
-                    __('Claude API error (Code: %d)', 'postpilot'),
+                    __('Claude API error (Code: %d)', 'postpilot-ai'),
                     $response_code
                 )
             );
@@ -261,7 +261,7 @@ class Claude implements ProviderInterface
 
         return new \WP_Error(
             'invalid_response',
-            __('Invalid response from Claude API.', 'postpilot')
+            __('Invalid response from Claude API.', 'postpilot-ai')
         );
     }
 }
