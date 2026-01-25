@@ -493,7 +493,12 @@ class Settings
         }
 
         // Check if settings were updated (for SweetAlert2 notification)
-        $settings_updated = isset($_GET['settings-updated']) && $_GET['settings-updated'] === 'true';
+        $settings_updated = false;
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only core parameter added by options.php redirect. No user action performed.
+		if ( isset( $_GET['settings-updated'] ) ) { $settings_updated = ( 'true' === sanitize_text_field( wp_unslash( $_GET['settings-updated'] ) ) ); }
+
+
         ?>
         <div class="wrap postpilot-settings-wrap" <?php echo $settings_updated ? 'data-settings-saved="true"' : ''; ?>>
             <!-- Header Section -->

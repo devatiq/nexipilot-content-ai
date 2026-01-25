@@ -45,9 +45,16 @@ class Sanitizer
         $encrypted = Encryption::encrypt($sanitized);
 
         // If encryption fails, log error and return sanitized (unencrypted) value
-        if ($encrypted === false) {
-            error_log('PostPilot: Failed to encrypt API key');
-            return $sanitized;
+        if ($encrypted === false) { 
+			Logger::error(
+				'PostPilot: Failed to encrypt API key',
+				array(
+					'context' => 'sanitize_api_key',
+				)
+		);
+
+			// Backward compatibility / fail-safe
+			return $sanitized;
         }
 
         return $encrypted;

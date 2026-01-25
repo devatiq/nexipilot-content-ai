@@ -75,10 +75,18 @@ class Encryption
 
             // Combine IV and encrypted data, then base64 encode
             return base64_encode($iv . $encrypted);
-        } catch (\Exception $e) {
-            error_log('PostPilot Encryption Error: ' . $e->getMessage());
-            return false;
-        }
+        } catch ( \Exception $e ) {
+			if ( '1' === get_option( 'postpilot_enable_debug_logging', '' ) ) {
+				Logger::error(
+					'PostPilot Encryption Error',
+					array(
+						'exception' => $e->getMessage(),
+					)
+				);
+			}
+
+			return false;
+		}
     }
 
     /**
@@ -124,7 +132,12 @@ class Encryption
 
             return $decrypted;
         } catch (\Exception $e) {
-            error_log('PostPilot Decryption Error: ' . $e->getMessage());
+            Logger::error(
+				'PostPilot Decryption Error',
+				array(
+					'exception' => $e->getMessage(),
+				)
+			);
             // Return original data if decryption fails (backward compatibility)
             return $data;
         }

@@ -254,10 +254,18 @@ class FAQMetaBox
      */
     public function save_meta_box($post_id, $post)
     {
-        // Security checks
-        if (!isset($_POST['postpilot_faq_nonce']) || !wp_verify_nonce($_POST['postpilot_faq_nonce'], 'postpilot_faq_metabox')) {
-            return;
-        }
+       
+		// Security checks
+		if (
+			! isset( $_POST['postpilot_faq_nonce'] ) ||
+			! wp_verify_nonce(
+				sanitize_text_field( wp_unslash( $_POST['postpilot_faq_nonce'] ) ),
+				'postpilot_faq_metabox'
+			)
+		) {
+			return;
+		}
+
 
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
             return;
@@ -273,7 +281,7 @@ class FAQMetaBox
 
         // Save FAQ display style
         if (isset($_POST['postpilot_faq_display_style'])) {
-            $display_style = sanitize_text_field($_POST['postpilot_faq_display_style']);
+            $display_style = sanitize_text_field( wp_unslash( $_POST['postpilot_faq_display_style'] ) );
             // Validate the value
             $allowed_styles = array('default', 'accordion', 'static');
             if (in_array($display_style, $allowed_styles, true)) {
@@ -282,17 +290,24 @@ class FAQMetaBox
         }
 
         // Save FAQ items
-        if (isset($_POST['postpilot_faqs']) && is_array($_POST['postpilot_faqs'])) {
+         $raw_faqs = isset( $_POST['postpilot_faqs'] )
+			? wp_unslash( $_POST['postpilot_faqs'] ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized field-by-field below.
+			: array();
+        if (is_array( $raw_faqs ) ) {
             $faqs = array();
 
-            foreach ($_POST['postpilot_faqs'] as $faq) {
-                if (!empty($faq['question']) || !empty($faq['answer'])) {
-                    $faqs[] = array(
-                        'question' => sanitize_text_field($faq['question']),
-                        'answer' => wp_kses_post($faq['answer']),
-                    );
-                }
-            }
+           	foreach ( $raw_faqs as $faq ) {
+
+				$question = isset( $faq['question'] ) ? sanitize_text_field( $faq['question'] ) : '';
+				$answer   = isset( $faq['answer'] ) ? wp_kses_post( $faq['answer'] ) : '';
+
+				if ( '' !== $question || '' !== $answer ) {
+					$faqs[] = array(
+						'question' => $question,
+						'answer'   => $answer,
+					);
+				}
+			}
 
             update_post_meta($post_id, '_postpilot_faqs', $faqs);
         } else {
@@ -397,7 +412,9 @@ class FAQMetaBox
             'is_array' => is_array($faq_data),
             'type' => gettype($faq_data),
             'count' => is_array($faq_data) ? count($faq_data) : 0,
-            'data_preview' => is_array($faq_data) ? json_encode(array_slice($faq_data, 0, 2)) : substr(print_r($faq_data, true), 0, 200)
+            'data_preview' => is_array( $faq_data )
+			? wp_json_encode( array_slice( $faq_data, 0, 2 ) )
+			: wp_trim_words( wp_strip_all_tags( (string) $faq_data ), 40, '…' ),
         ));
 
         if (is_wp_error($faq_data)) {

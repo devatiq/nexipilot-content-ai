@@ -36,7 +36,7 @@ class Logger
     {
         // Check if plugin debug logging is enabled
         $debug_enabled = get_option('postpilot_enable_debug_logging', '');
-        
+
         if (defined('WP_DEBUG') && WP_DEBUG && $debug_enabled === '1') {
             self::log('DEBUG', $message, $context);
         }
@@ -54,7 +54,7 @@ class Logger
     {
         // Check if plugin debug logging is enabled
         $debug_enabled = get_option('postpilot_enable_debug_logging', '');
-        
+
         if ($debug_enabled === '1') {
             self::log('INFO', $message, $context);
         }
@@ -72,7 +72,7 @@ class Logger
     {
         // Check if plugin debug logging is enabled
         $debug_enabled = get_option('postpilot_enable_debug_logging', '');
-        
+
         if ($debug_enabled === '1') {
             self::log('ERROR', $message, $context);
         }

@@ -48,20 +48,22 @@ class Deactivate
     private static function clear_cache()
     {
         // Delete transients used by the plugin
-        global $wpdb;
+	global $wpdb;
 
-        $wpdb->query(
-            $wpdb->prepare(
-                "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",
-                $wpdb->esc_like('_transient_postpilot_') . '%'
-            )
-        );
+	$like = $wpdb->esc_like( '_transient_postpilot_' ) . '%';
 
-        $wpdb->query(
-            $wpdb->prepare(
-                "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",
-                $wpdb->esc_like('_transient_timeout_postpilot_') . '%'
-            )
-        );
-    }
+	$transients = $wpdb->get_col(
+		$wpdb->prepare(
+			"SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+			$like
+		)
+	);
+
+	if ( empty( $transients ) ) {
+		return;
+	}
+
+	foreach ( $transients as $option_name ) {
+		delete_option( $option_name );
+	}
 }
