@@ -164,22 +164,22 @@ class ContentInjector
 
         ob_start();
         ?>
-        <div class="postpilotai-faq postpilotai-faq--<?php echo esc_attr($layout); ?>">
-            <h2 class="postpilotai-faq__title"><?php esc_html_e('Frequently Asked Questions', 'nexipilot-content-ai'); ?></h2>
-            <div class="postpilotai-faq__items">
+        <div class="nexipilot-faq postpilotai-faq--<?php echo esc_attr($layout); ?>">
+            <h2 class="nexipilot-faq__title"><?php esc_html_e('Frequently Asked Questions', 'nexipilot-content-ai'); ?></h2>
+            <div class="nexipilot-faq__items">
                 <?php foreach ($faq_data as $index => $faq_item): ?>
                     <?php if (isset($faq_item['question']) && isset($faq_item['answer'])): ?>
-                        <div class="postpilotai-faq__item">
+                        <div class="nexipilot-faq__item">
                             <?php if ($layout === 'accordion'): ?>
-                                <button class="postpilotai-faq__question" type="button">
+                                <button class="nexipilot-faq__question" type="button">
                                     <?php echo esc_html($faq_item['question']); ?>
                                 </button>
-                                <div class="postpilotai-faq__answer">
+                                <div class="nexipilot-faq__answer">
                                     <p><?php echo wp_kses_post($faq_item['answer']); ?></p>
                                 </div>
                             <?php else: ?>
-                                <h3 class="postpilotai-faq__question"><?php echo esc_html($faq_item['question']); ?></h3>
-                                <div class="postpilotai-faq__answer">
+                                <h3 class="nexipilot-faq__question"><?php echo esc_html($faq_item['question']); ?></h3>
+                                <div class="nexipilot-faq__answer">
                                     <p><?php echo wp_kses_post($faq_item['answer']); ?></p>
                                 </div>
                             <?php endif; ?>
@@ -242,8 +242,8 @@ class ContentInjector
 
         ob_start();
         ?>
-        <div class="postpilotai-summary">
-            <div class="postpilotai-summary-content">
+        <div class="nexipilot-summary">
+            <div class="nexipilot-summary-content">
                 <strong><?php esc_html_e('Summary:', 'nexipilot-content-ai'); ?></strong>
                 <?php echo wp_kses_post($summary_text); ?>
             </div>
@@ -296,7 +296,7 @@ class ContentInjector
 
             // Create the link
             $link = sprintf(
-                '<a href="%s" class="postpilotai-internal-link">%s</a>',
+                '<a href="%s" class="nexipilot-internal-link">%s</a>',
                 esc_url($permalink),
                 esc_html($keyword)
             );
@@ -421,23 +421,23 @@ class ContentInjector
 
         ob_start();
         ?>
-        <div class="postpilotai-external-ai-sharing">
-            <div class="postpilotai-external-ai-sharing__header">
-                <svg class="postpilotai-external-ai-sharing__icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        <div class="nexipilot-external-ai-sharing">
+            <div class="nexipilot-external-ai-sharing__header">
+                <svg class="nexipilot-external-ai-sharing__icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <h3 class="postpilotai-external-ai-sharing__title"><?php echo esc_html($heading_text); ?></h3>
+                <h3 class="nexipilot-external-ai-sharing__title"><?php echo esc_html($heading_text); ?></h3>
             </div>
-            <div class="postpilotai-external-ai-sharing__buttons">
+            <div class="nexipilot-external-ai-sharing__buttons">
                 <?php foreach ($enabled_providers as $key => $name): ?>
                     <a href="<?php echo esc_url($this->get_external_ai_url($key, $post_url)); ?>"
-                        class="postpilotai-external-ai-sharing__button postpilotai-external-ai-sharing__button--<?php echo esc_attr($key); ?>"
+                        class="nexipilot-external-ai-sharing__button postpilotai-external-ai-sharing__button--<?php echo esc_attr($key); ?>"
                         target="_blank" rel="noopener noreferrer">
-                        <span class="postpilotai-external-ai-sharing__button-logo">
+                        <span class="nexipilot-external-ai-sharing__button-logo">
                             <?php echo wp_kses($logos[$key], $allowed_svg); ?>
                         </span>
-                        <span class="postpilotai-external-ai-sharing__button-text"><?php echo esc_html($name); ?></span>
+                        <span class="nexipilot-external-ai-sharing__button-text"><?php echo esc_html($name); ?></span>
                     </a>
                 <?php endforeach; ?>
             </div>

@@ -102,9 +102,9 @@ class FAQMetaBox
 
         $has_faqs = !empty($faqs) && is_array($faqs);
         ?>
-        <div class="postpilotai-faq-metabox">
+        <div class="nexipilot-faq-metabox">
             <!-- Enable/Disable FAQ -->
-            <div class="postpilotai-faq-enable">
+            <div class="nexipilot-faq-enable">
                 <label>
                     <input type="checkbox" name="nexipilot_faq_enabled" value="1" <?php checked($faq_enabled, '1'); ?> />
                     <strong><?php esc_html_e('Display FAQ on this post?', 'nexipilot-content-ai'); ?></strong>
@@ -115,7 +115,7 @@ class FAQMetaBox
             </div>
 
             <!-- FAQ Display Style -->
-            <div class="postpilotai-faq-layout" style="margin-top: 15px;">
+            <div class="nexipilot-faq-layout" style="margin-top: 15px;">
                 <?php
                 $faq_display_style = get_post_meta($post->ID, '_nexipilot_faq_display_style', true);
                 $global_default = get_option('nexipilot_faq_default_layout', 'accordion');
@@ -153,29 +153,29 @@ class FAQMetaBox
             </div>
 
             <!-- FAQ Repeater Fields -->
-            <div class="postpilotai-faq-fields" style="margin-top: 20px;">
-                <div class="postpilotai-faq-header">
+            <div class="nexipilot-faq-fields" style="margin-top: 20px;">
+                <div class="nexipilot-faq-header">
                     <h4><?php esc_html_e('FAQ Items', 'nexipilot-content-ai'); ?></h4>
                     <button type="button" class="button button-secondary postpilotai-add-faq-item">
                         <?php esc_html_e('+ Add FAQ Item', 'nexipilot-content-ai'); ?>
                     </button>
                 </div>
 
-                <div class="postpilotai-faq-items">
+                <div class="nexipilot-faq-items">
                     <?php
                     if ($has_faqs) {
                         foreach ($faqs as $index => $faq) {
                             $this->render_faq_item($index, $faq);
                         }
                     } else {
-                        echo '<p class="postpilotai-no-faqs">' . esc_html__('No FAQs yet. Click "Generate FAQ" to create them automatically.', 'nexipilot-content-ai') . '</p>';
+                        echo '<p class="nexipilot-no-faqs">' . esc_html__('No FAQs yet. Click "Generate FAQ" to create them automatically.', 'nexipilot-content-ai') . '</p>';
                     }
                     ?>
                 </div>
             </div>
 
             <!-- Generate/Regenerate Button -->
-            <div class="postpilotai-faq-actions" style="margin-top: 20px;">
+            <div class="nexipilot-faq-actions" style="margin-top: 20px;">
                 <button type="button" class="button button-primary postpilotai-generate-faq"
                     data-post-id="<?php echo esc_attr($post->ID); ?>">
                     <?php echo $has_faqs ? esc_html__('Regenerate FAQ', 'nexipilot-content-ai') : esc_html__('Generate FAQ', 'nexipilot-content-ai'); ?>
@@ -207,9 +207,9 @@ class FAQMetaBox
         $question = isset($faq['question']) ? $faq['question'] : '';
         $answer = isset($faq['answer']) ? $faq['answer'] : '';
         ?>
-        <div class="postpilotai-faq-item" data-index="<?php echo esc_attr($index); ?>">
-            <div class="postpilotai-faq-item-header">
-                <span class="postpilotai-faq-item-number">
+        <div class="nexipilot-faq-item" data-index="<?php echo esc_attr($index); ?>">
+            <div class="nexipilot-faq-item-header">
+                <span class="nexipilot-faq-item-number">
                     <?php
                     echo sprintf(
                         /* translators: %1$s: FAQ item number */
@@ -227,14 +227,14 @@ class FAQMetaBox
                     <span class="dashicons dashicons-trash"></span>
                 </button>
             </div>
-            <div class="postpilotai-faq-item-fields">
-                <div class="postpilotai-faq-field">
+            <div class="nexipilot-faq-item-fields">
+                <div class="nexipilot-faq-field">
                     <label><?php esc_html_e('Question:', 'nexipilot-content-ai'); ?></label>
                     <input type="text" name="nexipilot_faqs[<?php echo esc_attr($index); ?>][question]"
                         value="<?php echo esc_attr($question); ?>" class="widefat"
                         placeholder="<?php esc_attr_e('Enter question...', 'nexipilot-content-ai'); ?>" />
                 </div>
-                <div class="postpilotai-faq-field">
+                <div class="nexipilot-faq-field">
                     <label><?php esc_html_e('Answer:', 'nexipilot-content-ai'); ?></label>
                     <textarea name="nexipilot_faqs[<?php echo esc_attr($index); ?>][answer]" class="widefat" rows="3"
                         placeholder="<?php esc_attr_e('Enter answer...', 'nexipilot-content-ai'); ?>"><?php echo esc_textarea($answer); ?></textarea>
