@@ -16,6 +16,7 @@ if (!defined('ABSPATH')) {
 }
 
 use NexiPilot\Admin\Assets\Assets;
+use NexiPilot\Helpers\Sanitizer;
 
 /**
  * Class AdminManager
@@ -100,6 +101,9 @@ class AdminManager
     /**
      * Saves a setting through an AJAX request (with whitelist security)
      *
+     * Note: This AJAX handler is currently not used by the settings page (which uses WordPress Settings API),
+     * but is kept for potential future use or programmatic setting updates.
+     *
      * @since 1.0.0
      * @return void
      */
@@ -111,22 +115,25 @@ class AdminManager
         // Ensure the user has the proper capability
         if (!current_user_can('manage_options')) {
             wp_send_json_error(array('message' => __('Unauthorized', 'nexipilot-content-ai')));
+            wp_die(); // Explicit exit for code review compliance
         }
 
         // Check if the required fields are set
         if (!isset($_POST['settingName'], $_POST['value'])) {
             wp_send_json_error(array('message' => __('Missing data', 'nexipilot-content-ai')));
+            wp_die(); // Explicit exit for code review compliance
         }
 
         // Use sanitize_key for option names (safer than sanitize_text_field)
         $setting_name = sanitize_key(wp_unslash($_POST['settingName']));
 
         // Get whitelist of allowed settings from Sanitizer class
-        $allowed_settings = \NexiPilot\Helpers\Sanitizer::get_allowed_ajax_settings();
+        $allowed_settings = Sanitizer::get_allowed_ajax_settings();
 
         // Block any unexpected option key (security: prevent arbitrary option updates)
         if (!isset($allowed_settings[$setting_name])) {
             wp_send_json_error(array('message' => __('Invalid setting.', 'nexipilot-content-ai')));
+            wp_die(); // Explicit exit for code review compliance
         }
 
         // Get raw value with basic sanitization (WordPress coding standards requirement)

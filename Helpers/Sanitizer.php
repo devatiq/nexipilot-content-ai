@@ -76,13 +76,15 @@ class Sanitizer
      * Sanitize select option
      *
      * @since 1.0.0
-     * @param string $value The value to sanitize.
+     * @param mixed  $value The value to sanitize.
      * @param array  $allowed_values Array of allowed values.
      * @param string $default Default value if not in allowed values.
      * @return string Sanitized value
      */
     public static function sanitize_select($value, $allowed_values, $default = '')
     {
+        // Ensure value is string-like for robust type handling
+        $value = is_string($value) ? $value : '';
         return in_array($value, $allowed_values, true) ? $value : $default;
     }
 
