@@ -1,8 +1,8 @@
-# PostPilot Pro - Premium Version Integration Guide
+# NexiPilot Pro - Premium Version Integration Guide
 
 ## Overview
 
-This document explains how to create a premium version of PostPilot that increases rate limits using WordPress filters.
+This document explains how to create a premium version of NexiPilot that increases rate limits using WordPress filters.
 
 ---
 
@@ -20,33 +20,33 @@ These limits are **NOT visible** in any settings or constants that users can eas
 
 ### Method 1: Separate Premium Plugin
 
-Create a separate plugin (e.g., `postpilotai-pro`) that uses WordPress filters to override limits:
+Create a separate plugin (e.g., `nexipilot-pro`) that uses WordPress filters to override limits:
 
 ```php
 <?php
 /**
- * Plugin Name: PostPilot Pro
- * Description: Premium features for PostPilot
+ * Plugin Name: NexiPilot Pro
+ * Description: Premium features for NexiPilot
  * Version: 1.0.0
  */
 
 // Increase per-post limit to 10
-add_filter('postpilotai_rate_limit_post', function($limit) {
+add_filter('nexipilot_rate_limit_post', function($limit) {
     return 10; // Premium: 10 generations per post
 });
 
 // Increase per-post window to 10 minutes
-add_filter('postpilotai_rate_limit_post_window', function($window) {
+add_filter('nexipilot_rate_limit_post_window', function($window) {
     return 600; // Premium: 10 minutes
 });
 
 // Increase daily limit to 200
-add_filter('postpilotai_rate_limit_daily', function($limit) {
+add_filter('nexipilot_rate_limit_daily', function($limit) {
     return 200; // Premium: 200 per day
 });
 
 // Keep daily window at 24 hours
-add_filter('postpilotai_rate_limit_daily_window', function($window) {
+add_filter('nexipilot_rate_limit_daily_window', function($window) {
     return 86400; // 24 hours
 });
 ```
@@ -59,24 +59,24 @@ Check for a valid license before applying premium limits:
 <?php
 // In your premium plugin or theme
 
-function postpilotai_pro_apply_limits() {
+function nexipilot_pro_apply_limits() {
     // Check if user has valid license
-    $license_key = get_option('postpilotai_pro_license_key');
+    $license_key = get_option('nexipilot_pro_license_key');
     
-    if (postpilotai_pro_verify_license($license_key)) {
+    if (nexipilot_pro_verify_license($license_key)) {
         // Apply premium limits
-        add_filter('postpilotai_rate_limit_post', function() {
+        add_filter('nexipilot_rate_limit_post', function() {
             return 10; // Premium limit
         });
         
-        add_filter('postpilotai_rate_limit_daily', function() {
+        add_filter('nexipilot_rate_limit_daily', function() {
             return 200; // Premium limit
         });
     }
 }
-add_action('plugins_loaded', 'postpilotai_pro_apply_limits');
+add_action('plugins_loaded', 'nexipilot_pro_apply_limits');
 
-function postpilotai_pro_verify_license($license_key) {
+function nexipilot_pro_verify_license($license_key) {
     // Your license verification logic
     // Check against your licensing server
     return true; // or false
@@ -89,23 +89,23 @@ Different limits for different plan levels:
 
 ```php
 <?php
-function postpilotai_apply_plan_limits() {
-    $plan = get_option('postpilotai_plan', 'free'); // free, starter, pro, enterprise
+function nexipilot_apply_plan_limits() {
+    $plan = get_option('nexipilot_plan', 'free'); // free, starter, pro, enterprise
     
     switch ($plan) {
         case 'starter':
-            add_filter('postpilotai_rate_limit_post', fn() => 5);
-            add_filter('postpilotai_rate_limit_daily', fn() => 100);
+            add_filter('nexipilot_rate_limit_post', fn() => 5);
+            add_filter('nexipilot_rate_limit_daily', fn() => 100);
             break;
             
         case 'pro':
-            add_filter('postpilotai_rate_limit_post', fn() => 10);
-            add_filter('postpilotai_rate_limit_daily', fn() => 200);
+            add_filter('nexipilot_rate_limit_post', fn() => 10);
+            add_filter('nexipilot_rate_limit_daily', fn() => 200);
             break;
             
         case 'enterprise':
-            add_filter('postpilotai_rate_limit_post', fn() => 50);
-            add_filter('postpilotai_rate_limit_daily', fn() => 1000);
+            add_filter('nexipilot_rate_limit_post', fn() => 50);
+            add_filter('nexipilot_rate_limit_daily', fn() => 1000);
             break;
             
         default: // free
@@ -113,7 +113,7 @@ function postpilotai_apply_plan_limits() {
             break;
     }
 }
-add_action('plugins_loaded', 'postpilotai_apply_plan_limits');
+add_action('plugins_loaded', 'nexipilot_apply_plan_limits');
 ```
 
 ---
@@ -122,10 +122,10 @@ add_action('plugins_loaded', 'postpilotai_apply_plan_limits');
 
 | Filter Name | Default Value | Description |
 |------------|---------------|-------------|
-| `postpilotai_rate_limit_post` | `2` | Generations per post |
-| `postpilotai_rate_limit_post_window` | `300` | Time window in seconds (5 min) |
-| `postpilotai_rate_limit_daily` | `30` | Generations per day |
-| `postpilotai_rate_limit_daily_window` | `86400` | Daily window in seconds (24 hours) |
+| `nexipilot_rate_limit_post` | `2` | Generations per post |
+| `nexipilot_rate_limit_post_window` | `300` | Time window in seconds (5 min) |
+| `nexipilot_rate_limit_daily` | `30` | Generations per day |
+| `nexipilot_rate_limit_daily_window` | `86400` | Daily window in seconds (24 hours) |
 
 ---
 
@@ -134,9 +134,9 @@ add_action('plugins_loaded', 'postpilotai_apply_plan_limits');
 ```php
 <?php
 /**
- * Plugin Name: PostPilot Pro
- * Plugin URI: https://yoursite.com/postpilotai-pro
- * Description: Premium features for PostPilot with increased rate limits
+ * Plugin Name: NexiPilot Pro
+ * Plugin URI: https://yoursite.com/nexipilot-pro
+ * Description: Premium features for NexiPilot with increased rate limits
  * Version: 1.0.0
  * Author: Your Name
  * License: GPL-2.0+
@@ -146,12 +146,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class postpilotai_Pro {
+class nexipilot_Pro {
     
     private $license_key;
     
     public function __construct() {
-        $this->license_key = get_option('postpilotai_pro_license');
+        $this->license_key = get_option('nexipilot_pro_license');
         
         add_action('plugins_loaded', [$this, 'init']);
         add_action('admin_menu', [$this, 'add_license_page']);
@@ -165,11 +165,11 @@ class postpilotai_Pro {
     
     public function apply_premium_limits() {
         // 10x the free limits
-        add_filter('postpilotai_rate_limit_post', function() {
+        add_filter('nexipilot_rate_limit_post', function() {
             return 20; // 10x free version
         });
         
-        add_filter('postpilotai_rate_limit_daily', function() {
+        add_filter('nexipilot_rate_limit_daily', function() {
             return 300; // 10x free version
         });
     }
@@ -197,11 +197,11 @@ class postpilotai_Pro {
     
     public function add_license_page() {
         add_submenu_page(
-            'postpilotai-settings',
-            'PostPilot Pro License',
+            'nexipilot-settings',
+            'NexiPilot Pro License',
             'Pro License',
             'manage_options',
-            'postpilotai-pro-license',
+            'nexipilot-pro-license',
             [$this, 'render_license_page']
         );
     }
@@ -209,22 +209,22 @@ class postpilotai_Pro {
     public function render_license_page() {
         ?>
         <div class="wrap">
-            <h1>PostPilot Pro License</h1>
+            <h1>NexiPilot Pro License</h1>
             <form method="post" action="options.php">
                 <?php
-                settings_fields('postpilotai_pro');
-                do_settings_sections('postpilotai_pro');
+                settings_fields('nexipilot_pro');
+                do_settings_sections('nexipilot_pro');
                 ?>
                 <table class="form-table">
                     <tr>
                         <th>License Key</th>
                         <td>
                             <input type="text" 
-                                   name="postpilotai_pro_license" 
+                                   name="nexipilot_pro_license" 
                                    value="<?php echo esc_attr($this->license_key); ?>" 
                                    class="regular-text" />
                             <p class="description">
-                                Enter your PostPilot Pro license key to unlock premium features.
+                                Enter your NexiPilot Pro license key to unlock premium features.
                             </p>
                         </td>
                     </tr>
@@ -250,7 +250,7 @@ class postpilotai_Pro {
     }
 }
 
-new postpilotai_Pro();
+new nexipilot_Pro();
 ```
 
 ---
@@ -295,8 +295,8 @@ To test premium limits during development:
 
 ```php
 // Add to functions.php temporarily
-add_filter('postpilotai_rate_limit_post', fn() => 999);
-add_filter('postpilotai_rate_limit_daily', fn() => 9999);
+add_filter('nexipilot_rate_limit_post', fn() => 999);
+add_filter('nexipilot_rate_limit_daily', fn() => 9999);
 ```
 
 ---

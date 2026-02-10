@@ -169,8 +169,8 @@ class AdminManager
     {
         if (NEXIPILOT_BASENAME === $file) {
             $row_meta = array(
-                'docs' => '<a href="https://github.com/devatiq/postpilot" target="_blank">' . esc_html__('Documentation', 'nexipilot-content-ai') . '</a>',
-                'support' => '<a href="https://github.com/devatiq/postpilot/issues" target="_blank">' . esc_html__('Support', 'nexipilot-content-ai') . '</a>',
+                'docs' => '<a href="https://github.com/devatiq/nexipilot-content-ai" target="_blank">' . esc_html__('Documentation', 'nexipilot-content-ai') . '</a>',
+                'support' => '<a href="https://github.com/devatiq/nexipilot-content-ai/issues" target="_blank">' . esc_html__('Support', 'nexipilot-content-ai') . '</a>',
             );
             return array_merge($links, $row_meta);
         }
