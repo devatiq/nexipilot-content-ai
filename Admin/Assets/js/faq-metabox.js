@@ -106,7 +106,7 @@
                 url: ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'postpilotai_check_api_status',
+                    action: 'nexipilot_check_api_status',
                     nonce: nexipilotAdmin.generateFaqNonce
                 },
                 success: function(response) {
@@ -196,7 +196,7 @@
                 url: ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'postpilotai_generate_faq',
+                    action: 'nexipilot_generate_faq',
                     nonce: nexipilotAdmin.generateFaqNonce,
                     post_id: postId
                 },
@@ -283,7 +283,7 @@
                 url: ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'postpilotai_generate_demo_faq',
+                    action: 'nexipilot_generate_demo_faq',
                     nonce: nexipilotAdmin.generateFaqNonce,
                     post_id: postId
                 },

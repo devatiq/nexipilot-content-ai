@@ -53,11 +53,11 @@
             $('#' + tabName + '-tab').addClass('active');
 
             // Save active tab to localStorage
-            localStorage.setItem('postpilotai_active_tab', tabName);
+            localStorage.setItem('nexipilot_active_tab', tabName);
         }
 
         // Restore last active tab on page load
-        const lastActiveTab = localStorage.getItem('postpilotai_active_tab') || 'general';
+        const lastActiveTab = localStorage.getItem('nexipilot_active_tab') || 'general';
         switchTab(lastActiveTab);
 
         // Handle tab clicks
@@ -70,7 +70,7 @@
         // API PROVIDER FIELD TOGGLING
         // ========================================
 
-        const providerSelect = $('#postpilotai_ai_provider');
+        const providerSelect = $('#nexipilot_ai_provider');
         const openaiField = $('#openai-api-key-field');
         const claudeField = $('#claude-api-key-field');
         const geminiField = $('#gemini-api-key-field');
@@ -127,7 +127,7 @@
 
         function toggleFeatureOptions() {
             // FAQ options
-            const faqEnabled = $('input[name="postpilotai_enable_faq"]').is(':checked');
+            const faqEnabled = $('input[name="nexipilot_enable_faq"]').is(':checked');
             if (faqEnabled) {
                 $('#faq-options').addClass('active');
             } else {
@@ -135,7 +135,7 @@
             }
 
             // Summary options
-            const summaryEnabled = $('input[name="postpilotai_enable_summary"]').is(':checked');
+            const summaryEnabled = $('input[name="nexipilot_enable_summary"]').is(':checked');
             if (summaryEnabled) {
                 $('#summary-options').addClass('active');
             } else {
@@ -143,7 +143,7 @@
             }
 
             // Internal Links options
-            const linksEnabled = $('input[name="postpilotai_enable_internal_links"]').is(':checked');
+            const linksEnabled = $('input[name="nexipilot_enable_internal_links"]').is(':checked');
             if (linksEnabled) {
                 $('#links-options').addClass('active');
             } else {
@@ -151,7 +151,7 @@
             }
 
             // External AI Sharing options
-            const externalAiEnabled = $('input[name="postpilotai_enable_external_ai_sharing"]').is(':checked');
+            const externalAiEnabled = $('input[name="nexipilot_enable_external_ai_sharing"]').is(':checked');
             if (externalAiEnabled) {
                 $('#external-ai-sharing-options').addClass('active');
             } else {
@@ -163,7 +163,7 @@
         toggleFeatureOptions();
 
         // Update on toggle change
-        $('input[name="postpilotai_enable_faq"], input[name="postpilotai_enable_summary"], input[name="postpilotai_enable_internal_links"], input[name="postpilotai_enable_external_ai_sharing"]').on('change', function () {
+        $('input[name="nexipilot_enable_faq"], input[name="nexipilot_enable_summary"], input[name="nexipilot_enable_internal_links"], input[name="nexipilot_enable_external_ai_sharing"]').on('change', function () {
             toggleFeatureOptions();
         });
 
@@ -179,28 +179,28 @@
             // Get the model for the selected provider
             let modelValue = '';
             if (provider === 'openai') {
-                modelValue = $('#postpilotai_openai_model_providers').val() || $('#postpilotai_openai_model').val() || 'Not configured';
+                modelValue = $('#nexipilot_openai_model_providers').val() || $('#nexipilot_openai_model').val() || 'Not configured';
             } else if (provider === 'claude') {
-                modelValue = $('#postpilotai_claude_model_providers').val() || $('#postpilotai_claude_model').val() || 'Not configured';
+                modelValue = $('#nexipilot_claude_model_providers').val() || $('#nexipilot_claude_model').val() || 'Not configured';
             } else if (provider === 'gemini') {
-                modelValue = $('#postpilotai_gemini_model_providers').val() || $('#postpilotai_gemini_model').val() || 'Not configured';
+                modelValue = $('#nexipilot_gemini_model_providers').val() || $('#nexipilot_gemini_model').val() || 'Not configured';
             }
 
             modelBadge.text(modelValue);
         }
 
         // Handle FAQ provider change
-        $('#postpilotai_faq_provider').on('change', function () {
+        $('#nexipilot_faq_provider').on('change', function () {
             updateFeatureModelDisplay('faq', $(this).val());
         });
 
         // Handle Summary provider change
-        $('#postpilotai_summary_provider').on('change', function () {
+        $('#nexipilot_summary_provider').on('change', function () {
             updateFeatureModelDisplay('summary', $(this).val());
         });
 
         // Handle Internal Links provider change
-        $('#postpilotai_internal_links_provider').on('change', function () {
+        $('#nexipilot_internal_links_provider').on('change', function () {
             updateFeatureModelDisplay('links', $(this).val());
         });
 

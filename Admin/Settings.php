@@ -567,7 +567,7 @@ class Settings
                         // Determine badge text and class
                         if ($configured_count === 0) {
                             $status_text = __('Not Connected', 'nexipilot-content-ai');
-                            $status_class = 'postpilotai-status-disconnected';
+                            $status_class = 'nexipilot-status-disconnected';
                         } elseif ($configured_count === $total_providers) {
 
                             $status_text = sprintf(
@@ -576,7 +576,7 @@ class Settings
                                 $configured_count,
                                 $total_providers
                             );
-                            $status_class = 'postpilotai-status-connected';
+                            $status_class = 'nexipilot-status-connected';
                         } else {
                             $status_text = sprintf(
                                 /* translators: 1: number of connected AI providers, 2: total available AI providers */
@@ -584,11 +584,11 @@ class Settings
                                 $configured_count,
                                 $total_providers
                             );
-                            $status_class = 'postpilotai-status-partial';
+                            $status_class = 'nexipilot-status-partial';
                         }
                         ?>
                         <span class="nexipilot-status-badge <?php echo esc_attr($status_class); ?>"
-                            id="postpilotai-api-status" title="<?php echo esc_attr($tooltip); ?>">
+                            id="nexipilot-api-status" title="<?php echo esc_attr($tooltip); ?>">
                             <span class="status-dot"></span>
                             <?php echo esc_html($status_text); ?>
                         </span>
@@ -628,7 +628,7 @@ class Settings
                 <div class="nexipilot-tab-content" id="ai-providers-tab">
                     <div class="nexipilot-settings-grid">
                         <!-- OpenAI Provider Card -->
-                        <div class="nexipilot-card postpilotai-provider-card">
+                        <div class="nexipilot-card nexipilot-provider-card">
                             <div class="nexipilot-card-header">
                                 <div class="nexipilot-card-icon">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -655,7 +655,7 @@ class Settings
                                     <label for="nexipilot_openai_api_key_providers" class="nexipilot-label">
                                         <?php esc_html_e('API Key', 'nexipilot-content-ai'); ?>
                                         <?php if (get_option('nexipilot_openai_api_key')): ?>
-                                            <span class="nexipilot-badge postpilotai-badge-success">
+                                            <span class="nexipilot-badge nexipilot-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
@@ -712,7 +712,7 @@ class Settings
                         </div>
 
                         <!-- Claude Provider Card -->
-                        <div class="nexipilot-card postpilotai-provider-card">
+                        <div class="nexipilot-card nexipilot-provider-card">
                             <div class="nexipilot-card-header">
                                 <div class="nexipilot-card-icon">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -739,7 +739,7 @@ class Settings
                                     <label for="nexipilot_claude_api_key_providers" class="nexipilot-label">
                                         <?php esc_html_e('API Key', 'nexipilot-content-ai'); ?>
                                         <?php if (get_option('nexipilot_claude_api_key')): ?>
-                                            <span class="nexipilot-badge postpilotai-badge-success">
+                                            <span class="nexipilot-badge nexipilot-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
@@ -796,7 +796,7 @@ class Settings
                         </div>
 
                         <!-- Gemini Provider Card -->
-                        <div class="nexipilot-card postpilotai-provider-card">
+                        <div class="nexipilot-card nexipilot-provider-card">
                             <div class="nexipilot-card-header">
                                 <div class="nexipilot-card-icon">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -823,7 +823,7 @@ class Settings
                                     <label for="nexipilot_gemini_api_key_providers" class="nexipilot-label">
                                         <?php esc_html_e('API Key', 'nexipilot-content-ai'); ?>
                                         <?php if (get_option('nexipilot_gemini_api_key')): ?>
-                                            <span class="nexipilot-badge postpilotai-badge-success">
+                                            <span class="nexipilot-badge nexipilot-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
@@ -883,7 +883,7 @@ class Settings
                         </div>
 
                         <!-- Grok Provider Card -->
-                        <div class="nexipilot-card postpilotai-provider-card">
+                        <div class="nexipilot-card nexipilot-provider-card">
                             <div class="nexipilot-card-header">
                                 <div class="nexipilot-card-icon">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -910,7 +910,7 @@ class Settings
                                     <label for="nexipilot_grok_api_key_providers" class="nexipilot-label">
                                         <?php esc_html_e('API Key', 'nexipilot-content-ai'); ?>
                                         <?php if (get_option('nexipilot_grok_api_key')): ?>
-                                            <span class="nexipilot-badge postpilotai-badge-success">
+                                            <span class="nexipilot-badge nexipilot-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
@@ -964,7 +964,7 @@ class Settings
                     </div>
 
                     <div class="nexipilot-submit-wrapper">
-                        <?php submit_button(__('Save Settings', 'nexipilot-content-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
+                        <?php submit_button(__('Save Settings', 'nexipilot-content-ai'), 'primary nexipilot-btn-primary', 'submit', false); ?>
                     </div>
                 </div>
 
@@ -1032,7 +1032,7 @@ class Settings
                                             <label class="nexipilot-label-small">
                                                 <?php esc_html_e('Model in Use', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <span class="nexipilot-badge postpilotai-badge-info">
+                                            <span class="nexipilot-badge nexipilot-badge-info">
                                                 <?php
                                                 $faq_provider = get_option('nexipilot_faq_provider', 'openai');
                                                 $faq_model = get_option("nexipilot_{$faq_provider}_model", '');
@@ -1119,7 +1119,7 @@ class Settings
                                             <label class="nexipilot-label-small">
                                                 <?php esc_html_e('Model in Use', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <span class="nexipilot-badge postpilotai-badge-info">
+                                            <span class="nexipilot-badge nexipilot-badge-info">
                                                 <?php
                                                 $summary_provider = get_option('nexipilot_summary_provider', 'openai');
                                                 $summary_model = get_option("nexipilot_{$summary_provider}_model", '');
@@ -1191,7 +1191,7 @@ class Settings
                                             <label class="nexipilot-label-small">
                                                 <?php esc_html_e('Model in Use', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <span class="nexipilot-badge postpilotai-badge-info">
+                                            <span class="nexipilot-badge nexipilot-badge-info">
                                                 <?php
                                                 $links_provider = get_option('nexipilot_internal_links_provider', 'openai');
                                                 $links_model = get_option("nexipilot_{$links_provider}_model", '');
@@ -1317,7 +1317,7 @@ class Settings
                                                 foreach ($providers as $key => $provider) {
                                                     ?>
                                                     <label
-                                                        class="nexipilot-checkbox-card postpilotai-checkbox-card--<?php echo esc_attr($key); ?>">
+                                                        class="nexipilot-checkbox-card nexipilot-checkbox-card--<?php echo esc_attr($key); ?>">
                                                         <input type="checkbox"
                                                             name="nexipilot_external_ai_<?php echo esc_attr($key); ?>" value="1"
                                                             <?php checked(get_option('nexipilot_external_ai_' . $key, '1'), '1'); ?> />
@@ -1350,7 +1350,7 @@ class Settings
                     <!-- End Features Tab -->
 
                     <div class="nexipilot-submit-wrapper">
-                        <?php submit_button(__('Save Settings', 'nexipilot-content-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
+                        <?php submit_button(__('Save Settings', 'nexipilot-content-ai'), 'primary nexipilot-btn-primary', 'submit', false); ?>
                     </div>
                 </div>
 
@@ -1418,7 +1418,7 @@ class Settings
                     <!-- End Troubleshooting Tab -->
 
                     <div class="nexipilot-submit-wrapper">
-                        <?php submit_button(__('Save Settings', 'nexipilot-content-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
+                        <?php submit_button(__('Save Settings', 'nexipilot-content-ai'), 'primary nexipilot-btn-primary', 'submit', false); ?>
                     </div>
                 </div>
 
@@ -1805,7 +1805,7 @@ class Settings
                 'status' => 'missing',
                 'icon' => '⚪',
                 'text' => __('Missing Key', 'nexipilot-content-ai'),
-                'class' => 'postpilotai-status-gray',
+                'class' => 'nexipilot-status-gray',
                 'tooltip' => __('No API key configured. Add one if you plan to use this provider.', 'nexipilot-content-ai')
             );
         }
@@ -1819,7 +1819,7 @@ class Settings
                 'status' => 'saved',
                 'icon' => '🟡',
                 'text' => __('Key Saved', 'nexipilot-content-ai'),
-                'class' => 'postpilotai-status-yellow',
+                'class' => 'nexipilot-status-yellow',
                 'tooltip' => __('API key saved but not verified. Save settings to validate.', 'nexipilot-content-ai')
             );
         }
@@ -1830,7 +1830,7 @@ class Settings
                 'status' => 'invalid',
                 'icon' => '❌',
                 'text' => __('Invalid Key', 'nexipilot-content-ai'),
-                'class' => 'postpilotai-status-red',
+                'class' => 'nexipilot-status-red',
                 'tooltip' => $validation_result->get_error_message()
             );
         }
@@ -1840,7 +1840,7 @@ class Settings
             'status' => 'connected',
             'icon' => '✅',
             'text' => __('Connected', 'nexipilot-content-ai'),
-            'class' => 'postpilotai-status-green',
+            'class' => 'nexipilot-status-green',
             'tooltip' => __('API key verified and working', 'nexipilot-content-ai')
         );
     }

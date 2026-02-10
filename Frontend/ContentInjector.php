@@ -164,7 +164,7 @@ class ContentInjector
 
         ob_start();
         ?>
-        <div class="nexipilot-faq postpilotai-faq--<?php echo esc_attr($layout); ?>">
+        <div class="nexipilot-faq nexipilot-faq--<?php echo esc_attr($layout); ?>">
             <h2 class="nexipilot-faq__title"><?php esc_html_e('Frequently Asked Questions', 'nexipilot-content-ai'); ?></h2>
             <div class="nexipilot-faq__items">
                 <?php foreach ($faq_data as $index => $faq_item): ?>
@@ -432,7 +432,7 @@ class ContentInjector
             <div class="nexipilot-external-ai-sharing__buttons">
                 <?php foreach ($enabled_providers as $key => $name): ?>
                     <a href="<?php echo esc_url($this->get_external_ai_url($key, $post_url)); ?>"
-                        class="nexipilot-external-ai-sharing__button postpilotai-external-ai-sharing__button--<?php echo esc_attr($key); ?>"
+                        class="nexipilot-external-ai-sharing__button nexipilot-external-ai-sharing__button--<?php echo esc_attr($key); ?>"
                         target="_blank" rel="noopener noreferrer">
                         <span class="nexipilot-external-ai-sharing__button-logo">
                             <?php echo wp_kses($logos[$key], $allowed_svg); ?>

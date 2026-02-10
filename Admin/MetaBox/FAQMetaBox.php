@@ -156,7 +156,7 @@ class FAQMetaBox
             <div class="nexipilot-faq-fields" style="margin-top: 20px;">
                 <div class="nexipilot-faq-header">
                     <h4><?php esc_html_e('FAQ Items', 'nexipilot-content-ai'); ?></h4>
-                    <button type="button" class="button button-secondary postpilotai-add-faq-item">
+                    <button type="button" class="button button-secondary nexipilot-add-faq-item">
                         <?php esc_html_e('+ Add FAQ Item', 'nexipilot-content-ai'); ?>
                     </button>
                 </div>
@@ -176,7 +176,7 @@ class FAQMetaBox
 
             <!-- Generate/Regenerate Button -->
             <div class="nexipilot-faq-actions" style="margin-top: 20px;">
-                <button type="button" class="button button-primary postpilotai-generate-faq"
+                <button type="button" class="button button-primary nexipilot-generate-faq"
                     data-post-id="<?php echo esc_attr($post->ID); ?>">
                     <?php echo $has_faqs ? esc_html__('Regenerate FAQ', 'nexipilot-content-ai') : esc_html__('Generate FAQ', 'nexipilot-content-ai'); ?>
                 </button>
@@ -188,7 +188,7 @@ class FAQMetaBox
         </div>
 
         <!-- Hidden template for new FAQ items -->
-        <script type="text/template" id="postpilotai-faq-item-template">
+        <script type="text/template" id="nexipilot-faq-item-template">
                                                                                                                                                                                             <?php $this->render_faq_item('{{INDEX}}', array('question' => '', 'answer' => '')); ?>
                                                                                                                                                                                         </script>
         <?php
@@ -222,7 +222,7 @@ class FAQMetaBox
                     );
                     ?>
                 </span>
-                <button type="button" class="button-link postpilotai-remove-faq-item"
+                <button type="button" class="button-link nexipilot-remove-faq-item"
                     title="<?php esc_attr_e('Remove this FAQ', 'nexipilot-content-ai'); ?>">
                     <span class="dashicons dashicons-trash"></span>
                 </button>

@@ -48,7 +48,7 @@ class Assets
         }
 
         wp_enqueue_style(
-            'postpilotai-frontend-style',
+            'nexipilot-frontend-style',
             NEXIPILOT_FRONTEND_ASSETS . '/css/frontend.css',
             array(),
             NEXIPILOT_VERSION
@@ -57,7 +57,7 @@ class Assets
         // Enqueue external AI sharing styles if feature is enabled
         if (get_option('nexipilot_enable_external_ai_sharing', '1') === '1') {
             wp_enqueue_style(
-                'postpilotai-external-ai-sharing',
+                'nexipilot-external-ai-sharing',
                 NEXIPILOT_FRONTEND_ASSETS . '/css/external-ai-sharing.css',
                 array(),
                 NEXIPILOT_VERSION
