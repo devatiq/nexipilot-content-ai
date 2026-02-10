@@ -21,6 +21,72 @@ NexiPilot Content AI enhances your WordPress content with AI-generated features:
 - 🌐 Fully translatable
 - 📱 Responsive design with dark mode support
 
+## External Services
+
+NexiPilot Content AI connects to third-party AI APIs to generate content features such as FAQs, summaries, and internal link suggestions. These services are required for the plugin's core functionality when AI generation is enabled.
+
+**Important**: The plugin only sends data to these services when you (the administrator) manually trigger content generation or when auto-generation features are enabled. No visitor personal data is transmitted to these services.
+
+The plugin may connect to one or more of the following services depending on the AI provider you select in the plugin settings:
+
+### OpenAI (ChatGPT API)
+
+**What it is used for:**
+- Generates FAQs, content summaries, and internal link suggestions using OpenAI's GPT models (GPT-4o, GPT-4 Turbo, GPT-3.5 Turbo).
+
+**What data is sent and when:**
+- Your post/page content is sent to OpenAI only when you manually click "Generate FAQ" or when auto-generation is enabled for published posts.
+- The request includes: post content, selected model name, and the feature type (FAQ/Summary/Links).
+- No visitor personal data, IP addresses, or user information is sent.
+
+**Service terms and privacy policy:**
+- Terms of Service: https://openai.com/terms
+- Privacy Policy: https://openai.com/privacy
+
+### Anthropic (Claude API)
+
+**What it is used for:**
+- Generates FAQs, content summaries, and internal link suggestions using Anthropic's Claude models (Claude 3.5 Sonnet, Claude 3 Opus, Claude 3 Haiku).
+
+**What data is sent and when:**
+- Your post/page content is sent to Anthropic only when you manually click "Generate FAQ" or when auto-generation is enabled for published posts.
+- The request includes: post content, selected model name, and the feature type (FAQ/Summary/Links).
+- No visitor personal data, IP addresses, or user information is sent.
+
+**Service terms and privacy policy:**
+- Terms of Service: https://www.anthropic.com/terms
+- Privacy Policy: https://www.anthropic.com/privacy
+
+### Google (Gemini API)
+
+**What it is used for:**
+- Generates FAQs, content summaries, and internal link suggestions using Google's Gemini models (Gemini 1.5 Pro, Gemini 1.5 Flash).
+
+**What data is sent and when:**
+- Your post/page content is sent to Google only when you manually click "Generate FAQ" or when auto-generation is enabled for published posts.
+- The request includes: post content, selected model name, and the feature type (FAQ/Summary/Links).
+- No visitor personal data, IP addresses, or user information is sent.
+
+**Service terms and privacy policy:**
+- Terms of Service: https://policies.google.com/terms
+- Privacy Policy: https://policies.google.com/privacy
+
+### xAI (Grok API)
+
+**What it is used for:**
+- Generates FAQs, content summaries, and internal link suggestions using xAI's Grok models (Grok-2, Grok-2 mini, Grok Beta).
+
+**What data is sent and when:**
+- Your post/page content is sent to xAI only when you manually click "Generate FAQ" or when auto-generation is enabled for published posts.
+- The request includes: post content, selected model name, and the feature type (FAQ/Summary/Links).
+- No visitor personal data, IP addresses, or user information is sent.
+
+**Service terms and privacy policy:**
+- Terms of Service: https://x.ai/legal
+- Privacy Policy: https://x.ai/privacy-policy
+
+**Note**: You must obtain your own API keys from these providers. The plugin does not include API keys and does not send any data to these services unless you configure them and enable the features.
+
 ## Requirements
 
 - WordPress 5.8 or higher
