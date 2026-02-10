@@ -91,7 +91,7 @@ class Logger
     {
         if (defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
             $log_message = sprintf(
-                '[PostPilot][%s] %s',
+                '[NexiPilot][%s] %s',
                 $level,
                 $message
             );

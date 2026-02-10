@@ -4,7 +4,7 @@
  *
  * Handles encryption and decryption of sensitive data like API keys
  *
- * @package PostPilot
+ * @package NexiPilot
  * @since 1.0.0
  */
 
@@ -78,7 +78,7 @@ class Encryption
         } catch (\Exception $e) {
             if ('1' === get_option('nexipilot_enable_debug_logging', '')) {
                 Logger::error(
-                    'PostPilot Encryption Error',
+                    'NexiPilot Encryption Error',
                     array(
                         'exception' => $e->getMessage(),
                     )
@@ -133,7 +133,7 @@ class Encryption
             return $decrypted;
         } catch (\Exception $e) {
             Logger::error(
-                'PostPilot Decryption Error',
+                'NexiPilot Decryption Error',
                 array(
                     'exception' => $e->getMessage(),
                 )

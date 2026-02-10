@@ -35,7 +35,7 @@ class Assets
     }
 
     /**
-     * Enqueues CSS styles for the PostPilot Frontend
+     * Enqueues CSS styles for the NexiPilot Frontend
      *
      * @since 1.0.0
      * @return void

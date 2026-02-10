@@ -1,5 +1,5 @@
 /**
- * PostPilot Settings Page JavaScript
+ * NexiPilot Settings Page JavaScript
  * 
  * Handles all functionality for the settings page including:
  * - Tab navigation with localStorage persistence
@@ -8,7 +8,7 @@
  * - Feature option toggles
  * - Settings saved notifications
  * 
- * @package PostPilot
+ * @package NexiPilot
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */

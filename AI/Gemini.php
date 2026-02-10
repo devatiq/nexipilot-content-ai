@@ -299,7 +299,7 @@ class Gemini implements ProviderInterface
             } elseif ($response_code === 401 || $response_code === 403) {
                 return new \WP_Error(
                     'gemini_invalid_key',
-                    __('Invalid Gemini API key. Please check your API key in PostPilot settings.', 'nexipilot-content-ai')
+                    __('Invalid Gemini API key. Please check your API key in NexiPilot settings.', 'nexipilot-content-ai')
                 );
             } elseif ($response_code === 429) {
                 // Extract retry time if available

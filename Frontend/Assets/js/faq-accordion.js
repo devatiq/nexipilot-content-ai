@@ -1,10 +1,10 @@
 /**
- * PostPilot FAQ Accordion Functionality
+ * NexiPilot FAQ Accordion Functionality
  * 
  * Lightweight vanilla JavaScript for accordion interactions
  * Supports keyboard navigation and ARIA attributes
  * 
- * @package PostPilot
+ * @package NexiPilot
  * @since 1.0.0
  */
 

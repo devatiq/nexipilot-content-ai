@@ -252,7 +252,7 @@ class OpenAI implements ProviderInterface
             } elseif ($error_code === 401) {
                 return new \WP_Error(
                     'openai_invalid_key',
-                    __('Invalid OpenAI API key. Please check your API key in PostPilot settings.', 'nexipilot-content-ai')
+                    __('Invalid OpenAI API key. Please check your API key in NexiPilot settings.', 'nexipilot-content-ai')
                 );
             } else {
                 return new \WP_Error(

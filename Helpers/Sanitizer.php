@@ -47,7 +47,7 @@ class Sanitizer
         // If encryption fails, log error and return sanitized (unencrypted) value
         if ($encrypted === false) {
             Logger::error(
-                'PostPilot: Failed to encrypt API key',
+                'NexiPilot: Failed to encrypt API key',
                 array(
                     'context' => 'sanitize_api_key',
                 )

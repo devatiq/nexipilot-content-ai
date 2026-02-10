@@ -3,7 +3,7 @@
  * AdminManager.php
  *
  * This file contains the AdminManager class, which is responsible for handling the
- * initialization and configuration of the PostPilot Admin.
+ * initialization and configuration of the NexiPilot Admin.
  *
  * @package NexiPilot\Admin
  * @since 1.0.0
@@ -20,7 +20,7 @@ use NexiPilot\Admin\Assets\Assets;
 /**
  * Class AdminManager
  *
- * Handles the initialization and configuration of the PostPilot Admin.
+ * Handles the initialization and configuration of the NexiPilot Admin.
  *
  * @package NexiPilot\Admin
  * @since 1.0.0
@@ -72,7 +72,7 @@ class AdminManager
     }
 
     /**
-     * Initialize the PostPilot Admin
+     * Initialize the NexiPilot Admin
      *
      * @since 1.0.0
      * @return void

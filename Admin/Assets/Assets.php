@@ -37,7 +37,7 @@ class Assets
     }
 
     /**
-     * Enqueues CSS styles for the PostPilot Admin
+     * Enqueues CSS styles for the NexiPilot Admin
      *
      * @since 1.0.0
      * @param string $hook_suffix The current admin page hook suffix.
@@ -45,7 +45,7 @@ class Assets
      */
     public function admin_enqueue_styles($hook_suffix)
     {
-        // Load on PostPilot settings page and post edit pages
+        // Load on NexiPilot settings page and post edit pages
         if ('toplevel_page_nexipilot-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_style(
                 'nexipilot-admin-style',
@@ -57,7 +57,7 @@ class Assets
     }
 
     /**
-     * Enqueues JavaScript scripts for the PostPilot Admin
+     * Enqueues JavaScript scripts for the NexiPilot Admin
      *
      * @since 1.0.0
      * @param string $hook_suffix The current admin page hook suffix.
@@ -76,7 +76,7 @@ class Assets
             );
         }
 
-        // Enqueue settings.js only on PostPilot settings page
+        // Enqueue settings.js only on NexiPilot settings page
         if ('toplevel_page_nexipilot-settings' === $hook_suffix) {
             wp_enqueue_script(
                 'nexipilot-settings-script',

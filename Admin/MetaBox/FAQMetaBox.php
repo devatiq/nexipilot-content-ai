@@ -360,10 +360,10 @@ class FAQMetaBox
         }
 
         // Rate limit check
-        if (!\PostPilotAI\Helpers\RateLimiter::can_generate_faq($user_id, $post_id)) {
-            $wait_time = \PostPilotAI\Helpers\RateLimiter::get_wait_time($user_id, $post_id);
-            $post_remaining = \PostPilotAI\Helpers\RateLimiter::get_post_remaining($user_id, $post_id);
-            $daily_remaining = \PostPilotAI\Helpers\RateLimiter::get_daily_remaining($user_id);
+        if (!\NexiPilotAI\Helpers\RateLimiter::can_generate_faq($user_id, $post_id)) {
+            $wait_time = \NexiPilotAI\Helpers\RateLimiter::get_wait_time($user_id, $post_id);
+            $post_remaining = \NexiPilotAI\Helpers\RateLimiter::get_post_remaining($user_id, $post_id);
+            $daily_remaining = \NexiPilotAI\Helpers\RateLimiter::get_daily_remaining($user_id);
 
             // Determine which limit was hit
             if ($post_remaining === 0) {
@@ -382,7 +382,7 @@ class FAQMetaBox
                         'You have reached your daily FAQ generation limit (%1$d per day). Please try again tomorrow.',
                         'nexipilot-content-ai'
                     ),
-                    \PostPilotAI\Helpers\RateLimiter::get_daily_limit()
+                    \NexiPilotAI\Helpers\RateLimiter::get_daily_limit()
                 );
             }
 
@@ -424,7 +424,7 @@ class FAQMetaBox
         }
 
         // Record successful generation
-        \PostPilotAI\Helpers\RateLimiter::record_generation($user_id, $post_id);
+        \NexiPilotAI\Helpers\RateLimiter::record_generation($user_id, $post_id);
 
         // Save to post meta
         update_post_meta($post_id, '_nexipilot_faqs', $faq_data);
@@ -469,10 +469,10 @@ class FAQMetaBox
         }
 
         // Rate limit check (same as regular generation)
-        if (!\PostPilotAI\Helpers\RateLimiter::can_generate_faq($user_id, $post_id)) {
-            $wait_time = \PostPilotAI\Helpers\RateLimiter::get_wait_time($user_id, $post_id);
-            $post_remaining = \PostPilotAI\Helpers\RateLimiter::get_post_remaining($user_id, $post_id);
-            $daily_remaining = \PostPilotAI\Helpers\RateLimiter::get_daily_remaining($user_id);
+        if (!\NexiPilotAI\Helpers\RateLimiter::can_generate_faq($user_id, $post_id)) {
+            $wait_time = \NexiPilotAI\Helpers\RateLimiter::get_wait_time($user_id, $post_id);
+            $post_remaining = \NexiPilotAI\Helpers\RateLimiter::get_post_remaining($user_id, $post_id);
+            $daily_remaining = \NexiPilotAI\Helpers\RateLimiter::get_daily_remaining($user_id);
 
             // Determine which limit was hit
             if ($post_remaining === 0) {
@@ -494,7 +494,7 @@ class FAQMetaBox
                         'You have reached your daily FAQ generation limit (%1$d per day). Please try again tomorrow.',
                         'nexipilot-content-ai'
                     ),
-                    \PostPilotAI\Helpers\RateLimiter::get_daily_limit()
+                    \NexiPilotAI\Helpers\RateLimiter::get_daily_limit()
                 );
             }
 
@@ -511,7 +511,7 @@ class FAQMetaBox
         $demo_faq = $this->ai_manager->get_demo_faq();
 
         // Record successful generation
-        \PostPilotAI\Helpers\RateLimiter::record_generation($user_id, $post_id);
+        \NexiPilotAI\Helpers\RateLimiter::record_generation($user_id, $post_id);
 
         // Save to post meta
         update_post_meta($post_id, '_nexipilot_faqs', $demo_faq);
@@ -554,7 +554,7 @@ class FAQMetaBox
             if (!$this->ai_manager->is_provider_available()) {
                 wp_send_json_success(array(
                     'available' => false,
-                    'message' => esc_html__('AI service is not configured. Please add your API key in PostPilot settings.', 'nexipilot-content-ai'),
+                    'message' => esc_html__('AI service is not configured. Please add your API key in NexiPilot settings.', 'nexipilot-content-ai'),
                 ));
                 return;
             }

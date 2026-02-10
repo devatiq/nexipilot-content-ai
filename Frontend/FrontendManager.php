@@ -3,7 +3,7 @@
  * FrontendManager.php
  *
  * This file contains the FrontendManager class, which is responsible for handling the
- * initialization and configuration of the PostPilot Frontend.
+ * initialization and configuration of the NexiPilot Frontend.
  *
  * @package NexiPilot\Frontend
  * @since 1.0.0
@@ -20,7 +20,7 @@ use NexiPilot\Frontend\Assets\Assets;
 /**
  * Class FrontendManager
  *
- * Handles the initialization and configuration of the PostPilot Frontend.
+ * Handles the initialization and configuration of the NexiPilot Frontend.
  *
  * @package NexiPilot\Frontend
  * @since 1.0.0
@@ -64,7 +64,7 @@ class FrontendManager
     }
 
     /**
-     * Initialize the PostPilot Frontend
+     * Initialize the NexiPilot Frontend
      *
      * @since 1.0.0
      * @return void

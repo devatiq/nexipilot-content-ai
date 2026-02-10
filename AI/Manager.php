@@ -108,7 +108,7 @@ class Manager
                 $api_key = get_option('nexipilot_gemini_api_key', '');
                 $model = get_option('nexipilot_gemini_model', 'gemini-2.5-flash');
                 if (!empty($api_key)) {
-                    $decrypted_key = \PostPilotAI\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($api_key);
                     return new Gemini($decrypted_key, $model);
                 }
                 break;
@@ -117,7 +117,7 @@ class Manager
                 $api_key = get_option('nexipilot_claude_api_key', '');
                 $model = get_option('nexipilot_claude_model', 'claude-3-5-sonnet-20241022');
                 if (!empty($api_key)) {
-                    $decrypted_key = \PostPilotAI\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($api_key);
                     return new Claude($decrypted_key, $model);
                 }
                 break;
@@ -126,7 +126,7 @@ class Manager
                 $api_key = get_option('nexipilot_grok_api_key', '');
                 $model = get_option('nexipilot_grok_model', 'grok-beta');
                 if (!empty($api_key)) {
-                    $decrypted_key = \PostPilotAI\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($api_key);
                     return new Grok($decrypted_key, $model);
                 }
                 break;
@@ -136,7 +136,7 @@ class Manager
                 $api_key = get_option('nexipilot_openai_api_key', '');
                 $model = get_option('nexipilot_openai_model', 'gpt-4o');
                 if (!empty($api_key)) {
-                    $decrypted_key = \PostPilotAI\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($api_key);
                     return new OpenAI($decrypted_key, $model);
                 }
                 break;
@@ -220,7 +220,7 @@ class Manager
         if (!$provider) {
             // Return demo summary when no provider is configured
             Logger::debug('No AI provider configured for Summary, returning demo summary', array('post_id' => $post_id));
-            return __('This is a demo summary. Configure your AI provider API key in PostPilot settings to generate real AI-powered summaries.', 'nexipilot-content-ai');
+            return __('This is a demo summary. Configure your AI provider API key in NexiPilot settings to generate real AI-powered summaries.', 'nexipilot-content-ai');
         }
 
         // Check cache
@@ -373,12 +373,12 @@ class Manager
     {
         return array(
             array(
-                'question' => __('How do I configure PostPilot AI?', 'nexipilot-content-ai'),
-                'answer' => __('Go to PostPilot AI in your WordPress admin menu, select your AI provider (OpenAI or Claude), enter your API key, and enable the features you want to use.', 'nexipilot-content-ai'),
+                'question' => __('How do I configure NexiPilot AI?', 'nexipilot-content-ai'),
+                'answer' => __('Go to NexiPilot AI in your WordPress admin menu, select your AI provider (OpenAI or Claude), enter your API key, and enable the features you want to use.', 'nexipilot-content-ai'),
             ),
             array(
                 'question' => __('What AI providers are supported?', 'nexipilot-content-ai'),
-                'answer' => __('PostPilot AI currently supports OpenAI (ChatGPT), Claude (Anthropic), and Google Gemini. You can switch between providers in the settings.', 'nexipilot-content-ai'),
+                'answer' => __('NexiPilot AI currently supports OpenAI (ChatGPT), Claude (Anthropic), and Google Gemini. You can switch between providers in the settings.', 'nexipilot-content-ai'),
             ),
             array(
                 'question' => __('Is this a demo FAQ?', 'nexipilot-content-ai'),

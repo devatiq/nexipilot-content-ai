@@ -2,7 +2,7 @@
 /**
  * Cache.php
  *
- * Cache utilities (transients) for PostPilot.
+ * Cache utilities (transients) for NexiPilot.
  *
  * IMPORTANT:
  * - This avoids direct DB queries ($wpdb) to satisfy PHPCS.

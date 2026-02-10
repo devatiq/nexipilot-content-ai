@@ -1,5 +1,5 @@
 /**
- * PostPilot FAQ Meta Box JavaScript
+ * NexiPilot FAQ Meta Box JavaScript
  * 
  * Handles all functionality for the FAQ meta box in the post editor including:
  * - Adding/removing FAQ items
@@ -8,7 +8,7 @@
  * - API status checking
  * - SweetAlert2 confirmations
  * 
- * @package PostPilot
+ * @package NexiPilot
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar1@gmail.com>
  */

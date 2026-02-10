@@ -4,7 +4,7 @@
  *
  * Handles rate limiting for FAQ generation to prevent abuse
  *
- * @package PostPilot
+ * @package NexiPilot
  * @since 1.0.0
  */
 
