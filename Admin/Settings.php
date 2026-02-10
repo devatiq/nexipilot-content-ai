@@ -667,7 +667,7 @@ class Settings
                                     <div class="nexipilot-input-group">
                                         <?php
                                         $openai_key = get_option('nexipilot_openai_api_key');
-                                        $openai_key_decrypted = !empty($openai_key) ? \NexiPilotAI\Helpers\Encryption::decrypt($openai_key) : '';
+                                        $openai_key_decrypted = !empty($openai_key) ? \NexiPilot\Helpers\Encryption::decrypt($openai_key) : '';
                                         ?>
                                         <input type="password" name="nexipilot_openai_api_key"
                                             id="nexipilot_openai_api_key_providers" class="nexipilot-input"
@@ -751,7 +751,7 @@ class Settings
                                     <div class="nexipilot-input-group">
                                         <?php
                                         $claude_key = get_option('nexipilot_claude_api_key');
-                                        $claude_key_decrypted = !empty($claude_key) ? \NexiPilotAI\Helpers\Encryption::decrypt($claude_key) : '';
+                                        $claude_key_decrypted = !empty($claude_key) ? \NexiPilot\Helpers\Encryption::decrypt($claude_key) : '';
                                         ?>
                                         <input type="password" name="nexipilot_claude_api_key"
                                             id="nexipilot_claude_api_key_providers" class="nexipilot-input"
@@ -835,7 +835,7 @@ class Settings
                                     <div class="nexipilot-input-group">
                                         <?php
                                         $gemini_key = get_option('nexipilot_gemini_api_key');
-                                        $gemini_key_decrypted = !empty($gemini_key) ? \NexiPilotAI\Helpers\Encryption::decrypt($gemini_key) : '';
+                                        $gemini_key_decrypted = !empty($gemini_key) ? \NexiPilot\Helpers\Encryption::decrypt($gemini_key) : '';
                                         ?>
                                         <input type="password" name="nexipilot_gemini_api_key"
                                             id="nexipilot_gemini_api_key_providers" class="nexipilot-input"
@@ -922,7 +922,7 @@ class Settings
                                     <div class="nexipilot-input-group">
                                         <?php
                                         $grok_key = get_option('nexipilot_grok_api_key');
-                                        $grok_key_decrypted = !empty($grok_key) ? \NexiPilotAI\Helpers\Encryption::decrypt($grok_key) : '';
+                                        $grok_key_decrypted = !empty($grok_key) ? \NexiPilot\Helpers\Encryption::decrypt($grok_key) : '';
                                         ?>
                                         <input type="password" name="nexipilot_grok_api_key"
                                             id="nexipilot_grok_api_key_providers" class="nexipilot-input"
@@ -1866,9 +1866,9 @@ class Settings
         }
 
         // Decrypt the API key before validation (keys are stored encrypted)
-        $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($new_value);
+        $decrypted_key = \NexiPilot\Helpers\Encryption::decrypt($new_value);
 
-        $openai = new \NexiPilotAI\AI\OpenAI($decrypted_key);
+        $openai = new \NexiPilot\AI\OpenAI($decrypted_key);
         $result = $openai->validate_api_key($decrypted_key);
 
         set_transient('nexipilot_openai_validation', $result, WEEK_IN_SECONDS);
@@ -1895,9 +1895,9 @@ class Settings
         }
 
         // Decrypt the API key before validation (keys are stored encrypted)
-        $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($new_value);
+        $decrypted_key = \NexiPilot\Helpers\Encryption::decrypt($new_value);
 
-        $claude = new \NexiPilotAI\AI\Claude($decrypted_key);
+        $claude = new \NexiPilot\AI\Claude($decrypted_key);
         $result = $claude->validate_api_key($decrypted_key);
 
         set_transient('nexipilot_claude_validation', $result, WEEK_IN_SECONDS);
@@ -1924,9 +1924,9 @@ class Settings
         }
 
         // Decrypt the API key before validation (keys are stored encrypted)
-        $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($new_value);
+        $decrypted_key = \NexiPilot\Helpers\Encryption::decrypt($new_value);
 
-        $gemini = new \NexiPilotAI\AI\Gemini($decrypted_key);
+        $gemini = new \NexiPilot\AI\Gemini($decrypted_key);
         $result = $gemini->validate_api_key($decrypted_key);
 
         set_transient('nexipilot_gemini_validation', $result, WEEK_IN_SECONDS);
@@ -1953,9 +1953,9 @@ class Settings
         }
 
         // Decrypt the API key before validation (keys are stored encrypted)
-        $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($new_value);
+        $decrypted_key = \NexiPilot\Helpers\Encryption::decrypt($new_value);
 
-        $grok = new \NexiPilotAI\AI\Grok($decrypted_key);
+        $grok = new \NexiPilot\AI\Grok($decrypted_key);
         $result = $grok->validate_api_key($decrypted_key);
 
         set_transient('nexipilot_grok_validation', $result, WEEK_IN_SECONDS);

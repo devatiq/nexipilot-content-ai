@@ -108,7 +108,7 @@ class Manager
                 $api_key = get_option('nexipilot_gemini_api_key', '');
                 $model = get_option('nexipilot_gemini_model', 'gemini-2.5-flash');
                 if (!empty($api_key)) {
-                    $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \NexiPilot\Helpers\Encryption::decrypt($api_key);
                     return new Gemini($decrypted_key, $model);
                 }
                 break;
@@ -117,7 +117,7 @@ class Manager
                 $api_key = get_option('nexipilot_claude_api_key', '');
                 $model = get_option('nexipilot_claude_model', 'claude-3-5-sonnet-20241022');
                 if (!empty($api_key)) {
-                    $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \NexiPilot\Helpers\Encryption::decrypt($api_key);
                     return new Claude($decrypted_key, $model);
                 }
                 break;
@@ -126,7 +126,7 @@ class Manager
                 $api_key = get_option('nexipilot_grok_api_key', '');
                 $model = get_option('nexipilot_grok_model', 'grok-beta');
                 if (!empty($api_key)) {
-                    $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \NexiPilot\Helpers\Encryption::decrypt($api_key);
                     return new Grok($decrypted_key, $model);
                 }
                 break;
@@ -136,7 +136,7 @@ class Manager
                 $api_key = get_option('nexipilot_openai_api_key', '');
                 $model = get_option('nexipilot_openai_model', 'gpt-4o');
                 if (!empty($api_key)) {
-                    $decrypted_key = \NexiPilotAI\Helpers\Encryption::decrypt($api_key);
+                    $decrypted_key = \NexiPilot\Helpers\Encryption::decrypt($api_key);
                     return new OpenAI($decrypted_key, $model);
                 }
                 break;
