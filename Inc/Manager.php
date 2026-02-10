@@ -4,28 +4,28 @@
  *
  * This file contains the Manager class, which is responsible for handling
  * the initialization of the required configurations and functionalities
- * for the PostPilot plugin.
+ * for the NexiPilot plugin.
  *
- * @package PostPilotAI\Inc
+ * @package NexiPilot\Inc
  * @since 1.0.0
  */
 
-namespace PostPilotAI;
+namespace NexiPilot;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilotAI\Admin\AdminManager;
-use PostPilotAI\Frontend\FrontendManager;
+use NexiPilot\Admin\AdminManager;
+use NexiPilot\Frontend\FrontendManager;
 
 /**
- * The manager class for PostPilot
+ * The manager class for NexiPilot
  *
  * This class handles the initialization of the required configurations and functionalities
- * for the PostPilot plugin. It orchestrates the Admin and Frontend components.
+ * for the NexiPilot plugin. It orchestrates the Admin and Frontend components.
  *
- * @package PostPilotAI\Inc
+ * @package NexiPilot\Inc
  * @since 1.0.0
  */
 class Manager
@@ -47,7 +47,7 @@ class Manager
     /**
      * Constructor for the Manager class
      *
-     * This method initializes the PostPilot Manager by calling the init method.
+     * This method initializes the NexiPilot Manager by calling the init method.
      *
      * @since 1.0.0
      */
@@ -57,7 +57,7 @@ class Manager
     }
 
     /**
-     * Initiate the PostPilot Manager
+     * Initiate the NexiPilot Manager
      *
      * This method initializes the Admin and Frontend managers.
      *

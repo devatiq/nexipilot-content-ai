@@ -4,25 +4,25 @@
  *
  * WordPress Settings API implementation for PostPilot.
  *
- * @package PostPilotAI\Admin
+ * @package NexiPilot\Admin
  * @since 1.0.0
  */
 
-namespace PostPilotAI\Admin;
+namespace NexiPilot\Admin;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilotAI\Helpers\Sanitizer;
-use PostPilotAI\AI\Manager as AIManager;
+use NexiPilot\Helpers\Sanitizer;
+use NexiPilot\AI\Manager as AIManager;
 
 /**
  * Settings Class
  *
  * Handles all plugin settings using WordPress Settings API.
  *
- * @package PostPilotAI\Admin
+ * @package NexiPilot\Admin
  * @since 1.0.0
  */
 class Settings
@@ -38,10 +38,10 @@ class Settings
         add_action('admin_init', array($this, 'register_settings'));
 
         // Add validation hooks for API keys
-        add_action('update_option_postpilotai_openai_api_key', array($this, 'validate_openai_key'), 10, 2);
-        add_action('update_option_postpilotai_claude_api_key', array($this, 'validate_claude_key'), 10, 2);
-        add_action('update_option_postpilotai_gemini_api_key', array($this, 'validate_gemini_key'), 10, 2);
-        add_action('update_option_postpilotai_grok_api_key', array($this, 'validate_grok_key'), 10, 2);
+        add_action('update_option_nexipilot_openai_api_key', array($this, 'validate_openai_key'), 10, 2);
+        add_action('update_option_nexipilot_claude_api_key', array($this, 'validate_claude_key'), 10, 2);
+        add_action('update_option_nexipilot_gemini_api_key', array($this, 'validate_gemini_key'), 10, 2);
+        add_action('update_option_nexipilot_grok_api_key', array($this, 'validate_grok_key'), 10, 2);
     }
 
     /**
@@ -53,8 +53,8 @@ class Settings
     public function add_admin_menu()
     {
         add_menu_page(
-            __('PostPilot AI', 'postpilot-ai'),
-            __('PostPilot AI', 'postpilot-ai'),
+            __('NexiPilot Content AI', 'nexipilot-content-ai'),
+            __('NexiPilot Content AI', 'nexipilot-content-ai'),
             'manage_options',
             'postpilotai-settings',
             array($this, 'render_settings_page'),
@@ -73,8 +73,8 @@ class Settings
     {
         // Register AI Provider Settings
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_ai_provider',
+            'nexipilot_settings',
+            'nexipilot_ai_provider',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_ai_provider'),
@@ -83,8 +83,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_openai_api_key',
+            'nexipilot_settings',
+            'nexipilot_openai_api_key',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_api_key'),
@@ -93,8 +93,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_claude_api_key',
+            'nexipilot_settings',
+            'nexipilot_claude_api_key',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_api_key'),
@@ -103,8 +103,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_gemini_api_key',
+            'nexipilot_settings',
+            'nexipilot_gemini_api_key',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_api_key'),
@@ -114,8 +114,8 @@ class Settings
 
         // Register Model Selection Settings
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_openai_model',
+            'nexipilot_settings',
+            'nexipilot_openai_model',
             array(
                 'type' => 'string',
                 'sanitize_callback' => 'sanitize_text_field',
@@ -124,8 +124,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_claude_model',
+            'nexipilot_settings',
+            'nexipilot_claude_model',
             array(
                 'type' => 'string',
                 'sanitize_callback' => 'sanitize_text_field',
@@ -134,8 +134,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_gemini_model',
+            'nexipilot_settings',
+            'nexipilot_gemini_model',
             array(
                 'type' => 'string',
                 'sanitize_callback' => 'sanitize_text_field',
@@ -144,8 +144,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_grok_api_key',
+            'nexipilot_settings',
+            'nexipilot_grok_api_key',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_api_key'),
@@ -154,8 +154,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_grok_model',
+            'nexipilot_settings',
+            'nexipilot_grok_model',
             array(
                 'type' => 'string',
                 'sanitize_callback' => 'sanitize_text_field',
@@ -165,8 +165,8 @@ class Settings
 
         // Register Per-Feature Provider Settings (v2.0.0)
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_faq_provider',
+            'nexipilot_settings',
+            'nexipilot_faq_provider',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_ai_provider'),
@@ -175,8 +175,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_summary_provider',
+            'nexipilot_settings',
+            'nexipilot_summary_provider',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_ai_provider'),
@@ -185,8 +185,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_internal_links_provider',
+            'nexipilot_settings',
+            'nexipilot_internal_links_provider',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_ai_provider'),
@@ -196,8 +196,8 @@ class Settings
 
         // Register Feature Settings
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_enable_faq',
+            'nexipilot_settings',
+            'nexipilot_enable_faq',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -206,8 +206,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_enable_summary',
+            'nexipilot_settings',
+            'nexipilot_enable_summary',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -216,8 +216,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_enable_internal_links',
+            'nexipilot_settings',
+            'nexipilot_enable_internal_links',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -226,8 +226,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_faq_position',
+            'nexipilot_settings',
+            'nexipilot_faq_position',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_position'),
@@ -236,8 +236,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_faq_default_layout',
+            'nexipilot_settings',
+            'nexipilot_faq_default_layout',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_faq_layout'),
@@ -246,8 +246,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_summary_position',
+            'nexipilot_settings',
+            'nexipilot_summary_position',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_position'),
@@ -256,8 +256,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_enable_debug_logging',
+            'nexipilot_settings',
+            'nexipilot_enable_debug_logging',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -267,8 +267,8 @@ class Settings
 
         // External AI Sharing Settings
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_enable_external_ai_sharing',
+            'nexipilot_settings',
+            'nexipilot_enable_external_ai_sharing',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -277,8 +277,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_external_ai_position',
+            'nexipilot_settings',
+            'nexipilot_external_ai_position',
             array(
                 'type' => 'string',
                 'sanitize_callback' => 'sanitize_text_field',
@@ -287,8 +287,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_external_ai_chatgpt',
+            'nexipilot_settings',
+            'nexipilot_external_ai_chatgpt',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -297,8 +297,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_external_ai_claude',
+            'nexipilot_settings',
+            'nexipilot_external_ai_claude',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -307,8 +307,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_external_ai_perplexity',
+            'nexipilot_settings',
+            'nexipilot_external_ai_perplexity',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -317,8 +317,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_external_ai_grok',
+            'nexipilot_settings',
+            'nexipilot_external_ai_grok',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -327,8 +327,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_external_ai_copilot',
+            'nexipilot_settings',
+            'nexipilot_external_ai_copilot',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -337,8 +337,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_external_ai_google',
+            'nexipilot_settings',
+            'nexipilot_external_ai_google',
             array(
                 'type' => 'string',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
@@ -347,8 +347,8 @@ class Settings
         );
 
         register_setting(
-            'postpilotai_settings',
-            'postpilotai_external_ai_heading',
+            'nexipilot_settings',
+            'nexipilot_external_ai_heading',
             array(
                 'type' => 'string',
                 'sanitize_callback' => 'sanitize_text_field',
@@ -358,124 +358,124 @@ class Settings
 
         // Add settings sections
         add_settings_section(
-            'postpilotai_ai_section',
-            __('AI Provider Configuration', 'postpilot-ai'),
+            'nexipilot_ai_section',
+            __('AI Provider Configuration', 'nexipilot-content-ai'),
             array($this, 'render_ai_section_description'),
             'postpilotai-settings'
         );
 
         add_settings_section(
-            'postpilotai_features_section',
-            __('Feature Settings', 'postpilot-ai'),
+            'nexipilot_features_section',
+            __('Feature Settings', 'nexipilot-content-ai'),
             array($this, 'render_features_section_description'),
             'postpilotai-settings'
         );
 
         // Add settings fields - AI Provider
         add_settings_field(
-            'postpilotai_ai_provider',
-            __('AI Provider', 'postpilot-ai'),
+            'nexipilot_ai_provider',
+            __('AI Provider', 'nexipilot-content-ai'),
             array($this, 'render_ai_provider_field'),
             'postpilotai-settings',
-            'postpilotai_ai_section'
+            'nexipilot_ai_section'
         );
 
         add_settings_field(
-            'postpilotai_openai_api_key',
-            __('OpenAI API Key', 'postpilot-ai'),
+            'nexipilot_openai_api_key',
+            __('OpenAI API Key', 'nexipilot-content-ai'),
             array($this, 'render_openai_api_key_field'),
             'postpilotai-settings',
-            'postpilotai_ai_section'
+            'nexipilot_ai_section'
         );
 
         add_settings_field(
-            'postpilotai_claude_api_key',
-            __('Claude API Key', 'postpilot-ai'),
+            'nexipilot_claude_api_key',
+            __('Claude API Key', 'nexipilot-content-ai'),
             array($this, 'render_claude_api_key_field'),
             'postpilotai-settings',
-            'postpilotai_ai_section'
+            'nexipilot_ai_section'
         );
 
         add_settings_field(
-            'postpilotai_gemini_api_key',
-            __('Gemini API Key', 'postpilot-ai'),
+            'nexipilot_gemini_api_key',
+            __('Gemini API Key', 'nexipilot-content-ai'),
             array($this, 'render_gemini_api_key_field'),
             'postpilotai-settings',
-            'postpilotai_ai_section'
+            'nexipilot_ai_section'
         );
 
         // Add Model Selection Fields
         add_settings_field(
-            'postpilotai_openai_model',
-            __('OpenAI Model', 'postpilot-ai'),
+            'nexipilot_openai_model',
+            __('OpenAI Model', 'nexipilot-content-ai'),
             array($this, 'render_openai_model_field'),
             'postpilotai-settings',
-            'postpilotai_ai_section'
+            'nexipilot_ai_section'
         );
 
         add_settings_field(
-            'postpilotai_claude_model',
-            __('Claude Model', 'postpilot-ai'),
+            'nexipilot_claude_model',
+            __('Claude Model', 'nexipilot-content-ai'),
             array($this, 'render_claude_model_field'),
             'postpilotai-settings',
-            'postpilotai_ai_section'
+            'nexipilot_ai_section'
         );
 
         add_settings_field(
-            'postpilotai_gemini_model',
-            __('Gemini Model', 'postpilot-ai'),
+            'nexipilot_gemini_model',
+            __('Gemini Model', 'nexipilot-content-ai'),
             array($this, 'render_gemini_model_field'),
             'postpilotai-settings',
-            'postpilotai_ai_section'
+            'nexipilot_ai_section'
         );
 
         // Add settings fields - Features
         add_settings_field(
-            'postpilotai_enable_faq',
-            __('Enable FAQ Generator', 'postpilot-ai'),
+            'nexipilot_enable_faq',
+            __('Enable FAQ Generator', 'nexipilot-content-ai'),
             array($this, 'render_enable_faq_field'),
             'postpilotai-settings',
-            'postpilotai_features_section'
+            'nexipilot_features_section'
         );
 
         add_settings_field(
-            'postpilotai_faq_position',
-            __('FAQ Position', 'postpilot-ai'),
+            'nexipilot_faq_position',
+            __('FAQ Position', 'nexipilot-content-ai'),
             array($this, 'render_faq_position_field'),
             'postpilotai-settings',
-            'postpilotai_features_section'
+            'nexipilot_features_section'
         );
 
         add_settings_field(
-            'postpilotai_faq_default_layout',
-            __('Default FAQ Display Style', 'postpilot-ai'),
+            'nexipilot_faq_default_layout',
+            __('Default FAQ Display Style', 'nexipilot-content-ai'),
             array($this, 'render_faq_default_layout_field'),
             'postpilotai-settings',
-            'postpilotai_features_section'
+            'nexipilot_features_section'
         );
 
         add_settings_field(
-            'postpilotai_enable_summary',
-            __('Enable Content Summary', 'postpilot-ai'),
+            'nexipilot_enable_summary',
+            __('Enable Content Summary', 'nexipilot-content-ai'),
             array($this, 'render_enable_summary_field'),
             'postpilotai-settings',
-            'postpilotai_features_section'
+            'nexipilot_features_section'
         );
 
         add_settings_field(
-            'postpilotai_summary_position',
-            __('Summary Position', 'postpilot-ai'),
+            'nexipilot_summary_position',
+            __('Summary Position', 'nexipilot-content-ai'),
             array($this, 'render_summary_position_field'),
             'postpilotai-settings',
-            'postpilotai_features_section'
+            'nexipilot_features_section'
         );
 
         add_settings_field(
-            'postpilotai_enable_internal_links',
-            __('Enable Smart Internal Links', 'postpilot-ai'),
+            'nexipilot_enable_internal_links',
+            __('Enable Smart Internal Links', 'nexipilot-content-ai'),
             array($this, 'render_enable_internal_links_field'),
             'postpilotai-settings',
-            'postpilotai_features_section'
+            'nexipilot_features_section'
         );
     }
 
@@ -530,7 +530,7 @@ class Settings
                         <div>
                             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
                             <p class="postpilotai-subtitle">
-                                <?php esc_html_e('AI-Powered Content Enhancement for WordPress', 'postpilot-ai'); ?>
+                                <?php esc_html_e('AI-Powered Content Enhancement for WordPress', 'nexipilot-content-ai'); ?>
                             </p>
                         </div>
                     </div>
@@ -557,22 +557,22 @@ class Settings
                         // Build tooltip
                         $tooltip_parts = array();
                         if (!empty($configured)) {
-                            $tooltip_parts[] = __('Connected: ', 'postpilot-ai') . implode(', ', $configured);
+                            $tooltip_parts[] = __('Connected: ', 'nexipilot-content-ai') . implode(', ', $configured);
                         }
                         if (!empty($not_configured)) {
-                            $tooltip_parts[] = __('Not configured: ', 'postpilot-ai') . implode(', ', $not_configured);
+                            $tooltip_parts[] = __('Not configured: ', 'nexipilot-content-ai') . implode(', ', $not_configured);
                         }
                         $tooltip = implode("\n", $tooltip_parts);
 
                         // Determine badge text and class
                         if ($configured_count === 0) {
-                            $status_text = __('Not Connected', 'postpilot-ai');
+                            $status_text = __('Not Connected', 'nexipilot-content-ai');
                             $status_class = 'postpilotai-status-disconnected';
                         } elseif ($configured_count === $total_providers) {
 
                             $status_text = sprintf(
                                 /* translators: 1: number of connected AI providers, 2: total available AI providers */
-                                esc_html__('%1$d of %2$d AI Connected', 'postpilot-ai'),
+                                esc_html__('%1$d of %2$d AI Connected', 'nexipilot-content-ai'),
                                 $configured_count,
                                 $total_providers
                             );
@@ -580,7 +580,7 @@ class Settings
                         } else {
                             $status_text = sprintf(
                                 /* translators: 1: number of connected AI providers, 2: total available AI providers */
-                                esc_html__('%1$d of %2$d AI Connected', 'postpilot-ai'),
+                                esc_html__('%1$d of %2$d AI Connected', 'nexipilot-content-ai'),
                                 $configured_count,
                                 $total_providers
                             );
@@ -603,26 +603,26 @@ class Settings
                         <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                         <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
                     </svg>
-                    <?php esc_html_e('Features', 'postpilot-ai'); ?>
+                    <?php esc_html_e('Features', 'nexipilot-content-ai'); ?>
                 </button>
                 <button type="button" class="postpilotai-tab" data-tab="ai-providers">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                    <?php esc_html_e('AI Providers', 'postpilot-ai'); ?>
+                    <?php esc_html_e('AI Providers', 'nexipilot-content-ai'); ?>
                 </button>
                 <button type="button" class="postpilotai-tab" data-tab="troubleshooting">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                         <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <?php esc_html_e('Troubleshooting', 'postpilot-ai'); ?>
+                    <?php esc_html_e('Troubleshooting', 'nexipilot-content-ai'); ?>
                 </button>
             </div>
 
             <form action="options.php" method="post" class="postpilotai-settings-form">
-                <?php settings_fields('postpilotai_settings'); ?>
+                <?php settings_fields('nexipilot_settings'); ?>
 
                 <!-- AI Providers Tab Content -->
                 <div class="postpilotai-tab-content" id="ai-providers-tab">
@@ -637,8 +637,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('OpenAI (ChatGPT)', 'postpilot-ai'); ?></h2>
-                                    <p><?php esc_html_e('Configure OpenAI API credentials and model selection', 'postpilot-ai'); ?>
+                                    <h2><?php esc_html_e('OpenAI (ChatGPT)', 'nexipilot-content-ai'); ?></h2>
+                                    <p><?php esc_html_e('Configure OpenAI API credentials and model selection', 'nexipilot-content-ai'); ?>
                                     </p>
                                 </div>
                                 <?php
@@ -652,25 +652,25 @@ class Settings
                             <div class="postpilotai-card-body">
                                 <!-- API Key Field -->
                                 <div class="postpilotai-field-group">
-                                    <label for="postpilotai_openai_api_key_providers" class="postpilotai-label">
-                                        <?php esc_html_e('API Key', 'postpilot-ai'); ?>
-                                        <?php if (get_option('postpilotai_openai_api_key')): ?>
+                                    <label for="nexipilot_openai_api_key_providers" class="postpilotai-label">
+                                        <?php esc_html_e('API Key', 'nexipilot-content-ai'); ?>
+                                        <?php if (get_option('nexipilot_openai_api_key')): ?>
                                             <span class="postpilotai-badge postpilotai-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
                                                 </svg>
-                                                <?php esc_html_e('Saved', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Saved', 'nexipilot-content-ai'); ?>
                                             </span>
                                         <?php endif; ?>
                                     </label>
                                     <div class="postpilotai-input-group">
                                         <?php
-                                        $openai_key = get_option('postpilotai_openai_api_key');
+                                        $openai_key = get_option('nexipilot_openai_api_key');
                                         $openai_key_decrypted = !empty($openai_key) ? \PostPilotAI\Helpers\Encryption::decrypt($openai_key) : '';
                                         ?>
-                                        <input type="password" name="postpilotai_openai_api_key"
-                                            id="postpilotai_openai_api_key_providers" class="postpilotai-input"
+                                        <input type="password" name="nexipilot_openai_api_key"
+                                            id="nexipilot_openai_api_key_providers" class="postpilotai-input"
                                             value="<?php echo esc_attr($openai_key_decrypted); ?>" placeholder="sk-..." />
                                         <button type="button" class="postpilotai-btn-icon toggle-password">
                                             <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -681,7 +681,7 @@ class Settings
                                         </button>
                                     </div>
                                     <p class="postpilotai-field-description">
-                                        <?php esc_html_e('Get your API key from', 'postpilot-ai'); ?>
+                                        <?php esc_html_e('Get your API key from', 'nexipilot-content-ai'); ?>
                                         <a href="https://platform.openai.com/api-keys" target="_blank"
                                             rel="noopener">platform.openai.com/api-keys</a>
                                     </p>
@@ -689,23 +689,23 @@ class Settings
 
                                 <!-- Model Selection -->
                                 <div class="postpilotai-field-group">
-                                    <label for="postpilotai_openai_model_providers" class="postpilotai-label">
-                                        <?php esc_html_e('Model', 'postpilot-ai'); ?>
+                                    <label for="nexipilot_openai_model_providers" class="postpilotai-label">
+                                        <?php esc_html_e('Model', 'nexipilot-content-ai'); ?>
                                     </label>
-                                    <select name="postpilotai_openai_model" id="postpilotai_openai_model_providers"
+                                    <select name="nexipilot_openai_model" id="nexipilot_openai_model_providers"
                                         class="postpilotai-select">
-                                        <option value="gpt-4o" <?php selected(get_option('postpilotai_openai_model', 'gpt-4o'), 'gpt-4o'); ?>>
+                                        <option value="gpt-4o" <?php selected(get_option('nexipilot_openai_model', 'gpt-4o'), 'gpt-4o'); ?>>
                                             GPT-4o
                                         </option>
-                                        <option value="gpt-4-turbo" <?php selected(get_option('postpilotai_openai_model'), 'gpt-4-turbo'); ?>>
+                                        <option value="gpt-4-turbo" <?php selected(get_option('nexipilot_openai_model'), 'gpt-4-turbo'); ?>>
                                             GPT-4 Turbo
                                         </option>
-                                        <option value="gpt-3.5-turbo" <?php selected(get_option('postpilotai_openai_model'), 'gpt-3.5-turbo'); ?>>
+                                        <option value="gpt-3.5-turbo" <?php selected(get_option('nexipilot_openai_model'), 'gpt-3.5-turbo'); ?>>
                                             GPT-3.5 Turbo
                                         </option>
                                     </select>
                                     <p class="postpilotai-field-description">
-                                        <strong><?php esc_html_e('This model will be used for ALL features that use OpenAI', 'postpilot-ai'); ?></strong>
+                                        <strong><?php esc_html_e('This model will be used for ALL features that use OpenAI', 'nexipilot-content-ai'); ?></strong>
                                     </p>
                                 </div>
                             </div>
@@ -721,8 +721,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('Anthropic Claude', 'postpilot-ai'); ?></h2>
-                                    <p><?php esc_html_e('Configure Claude API credentials and model selection', 'postpilot-ai'); ?>
+                                    <h2><?php esc_html_e('Anthropic Claude', 'nexipilot-content-ai'); ?></h2>
+                                    <p><?php esc_html_e('Configure Claude API credentials and model selection', 'nexipilot-content-ai'); ?>
                                     </p>
                                 </div>
                                 <?php
@@ -736,25 +736,25 @@ class Settings
                             <div class="postpilotai-card-body">
                                 <!-- API Key Field -->
                                 <div class="postpilotai-field-group">
-                                    <label for="postpilotai_claude_api_key_providers" class="postpilotai-label">
-                                        <?php esc_html_e('API Key', 'postpilot-ai'); ?>
-                                        <?php if (get_option('postpilotai_claude_api_key')): ?>
+                                    <label for="nexipilot_claude_api_key_providers" class="postpilotai-label">
+                                        <?php esc_html_e('API Key', 'nexipilot-content-ai'); ?>
+                                        <?php if (get_option('nexipilot_claude_api_key')): ?>
                                             <span class="postpilotai-badge postpilotai-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
                                                 </svg>
-                                                <?php esc_html_e('Saved', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Saved', 'nexipilot-content-ai'); ?>
                                             </span>
                                         <?php endif; ?>
                                     </label>
                                     <div class="postpilotai-input-group">
                                         <?php
-                                        $claude_key = get_option('postpilotai_claude_api_key');
+                                        $claude_key = get_option('nexipilot_claude_api_key');
                                         $claude_key_decrypted = !empty($claude_key) ? \PostPilotAI\Helpers\Encryption::decrypt($claude_key) : '';
                                         ?>
-                                        <input type="password" name="postpilotai_claude_api_key"
-                                            id="postpilotai_claude_api_key_providers" class="postpilotai-input"
+                                        <input type="password" name="nexipilot_claude_api_key"
+                                            id="nexipilot_claude_api_key_providers" class="postpilotai-input"
                                             value="<?php echo esc_attr($claude_key_decrypted); ?>" placeholder="sk-ant-..." />
                                         <button type="button" class="postpilotai-btn-icon toggle-password">
                                             <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -765,7 +765,7 @@ class Settings
                                         </button>
                                     </div>
                                     <p class="postpilotai-field-description">
-                                        <?php esc_html_e('Get your API key from', 'postpilot-ai'); ?>
+                                        <?php esc_html_e('Get your API key from', 'nexipilot-content-ai'); ?>
                                         <a href="https://console.anthropic.com" target="_blank"
                                             rel="noopener">console.anthropic.com</a>
                                     </p>
@@ -773,23 +773,23 @@ class Settings
 
                                 <!-- Model Selection -->
                                 <div class="postpilotai-field-group">
-                                    <label for="postpilotai_claude_model_providers" class="postpilotai-label">
-                                        <?php esc_html_e('Model', 'postpilot-ai'); ?>
+                                    <label for="nexipilot_claude_model_providers" class="postpilotai-label">
+                                        <?php esc_html_e('Model', 'nexipilot-content-ai'); ?>
                                     </label>
-                                    <select name="postpilotai_claude_model" id="postpilotai_claude_model_providers"
+                                    <select name="nexipilot_claude_model" id="nexipilot_claude_model_providers"
                                         class="postpilotai-select">
-                                        <option value="claude-3-5-sonnet-20241022" <?php selected(get_option('postpilotai_claude_model', 'claude-3-5-sonnet-20241022'), 'claude-3-5-sonnet-20241022'); ?>>
+                                        <option value="claude-3-5-sonnet-20241022" <?php selected(get_option('nexipilot_claude_model', 'claude-3-5-sonnet-20241022'), 'claude-3-5-sonnet-20241022'); ?>>
                                             Claude 3.5 Sonnet
                                         </option>
-                                        <option value="claude-3-opus-20240229" <?php selected(get_option('postpilotai_claude_model'), 'claude-3-opus-20240229'); ?>>
+                                        <option value="claude-3-opus-20240229" <?php selected(get_option('nexipilot_claude_model'), 'claude-3-opus-20240229'); ?>>
                                             Claude 3 Opus
                                         </option>
-                                        <option value="claude-3-haiku-20240307" <?php selected(get_option('postpilotai_claude_model'), 'claude-3-haiku-20240307'); ?>>
+                                        <option value="claude-3-haiku-20240307" <?php selected(get_option('nexipilot_claude_model'), 'claude-3-haiku-20240307'); ?>>
                                             Claude 3 Haiku
                                         </option>
                                     </select>
                                     <p class="postpilotai-field-description">
-                                        <strong><?php esc_html_e('This model will be used for ALL features that use Claude', 'postpilot-ai'); ?></strong>
+                                        <strong><?php esc_html_e('This model will be used for ALL features that use Claude', 'nexipilot-content-ai'); ?></strong>
                                     </p>
                                 </div>
                             </div>
@@ -805,8 +805,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('Google Gemini', 'postpilot-ai'); ?></h2>
-                                    <p><?php esc_html_e('Configure Gemini API credentials and model selection', 'postpilot-ai'); ?>
+                                    <h2><?php esc_html_e('Google Gemini', 'nexipilot-content-ai'); ?></h2>
+                                    <p><?php esc_html_e('Configure Gemini API credentials and model selection', 'nexipilot-content-ai'); ?>
                                     </p>
                                 </div>
                                 <?php
@@ -820,25 +820,25 @@ class Settings
                             <div class="postpilotai-card-body">
                                 <!-- API Key Field -->
                                 <div class="postpilotai-field-group">
-                                    <label for="postpilotai_gemini_api_key_providers" class="postpilotai-label">
-                                        <?php esc_html_e('API Key', 'postpilot-ai'); ?>
-                                        <?php if (get_option('postpilotai_gemini_api_key')): ?>
+                                    <label for="nexipilot_gemini_api_key_providers" class="postpilotai-label">
+                                        <?php esc_html_e('API Key', 'nexipilot-content-ai'); ?>
+                                        <?php if (get_option('nexipilot_gemini_api_key')): ?>
                                             <span class="postpilotai-badge postpilotai-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
                                                 </svg>
-                                                <?php esc_html_e('Saved', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Saved', 'nexipilot-content-ai'); ?>
                                             </span>
                                         <?php endif; ?>
                                     </label>
                                     <div class="postpilotai-input-group">
                                         <?php
-                                        $gemini_key = get_option('postpilotai_gemini_api_key');
+                                        $gemini_key = get_option('nexipilot_gemini_api_key');
                                         $gemini_key_decrypted = !empty($gemini_key) ? \PostPilotAI\Helpers\Encryption::decrypt($gemini_key) : '';
                                         ?>
-                                        <input type="password" name="postpilotai_gemini_api_key"
-                                            id="postpilotai_gemini_api_key_providers" class="postpilotai-input"
+                                        <input type="password" name="nexipilot_gemini_api_key"
+                                            id="nexipilot_gemini_api_key_providers" class="postpilotai-input"
                                             value="<?php echo esc_attr($gemini_key_decrypted); ?>" placeholder="AIza..." />
                                         <button type="button" class="postpilotai-btn-icon toggle-password">
                                             <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -849,7 +849,7 @@ class Settings
                                         </button>
                                     </div>
                                     <p class="postpilotai-field-description">
-                                        <?php esc_html_e('Get your API key from', 'postpilot-ai'); ?>
+                                        <?php esc_html_e('Get your API key from', 'nexipilot-content-ai'); ?>
                                         <a href="https://aistudio.google.com/app/apikey" target="_blank"
                                             rel="noopener">aistudio.google.com/app/apikey</a>
                                     </p>
@@ -857,26 +857,26 @@ class Settings
 
                                 <!-- Model Selection -->
                                 <div class="postpilotai-field-group">
-                                    <label for="postpilotai_gemini_model_providers" class="postpilotai-label">
-                                        <?php esc_html_e('Model', 'postpilot-ai'); ?>
+                                    <label for="nexipilot_gemini_model_providers" class="postpilotai-label">
+                                        <?php esc_html_e('Model', 'nexipilot-content-ai'); ?>
                                     </label>
-                                    <select name="postpilotai_gemini_model" id="postpilotai_gemini_model_providers"
+                                    <select name="nexipilot_gemini_model" id="nexipilot_gemini_model_providers"
                                         class="postpilotai-select">
-                                        <option value="gemini-2.5-flash" <?php selected(get_option('postpilotai_gemini_model', 'gemini-2.5-flash'), 'gemini-2.5-flash'); ?>>
+                                        <option value="gemini-2.5-flash" <?php selected(get_option('nexipilot_gemini_model', 'gemini-2.5-flash'), 'gemini-2.5-flash'); ?>>
                                             Gemini 2.5 Flash (Recommended)
                                         </option>
-                                        <option value="gemini-2.5-pro" <?php selected(get_option('postpilotai_gemini_model'), 'gemini-2.5-pro'); ?>>
+                                        <option value="gemini-2.5-pro" <?php selected(get_option('nexipilot_gemini_model'), 'gemini-2.5-pro'); ?>>
                                             Gemini 2.5 Pro (Most Capable)
                                         </option>
-                                        <option value="gemini-2.0-flash" <?php selected(get_option('postpilotai_gemini_model'), 'gemini-2.0-flash'); ?>>
+                                        <option value="gemini-2.0-flash" <?php selected(get_option('nexipilot_gemini_model'), 'gemini-2.0-flash'); ?>>
                                             Gemini 2.0 Flash
                                         </option>
-                                        <option value="gemini-2.5-flash-lite" <?php selected(get_option('postpilotai_gemini_model'), 'gemini-2.5-flash-lite'); ?>>
+                                        <option value="gemini-2.5-flash-lite" <?php selected(get_option('nexipilot_gemini_model'), 'gemini-2.5-flash-lite'); ?>>
                                             Gemini 2.5 Flash-Lite (Fastest)
                                         </option>
                                     </select>
                                     <p class="postpilotai-field-description">
-                                        <strong><?php esc_html_e('This model will be used for ALL features that use Gemini', 'postpilot-ai'); ?></strong>
+                                        <strong><?php esc_html_e('This model will be used for ALL features that use Gemini', 'nexipilot-content-ai'); ?></strong>
                                     </p>
                                 </div>
                             </div>
@@ -892,8 +892,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('xAI Grok', 'postpilot-ai'); ?></h2>
-                                    <p><?php esc_html_e('Configure Grok API credentials and model selection', 'postpilot-ai'); ?>
+                                    <h2><?php esc_html_e('xAI Grok', 'nexipilot-content-ai'); ?></h2>
+                                    <p><?php esc_html_e('Configure Grok API credentials and model selection', 'nexipilot-content-ai'); ?>
                                     </p>
                                 </div>
                                 <?php
@@ -907,25 +907,25 @@ class Settings
                             <div class="postpilotai-card-body">
                                 <!-- API Key Field -->
                                 <div class="postpilotai-field-group">
-                                    <label for="postpilotai_grok_api_key_providers" class="postpilotai-label">
-                                        <?php esc_html_e('API Key', 'postpilot-ai'); ?>
-                                        <?php if (get_option('postpilotai_grok_api_key')): ?>
+                                    <label for="nexipilot_grok_api_key_providers" class="postpilotai-label">
+                                        <?php esc_html_e('API Key', 'nexipilot-content-ai'); ?>
+                                        <?php if (get_option('nexipilot_grok_api_key')): ?>
                                             <span class="postpilotai-badge postpilotai-badge-success">
                                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                                                     <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
                                                 </svg>
-                                                <?php esc_html_e('Saved', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Saved', 'nexipilot-content-ai'); ?>
                                             </span>
                                         <?php endif; ?>
                                     </label>
                                     <div class="postpilotai-input-group">
                                         <?php
-                                        $grok_key = get_option('postpilotai_grok_api_key');
+                                        $grok_key = get_option('nexipilot_grok_api_key');
                                         $grok_key_decrypted = !empty($grok_key) ? \PostPilotAI\Helpers\Encryption::decrypt($grok_key) : '';
                                         ?>
-                                        <input type="password" name="postpilotai_grok_api_key"
-                                            id="postpilotai_grok_api_key_providers" class="postpilotai-input"
+                                        <input type="password" name="nexipilot_grok_api_key"
+                                            id="nexipilot_grok_api_key_providers" class="postpilotai-input"
                                             value="<?php echo esc_attr($grok_key_decrypted); ?>" placeholder="xai-..." />
                                         <button type="button" class="postpilotai-btn-icon toggle-password">
                                             <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -936,27 +936,27 @@ class Settings
                                         </button>
                                     </div>
                                     <p class="postpilotai-field-description">
-                                        <?php esc_html_e('Get your API key from', 'postpilot-ai'); ?>
+                                        <?php esc_html_e('Get your API key from', 'nexipilot-content-ai'); ?>
                                         <a href="https://console.x.ai/" target="_blank" rel="noopener">console.x.ai</a>
                                     </p>
                                 </div>
 
                                 <!-- Model Selection -->
                                 <div class="postpilotai-field-group">
-                                    <label for="postpilotai_grok_model_providers" class="postpilotai-label">
-                                        <?php esc_html_e('Model', 'postpilot-ai'); ?>
+                                    <label for="nexipilot_grok_model_providers" class="postpilotai-label">
+                                        <?php esc_html_e('Model', 'nexipilot-content-ai'); ?>
                                     </label>
-                                    <select name="postpilotai_grok_model" id="postpilotai_grok_model_providers"
+                                    <select name="nexipilot_grok_model" id="nexipilot_grok_model_providers"
                                         class="postpilotai-select">
-                                        <option value="grok-beta" <?php selected(get_option('postpilotai_grok_model', 'grok-beta'), 'grok-beta'); ?>>
+                                        <option value="grok-beta" <?php selected(get_option('nexipilot_grok_model', 'grok-beta'), 'grok-beta'); ?>>
                                             Grok Beta (Recommended)
                                         </option>
-                                        <option value="grok-vision-beta" <?php selected(get_option('postpilotai_grok_model'), 'grok-vision-beta'); ?>>
+                                        <option value="grok-vision-beta" <?php selected(get_option('nexipilot_grok_model'), 'grok-vision-beta'); ?>>
                                             Grok Vision Beta
                                         </option>
                                     </select>
                                     <p class="postpilotai-field-description">
-                                        <strong><?php esc_html_e('This model will be used for ALL features that use Grok', 'postpilot-ai'); ?></strong>
+                                        <strong><?php esc_html_e('This model will be used for ALL features that use Grok', 'nexipilot-content-ai'); ?></strong>
                                     </p>
                                 </div>
                             </div>
@@ -964,7 +964,7 @@ class Settings
                     </div>
 
                     <div class="postpilotai-submit-wrapper">
-                        <?php submit_button(__('Save Settings', 'postpilot-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
+                        <?php submit_button(__('Save Settings', 'nexipilot-content-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
                     </div>
                 </div>
 
@@ -983,8 +983,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('Feature Settings', 'postpilot-ai'); ?></h2>
-                                    <p><?php esc_html_e('Enable or disable AI-powered features', 'postpilot-ai'); ?></p>
+                                    <h2><?php esc_html_e('Feature Settings', 'nexipilot-content-ai'); ?></h2>
+                                    <p><?php esc_html_e('Enable or disable AI-powered features', 'nexipilot-content-ai'); ?></p>
                                 </div>
                             </div>
                             <div class="postpilotai-card-body">
@@ -999,27 +999,27 @@ class Settings
                                                         stroke-width="2" />
                                                     <circle cx="12" cy="17" r="1" fill="currentColor" />
                                                 </svg>
-                                                <?php esc_html_e('FAQ Generator', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('FAQ Generator', 'nexipilot-content-ai'); ?>
                                             </label>
                                             <p class="postpilotai-feature-description">
-                                                <?php esc_html_e('Automatically generate frequently asked questions based on your content', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Automatically generate frequently asked questions based on your content', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                         <label class="postpilotai-toggle">
-                                            <input type="checkbox" name="postpilotai_enable_faq" value="1" <?php checked(get_option('postpilotai_enable_faq'), '1'); ?> />
+                                            <input type="checkbox" name="nexipilot_enable_faq" value="1" <?php checked(get_option('nexipilot_enable_faq'), '1'); ?> />
                                             <span class="postpilotai-toggle-slider"></span>
                                         </label>
                                     </div>
                                     <div class="postpilotai-feature-options" id="faq-options">
                                         <!-- AI Provider Selection -->
                                         <div class="postpilotai-field-group">
-                                            <label for="postpilotai_faq_provider" class="postpilotai-label-small">
-                                                <?php esc_html_e('AI Provider', 'postpilot-ai'); ?>
+                                            <label for="nexipilot_faq_provider" class="postpilotai-label-small">
+                                                <?php esc_html_e('AI Provider', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <select name="postpilotai_faq_provider" id="postpilotai_faq_provider"
+                                            <select name="nexipilot_faq_provider" id="nexipilot_faq_provider"
                                                 class="postpilotai-select-small">
                                                 <?php
-                                                $faq_provider_ts = get_option('postpilotai_faq_provider', 'openai');
+                                                $faq_provider_ts = get_option('nexipilot_faq_provider', 'openai');
                                                 foreach ($this->get_available_providers() as $key => $name):
                                                     ?>
                                                     <option value="<?php echo esc_attr($key); ?>" <?php selected($faq_provider_ts, $key); ?>>
@@ -1030,48 +1030,48 @@ class Settings
                                         </div>
                                         <div class="postpilotai-field-group" id="faq-model-display">
                                             <label class="postpilotai-label-small">
-                                                <?php esc_html_e('Model in Use', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Model in Use', 'nexipilot-content-ai'); ?>
                                             </label>
                                             <span class="postpilotai-badge postpilotai-badge-info">
                                                 <?php
-                                                $faq_provider = get_option('postpilotai_faq_provider', 'openai');
-                                                $faq_model = get_option("postpilotai_{$faq_provider}_model", '');
-                                                echo esc_html($faq_model ?: __('Not configured', 'postpilot-ai'));
+                                                $faq_provider = get_option('nexipilot_faq_provider', 'openai');
+                                                $faq_model = get_option("nexipilot_{$faq_provider}_model", '');
+                                                echo esc_html($faq_model ?: __('Not configured', 'nexipilot-content-ai'));
                                                 ?>
                                             </span>
                                             <p class="postpilotai-field-description">
-                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                         <div class="postpilotai-field-group">
-                                            <label for="postpilotai_faq_position" class="postpilotai-label-small">
-                                                <?php esc_html_e('Display Position', 'postpilot-ai'); ?>
+                                            <label for="nexipilot_faq_position" class="postpilotai-label-small">
+                                                <?php esc_html_e('Display Position', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <select name="postpilotai_faq_position" id="postpilotai_faq_position"
+                                            <select name="nexipilot_faq_position" id="nexipilot_faq_position"
                                                 class="postpilotai-select-small">
-                                                <option value="after_content" <?php selected(get_option('postpilotai_faq_position', 'after_content'), 'after_content'); ?>>
-                                                    <?php esc_html_e('After Content', 'postpilot-ai'); ?>
+                                                <option value="after_content" <?php selected(get_option('nexipilot_faq_position', 'after_content'), 'after_content'); ?>>
+                                                    <?php esc_html_e('After Content', 'nexipilot-content-ai'); ?>
                                                 </option>
-                                                <option value="before_content" <?php selected(get_option('postpilotai_faq_position'), 'before_content'); ?>>
-                                                    <?php esc_html_e('Before Content', 'postpilot-ai'); ?>
+                                                <option value="before_content" <?php selected(get_option('nexipilot_faq_position'), 'before_content'); ?>>
+                                                    <?php esc_html_e('Before Content', 'nexipilot-content-ai'); ?>
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="postpilotai-field-group">
-                                            <label for="postpilotai_faq_default_layout" class="postpilotai-label-small">
-                                                <?php esc_html_e('Default Display Style', 'postpilot-ai'); ?>
+                                            <label for="nexipilot_faq_default_layout" class="postpilotai-label-small">
+                                                <?php esc_html_e('Default Display Style', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <select name="postpilotai_faq_default_layout" id="postpilotai_faq_default_layout"
+                                            <select name="nexipilot_faq_default_layout" id="nexipilot_faq_default_layout"
                                                 class="postpilotai-select-small">
-                                                <option value="accordion" <?php selected(get_option('postpilotai_faq_default_layout', 'accordion'), 'accordion'); ?>>
-                                                    <?php esc_html_e('Accordion', 'postpilot-ai'); ?>
+                                                <option value="accordion" <?php selected(get_option('nexipilot_faq_default_layout', 'accordion'), 'accordion'); ?>>
+                                                    <?php esc_html_e('Accordion', 'nexipilot-content-ai'); ?>
                                                 </option>
-                                                <option value="static" <?php selected(get_option('postpilotai_faq_default_layout', 'accordion'), 'static'); ?>>
-                                                    <?php esc_html_e('Static', 'postpilot-ai'); ?>
+                                                <option value="static" <?php selected(get_option('nexipilot_faq_default_layout', 'accordion'), 'static'); ?>>
+                                                    <?php esc_html_e('Static', 'nexipilot-content-ai'); ?>
                                                 </option>
                                             </select>
                                             <p class="description" style="margin-top: 5px; font-size: 12px;">
-                                                <?php esc_html_e('Can be overridden per post', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Can be overridden per post', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -1086,27 +1086,27 @@ class Settings
                                                     <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2"
                                                         stroke-linecap="round" />
                                                 </svg>
-                                                <?php esc_html_e('Content Summary', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Content Summary', 'nexipilot-content-ai'); ?>
                                             </label>
                                             <p class="postpilotai-feature-description">
-                                                <?php esc_html_e('Generate concise summaries of your posts for better engagement', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Generate concise summaries of your posts for better engagement', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                         <label class="postpilotai-toggle">
-                                            <input type="checkbox" name="postpilotai_enable_summary" value="1" <?php checked(get_option('postpilotai_enable_summary'), '1'); ?> />
+                                            <input type="checkbox" name="nexipilot_enable_summary" value="1" <?php checked(get_option('nexipilot_enable_summary'), '1'); ?> />
                                             <span class="postpilotai-toggle-slider"></span>
                                         </label>
                                     </div>
                                     <div class="postpilotai-feature-options" id="summary-options">
                                         <!-- AI Provider Selection -->
                                         <div class="postpilotai-field-group">
-                                            <label for="postpilotai_summary_provider" class="postpilotai-label-small">
-                                                <?php esc_html_e('AI Provider', 'postpilot-ai'); ?>
+                                            <label for="nexipilot_summary_provider" class="postpilotai-label-small">
+                                                <?php esc_html_e('AI Provider', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <select name="postpilotai_summary_provider" id="postpilotai_summary_provider"
+                                            <select name="nexipilot_summary_provider" id="nexipilot_summary_provider"
                                                 class="postpilotai-select-small">
                                                 <?php
-                                                $summary_provider_ts = get_option('postpilotai_summary_provider', 'openai');
+                                                $summary_provider_ts = get_option('nexipilot_summary_provider', 'openai');
                                                 foreach ($this->get_available_providers() as $key => $name):
                                                     ?>
                                                     <option value="<?php echo esc_attr($key); ?>" <?php selected($summary_provider_ts, $key); ?>>
@@ -1117,30 +1117,30 @@ class Settings
                                         </div>
                                         <div class="postpilotai-field-group" id="summary-model-display">
                                             <label class="postpilotai-label-small">
-                                                <?php esc_html_e('Model in Use', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Model in Use', 'nexipilot-content-ai'); ?>
                                             </label>
                                             <span class="postpilotai-badge postpilotai-badge-info">
                                                 <?php
-                                                $summary_provider = get_option('postpilotai_summary_provider', 'openai');
-                                                $summary_model = get_option("postpilotai_{$summary_provider}_model", '');
-                                                echo esc_html($summary_model ?: __('Not configured', 'postpilot-ai'));
+                                                $summary_provider = get_option('nexipilot_summary_provider', 'openai');
+                                                $summary_model = get_option("nexipilot_{$summary_provider}_model", '');
+                                                echo esc_html($summary_model ?: __('Not configured', 'nexipilot-content-ai'));
                                                 ?>
                                             </span>
                                             <p class="postpilotai-field-description">
-                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                         <div class="postpilotai-field-group">
-                                            <label for="postpilotai_summary_position" class="postpilotai-label-small">
-                                                <?php esc_html_e('Display Position', 'postpilot-ai'); ?>
+                                            <label for="nexipilot_summary_position" class="postpilotai-label-small">
+                                                <?php esc_html_e('Display Position', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <select name="postpilotai_summary_position" id="postpilotai_summary_position"
+                                            <select name="nexipilot_summary_position" id="nexipilot_summary_position"
                                                 class="postpilotai-select-small">
-                                                <option value="before_content" <?php selected(get_option('postpilotai_summary_position', 'before_content'), 'before_content'); ?>>
-                                                    <?php esc_html_e('Before Content', 'postpilot-ai'); ?>
+                                                <option value="before_content" <?php selected(get_option('nexipilot_summary_position', 'before_content'), 'before_content'); ?>>
+                                                    <?php esc_html_e('Before Content', 'nexipilot-content-ai'); ?>
                                                 </option>
-                                                <option value="after_content" <?php selected(get_option('postpilotai_summary_position'), 'after_content'); ?>>
-                                                    <?php esc_html_e('After Content', 'postpilot-ai'); ?>
+                                                <option value="after_content" <?php selected(get_option('nexipilot_summary_position'), 'after_content'); ?>>
+                                                    <?php esc_html_e('After Content', 'nexipilot-content-ai'); ?>
                                                 </option>
                                             </select>
                                         </div>
@@ -1158,27 +1158,27 @@ class Settings
                                                     <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
                                                         stroke="currentColor" stroke-width="2" />
                                                 </svg>
-                                                <?php esc_html_e('Smart Internal Links', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Smart Internal Links', 'nexipilot-content-ai'); ?>
                                             </label>
                                             <p class="postpilotai-feature-description">
-                                                <?php esc_html_e('Automatically suggest relevant internal links to improve SEO', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Automatically suggest relevant internal links to improve SEO', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                         <label class="postpilotai-toggle">
-                                            <input type="checkbox" name="postpilotai_enable_internal_links" value="1" <?php checked(get_option('postpilotai_enable_internal_links'), '1'); ?> />
+                                            <input type="checkbox" name="nexipilot_enable_internal_links" value="1" <?php checked(get_option('nexipilot_enable_internal_links'), '1'); ?> />
                                             <span class="postpilotai-toggle-slider"></span>
                                         </label>
                                     </div>
                                     <!-- AI Provider Selection for Internal Links -->
                                     <div class="postpilotai-feature-options" id="links-options" style="margin-top: 15px;">
                                         <div class="postpilotai-field-group">
-                                            <label for="postpilotai_internal_links_provider" class="postpilotai-label-small">
-                                                <?php esc_html_e('AI Provider', 'postpilot-ai'); ?>
+                                            <label for="nexipilot_internal_links_provider" class="postpilotai-label-small">
+                                                <?php esc_html_e('AI Provider', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <select name="postpilotai_internal_links_provider"
-                                                id="postpilotai_internal_links_provider" class="postpilotai-select-small">
+                                            <select name="nexipilot_internal_links_provider"
+                                                id="nexipilot_internal_links_provider" class="postpilotai-select-small">
                                                 <?php
-                                                $links_provider_ts = get_option('postpilotai_internal_links_provider', 'openai');
+                                                $links_provider_ts = get_option('nexipilot_internal_links_provider', 'openai');
                                                 foreach ($this->get_available_providers() as $key => $name):
                                                     ?>
                                                     <option value="<?php echo esc_attr($key); ?>" <?php selected($links_provider_ts, $key); ?>>
@@ -1189,17 +1189,17 @@ class Settings
                                         </div>
                                         <div class="postpilotai-field-group" id="links-model-display">
                                             <label class="postpilotai-label-small">
-                                                <?php esc_html_e('Model in Use', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Model in Use', 'nexipilot-content-ai'); ?>
                                             </label>
                                             <span class="postpilotai-badge postpilotai-badge-info">
                                                 <?php
-                                                $links_provider = get_option('postpilotai_internal_links_provider', 'openai');
-                                                $links_model = get_option("postpilotai_{$links_provider}_model", '');
-                                                echo esc_html($links_model ?: __('Not configured', 'postpilot-ai'));
+                                                $links_provider = get_option('nexipilot_internal_links_provider', 'openai');
+                                                $links_model = get_option("nexipilot_{$links_provider}_model", '');
+                                                echo esc_html($links_model ?: __('Not configured', 'nexipilot-content-ai'));
                                                 ?>
                                             </span>
                                             <p class="postpilotai-field-description">
-                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Model is configured in the AI Providers tab', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -1216,50 +1216,50 @@ class Settings
                                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round" />
                                                 </svg>
-                                                <?php esc_html_e('External AI Sharing', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('External AI Sharing', 'nexipilot-content-ai'); ?>
                                             </label>
                                             <p class="postpilotai-feature-description">
-                                                <?php esc_html_e('Allow readers to summarize posts with external AI tools', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Allow readers to summarize posts with external AI tools', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                         <label class="postpilotai-toggle">
-                                            <input type="checkbox" name="postpilotai_enable_external_ai_sharing" value="1" <?php checked(get_option('postpilotai_enable_external_ai_sharing', '1'), '1'); ?> />
+                                            <input type="checkbox" name="nexipilot_enable_external_ai_sharing" value="1" <?php checked(get_option('nexipilot_enable_external_ai_sharing', '1'), '1'); ?> />
                                             <span class="postpilotai-toggle-slider"></span>
                                         </label>
                                     </div>
                                     <div class="postpilotai-feature-options" id="external-ai-sharing-options">
                                         <div class="postpilotai-field-group">
-                                            <label for="postpilotai_external_ai_position" class="postpilotai-label-small">
-                                                <?php esc_html_e('Display Position', 'postpilot-ai'); ?>
+                                            <label for="nexipilot_external_ai_position" class="postpilotai-label-small">
+                                                <?php esc_html_e('Display Position', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <select name="postpilotai_external_ai_position"
-                                                id="postpilotai_external_ai_position" class="postpilotai-select-small">
-                                                <option value="before_content" <?php selected(get_option('postpilotai_external_ai_position', 'before_content'), 'before_content'); ?>>
-                                                    <?php esc_html_e('Before Content', 'postpilot-ai'); ?>
+                                            <select name="nexipilot_external_ai_position"
+                                                id="nexipilot_external_ai_position" class="postpilotai-select-small">
+                                                <option value="before_content" <?php selected(get_option('nexipilot_external_ai_position', 'before_content'), 'before_content'); ?>>
+                                                    <?php esc_html_e('Before Content', 'nexipilot-content-ai'); ?>
                                                 </option>
-                                                <option value="after_content" <?php selected(get_option('postpilotai_external_ai_position', 'before_content'), 'after_content'); ?>>
-                                                    <?php esc_html_e('After Content', 'postpilot-ai'); ?>
+                                                <option value="after_content" <?php selected(get_option('nexipilot_external_ai_position', 'before_content'), 'after_content'); ?>>
+                                                    <?php esc_html_e('After Content', 'nexipilot-content-ai'); ?>
                                                 </option>
-                                                <option value="both" <?php selected(get_option('postpilotai_external_ai_position', 'before_content'), 'both'); ?>>
-                                                    <?php esc_html_e('Both', 'postpilot-ai'); ?>
+                                                <option value="both" <?php selected(get_option('nexipilot_external_ai_position', 'before_content'), 'both'); ?>>
+                                                    <?php esc_html_e('Both', 'nexipilot-content-ai'); ?>
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="postpilotai-field-group">
-                                            <label for="postpilotai_external_ai_heading" class="postpilotai-label-small">
-                                                <?php esc_html_e('Heading Text', 'postpilot-ai'); ?>
+                                            <label for="nexipilot_external_ai_heading" class="postpilotai-label-small">
+                                                <?php esc_html_e('Heading Text', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <input type="text" name="postpilotai_external_ai_heading"
-                                                id="postpilotai_external_ai_heading" class="postpilotai-input-small"
-                                                value="<?php echo esc_attr(get_option('postpilotai_external_ai_heading', 'Summarize this post with:')); ?>"
-                                                placeholder="<?php esc_attr_e('Summarize this post with:', 'postpilot-ai'); ?>" />
+                                            <input type="text" name="nexipilot_external_ai_heading"
+                                                id="nexipilot_external_ai_heading" class="postpilotai-input-small"
+                                                value="<?php echo esc_attr(get_option('nexipilot_external_ai_heading', 'Summarize this post with:')); ?>"
+                                                placeholder="<?php esc_attr_e('Summarize this post with:', 'nexipilot-content-ai'); ?>" />
                                             <p class="postpilotai-field-description">
-                                                <?php esc_html_e('Customize the heading text displayed above the AI sharing buttons', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Customize the heading text displayed above the AI sharing buttons', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                         <div class="postpilotai-field-group">
                                             <label class="postpilotai-label-small">
-                                                <?php esc_html_e('Enabled AI Providers', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Enabled AI Providers', 'nexipilot-content-ai'); ?>
                                             </label>
                                             <div class="postpilotai-checkbox-group">
                                                 <?php
@@ -1319,8 +1319,8 @@ class Settings
                                                     <label
                                                         class="postpilotai-checkbox-card postpilotai-checkbox-card--<?php echo esc_attr($key); ?>">
                                                         <input type="checkbox"
-                                                            name="postpilotai_external_ai_<?php echo esc_attr($key); ?>" value="1"
-                                                            <?php checked(get_option('postpilotai_external_ai_' . $key, '1'), '1'); ?> />
+                                                            name="nexipilot_external_ai_<?php echo esc_attr($key); ?>" value="1"
+                                                            <?php checked(get_option('nexipilot_external_ai_' . $key, '1'), '1'); ?> />
                                                         <div class="postpilotai-checkbox-card__content">
                                                             <div class="postpilotai-checkbox-card__icon">
                                                                 <?php echo wp_kses($provider['logo'] ?? '', $allowed_svg); ?>
@@ -1339,7 +1339,7 @@ class Settings
                                                 <?php } ?>
                                             </div>
                                             <p class="postpilotai-field-description">
-                                                <?php esc_html_e('Select which external AI tools to show to your readers', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Select which external AI tools to show to your readers', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -1350,7 +1350,7 @@ class Settings
                     <!-- End Features Tab -->
 
                     <div class="postpilotai-submit-wrapper">
-                        <?php submit_button(__('Save Settings', 'postpilot-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
+                        <?php submit_button(__('Save Settings', 'nexipilot-content-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
                     </div>
                 </div>
 
@@ -1367,8 +1367,8 @@ class Settings
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2><?php esc_html_e('Debug Logging', 'postpilot-ai'); ?></h2>
-                                    <p><?php esc_html_e('Enable debug logging for troubleshooting API issues', 'postpilot-ai'); ?>
+                                    <h2><?php esc_html_e('Debug Logging', 'nexipilot-content-ai'); ?></h2>
+                                    <p><?php esc_html_e('Enable debug logging for troubleshooting API issues', 'nexipilot-content-ai'); ?>
                                     </p>
                                 </div>
                             </div>
@@ -1380,19 +1380,19 @@ class Settings
                                             <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
-                                        <?php esc_html_e('Enable Debug Logging', 'postpilot-ai'); ?>
+                                        <?php esc_html_e('Enable Debug Logging', 'nexipilot-content-ai'); ?>
                                     </label>
                                     <div class="postpilotai-toggle-wrapper">
                                         <label class="postpilotai-toggle">
-                                            <input type="checkbox" name="postpilotai_enable_debug_logging" value="1" <?php checked(get_option('postpilotai_enable_debug_logging'), '1'); ?> />
+                                            <input type="checkbox" name="nexipilot_enable_debug_logging" value="1" <?php checked(get_option('nexipilot_enable_debug_logging'), '1'); ?> />
                                             <span class="postpilotai-toggle-slider"></span>
                                         </label>
                                         <span class="postpilotai-toggle-label">
-                                            <?php esc_html_e('Log all API requests and responses to debug.log', 'postpilot-ai'); ?>
+                                            <?php esc_html_e('Log all API requests and responses to debug.log', 'nexipilot-content-ai'); ?>
                                         </span>
                                     </div>
                                     <p class="postpilotai-field-description">
-                                        <?php esc_html_e('When enabled, all API requests and responses will be logged to debug.log. This is useful for troubleshooting API connection issues. Keep this disabled in production environments to avoid filling up your debug log.', 'postpilot-ai'); ?>
+                                        <?php esc_html_e('When enabled, all API requests and responses will be logged to debug.log. This is useful for troubleshooting API connection issues. Keep this disabled in production environments to avoid filling up your debug log.', 'nexipilot-content-ai'); ?>
                                     </p>
 
                                     <div class="postpilotai-info-box" style="margin-top: 16px;">
@@ -1402,12 +1402,12 @@ class Settings
                                                 stroke-linecap="round" />
                                         </svg>
                                         <div>
-                                            <strong><?php esc_html_e('Debug Log Location:', 'postpilot-ai'); ?></strong>
+                                            <strong><?php esc_html_e('Debug Log Location:', 'nexipilot-content-ai'); ?></strong>
                                             <p style="margin: 4px 0 0 0; font-size: 13px; opacity: 0.8;">
                                                 <?php echo esc_html(WP_CONTENT_DIR . '/debug.log'); ?>
                                             </p>
                                             <p style="margin: 8px 0 0 0; font-size: 13px; opacity: 0.8;">
-                                                <?php esc_html_e('Make sure WP_DEBUG and WP_DEBUG_LOG are enabled in wp-config.php for debug logging to work.', 'postpilot-ai'); ?>
+                                                <?php esc_html_e('Make sure WP_DEBUG and WP_DEBUG_LOG are enabled in wp-config.php for debug logging to work.', 'nexipilot-content-ai'); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -1418,7 +1418,7 @@ class Settings
                     <!-- End Troubleshooting Tab -->
 
                     <div class="postpilotai-submit-wrapper">
-                        <?php submit_button(__('Save Settings', 'postpilot-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
+                        <?php submit_button(__('Save Settings', 'nexipilot-content-ai'), 'primary postpilotai-btn-primary', 'submit', false); ?>
                     </div>
                 </div>
 
@@ -1436,7 +1436,7 @@ class Settings
      */
     public function render_ai_section_description()
     {
-        echo '<p>' . esc_html__('Configure your AI provider and API credentials.', 'postpilot-ai') . '</p>';
+        echo '<p>' . esc_html__('Configure your AI provider and API credentials.', 'nexipilot-content-ai') . '</p>';
     }
 
     /**
@@ -1447,7 +1447,7 @@ class Settings
      */
     public function render_features_section_description()
     {
-        echo '<p>' . esc_html__('Enable or disable AI-powered features and configure their display.', 'postpilot-ai') . '</p>';
+        echo '<p>' . esc_html__('Enable or disable AI-powered features and configure their display.', 'nexipilot-content-ai') . '</p>';
     }
 
     /**
@@ -1458,18 +1458,18 @@ class Settings
      */
     public function render_ai_provider_field()
     {
-        $value = get_option('postpilotai_ai_provider', 'openai');
+        $value = get_option('nexipilot_ai_provider', 'openai');
         ?>
-        <select name="postpilotai_ai_provider" id="postpilotai_ai_provider">
+        <select name="nexipilot_ai_provider" id="nexipilot_ai_provider">
             <option value="openai" <?php selected($value, 'openai'); ?>>
-                <?php esc_html_e('OpenAI (ChatGPT)', 'postpilot-ai'); ?>
+                <?php esc_html_e('OpenAI (ChatGPT)', 'nexipilot-content-ai'); ?>
             </option>
             <option value="claude" <?php selected($value, 'claude'); ?>>
-                <?php esc_html_e('Claude (Anthropic)', 'postpilot-ai'); ?>
+                <?php esc_html_e('Claude (Anthropic)', 'nexipilot-content-ai'); ?>
             </option>
         </select>
         <p class="description">
-            <?php esc_html_e('Select your preferred AI provider.', 'postpilot-ai'); ?>
+            <?php esc_html_e('Select your preferred AI provider.', 'nexipilot-content-ai'); ?>
         </p>
         <?php
     }
@@ -1482,12 +1482,12 @@ class Settings
      */
     public function render_openai_api_key_field()
     {
-        $value = get_option('postpilotai_openai_api_key', '');
+        $value = get_option('nexipilot_openai_api_key', '');
         $has_key = !empty($value);
         ?>
-        <input type="text" name="postpilotai_openai_api_key" id="postpilotai_openai_api_key"
+        <input type="text" name="nexipilot_openai_api_key" id="nexipilot_openai_api_key"
             value="<?php echo esc_attr($value); ?>" class="regular-text"
-            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot-ai') : esc_attr__('Enter your OpenAI API key', 'postpilot-ai'); ?>" />
+            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'nexipilot-content-ai') : esc_attr__('Enter your OpenAI API key', 'nexipilot-content-ai'); ?>" />
         <?php if ($has_key): ?>
             <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
         <?php endif; ?>
@@ -1495,7 +1495,7 @@ class Settings
             <?php
             printf(
                 /* translators: %s: OpenAI API URL */
-                esc_html__('Get your API key from %s', 'postpilot-ai'),
+                esc_html__('Get your API key from %s', 'nexipilot-content-ai'),
                 '<a href="https://platform.openai.com/api-keys" target="_blank">OpenAI</a>'
             );
             ?>
@@ -1511,12 +1511,12 @@ class Settings
      */
     public function render_claude_api_key_field()
     {
-        $value = get_option('postpilotai_claude_api_key', '');
+        $value = get_option('nexipilot_claude_api_key', '');
         $has_key = !empty($value);
         ?>
-        <input type="text" name="postpilotai_claude_api_key" id="postpilotai_claude_api_key"
+        <input type="text" name="nexipilot_claude_api_key" id="nexipilot_claude_api_key"
             value="<?php echo esc_attr($value); ?>" class="regular-text"
-            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot-ai') : esc_attr__('Enter your Claude API key', 'postpilot-ai'); ?>" />
+            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'nexipilot-content-ai') : esc_attr__('Enter your Claude API key', 'nexipilot-content-ai'); ?>" />
         <?php if ($has_key): ?>
             <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
         <?php endif; ?>
@@ -1524,7 +1524,7 @@ class Settings
             <?php
             printf(
                 /* translators: %s: Anthropic API URL */
-                esc_html__('Get your API key from %s', 'postpilot-ai'),
+                esc_html__('Get your API key from %s', 'nexipilot-content-ai'),
                 '<a href="https://console.anthropic.com/" target="_blank">Anthropic</a>'
             );
             ?>
@@ -1540,11 +1540,11 @@ class Settings
      */
     public function render_enable_faq_field()
     {
-        $value = get_option('postpilotai_enable_faq', '1');
+        $value = get_option('nexipilot_enable_faq', '1');
         ?>
         <label>
-            <input type="checkbox" name="postpilotai_enable_faq" value="1" <?php checked($value, '1'); ?> />
-            <?php esc_html_e('Enable AI-generated FAQ section', 'postpilot-ai'); ?>
+            <input type="checkbox" name="nexipilot_enable_faq" value="1" <?php checked($value, '1'); ?> />
+            <?php esc_html_e('Enable AI-generated FAQ section', 'nexipilot-content-ai'); ?>
         </label>
         <?php
     }
@@ -1557,14 +1557,14 @@ class Settings
      */
     public function render_faq_position_field()
     {
-        $value = get_option('postpilotai_faq_position', 'after_content');
+        $value = get_option('nexipilot_faq_position', 'after_content');
         ?>
-        <select name="postpilotai_faq_position" id="postpilotai_faq_position">
+        <select name="nexipilot_faq_position" id="nexipilot_faq_position">
             <option value="before_content" <?php selected($value, 'before_content'); ?>>
-                <?php esc_html_e('Before Content', 'postpilot-ai'); ?>
+                <?php esc_html_e('Before Content', 'nexipilot-content-ai'); ?>
             </option>
             <option value="after_content" <?php selected($value, 'after_content'); ?>>
-                <?php esc_html_e('After Content', 'postpilot-ai'); ?>
+                <?php esc_html_e('After Content', 'nexipilot-content-ai'); ?>
             </option>
         </select>
         <?php
@@ -1578,11 +1578,11 @@ class Settings
      */
     public function render_enable_summary_field()
     {
-        $value = get_option('postpilotai_enable_summary', '1');
+        $value = get_option('nexipilot_enable_summary', '1');
         ?>
         <label>
-            <input type="checkbox" name="postpilotai_enable_summary" value="1" <?php checked($value, '1'); ?> />
-            <?php esc_html_e('Enable AI-generated content summary', 'postpilot-ai'); ?>
+            <input type="checkbox" name="nexipilot_enable_summary" value="1" <?php checked($value, '1'); ?> />
+            <?php esc_html_e('Enable AI-generated content summary', 'nexipilot-content-ai'); ?>
         </label>
         <?php
     }
@@ -1595,14 +1595,14 @@ class Settings
      */
     public function render_summary_position_field()
     {
-        $value = get_option('postpilotai_summary_position', 'before_content');
+        $value = get_option('nexipilot_summary_position', 'before_content');
         ?>
-        <select name="postpilotai_summary_position" id="postpilotai_summary_position">
+        <select name="nexipilot_summary_position" id="nexipilot_summary_position">
             <option value="before_content" <?php selected($value, 'before_content'); ?>>
-                <?php esc_html_e('Before Content', 'postpilot-ai'); ?>
+                <?php esc_html_e('Before Content', 'nexipilot-content-ai'); ?>
             </option>
             <option value="after_content" <?php selected($value, 'after_content'); ?>>
-                <?php esc_html_e('After Content', 'postpilot-ai'); ?>
+                <?php esc_html_e('After Content', 'nexipilot-content-ai'); ?>
             </option>
         </select>
         <?php
@@ -1616,18 +1616,18 @@ class Settings
      */
     public function render_faq_default_layout_field()
     {
-        $value = get_option('postpilotai_faq_default_layout', 'accordion');
+        $value = get_option('nexipilot_faq_default_layout', 'accordion');
         ?>
-        <select name="postpilotai_faq_default_layout" id="postpilotai_faq_default_layout">
+        <select name="nexipilot_faq_default_layout" id="nexipilot_faq_default_layout">
             <option value="accordion" <?php selected($value, 'accordion'); ?>>
-                <?php esc_html_e('Accordion', 'postpilot-ai'); ?>
+                <?php esc_html_e('Accordion', 'nexipilot-content-ai'); ?>
             </option>
             <option value="static" <?php selected($value, 'static'); ?>>
-                <?php esc_html_e('Static', 'postpilot-ai'); ?>
+                <?php esc_html_e('Static', 'nexipilot-content-ai'); ?>
             </option>
         </select>
         <p class="description">
-            <?php esc_html_e('Choose the default layout for FAQ display. This can be overridden per post.', 'postpilot-ai'); ?>
+            <?php esc_html_e('Choose the default layout for FAQ display. This can be overridden per post.', 'nexipilot-content-ai'); ?>
         </p>
         <?php
     }
@@ -1640,11 +1640,11 @@ class Settings
      */
     public function render_enable_internal_links_field()
     {
-        $value = get_option('postpilotai_enable_internal_links', '1');
+        $value = get_option('nexipilot_enable_internal_links', '1');
         ?>
         <label>
-            <input type="checkbox" name="postpilotai_enable_internal_links" value="1" <?php checked($value, '1'); ?> />
-            <?php esc_html_e('Enable AI-powered smart internal linking', 'postpilot-ai'); ?>
+            <input type="checkbox" name="nexipilot_enable_internal_links" value="1" <?php checked($value, '1'); ?> />
+            <?php esc_html_e('Enable AI-powered smart internal linking', 'nexipilot-content-ai'); ?>
         </label>
         <?php
     }
@@ -1657,12 +1657,12 @@ class Settings
      */
     public function render_gemini_api_key_field()
     {
-        $value = get_option('postpilotai_gemini_api_key', '');
+        $value = get_option('nexipilot_gemini_api_key', '');
         $has_key = !empty($value);
         ?>
-        <input type="text" name="postpilotai_gemini_api_key" id="postpilotai_gemini_api_key"
+        <input type="text" name="nexipilot_gemini_api_key" id="nexipilot_gemini_api_key"
             value="<?php echo esc_attr($value); ?>" class="regular-text"
-            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'postpilot-ai') : esc_attr__('Enter your Gemini API key', 'postpilot-ai'); ?>" />
+            placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'nexipilot-content-ai') : esc_attr__('Enter your Gemini API key', 'nexipilot-content-ai'); ?>" />
         <?php if ($has_key): ?>
             <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
         <?php endif; ?>
@@ -1670,7 +1670,7 @@ class Settings
             <?php
             printf(
                 /* translators: %s: Google AI Studio URL */
-                esc_html__('Get your API key from %s', 'postpilot-ai'),
+                esc_html__('Get your API key from %s', 'nexipilot-content-ai'),
                 '<a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>'
             );
             ?>
@@ -1686,24 +1686,24 @@ class Settings
      */
     public function render_openai_model_field()
     {
-        $value = get_option('postpilotai_openai_model', 'gpt-3.5-turbo');
+        $value = get_option('nexipilot_openai_model', 'gpt-3.5-turbo');
         ?>
-        <select name="postpilotai_openai_model" id="postpilotai_openai_model">
+        <select name="nexipilot_openai_model" id="nexipilot_openai_model">
             <option value="gpt-4o" <?php selected($value, 'gpt-4o'); ?>>
-                <?php esc_html_e('GPT-4o (Most Capable)', 'postpilot-ai'); ?>
+                <?php esc_html_e('GPT-4o (Most Capable)', 'nexipilot-content-ai'); ?>
             </option>
             <option value="gpt-4o-mini" <?php selected($value, 'gpt-4o-mini'); ?>>
-                <?php esc_html_e('GPT-4o Mini (Balanced)', 'postpilot-ai'); ?>
+                <?php esc_html_e('GPT-4o Mini (Balanced)', 'nexipilot-content-ai'); ?>
             </option>
             <option value="gpt-4-turbo" <?php selected($value, 'gpt-4-turbo'); ?>>
-                <?php esc_html_e('GPT-4 Turbo', 'postpilot-ai'); ?>
+                <?php esc_html_e('GPT-4 Turbo', 'nexipilot-content-ai'); ?>
             </option>
             <option value="gpt-3.5-turbo" <?php selected($value, 'gpt-3.5-turbo'); ?>>
-                <?php esc_html_e('GPT-3.5 Turbo (Fastest)', 'postpilot-ai'); ?>
+                <?php esc_html_e('GPT-3.5 Turbo (Fastest)', 'nexipilot-content-ai'); ?>
             </option>
         </select>
         <p class="description">
-            <?php esc_html_e('Select the OpenAI model to use for content generation.', 'postpilot-ai'); ?>
+            <?php esc_html_e('Select the OpenAI model to use for content generation.', 'nexipilot-content-ai'); ?>
         </p>
         <?php
     }
@@ -1716,21 +1716,21 @@ class Settings
      */
     public function render_claude_model_field()
     {
-        $value = get_option('postpilotai_claude_model', 'claude-3-haiku-20240307');
+        $value = get_option('nexipilot_claude_model', 'claude-3-haiku-20240307');
         ?>
-        <select name="postpilotai_claude_model" id="postpilotai_claude_model">
+        <select name="nexipilot_claude_model" id="nexipilot_claude_model">
             <option value="claude-3-5-sonnet-20241022" <?php selected($value, 'claude-3-5-sonnet-20241022'); ?>>
-                <?php esc_html_e('Claude 3.5 Sonnet (Most Capable)', 'postpilot-ai'); ?>
+                <?php esc_html_e('Claude 3.5 Sonnet (Most Capable)', 'nexipilot-content-ai'); ?>
             </option>
             <option value="claude-3-opus-20240229" <?php selected($value, 'claude-3-opus-20240229'); ?>>
-                <?php esc_html_e('Claude 3 Opus', 'postpilot-ai'); ?>
+                <?php esc_html_e('Claude 3 Opus', 'nexipilot-content-ai'); ?>
             </option>
             <option value="claude-3-haiku-20240307" <?php selected($value, 'claude-3-haiku-20240307'); ?>>
-                <?php esc_html_e('Claude 3 Haiku (Fastest)', 'postpilot-ai'); ?>
+                <?php esc_html_e('Claude 3 Haiku (Fastest)', 'nexipilot-content-ai'); ?>
             </option>
         </select>
         <p class="description">
-            <?php esc_html_e('Select the Claude model to use for content generation.', 'postpilot-ai'); ?>
+            <?php esc_html_e('Select the Claude model to use for content generation.', 'nexipilot-content-ai'); ?>
         </p>
         <?php
     }
@@ -1743,21 +1743,21 @@ class Settings
      */
     public function render_gemini_model_field()
     {
-        $value = get_option('postpilotai_gemini_model', 'gemini-1.5-flash');
+        $value = get_option('nexipilot_gemini_model', 'gemini-1.5-flash');
         ?>
-        <select name="postpilotai_gemini_model" id="postpilotai_gemini_model">
+        <select name="nexipilot_gemini_model" id="nexipilot_gemini_model">
             <option value="gemini-1.5-pro" <?php selected($value, 'gemini-1.5-pro'); ?>>
-                <?php esc_html_e('Gemini 1.5 Pro (Most Capable)', 'postpilot-ai'); ?>
+                <?php esc_html_e('Gemini 1.5 Pro (Most Capable)', 'nexipilot-content-ai'); ?>
             </option>
             <option value="gemini-1.5-flash" <?php selected($value, 'gemini-1.5-flash'); ?>>
-                <?php esc_html_e('Gemini 1.5 Flash (Balanced)', 'postpilot-ai'); ?>
+                <?php esc_html_e('Gemini 1.5 Flash (Balanced)', 'nexipilot-content-ai'); ?>
             </option>
             <option value="gemini-1.0-pro" <?php selected($value, 'gemini-1.0-pro'); ?>>
-                <?php esc_html_e('Gemini 1.0 Pro', 'postpilot-ai'); ?>
+                <?php esc_html_e('Gemini 1.0 Pro', 'nexipilot-content-ai'); ?>
             </option>
         </select>
         <p class="description">
-            <?php esc_html_e('Select the Gemini model to use for content generation.', 'postpilot-ai'); ?>
+            <?php esc_html_e('Select the Gemini model to use for content generation.', 'nexipilot-content-ai'); ?>
         </p>
         <?php
     }
@@ -1797,30 +1797,30 @@ class Settings
      */
     private function get_provider_status($provider_key)
     {
-        $api_key = get_option("postpilotai_{$provider_key}_api_key");
+        $api_key = get_option("nexipilot_{$provider_key}_api_key");
 
         // State 1: Missing Key (gray, neutral)
         if (empty($api_key)) {
             return array(
                 'status' => 'missing',
                 'icon' => '⚪',
-                'text' => __('Missing Key', 'postpilot-ai'),
+                'text' => __('Missing Key', 'nexipilot-content-ai'),
                 'class' => 'postpilotai-status-gray',
-                'tooltip' => __('No API key configured. Add one if you plan to use this provider.', 'postpilot-ai')
+                'tooltip' => __('No API key configured. Add one if you plan to use this provider.', 'nexipilot-content-ai')
             );
         }
 
         // Check if we have a validation result stored
-        $validation_result = get_transient("postpilotai_{$provider_key}_validation");
+        $validation_result = get_transient("nexipilot_{$provider_key}_validation");
 
         // State 2: Key Saved (Not Verified) - yellow
         if ($validation_result === false) {
             return array(
                 'status' => 'saved',
                 'icon' => '🟡',
-                'text' => __('Key Saved', 'postpilot-ai'),
+                'text' => __('Key Saved', 'nexipilot-content-ai'),
                 'class' => 'postpilotai-status-yellow',
-                'tooltip' => __('API key saved but not verified. Save settings to validate.', 'postpilot-ai')
+                'tooltip' => __('API key saved but not verified. Save settings to validate.', 'nexipilot-content-ai')
             );
         }
 
@@ -1829,7 +1829,7 @@ class Settings
             return array(
                 'status' => 'invalid',
                 'icon' => '❌',
-                'text' => __('Invalid Key', 'postpilot-ai'),
+                'text' => __('Invalid Key', 'nexipilot-content-ai'),
                 'class' => 'postpilotai-status-red',
                 'tooltip' => $validation_result->get_error_message()
             );
@@ -1839,9 +1839,9 @@ class Settings
         return array(
             'status' => 'connected',
             'icon' => '✅',
-            'text' => __('Connected', 'postpilot-ai'),
+            'text' => __('Connected', 'nexipilot-content-ai'),
             'class' => 'postpilotai-status-green',
-            'tooltip' => __('API key verified and working', 'postpilot-ai')
+            'tooltip' => __('API key verified and working', 'nexipilot-content-ai')
         );
     }
 
@@ -1856,7 +1856,7 @@ class Settings
     public function validate_openai_key($old_value, $new_value)
     {
         if (empty($new_value)) {
-            delete_transient('postpilotai_openai_validation');
+            delete_transient('nexipilot_openai_validation');
             return;
         }
 
@@ -1871,7 +1871,7 @@ class Settings
         $openai = new \PostPilotAI\AI\OpenAI($decrypted_key);
         $result = $openai->validate_api_key($decrypted_key);
 
-        set_transient('postpilotai_openai_validation', $result, WEEK_IN_SECONDS);
+        set_transient('nexipilot_openai_validation', $result, WEEK_IN_SECONDS);
     }
 
     /**
@@ -1885,7 +1885,7 @@ class Settings
     public function validate_claude_key($old_value, $new_value)
     {
         if (empty($new_value)) {
-            delete_transient('postpilotai_claude_validation');
+            delete_transient('nexipilot_claude_validation');
             return;
         }
 
@@ -1900,7 +1900,7 @@ class Settings
         $claude = new \PostPilotAI\AI\Claude($decrypted_key);
         $result = $claude->validate_api_key($decrypted_key);
 
-        set_transient('postpilotai_claude_validation', $result, WEEK_IN_SECONDS);
+        set_transient('nexipilot_claude_validation', $result, WEEK_IN_SECONDS);
     }
 
     /**
@@ -1914,7 +1914,7 @@ class Settings
     public function validate_gemini_key($old_value, $new_value)
     {
         if (empty($new_value)) {
-            delete_transient('postpilotai_gemini_validation');
+            delete_transient('nexipilot_gemini_validation');
             return;
         }
 
@@ -1929,7 +1929,7 @@ class Settings
         $gemini = new \PostPilotAI\AI\Gemini($decrypted_key);
         $result = $gemini->validate_api_key($decrypted_key);
 
-        set_transient('postpilotai_gemini_validation', $result, WEEK_IN_SECONDS);
+        set_transient('nexipilot_gemini_validation', $result, WEEK_IN_SECONDS);
     }
 
     /**
@@ -1943,7 +1943,7 @@ class Settings
     public function validate_grok_key($old_value, $new_value)
     {
         if (empty($new_value)) {
-            delete_transient('postpilotai_grok_validation');
+            delete_transient('nexipilot_grok_validation');
             return;
         }
 
@@ -1958,6 +1958,6 @@ class Settings
         $grok = new \PostPilotAI\AI\Grok($decrypted_key);
         $result = $grok->validate_api_key($decrypted_key);
 
-        set_transient('postpilotai_grok_validation', $result, WEEK_IN_SECONDS);
+        set_transient('nexipilot_grok_validation', $result, WEEK_IN_SECONDS);
     }
 }

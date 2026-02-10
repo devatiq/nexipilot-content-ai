@@ -17,22 +17,22 @@
     'use strict';
 
     $(document).ready(function() {
-        let faqIndex = $('.postpilotai-faq-item').length;
+        let faqIndex = $('.nexipilot-faq-item').length;
 
         // ========================================
         // ADD FAQ ITEM
         // ========================================
 
-        $(document).on('click', '.postpilotai-add-faq-item', function(e) {
+        $(document).on('click', '.nexipilot-add-faq-item', function(e) {
             e.preventDefault();
             
-            const template = $('#postpilotai-faq-item-template').html();
+            const template = $('#nexipilot-faq-item-template').html();
             const newItem = template
                 .replace(/\{\{INDEX\}\}/g, faqIndex)
                 .replace(/\{\{NUMBER\}\}/g, faqIndex + 1);
             
-            $('.postpilotai-faq-items').append(newItem);
-            $('.postpilotai-no-faqs').remove();
+            $('.nexipilot-faq-items').append(newItem);
+            $('.nexipilot-no-faqs').remove();
             faqIndex++;
         });
 
@@ -40,32 +40,32 @@
         // REMOVE FAQ ITEM
         // ========================================
 
-        $(document).on('click', '.postpilotai-remove-faq-item', function(e) {
+        $(document).on('click', '.nexipilot-remove-faq-item', function(e) {
             e.preventDefault();
             
-            const faqItem = $(this).closest('.postpilotai-faq-item');
+            const faqItem = $(this).closest('.nexipilot-faq-item');
             
             Swal.fire({
-                title: postpilotAdmin.i18n.confirmRemove,
+                title: nexipilotAdmin.i18n.confirmRemove,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: postpilotAdmin.i18n.removeButton,
-                cancelButtonText: postpilotAdmin.i18n.cancelButton
+                confirmButtonText: nexipilotAdmin.i18n.removeButton,
+                cancelButtonText: nexipilotAdmin.i18n.cancelButton
             }).then((result) => {
                 if (result.isConfirmed) {
                     faqItem.fadeOut(300, function() {
                         $(this).remove();
                         
                         // Show "no FAQs" message if all items removed
-                        if ($('.postpilotai-faq-item').length === 0) {
-                            $('.postpilotai-faq-items').html('<p class="postpilotai-no-faqs">No FAQs yet. Click "Generate FAQ" to create them automatically.</p>');
+                        if ($('.nexipilot-faq-item').length === 0) {
+                            $('.nexipilot-faq-items').html('<p class="nexipilot-no-faqs">No FAQs yet. Click "Generate FAQ" to create them automatically.</p>');
                         }
                         
                         // Renumber remaining items
-                        $('.postpilotai-faq-item').each(function(index) {
-                            $(this).find('.postpilotai-faq-item-number').text('FAQ #' + (index + 1));
+                        $('.nexipilot-faq-item').each(function(index) {
+                            $(this).find('.nexipilot-faq-item-number').text('FAQ #' + (index + 1));
                         });
                     });
                 }
@@ -76,7 +76,7 @@
         // GENERATE FAQ VIA AJAX
         // ========================================
 
-        $(document).on('click', '.postpilotai-generate-faq', function(e) {
+        $(document).on('click', '.nexipilot-generate-faq', function(e) {
             e.preventDefault();
             
             const button = $(this);
@@ -107,7 +107,7 @@
                 type: 'POST',
                 data: {
                     action: 'postpilotai_check_api_status',
-                    nonce: postpilotAdmin.generateFaqNonce
+                    nonce: nexipilotAdmin.generateFaqNonce
                 },
                 success: function(response) {
                     Swal.close();
@@ -122,7 +122,7 @@
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Yes, generate FAQ',
-                            cancelButtonText: postpilotAdmin.i18n.cancelButton
+                            cancelButtonText: nexipilotAdmin.i18n.cancelButton
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 generateFaqFromAI(button, postId);
@@ -134,13 +134,13 @@
                         
                         Swal.fire({
                             icon: 'warning',
-                            title: postpilotAdmin.i18n.quotaExceeded,
+                            title: nexipilotAdmin.i18n.quotaExceeded,
                             html: `<p>${errorMessage}</p><p>We can generate demo FAQ content instead. Do you want to continue?</p>`,
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: postpilotAdmin.i18n.useDemoButton,
-                            cancelButtonText: postpilotAdmin.i18n.cancelButton
+                            confirmButtonText: nexipilotAdmin.i18n.useDemoButton,
+                            cancelButtonText: nexipilotAdmin.i18n.cancelButton
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 generateDemoFaq(button, postId);
@@ -166,8 +166,8 @@
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: postpilotAdmin.i18n.useDemoButton,
-                        cancelButtonText: postpilotAdmin.i18n.cancelButton
+                        confirmButtonText: nexipilotAdmin.i18n.useDemoButton,
+                        cancelButtonText: nexipilotAdmin.i18n.cancelButton
                     }).then((result) => {
                         if (result.isConfirmed) {
                             generateDemoFaq(button, postId);
@@ -183,8 +183,8 @@
 
         function generateFaqFromAI(button, postId) {
             Swal.fire({
-                title: postpilotAdmin.i18n.generating,
-                text: postpilotAdmin.i18n.pleaseWait,
+                title: nexipilotAdmin.i18n.generating,
+                text: nexipilotAdmin.i18n.pleaseWait,
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 didOpen: () => {
@@ -197,14 +197,14 @@
                 type: 'POST',
                 data: {
                     action: 'postpilotai_generate_faq',
-                    nonce: postpilotAdmin.generateFaqNonce,
+                    nonce: nexipilotAdmin.generateFaqNonce,
                     post_id: postId
                 },
                 success: function(response) {
                     if (response.success) {
                         // Replace FAQ items with generated ones
-                        $('.postpilotai-faq-items').html(response.data.html);
-                        $('.postpilotai-no-faqs').remove();
+                        $('.nexipilot-faq-items').html(response.data.html);
+                        $('.nexipilot-no-faqs').remove();
                         
                         // Update button text
                         button.text('Regenerate FAQ');
@@ -215,7 +215,7 @@
                         // Show success message
                         Swal.fire({
                             icon: 'success',
-                            title: postpilotAdmin.i18n.success,
+                            title: nexipilotAdmin.i18n.success,
                             text: response.data.message,
                             timer: 3000,
                             showConfirmButton: false
@@ -225,9 +225,9 @@
                         if (response.data && response.data.rate_limited) {
                             Swal.fire({
                                 icon: 'warning',
-                                title: postpilotAdmin.i18n.rateLimitTitle || 'Rate Limit Reached',
+                                title: nexipilotAdmin.i18n.rateLimitTitle || 'Rate Limit Reached',
                                 text: response.data.message,
-                                confirmButtonText: postpilotAdmin.i18n.okButton || 'OK',
+                                confirmButtonText: nexipilotAdmin.i18n.okButton || 'OK',
                                 customClass: {
                                     confirmButton: 'swal2-confirm swal2-styled'
                                 }
@@ -245,8 +245,8 @@
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: postpilotAdmin.i18n.useDemoButton,
-                            cancelButtonText: postpilotAdmin.i18n.cancelButton
+                            confirmButtonText: nexipilotAdmin.i18n.useDemoButton,
+                            cancelButtonText: nexipilotAdmin.i18n.cancelButton
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 generateDemoFaq(button, postId);
@@ -257,7 +257,7 @@
                 error: function(xhr, status, error) {
                     Swal.fire({
                         icon: 'error',
-                        title: postpilotAdmin.i18n.error,
+                        title: nexipilotAdmin.i18n.error,
                         text: 'AJAX Error: ' + error
                     });
                 }
@@ -284,14 +284,14 @@
                 type: 'POST',
                 data: {
                     action: 'postpilotai_generate_demo_faq',
-                    nonce: postpilotAdmin.generateFaqNonce,
+                    nonce: nexipilotAdmin.generateFaqNonce,
                     post_id: postId
                 },
                 success: function(response) {
                     if (response.success) {
                         // Replace FAQ items with demo ones
-                        $('.postpilotai-faq-items').html(response.data.html);
-                        $('.postpilotai-no-faqs').remove();
+                        $('.nexipilot-faq-items').html(response.data.html);
+                        $('.nexipilot-no-faqs').remove();
                         
                         // Update button text
                         button.text('Regenerate FAQ');
@@ -302,14 +302,14 @@
                         // Show success message
                         Swal.fire({
                             icon: 'info',
-                            title: postpilotAdmin.i18n.demoAdded,
-                            text: postpilotAdmin.i18n.demoMessage,
+                            title: nexipilotAdmin.i18n.demoAdded,
+                            text: nexipilotAdmin.i18n.demoMessage,
                             confirmButtonText: 'OK'
                         });
                     } else {
                         Swal.fire({
                             icon: 'error',
-                            title: postpilotAdmin.i18n.error,
+                            title: nexipilotAdmin.i18n.error,
                             text: response.data.message
                         });
                     }
@@ -317,7 +317,7 @@
                 error: function(xhr, status, error) {
                     Swal.fire({
                         icon: 'error',
-                        title: postpilotAdmin.i18n.error,
+                        title: nexipilotAdmin.i18n.error,
                         text: 'AJAX Error: ' + error
                     });
                 }

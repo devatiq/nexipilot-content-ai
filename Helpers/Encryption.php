@@ -8,7 +8,7 @@
  * @since 1.0.0
  */
 
-namespace PostPilotAI\Helpers;
+namespace NexiPilot\Helpers;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -76,7 +76,7 @@ class Encryption
             // Combine IV and encrypted data, then base64 encode
             return base64_encode($iv . $encrypted);
         } catch (\Exception $e) {
-            if ('1' === get_option('postpilotai_enable_debug_logging', '')) {
+            if ('1' === get_option('nexipilot_enable_debug_logging', '')) {
                 Logger::error(
                     'PostPilot Encryption Error',
                     array(

@@ -4,11 +4,11 @@
  *
  * Handles plugin activation tasks.
  *
- * @package PostPilotAI\Inc
+ * @package NexiPilot\Inc
  * @since 1.0.0
  */
 
-namespace PostPilotAI;
+namespace NexiPilot;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
  * Handles all plugin activation tasks including setting default options
  * and checking system requirements.
  *
- * @package PostPilotAI\Inc
+ * @package NexiPilot\Inc
  * @since 1.0.0
  */
 class Activate
@@ -35,20 +35,20 @@ class Activate
     {
         // Check WordPress version
         if (version_compare(get_bloginfo('version'), '5.8', '<')) {
-            deactivate_plugins(plugin_basename(POSTPILOTAI_FILE));
+            deactivate_plugins(plugin_basename(NEXIPILOT_FILE));
             wp_die(
-                esc_html__('PostPilot AI requires WordPress 5.8 or higher.', 'postpilot-ai'),
-                esc_html__('Plugin Activation Error', 'postpilot-ai'),
+                esc_html__('NexiPilot Content AI requires WordPress 5.8 or higher.', 'nexipilot-content-ai'),
+                esc_html__('Plugin Activation Error', 'nexipilot-content-ai'),
                 array('back_link' => true)
             );
         }
 
         // Check PHP version
         if (version_compare(PHP_VERSION, '7.4', '<')) {
-            deactivate_plugins(plugin_basename(POSTPILOTAI_FILE));
+            deactivate_plugins(plugin_basename(NEXIPILOT_FILE));
             wp_die(
-                esc_html__('PostPilot AI requires PHP 7.4 or higher.', 'postpilot-ai'),
-                esc_html__('Plugin Activation Error', 'postpilot-ai'),
+                esc_html__('NexiPilot Content AI requires PHP 7.4 or higher.', 'nexipilot-content-ai'),
+                esc_html__('Plugin Activation Error', 'nexipilot-content-ai'),
                 array('back_link' => true)
             );
         }
@@ -70,17 +70,17 @@ class Activate
     {
 
         $default_options = array(
-            'postpilotai_ai_provider' => 'openai',
-            'postpilotai_openai_api_key' => '',
-            'postpilotai_claude_api_key' => '',
-            'postpilotai_enable_faq' => '1',
-            'postpilotai_enable_summary' => '1',
-            'postpilotai_enable_internal_links' => '1',
-            'postpilotai_enable_debug_logging' => '0', //  default off
-            'postpilotai_faq_position' => 'after_content',
-            'postpilotai_faq_default_layout' => 'accordion',
-            'postpilotai_summary_position' => 'before_content',
-            'postpilotai_version' => defined('POSTPILOTAI_VERSION') ? POSTPILOTAI_VERSION : '1.0.0',
+            'nexipilot_ai_provider' => 'openai',
+            'nexipilot_openai_api_key' => '',
+            'nexipilot_claude_api_key' => '',
+            'nexipilot_enable_faq' => '1',
+            'nexipilot_enable_summary' => '1',
+            'nexipilot_enable_internal_links' => '1',
+            'nexipilot_enable_debug_logging' => '0', //  default off
+            'nexipilot_faq_position' => 'after_content',
+            'nexipilot_faq_default_layout' => 'accordion',
+            'nexipilot_summary_position' => 'before_content',
+            'nexipilot_version' => defined('NEXIPILOT_VERSION') ? NEXIPILOT_VERSION : '1.0.0',
         );
 
         foreach ($default_options as $option_name => $option_value) {

@@ -1,5 +1,5 @@
 {
-  "name": "nexibyllc/postpilotai-ai",
+  "name": "nexibyllc/nexipilot-content-ai",
   "description": "AI-powered WordPress plugin for generating FAQs, content summaries, and smart internal links",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
@@ -12,11 +12,11 @@
   ],
   "autoload": {
     "psr-4": {
-      "PostPilotAI\\": "Inc/",
-      "PostPilotAI\\Admin\\": "Admin/",
-      "PostPilotAI\\Frontend\\": "Frontend/",
-      "PostPilotAI\\AI\\": "AI/",
-      "PostPilotAI\\Helpers\\": "Helpers/"
+      "NexiPilot\\": "Inc/",
+      "NexiPilot\\Admin\\": "Admin/",
+      "NexiPilot\\Frontend\\": "Frontend/",
+      "NexiPilot\\AI\\": "AI/",
+      "NexiPilot\\Helpers\\": "Helpers/"
     }
   },
   "require": {
@@ -31,7 +31,7 @@
   "scripts": {
     "lint:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
     "lint:php": "@php ./vendor/bin/parallel-lint .",
-    "make-pot": "wp i18n make-pot . languages/postpilot.pot",
+    "make-pot": "wp i18n make-pot . languages/nexipilot-content-ai.pot",
     "lint:autofix": "vendor/bin/phpcbf"
   },
   "config": {

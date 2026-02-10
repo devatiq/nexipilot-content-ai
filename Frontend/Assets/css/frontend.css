@@ -1,7 +1,7 @@
 /* PostPilot Frontend Styles */
 
 /* Summary Styles */
-.postpilotai-summary {
+.nexipilot-summary {
     background: #f0f6fc;
     border-left: 4px solid #0969da;
     padding: 16px 20px;
@@ -11,18 +11,18 @@
     line-height: 1.6;
 }
 
-.postpilotai-summary-content {
+.nexipilot-summary-content {
     color: #24292f;
 }
 
-.postpilotai-summary-content strong {
+.nexipilot-summary-content strong {
     color: #0969da;
     font-weight: 600;
     margin-right: 8px;
 }
 
 /* FAQ Styles */
-.postpilotai-faq {
+.nexipilot-faq {
     margin: 40px 0;
     padding: 30px;
     background: #ffffff;
@@ -30,7 +30,7 @@
     border-radius: 8px;
 }
 
-.postpilotai-faq-title {
+.nexipilot-faq-title {
     font-size: 24px;
     font-weight: 700;
     color: #24292f;
@@ -39,25 +39,25 @@
     border-bottom: 2px solid #0969da;
 }
 
-.postpilotai-faq-items {
+.nexipilot-faq-items {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.postpilotai-faq-item {
+.nexipilot-faq-item {
     padding: 20px;
     background: #f6f8fa;
     border-radius: 6px;
     transition: all 0.3s ease;
 }
 
-.postpilotai-faq-item:hover {
+.nexipilot-faq-item:hover {
     background: #eef2f7;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.postpilotai-faq-question {
+.nexipilot-faq-question {
     font-size: 18px;
     font-weight: 600;
     color: #0969da;
@@ -65,111 +65,111 @@
     line-height: 1.4;
 }
 
-.postpilotai-faq-answer {
+.nexipilot-faq-answer {
     font-size: 15px;
     color: #57606a;
     line-height: 1.6;
     margin: 0;
 }
 
-.postpilotai-faq-answer p {
+.nexipilot-faq-answer p {
     margin: 0 0 10px 0;
 }
 
-.postpilotai-faq-answer p:last-child {
+.nexipilot-faq-answer p:last-child {
     margin-bottom: 0;
 }
 
 /* Internal Links Styles */
-.postpilotai-internal-link {
+.nexipilot-internal-link {
     color: #0969da;
     text-decoration: none;
     border-bottom: 1px dotted #0969da;
     transition: all 0.2s ease;
 }
 
-.postpilotai-internal-link:hover {
+.nexipilot-internal-link:hover {
     color: #0550ae;
     border-bottom-style: solid;
 }
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
-    .postpilotai-summary {
+    .nexipilot-summary {
         padding: 14px 16px;
         font-size: 14px;
     }
 
-    .postpilotai-faq {
+    .nexipilot-faq {
         padding: 20px 16px;
         margin: 30px 0;
     }
 
-    .postpilotai-faq-title {
+    .nexipilot-faq-title {
         font-size: 20px;
         margin-bottom: 20px;
     }
 
-    .postpilotai-faq-item {
+    .nexipilot-faq-item {
         padding: 16px;
     }
 
-    .postpilotai-faq-question {
+    .nexipilot-faq-question {
         font-size: 16px;
     }
 
-    .postpilotai-faq-answer {
+    .nexipilot-faq-answer {
         font-size: 14px;
     }
 }
 
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
-    .postpilotai-summary {
+    .nexipilot-summary {
         background: #161b22;
         border-left-color: #58a6ff;
     }
 
-    .postpilotai-summary-content {
+    .nexipilot-summary-content {
         color: #c9d1d9;
     }
 
-    .postpilotai-summary-content strong {
+    .nexipilot-summary-content strong {
         color: #58a6ff;
     }
 
-    .postpilotai-faq {
+    .nexipilot-faq {
         background: #0d1117;
         border-color: #30363d;
     }
 
-    .postpilotai-faq-title {
+    .nexipilot-faq-title {
         color: #c9d1d9;
         border-bottom-color: #58a6ff;
     }
 
-    .postpilotai-faq-item {
+    .nexipilot-faq-item {
         background: #161b22;
     }
 
-    .postpilotai-faq-item:hover {
+    .nexipilot-faq-item:hover {
         background: #1c2128;
     }
 
-    .postpilotai-faq-question {
+    .nexipilot-faq-question {
         color: #58a6ff;
     }
 
-    .postpilotai-faq-answer {
+    .nexipilot-faq-answer {
         color: #8b949e;
     }
 
-    .postpilotai-internal-link {
+    .nexipilot-internal-link {
         color: #58a6ff;
         border-bottom-color: #58a6ff;
     }
 
-    .postpilotai-internal-link:hover {
+    .nexipilot-internal-link:hover {
         color: #79c0ff;
     }
 }

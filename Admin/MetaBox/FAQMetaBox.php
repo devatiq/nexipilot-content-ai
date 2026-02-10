@@ -4,26 +4,26 @@
  *
  * Handles FAQ meta box in post editor.
  *
- * @package PostPilotAI\Admin\MetaBox
+ * @package NexiPilot\Admin\MetaBox
  * @since 1.0.0
  */
 
-namespace PostPilotAI\Admin\MetaBox;
+namespace NexiPilot\Admin\MetaBox;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilotAI\AI\Manager as AIManager;
-use PostPilotAI\Helpers\Sanitizer;
-use PostPilotAI\Helpers\Logger;
+use NexiPilot\AI\Manager as AIManager;
+use NexiPilot\Helpers\Sanitizer;
+use NexiPilot\Helpers\Logger;
 
 /**
  * FAQ Meta Box Class
  *
  * Manages FAQ generation, editing, and display in post editor.
  *
- * @package PostPilotAI\Admin\MetaBox
+ * @package NexiPilot\Admin\MetaBox
  * @since 1.0.0
  */
 class FAQMetaBox
@@ -56,9 +56,9 @@ class FAQMetaBox
     {
         add_action('add_meta_boxes', array($this, 'register_meta_box'));
         add_action('save_post', array($this, 'save_meta_box'), 10, 2);
-        add_action('wp_ajax_postpilotai_generate_faq', array($this, 'ajax_generate_faq'));
-        add_action('wp_ajax_postpilotai_generate_demo_faq', array($this, 'ajax_generate_demo_faq'));
-        add_action('wp_ajax_postpilotai_check_api_status', array($this, 'ajax_check_api_status'));
+        add_action('wp_ajax_nexipilot_generate_faq', array($this, 'ajax_generate_faq'));
+        add_action('wp_ajax_nexipilot_generate_demo_faq', array($this, 'ajax_generate_demo_faq'));
+        add_action('wp_ajax_nexipilot_check_api_status', array($this, 'ajax_check_api_status'));
     }
 
     /**
@@ -70,8 +70,8 @@ class FAQMetaBox
     public function register_meta_box()
     {
         add_meta_box(
-            'postpilotai_faq_metabox',
-            __('PostPilot AI - FAQ Generator', 'postpilot-ai'),
+            'nexipilot_faq_metabox',
+            __('NexiPilot Content AI - FAQ Generator', 'nexipilot-content-ai'),
             array($this, 'render_meta_box'),
             'post',
             'normal',
@@ -89,11 +89,11 @@ class FAQMetaBox
     public function render_meta_box($post)
     {
         // Add nonce for security
-        wp_nonce_field('postpilotai_faq_metabox', 'postpilotai_faq_nonce');
+        wp_nonce_field('nexipilot_faq_metabox', 'nexipilot_faq_nonce');
 
         // Get saved data
-        $faq_enabled = get_post_meta($post->ID, '_postpilotai_faq_enabled', true);
-        $faqs = get_post_meta($post->ID, '_postpilotai_faqs', true);
+        $faq_enabled = get_post_meta($post->ID, '_nexipilot_faq_enabled', true);
+        $faqs = get_post_meta($post->ID, '_nexipilot_faqs', true);
 
         // Default to enabled if not set
         if ($faq_enabled === '') {
@@ -106,19 +106,19 @@ class FAQMetaBox
             <!-- Enable/Disable FAQ -->
             <div class="postpilotai-faq-enable">
                 <label>
-                    <input type="checkbox" name="postpilotai_faq_enabled" value="1" <?php checked($faq_enabled, '1'); ?> />
-                    <strong><?php esc_html_e('Display FAQ on this post?', 'postpilot-ai'); ?></strong>
+                    <input type="checkbox" name="nexipilot_faq_enabled" value="1" <?php checked($faq_enabled, '1'); ?> />
+                    <strong><?php esc_html_e('Display FAQ on this post?', 'nexipilot-content-ai'); ?></strong>
                 </label>
                 <p class="description">
-                    <?php esc_html_e('Check this to show AI-generated FAQs on the frontend.', 'postpilot-ai'); ?>
+                    <?php esc_html_e('Check this to show AI-generated FAQs on the frontend.', 'nexipilot-content-ai'); ?>
                 </p>
             </div>
 
             <!-- FAQ Display Style -->
             <div class="postpilotai-faq-layout" style="margin-top: 15px;">
                 <?php
-                $faq_display_style = get_post_meta($post->ID, '_postpilotai_faq_display_style', true);
-                $global_default = get_option('postpilotai_faq_default_layout', 'accordion');
+                $faq_display_style = get_post_meta($post->ID, '_nexipilot_faq_display_style', true);
+                $global_default = get_option('nexipilot_faq_default_layout', 'accordion');
                 $global_default_label = ucfirst($global_default);
 
                 // Set default value if empty
@@ -126,38 +126,38 @@ class FAQMetaBox
                     $faq_display_style = 'default';
                 }
                 ?>
-                <label for="postpilotai_faq_display_style" style="display: block; margin-bottom: 8px;">
-                    <strong><?php esc_html_e('FAQ Display Style:', 'postpilot-ai'); ?></strong>
+                <label for="nexipilot_faq_display_style" style="display: block; margin-bottom: 8px;">
+                    <strong><?php esc_html_e('FAQ Display Style:', 'nexipilot-content-ai'); ?></strong>
                 </label>
-                <select name="postpilotai_faq_display_style" id="postpilotai_faq_display_style"
+                <select name="nexipilot_faq_display_style" id="nexipilot_faq_display_style"
                     style="width: 100%; max-width: 300px;">
                     <option value="default" <?php selected($faq_display_style, 'default'); ?>>
                         <?php
                         printf(
                             /* translators: %s: current global default layout */
-                            esc_html__('Use Default (%s)', 'postpilot-ai'),
+                            esc_html__('Use Default (%s)', 'nexipilot-content-ai'),
                             esc_html($global_default_label)
                         );
                         ?>
                     </option>
                     <option value="accordion" <?php selected($faq_display_style, 'accordion'); ?>>
-                        <?php esc_html_e('Accordion', 'postpilot-ai'); ?>
+                        <?php esc_html_e('Accordion', 'nexipilot-content-ai'); ?>
                     </option>
                     <option value="static" <?php selected($faq_display_style, 'static'); ?>>
-                        <?php esc_html_e('Static', 'postpilot-ai'); ?>
+                        <?php esc_html_e('Static', 'nexipilot-content-ai'); ?>
                     </option>
                 </select>
                 <p class="description" style="margin-top: 5px;">
-                    <?php esc_html_e('Choose how FAQs should be displayed on the frontend.', 'postpilot-ai'); ?>
+                    <?php esc_html_e('Choose how FAQs should be displayed on the frontend.', 'nexipilot-content-ai'); ?>
                 </p>
             </div>
 
             <!-- FAQ Repeater Fields -->
             <div class="postpilotai-faq-fields" style="margin-top: 20px;">
                 <div class="postpilotai-faq-header">
-                    <h4><?php esc_html_e('FAQ Items', 'postpilot-ai'); ?></h4>
+                    <h4><?php esc_html_e('FAQ Items', 'nexipilot-content-ai'); ?></h4>
                     <button type="button" class="button button-secondary postpilotai-add-faq-item">
-                        <?php esc_html_e('+ Add FAQ Item', 'postpilot-ai'); ?>
+                        <?php esc_html_e('+ Add FAQ Item', 'nexipilot-content-ai'); ?>
                     </button>
                 </div>
 
@@ -168,7 +168,7 @@ class FAQMetaBox
                             $this->render_faq_item($index, $faq);
                         }
                     } else {
-                        echo '<p class="postpilotai-no-faqs">' . esc_html__('No FAQs yet. Click "Generate FAQ" to create them automatically.', 'postpilot-ai') . '</p>';
+                        echo '<p class="postpilotai-no-faqs">' . esc_html__('No FAQs yet. Click "Generate FAQ" to create them automatically.', 'nexipilot-content-ai') . '</p>';
                     }
                     ?>
                 </div>
@@ -178,11 +178,11 @@ class FAQMetaBox
             <div class="postpilotai-faq-actions" style="margin-top: 20px;">
                 <button type="button" class="button button-primary postpilotai-generate-faq"
                     data-post-id="<?php echo esc_attr($post->ID); ?>">
-                    <?php echo $has_faqs ? esc_html__('Regenerate FAQ', 'postpilot-ai') : esc_html__('Generate FAQ', 'postpilot-ai'); ?>
+                    <?php echo $has_faqs ? esc_html__('Regenerate FAQ', 'nexipilot-content-ai') : esc_html__('Generate FAQ', 'nexipilot-content-ai'); ?>
                 </button>
                 <span class="spinner"></span>
                 <p class="description">
-                    <?php esc_html_e('Generate FAQs using AI based on your post content.', 'postpilot-ai'); ?>
+                    <?php esc_html_e('Generate FAQs using AI based on your post content.', 'nexipilot-content-ai'); ?>
                 </p>
             </div>
         </div>
@@ -213,7 +213,7 @@ class FAQMetaBox
                     <?php
                     echo sprintf(
                         /* translators: %1$s: FAQ item number */
-                        esc_html__('FAQ #%1$s', 'postpilot-ai'),
+                        esc_html__('FAQ #%1$s', 'nexipilot-content-ai'),
                         esc_html(
                             is_numeric($index)
                             ? (string) ($index + 1)
@@ -223,21 +223,21 @@ class FAQMetaBox
                     ?>
                 </span>
                 <button type="button" class="button-link postpilotai-remove-faq-item"
-                    title="<?php esc_attr_e('Remove this FAQ', 'postpilot-ai'); ?>">
+                    title="<?php esc_attr_e('Remove this FAQ', 'nexipilot-content-ai'); ?>">
                     <span class="dashicons dashicons-trash"></span>
                 </button>
             </div>
             <div class="postpilotai-faq-item-fields">
                 <div class="postpilotai-faq-field">
-                    <label><?php esc_html_e('Question:', 'postpilot-ai'); ?></label>
-                    <input type="text" name="postpilotai_faqs[<?php echo esc_attr($index); ?>][question]"
+                    <label><?php esc_html_e('Question:', 'nexipilot-content-ai'); ?></label>
+                    <input type="text" name="nexipilot_faqs[<?php echo esc_attr($index); ?>][question]"
                         value="<?php echo esc_attr($question); ?>" class="widefat"
-                        placeholder="<?php esc_attr_e('Enter question...', 'postpilot-ai'); ?>" />
+                        placeholder="<?php esc_attr_e('Enter question...', 'nexipilot-content-ai'); ?>" />
                 </div>
                 <div class="postpilotai-faq-field">
-                    <label><?php esc_html_e('Answer:', 'postpilot-ai'); ?></label>
-                    <textarea name="postpilotai_faqs[<?php echo esc_attr($index); ?>][answer]" class="widefat" rows="3"
-                        placeholder="<?php esc_attr_e('Enter answer...', 'postpilot-ai'); ?>"><?php echo esc_textarea($answer); ?></textarea>
+                    <label><?php esc_html_e('Answer:', 'nexipilot-content-ai'); ?></label>
+                    <textarea name="nexipilot_faqs[<?php echo esc_attr($index); ?>][answer]" class="widefat" rows="3"
+                        placeholder="<?php esc_attr_e('Enter answer...', 'nexipilot-content-ai'); ?>"><?php echo esc_textarea($answer); ?></textarea>
                 </div>
             </div>
         </div>
@@ -257,10 +257,10 @@ class FAQMetaBox
 
         // Security checks
         if (
-            !isset($_POST['postpilotai_faq_nonce']) ||
+            !isset($_POST['nexipilot_faq_nonce']) ||
             !wp_verify_nonce(
-                sanitize_text_field(wp_unslash($_POST['postpilotai_faq_nonce'])),
-                'postpilotai_faq_metabox'
+                sanitize_text_field(wp_unslash($_POST['nexipilot_faq_nonce'])),
+                'nexipilot_faq_metabox'
             )
         ) {
             return;
@@ -276,22 +276,22 @@ class FAQMetaBox
         }
 
         // Save enabled status
-        $faq_enabled = isset($_POST['postpilotai_faq_enabled']) ? '1' : '0';
-        update_post_meta($post_id, '_postpilotai_faq_enabled', $faq_enabled);
+        $faq_enabled = isset($_POST['nexipilot_faq_enabled']) ? '1' : '0';
+        update_post_meta($post_id, '_nexipilot_faq_enabled', $faq_enabled);
 
         // Save FAQ display style
-        if (isset($_POST['postpilotai_faq_display_style'])) {
-            $display_style = sanitize_text_field(wp_unslash($_POST['postpilotai_faq_display_style']));
+        if (isset($_POST['nexipilot_faq_display_style'])) {
+            $display_style = sanitize_text_field(wp_unslash($_POST['nexipilot_faq_display_style']));
             // Validate the value
             $allowed_styles = array('default', 'accordion', 'static');
             if (in_array($display_style, $allowed_styles, true)) {
-                update_post_meta($post_id, '_postpilotai_faq_display_style', $display_style);
+                update_post_meta($post_id, '_nexipilot_faq_display_style', $display_style);
             }
         }
 
         // Save FAQ items
-        $raw_faqs = isset($_POST['postpilotai_faqs'])
-            ? wp_unslash($_POST['postpilotai_faqs']) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized field-by-field below.
+        $raw_faqs = isset($_POST['nexipilot_faqs'])
+            ? wp_unslash($_POST['nexipilot_faqs']) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized field-by-field below.
             : array();
         if (is_array($raw_faqs)) {
             $faqs = array();
@@ -309,10 +309,10 @@ class FAQMetaBox
                 }
             }
 
-            update_post_meta($post_id, '_postpilotai_faqs', $faqs);
+            update_post_meta($post_id, '_nexipilot_faqs', $faqs);
         } else {
             // If no FAQs submitted, check if we should auto-generate
-            $existing_faqs = get_post_meta($post_id, '_postpilotai_faqs', true);
+            $existing_faqs = get_post_meta($post_id, '_nexipilot_faqs', true);
 
             // Auto-generate only if: enabled, no existing FAQs, and post is published
             if ($faq_enabled === '1' && empty($existing_faqs) && $post->post_status === 'publish') {
@@ -334,7 +334,7 @@ class FAQMetaBox
         $faq_data = $this->ai_manager->get_faq($post_id, $content);
 
         if (!is_wp_error($faq_data) && !empty($faq_data)) {
-            update_post_meta($post_id, '_postpilotai_faqs', $faq_data);
+            update_post_meta($post_id, '_nexipilot_faqs', $faq_data);
             Logger::info('FAQ auto-generated on publish', array('post_id' => $post_id));
         }
     }
@@ -348,14 +348,14 @@ class FAQMetaBox
     public function ajax_generate_faq()
     {
         // Security checks
-        check_ajax_referer('postpilotai_generate_faq', 'nonce');
+        check_ajax_referer('nexipilot_generate_faq', 'nonce');
 
         $post_id = isset($_POST['post_id']) ? absint($_POST['post_id']) : 0;
         $user_id = get_current_user_id();
 
         if (!$post_id || !current_user_can('edit_post', $post_id)) {
             wp_send_json_error(array(
-                'message' => esc_html__('Permission denied.', 'postpilot-ai'),
+                'message' => esc_html__('Permission denied.', 'nexipilot-content-ai'),
             ));
         }
 
@@ -371,7 +371,7 @@ class FAQMetaBox
                     /* translators: %1$s: remaining wait time before FAQ generation is allowed again */
                     esc_html__(
                         'You have generated FAQ for this post recently. Please wait %1$s before trying again.',
-                        'postpilot-ai'
+                        'nexipilot-content-ai'
                     ),
                     human_time_diff(time(), time() + $wait_time)
                 );
@@ -380,7 +380,7 @@ class FAQMetaBox
                     /* translators: %1$d: maximum number of FAQ generations allowed per day */
                     esc_html__(
                         'You have reached your daily FAQ generation limit (%1$d per day). Please try again tomorrow.',
-                        'postpilot-ai'
+                        'nexipilot-content-ai'
                     ),
                     \PostPilotAI\Helpers\RateLimiter::get_daily_limit()
                 );
@@ -399,7 +399,7 @@ class FAQMetaBox
 
         if (!$post) {
             wp_send_json_error(array(
-                'message' => esc_html__('Post not found.', 'postpilot-ai'),
+                'message' => esc_html__('Post not found.', 'nexipilot-content-ai'),
             ));
         }
 
@@ -427,7 +427,7 @@ class FAQMetaBox
         \PostPilotAI\Helpers\RateLimiter::record_generation($user_id, $post_id);
 
         // Save to post meta
-        update_post_meta($post_id, '_postpilotai_faqs', $faq_data);
+        update_post_meta($post_id, '_nexipilot_faqs', $faq_data);
 
         Logger::debug('FAQ AJAX: Data saved to post meta', array(
             'post_id' => $post_id,
@@ -442,7 +442,7 @@ class FAQMetaBox
         $html = ob_get_clean();
 
         wp_send_json_success(array(
-            'message' => esc_html__('FAQ generated successfully!', 'postpilot-ai'),
+            'message' => esc_html__('FAQ generated successfully!', 'nexipilot-content-ai'),
             'html' => $html,
             'count' => count($faq_data),
         ));
@@ -457,14 +457,14 @@ class FAQMetaBox
     public function ajax_generate_demo_faq()
     {
         // Security checks
-        check_ajax_referer('postpilotai_generate_faq', 'nonce');
+        check_ajax_referer('nexipilot_generate_faq', 'nonce');
 
         $post_id = isset($_POST['post_id']) ? absint($_POST['post_id']) : 0;
         $user_id = get_current_user_id();
 
         if (!$post_id || !current_user_can('edit_post', $post_id)) {
             wp_send_json_error(array(
-                'message' => esc_html__('Permission denied.', 'postpilot-ai'),
+                'message' => esc_html__('Permission denied.', 'nexipilot-content-ai'),
             ));
         }
 
@@ -481,7 +481,7 @@ class FAQMetaBox
                     /* translators: %1$s: remaining wait time before FAQ generation is allowed again */
                     esc_html__(
                         'You have generated FAQ for this post recently. Please wait %1$s before trying again.',
-                        'postpilot-ai'
+                        'nexipilot-content-ai'
                     ),
                     human_time_diff(time(), time() + $wait_time)
                 );
@@ -492,7 +492,7 @@ class FAQMetaBox
                     /* translators: %1$d: maximum number of FAQ generations allowed per day */
                     esc_html__(
                         'You have reached your daily FAQ generation limit (%1$d per day). Please try again tomorrow.',
-                        'postpilot-ai'
+                        'nexipilot-content-ai'
                     ),
                     \PostPilotAI\Helpers\RateLimiter::get_daily_limit()
                 );
@@ -514,7 +514,7 @@ class FAQMetaBox
         \PostPilotAI\Helpers\RateLimiter::record_generation($user_id, $post_id);
 
         // Save to post meta
-        update_post_meta($post_id, '_postpilotai_faqs', $demo_faq);
+        update_post_meta($post_id, '_nexipilot_faqs', $demo_faq);
 
         // Return HTML for FAQ items
         ob_start();
@@ -524,7 +524,7 @@ class FAQMetaBox
         $html = ob_get_clean();
 
         wp_send_json_success(array(
-            'message' => esc_html__('Demo FAQ added successfully!', 'postpilot-ai'),
+            'message' => esc_html__('Demo FAQ added successfully!', 'nexipilot-content-ai'),
             'html' => $html,
             'count' => count($demo_faq),
         ));
@@ -540,12 +540,12 @@ class FAQMetaBox
     {
         try {
             // Security checks
-            check_ajax_referer('postpilotai_generate_faq', 'nonce');
+            check_ajax_referer('nexipilot_generate_faq', 'nonce');
 
             // Check if user has permission
             if (!current_user_can('edit_posts')) {
                 wp_send_json_error(array(
-                    'message' => esc_html__('Permission denied.', 'postpilot-ai'),
+                    'message' => esc_html__('Permission denied.', 'nexipilot-content-ai'),
                 ));
                 return;
             }
@@ -554,7 +554,7 @@ class FAQMetaBox
             if (!$this->ai_manager->is_provider_available()) {
                 wp_send_json_success(array(
                     'available' => false,
-                    'message' => esc_html__('AI service is not configured. Please add your API key in PostPilot settings.', 'postpilot-ai'),
+                    'message' => esc_html__('AI service is not configured. Please add your API key in PostPilot settings.', 'nexipilot-content-ai'),
                 ));
                 return;
             }
@@ -578,7 +578,7 @@ class FAQMetaBox
             // API is working fine
             wp_send_json_success(array(
                 'available' => true,
-                'message' => esc_html__('AI service is available.', 'postpilot-ai'),
+                'message' => esc_html__('AI service is available.', 'nexipilot-content-ai'),
             ));
 
         } catch (\Exception $e) {

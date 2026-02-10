@@ -4,11 +4,11 @@
  *
  * Provides sanitization utilities for the plugin.
  *
- * @package PostPilotAI\Helpers
+ * @package NexiPilot\Helpers
  * @since 1.0.0
  */
 
-namespace PostPilotAI\Helpers;
+namespace NexiPilot\Helpers;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
  *
  * Provides methods for sanitizing various types of input data.
  *
- * @package PostPilotAI\Helpers
+ * @package NexiPilot\Helpers
  * @since 1.0.0
  */
 class Sanitizer

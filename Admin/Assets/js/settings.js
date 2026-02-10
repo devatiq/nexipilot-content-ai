@@ -22,7 +22,7 @@
         // ========================================
 
         // Check if settings were just saved
-        if ($('.postpilotai-settings-wrap').data('settings-saved')) {
+        if ($('.nexipilot-settings-wrap').data('settings-saved')) {
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -33,7 +33,7 @@
                 background: '#fff',
                 iconColor: '#10b981',
                 customClass: {
-                    popup: 'postpilotai-toast'
+                    popup: 'nexipilot-toast'
                 }
             });
         }
@@ -45,11 +45,11 @@
         // Tab switching function
         function switchTab(tabName) {
             // Remove active class from all tabs and tab contents
-            $('.postpilotai-tab').removeClass('active');
-            $('.postpilotai-tab-content').removeClass('active');
+            $('.nexipilot-tab').removeClass('active');
+            $('.nexipilot-tab-content').removeClass('active');
 
             // Add active class to clicked tab and corresponding content
-            $('.postpilotai-tab[data-tab="' + tabName + '"]').addClass('active');
+            $('.nexipilot-tab[data-tab="' + tabName + '"]').addClass('active');
             $('#' + tabName + '-tab').addClass('active');
 
             // Save active tab to localStorage
@@ -61,7 +61,7 @@
         switchTab(lastActiveTab);
 
         // Handle tab clicks
-        $('.postpilotai-tab').on('click', function () {
+        $('.nexipilot-tab').on('click', function () {
             const tabName = $(this).data('tab');
             switchTab(tabName);
         });
@@ -174,7 +174,7 @@
         // Update model display when feature provider changes
         function updateFeatureModelDisplay(featureName, provider) {
             const modelDisplayId = '#' + featureName + '-model-display';
-            const modelBadge = $(modelDisplayId + ' .postpilotai-badge');
+            const modelBadge = $(modelDisplayId + ' .nexipilot-badge');
 
             // Get the model for the selected provider
             let modelValue = '';

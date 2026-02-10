@@ -4,25 +4,25 @@
  *
  * OpenAI/ChatGPT provider implementation.
  *
- * @package PostPilotAI\AI
+ * @package NexiPilot\AI
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 
-namespace PostPilotAI\AI;
+namespace NexiPilot\AI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilotAI\Helpers\Logger;
+use NexiPilot\Helpers\Logger;
 
 /**
  * OpenAI Provider Class
  *
  * Implements the ProviderInterface for OpenAI/ChatGPT.
  *
- * @package PostPilotAI\AI
+ * @package NexiPilot\AI
  * @since 1.0.0
  */
 class OpenAI implements ProviderInterface
@@ -88,7 +88,7 @@ class OpenAI implements ProviderInterface
             // If not valid JSON, create a simple structure
             return array(
                 array(
-                    'question' => __('What is this content about?', 'postpilot-ai'),
+                    'question' => __('What is this content about?', 'nexipilot-content-ai'),
                     'answer' => $response,
                 ),
             );
@@ -187,7 +187,7 @@ class OpenAI implements ProviderInterface
 
         return new \WP_Error(
             'invalid_api_key',
-            __('Invalid OpenAI API key.', 'postpilot-ai')
+            __('Invalid OpenAI API key.', 'nexipilot-content-ai')
         );
     }
 
@@ -203,7 +203,7 @@ class OpenAI implements ProviderInterface
         if (empty($this->api_key)) {
             return new \WP_Error(
                 'missing_api_key',
-                __('OpenAI API key is not configured.', 'postpilot-ai')
+                __('OpenAI API key is not configured.', 'nexipilot-content-ai')
             );
         }
 
@@ -247,19 +247,19 @@ class OpenAI implements ProviderInterface
             if ($error_type === 'insufficient_quota' || $error_code === 429) {
                 return new \WP_Error(
                     'openai_quota_exceeded',
-                    __('OpenAI quota exceeded. Please add credits to your OpenAI account at platform.openai.com/account/billing', 'postpilot-ai')
+                    __('OpenAI quota exceeded. Please add credits to your OpenAI account at platform.openai.com/account/billing', 'nexipilot-content-ai')
                 );
             } elseif ($error_code === 401) {
                 return new \WP_Error(
                     'openai_invalid_key',
-                    __('Invalid OpenAI API key. Please check your API key in PostPilot settings.', 'postpilot-ai')
+                    __('Invalid OpenAI API key. Please check your API key in PostPilot settings.', 'nexipilot-content-ai')
                 );
             } else {
                 return new \WP_Error(
                     'openai_api_error',
                     sprintf(
                         /* translators: 1: OpenAI API error code, 2: OpenAI API error message */
-                        __('OpenAI API error (Code: %1$d): %2$s', 'postpilot-ai'),
+                        __('OpenAI API error (Code: %1$d): %2$s', 'nexipilot-content-ai'),
                         $error_code,
                         $error_message
                     )
@@ -278,7 +278,7 @@ class OpenAI implements ProviderInterface
 
         return new \WP_Error(
             'invalid_response',
-            __('Invalid response from OpenAI API.', 'postpilot-ai')
+            __('Invalid response from OpenAI API.', 'nexipilot-content-ai')
         );
     }
 }

@@ -1,10 +1,10 @@
-# PostPilot AI
+# NexiPilot Content AI
 
 AI-powered WordPress plugin that generates FAQs, content summaries, and smart internal links for your posts.
 
 ## Description
 
-PostPilot AI enhances your WordPress content with AI-generated features:
+NexiPilot Content AI enhances your WordPress content with AI-generated features:
 
 - **FAQ Generator**: Automatically creates relevant frequently asked questions with answers
 - **Content Summary**: Generates concise, engaging summaries of your posts
@@ -29,9 +29,9 @@ PostPilot AI enhances your WordPress content with AI-generated features:
 
 ## Installation
 
-1. Upload the `postpilot` folder to the `/wp-content/plugins/` directory
+1. Upload the `nexipilot-content-ai` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to **PostPilot AI** in the admin menu
+3. Go to **NexiPilot Content AI** in the admin menu
 4. Configure your AI provider and enter your API key
 5. Enable the features you want to use
 
@@ -55,7 +55,7 @@ PostPilot AI enhances your WordPress content with AI-generated features:
 
 ## Usage
 
-Once configured, PostPilot AI automatically processes your published posts and adds the enabled features. The content is cached for 24 hours to optimize performance and reduce API costs.
+Once configured, NexiPilot Content AI automatically processes your published posts and adds the enabled features. The content is cached for 24 hours to optimize performance and reduce API costs.
 
 ### Clearing Cache
 
@@ -63,23 +63,23 @@ The cache is automatically cleared when you update a post. You can also manually
 
 ## Hooks & Filters
 
-PostPilot AI is built with extensibility in mind. Use these filters to customize output:
+NexiPilot Content AI is built with extensibility in mind. Use these filters to customize output:
 
 ```php
 // Customize FAQ output
-add_filter('postpilotai_faq_output', function($output, $post_id, $faq_data) {
+add_filter('nexipilot_faq_output', function($output, $post_id, $faq_data) {
     // Modify $output
     return $output;
 }, 10, 3);
 
 // Customize summary output
-add_filter('postpilotai_summary_output', function($output, $post_id, $summary_text) {
+add_filter('nexipilot_summary_output', function($output, $post_id, $summary_text) {
     // Modify $output
     return $output;
 }, 10, 3);
 
 // Customize internal links output
-add_filter('postpilotai_internal_links_output', function($content, $post_id, $link_suggestions) {
+add_filter('nexipilot_internal_links_output', function($content, $post_id, $link_suggestions) {
     // Modify $content
     return $content;
 }, 10, 3);
@@ -90,7 +90,7 @@ add_filter('postpilotai_internal_links_output', function($content, $post_id, $li
 ### Folder Structure
 
 ```
-postpilot/
+nexipilot-content-ai/
 ├── Admin/              # Admin dashboard components
 ├── AI/                 # AI provider implementations
 ├── Frontend/           # Frontend content injection
@@ -119,8 +119,8 @@ composer run make-pot
 
 For issues, questions, or contributions:
 
-- **GitHub**: [https://github.com/devatiq/postpilot](https://github.com/devatiq/postpilot)
-- **Issues**: [https://github.com/devatiq/postpilot/issues](https://github.com/devatiq/postpilot/issues)
+- **GitHub**: [https://github.com/devatiq/nexipilot-content-ai](https://github.com/devatiq/nexipilot-content-ai)
+- **Issues**: [https://github.com/devatiq/nexipilot-content-ai/issues](https://github.com/devatiq/nexipilot-content-ai/issues)
 
 ## License
 

@@ -5,24 +5,24 @@
  * This file contains the FrontendManager class, which is responsible for handling the
  * initialization and configuration of the PostPilot Frontend.
  *
- * @package PostPilotAI\Frontend
+ * @package NexiPilot\Frontend
  * @since 1.0.0
  */
 
-namespace PostPilotAI\Frontend;
+namespace NexiPilot\Frontend;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilotAI\Frontend\Assets\Assets;
+use NexiPilot\Frontend\Assets\Assets;
 
 /**
  * Class FrontendManager
  *
  * Handles the initialization and configuration of the PostPilot Frontend.
  *
- * @package PostPilotAI\Frontend
+ * @package NexiPilot\Frontend
  * @since 1.0.0
  */
 class FrontendManager
@@ -60,7 +60,7 @@ class FrontendManager
      */
     public function set_constants()
     {
-        define('POSTPILOTAI_FRONTEND_ASSETS', plugin_dir_url(__FILE__) . 'Assets');
+        define('NEXIPILOT_FRONTEND_ASSETS', plugin_dir_url(__FILE__) . 'Assets');
     }
 
     /**

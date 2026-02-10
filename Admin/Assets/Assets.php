@@ -4,11 +4,11 @@
  *
  * Handles admin assets enqueuing.
  *
- * @package PostPilotAI\Admin\Assets
+ * @package NexiPilot\Admin\Assets
  * @since 1.0.0
  */
 
-namespace PostPilotAI\Admin\Assets;
+namespace NexiPilot\Admin\Assets;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
  *
  * Handles the enqueuing of admin CSS and JavaScript files.
  *
- * @package PostPilotAI\Admin\Assets
+ * @package NexiPilot\Admin\Assets
  * @since 1.0.0
  */
 class Assets
@@ -49,9 +49,9 @@ class Assets
         if ('toplevel_page_postpilotai-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_style(
                 'postpilotai-admin-style',
-                POSTPILOTAI_ADMIN_ASSETS . '/css/admin.css',
+                NEXIPILOT_ADMIN_ASSETS . '/css/admin.css',
                 array(),
-                POSTPILOTAI_VERSION
+                NEXIPILOT_VERSION
             );
         }
     }
@@ -69,7 +69,7 @@ class Assets
         if ('toplevel_page_postpilotai-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_script(
                 'sweetalert2',
-                POSTPILOTAI_ADMIN_ASSETS . '/js/sweetalert2.js',
+                NEXIPILOT_ADMIN_ASSETS . '/js/sweetalert2.js',
                 array(),
                 '11.0.0',
                 true
@@ -80,9 +80,9 @@ class Assets
         if ('toplevel_page_postpilotai-settings' === $hook_suffix) {
             wp_enqueue_script(
                 'postpilotai-settings-script',
-                POSTPILOTAI_ADMIN_ASSETS . '/js/settings.js',
+                NEXIPILOT_ADMIN_ASSETS . '/js/settings.js',
                 array('jquery', 'sweetalert2'),
-                POSTPILOTAI_VERSION,
+                NEXIPILOT_VERSION,
                 true
             );
         }
@@ -91,37 +91,37 @@ class Assets
         if ('post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_script(
                 'postpilotai-faq-metabox-script',
-                POSTPILOTAI_ADMIN_ASSETS . '/js/faq-metabox.js',
+                NEXIPILOT_ADMIN_ASSETS . '/js/faq-metabox.js',
                 array('jquery', 'sweetalert2'),
-                POSTPILOTAI_VERSION,
+                NEXIPILOT_VERSION,
                 true
             );
 
             // Localize script for FAQ metabox
             wp_localize_script(
                 'postpilotai-faq-metabox-script',
-                'postpilotAdmin',
+                'nexipilotAdmin',
                 array(
                     'ajaxurl' => admin_url('admin-ajax.php'),
-                    'nonce' => wp_create_nonce('postpilotai_nonce'),
-                    'generateFaqNonce' => wp_create_nonce('postpilotai_generate_faq'),
+                    'nonce' => wp_create_nonce('nexipilot_nonce'),
+                    'generateFaqNonce' => wp_create_nonce('nexipilot_generate_faq'),
                     'i18n' => array(
-                        'confirmRemove' => __('Are you sure you want to remove this FAQ item?', 'postpilot-ai'),
-                        'removeButton' => __('Yes, remove it', 'postpilot-ai'),
-                        'cancelButton' => __('Cancel', 'postpilot-ai'),
-                        'generating' => __('Generating FAQ...', 'postpilot-ai'),
-                        'pleaseWait' => __('Please wait while we generate FAQs from your content.', 'postpilot-ai'),
-                        'success' => __('Success!', 'postpilot-ai'),
-                        'error' => __('Error', 'postpilot-ai'),
-                        'quotaExceeded' => __('API Quota Exceeded', 'postpilot-ai'),
-                        'quotaMessage' => __('Your OpenAI quota has been exceeded. Would you like to use demo FAQ content instead?', 'postpilot-ai'),
-                        'useDemoButton' => __('Yes, use demo FAQ', 'postpilot-ai'),
-                        'demoAdded' => __('Demo FAQ Added', 'postpilot-ai'),
-                        'demoMessage' => __('Demo FAQ content has been added. You can edit it manually or add credits to your OpenAI account to generate real content.', 'postpilot-ai'),
-                        'rateLimitTitle' => __('Rate Limit Reached', 'postpilot-ai'),
-                        'errorTitle' => __('Error', 'postpilot-ai'),
-                        'okButton' => __('OK', 'postpilot-ai'),
-                        'genericError' => __('An error occurred. Please try again.', 'postpilot-ai'),
+                        'confirmRemove' => __('Are you sure you want to remove this FAQ item?', 'nexipilot-content-ai'),
+                        'removeButton' => __('Yes, remove it', 'nexipilot-content-ai'),
+                        'cancelButton' => __('Cancel', 'nexipilot-content-ai'),
+                        'generating' => __('Generating FAQ...', 'nexipilot-content-ai'),
+                        'pleaseWait' => __('Please wait while we generate FAQs from your content.', 'nexipilot-content-ai'),
+                        'success' => __('Success!', 'nexipilot-content-ai'),
+                        'error' => __('Error', 'nexipilot-content-ai'),
+                        'quotaExceeded' => __('API Quota Exceeded', 'nexipilot-content-ai'),
+                        'quotaMessage' => __('Your OpenAI quota has been exceeded. Would you like to use demo FAQ content instead?', 'nexipilot-content-ai'),
+                        'useDemoButton' => __('Yes, use demo FAQ', 'nexipilot-content-ai'),
+                        'demoAdded' => __('Demo FAQ Added', 'nexipilot-content-ai'),
+                        'demoMessage' => __('Demo FAQ content has been added. You can edit it manually or add credits to your OpenAI account to generate real content.', 'nexipilot-content-ai'),
+                        'rateLimitTitle' => __('Rate Limit Reached', 'nexipilot-content-ai'),
+                        'errorTitle' => __('Error', 'nexipilot-content-ai'),
+                        'okButton' => __('OK', 'nexipilot-content-ai'),
+                        'genericError' => __('An error occurred. Please try again.', 'nexipilot-content-ai'),
                     ),
                 )
             );
@@ -144,7 +144,7 @@ class Assets
         global $post;
 
         // Check if FAQ is enabled for this post
-        $faq_enabled = get_post_meta($post->ID, '_postpilotai_faq_enabled', true);
+        $faq_enabled = get_post_meta($post->ID, '_nexipilot_faq_enabled', true);
         if ($faq_enabled !== '1') {
             return;
         }
@@ -152,9 +152,9 @@ class Assets
         // Enqueue FAQ CSS
         wp_enqueue_style(
             'postpilotai-faq',
-            POSTPILOTAI_URL . 'Frontend/Assets/css/faq.css',
+            NEXIPILOT_URL . 'Frontend/Assets/css/faq.css',
             array(),
-            POSTPILOTAI_VERSION
+            NEXIPILOT_VERSION
         );
 
         // Determine layout and enqueue JS if accordion
@@ -162,9 +162,9 @@ class Assets
         if ($layout === 'accordion') {
             wp_enqueue_script(
                 'postpilotai-faq-accordion',
-                POSTPILOTAI_URL . 'Frontend/Assets/js/faq-accordion.js',
+                NEXIPILOT_URL . 'Frontend/Assets/js/faq-accordion.js',
                 array(),
-                POSTPILOTAI_VERSION,
+                NEXIPILOT_VERSION,
                 true
             );
         }
@@ -180,11 +180,11 @@ class Assets
     private function get_faq_layout($post_id)
     {
         // Get per-post layout setting
-        $post_layout = get_post_meta($post_id, '_postpilotai_faq_display_style', true);
+        $post_layout = get_post_meta($post_id, '_nexipilot_faq_display_style', true);
 
         // If default or empty, use global setting
         if (empty($post_layout) || $post_layout === 'default') {
-            return get_option('postpilotai_faq_default_layout', 'accordion');
+            return get_option('nexipilot_faq_default_layout', 'accordion');
         }
 
         return $post_layout;

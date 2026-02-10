@@ -15,24 +15,24 @@
      * Initialize FAQ accordion on DOM ready
      */
     function initFAQAccordion() {
-        const faqContainer = document.querySelector('.postpilotai-faq--accordion');
+        const faqContainer = document.querySelector('.nexipilot-faq--accordion');
         
         if (!faqContainer) {
             return;
         }
 
-        const faqItems = faqContainer.querySelectorAll('.postpilotai-faq__item');
+        const faqItems = faqContainer.querySelectorAll('.nexipilot-faq__item');
         
         faqItems.forEach(function(item, index) {
-            const question = item.querySelector('.postpilotai-faq__question');
-            const answer = item.querySelector('.postpilotai-faq__answer');
+            const question = item.querySelector('.nexipilot-faq__question');
+            const answer = item.querySelector('.nexipilot-faq__answer');
             
             if (!question || !answer) {
                 return;
             }
 
             // Set unique IDs
-            const answerId = 'postpilotai-faq-answer-' + index;
+            const answerId = 'nexipilot-faq-answer-' + index;
             answer.id = answerId;
             
             // Set initial ARIA attributes
@@ -66,7 +66,7 @@
      */
     function toggleAccordion(item, question, answer) {
         const isExpanded = question.getAttribute('aria-expanded') === 'true';
-        const faqContainer = item.closest('.postpilotai-faq--accordion');
+        const faqContainer = item.closest('.nexipilot-faq--accordion');
         
         // Close all other items (accordion behavior - only one open at a time)
         if (!isExpanded) {
@@ -115,11 +115,11 @@
      * @param {HTMLElement} container - The FAQ container
      */
     function closeAllAccordions(container) {
-        const allItems = container.querySelectorAll('.postpilotai-faq__item');
+        const allItems = container.querySelectorAll('.nexipilot-faq__item');
         
         allItems.forEach(function(item) {
-            const question = item.querySelector('.postpilotai-faq__question');
-            const answer = item.querySelector('.postpilotai-faq__answer');
+            const question = item.querySelector('.nexipilot-faq__question');
+            const answer = item.querySelector('.nexipilot-faq__answer');
             
             if (question && answer) {
                 closeAccordion(item, question, answer);

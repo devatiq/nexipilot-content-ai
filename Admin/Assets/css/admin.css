@@ -10,9 +10,9 @@
    ======================================== */
 
 /* WordPress Admin Notices */
-.postpilotai-settings-wrap .notice,
-.postpilotai-settings-wrap .updated,
-.postpilotai-settings-wrap .error {
+.nexipilot-settings-wrap .notice,
+.nexipilot-settings-wrap .updated,
+.nexipilot-settings-wrap .error {
     margin: 0 0 20px 0;
     padding: 12px 16px;
     border-left: 4px solid;
@@ -21,17 +21,17 @@
     border-radius: 4px;
 }
 
-.postpilotai-settings-wrap .updated,
-.postpilotai-settings-wrap .notice-success {
+.nexipilot-settings-wrap .updated,
+.nexipilot-settings-wrap .notice-success {
     border-left-color: #10b981;
 }
 
-.postpilotai-settings-wrap .error,
-.postpilotai-settings-wrap .notice-error {
+.nexipilot-settings-wrap .error,
+.nexipilot-settings-wrap .notice-error {
     border-left-color: #ef4444;
 }
 
-.postpilotai-settings-wrap .notice p {
+.nexipilot-settings-wrap .notice p {
     margin: 0;
     font-size: 14px;
     color: #374151;
@@ -39,28 +39,28 @@
 }
 
 /* SweetAlert2 Toast Positioning */
-.postpilotai-toast.swal2-popup {
+.nexipilot-toast.swal2-popup {
     margin-top: 46px !important;
     /* Position below WordPress admin bar (32px) + some spacing */
 }
 
 /* Adjust for mobile admin bar */
 @media screen and (max-width: 782px) {
-    .postpilotai-toast.swal2-popup {
+    .nexipilot-toast.swal2-popup {
         margin-top: 60px !important;
         /* Mobile admin bar is taller (46px) + spacing */
     }
 }
 
 /* Main Wrapper */
-.postpilotai-settings-wrap {
+.nexipilot-settings-wrap {
     margin: 20px 20px 0 0;
     background: #f9fafb;
     min-height: calc(100vh - 32px);
 }
 
 /* Header Section */
-.postpilotai-header {
+.nexipilot-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     padding: 40px;
@@ -69,7 +69,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.postpilotai-header-content {
+.nexipilot-header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -77,13 +77,13 @@
     margin: 0 auto;
 }
 
-.postpilotai-header-title {
+.nexipilot-header-title {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.postpilotai-icon {
+.nexipilot-icon {
     width: 60px;
     height: 60px;
     background: rgba(255, 255, 255, 0.2);
@@ -94,11 +94,11 @@
     backdrop-filter: blur(10px);
 }
 
-.postpilotai-icon svg {
+.nexipilot-icon svg {
     color: white;
 }
 
-.postpilotai-header h1 {
+.nexipilot-header h1 {
     margin: 0;
     font-size: 32px;
     font-weight: 700;
@@ -106,7 +106,7 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.postpilotai-subtitle {
+.nexipilot-subtitle {
     margin: 8px 0 0 0;
     font-size: 16px;
     opacity: 0.95;
@@ -114,7 +114,7 @@
 }
 
 /* Status Badge */
-.postpilotai-status-badge {
+.nexipilot-status-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -147,53 +147,53 @@
 }
 
 /* Status Badge States */
-.postpilotai-status-connected .status-dot {
+.nexipilot-status-connected .status-dot {
     background: #10b981;
 }
 
-.postpilotai-status-disconnected .status-dot {
+.nexipilot-status-disconnected .status-dot {
     background: #ef4444;
     animation: none;
 }
 
-.postpilotai-status-warning .status-dot {
+.nexipilot-status-warning .status-dot {
     background: #f59e0b;
     animation: none;
 }
 
 /* New Status Classes for Provider Badges */
-.postpilotai-status-green {
+.nexipilot-status-green {
     background-color: #10b981;
     color: white;
 }
 
-.postpilotai-status-yellow {
+.nexipilot-status-yellow {
     background-color: #f59e0b;
     color: white;
 }
 
-.postpilotai-status-gray {
+.nexipilot-status-gray {
     background-color: #6b7280;
     color: white;
 }
 
-.postpilotai-status-red {
+.nexipilot-status-red {
     background-color: #ef4444;
     color: white;
 }
 
-.postpilotai-status-partial .status-dot {
+.nexipilot-status-partial .status-dot {
     background: #f59e0b;
     animation: none;
 }
 
 /* Tooltip styling (native browser tooltip via title attribute) */
-.postpilotai-badge[title] {
+.nexipilot-badge[title] {
     cursor: help;
 }
 
 /* Tab Navigation */
-.postpilotai-tabs {
+.nexipilot-tabs {
     display: flex;
     gap: 12px;
     max-width: 1400px;
@@ -201,7 +201,7 @@
     padding: 0;
 }
 
-.postpilotai-tab {
+.nexipilot-tab {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -216,39 +216,39 @@
     transition: all 0.2s ease;
 }
 
-.postpilotai-tab svg {
+.nexipilot-tab svg {
     color: #9ca3af;
     transition: color 0.2s ease;
 }
 
-.postpilotai-tab:hover {
+.nexipilot-tab:hover {
     border-color: #d1d5db;
     background: #f9fafb;
     color: #374151;
 }
 
-.postpilotai-tab.active {
+.nexipilot-tab.active {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-color: transparent;
     color: white;
     box-shadow: 0 4px 6px -1px rgba(102, 126, 234, 0.3);
 }
 
-.postpilotai-tab.active svg {
+.nexipilot-tab.active svg {
     color: white;
 }
 
 /* Tab Content */
-.postpilotai-tab-content {
+.nexipilot-tab-content {
     display: none;
 }
 
-.postpilotai-tab-content.active {
+.nexipilot-tab-content.active {
     display: block;
 }
 
 /* Settings Grid */
-.postpilotai-settings-grid {
+.nexipilot-settings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 24px;
@@ -258,7 +258,7 @@
 }
 
 /* Card Styles */
-.postpilotai-card {
+.nexipilot-card {
     background: white;
     border-radius: 12px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -266,12 +266,12 @@
     overflow: hidden;
 }
 
-.postpilotai-card:hover {
+.nexipilot-card:hover {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     transform: translateY(-2px);
 }
 
-.postpilotai-card-header {
+.nexipilot-card-header {
     display: flex;
     align-items: flex-start;
     gap: 16px;
@@ -279,11 +279,11 @@
     border-bottom: 1px solid #f3f4f6;
 }
 
-.postpilotai-card-header .postpilotai-badge {
+.nexipilot-card-header .nexipilot-badge {
     margin-left: auto;
 }
 
-.postpilotai-card-icon {
+.nexipilot-card-icon {
     width: 48px;
     height: 48px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -294,37 +294,37 @@
     flex-shrink: 0;
 }
 
-.postpilotai-card-icon svg {
+.nexipilot-card-icon svg {
     color: white;
 }
 
-.postpilotai-card-header h2 {
+.nexipilot-card-header h2 {
     margin: 0 0 4px 0;
     font-size: 20px;
     font-weight: 600;
     color: #111827;
 }
 
-.postpilotai-card-header p {
+.nexipilot-card-header p {
     margin: 0;
     font-size: 14px;
     color: #6b7280;
 }
 
-.postpilotai-card-body {
+.nexipilot-card-body {
     padding: 24px;
 }
 
 /* Field Groups */
-.postpilotai-field-group {
+.nexipilot-field-group {
     margin-bottom: 24px;
 }
 
-.postpilotai-field-group:last-child {
+.nexipilot-field-group:last-child {
     margin-bottom: 0;
 }
 
-.postpilotai-label {
+.nexipilot-label {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -334,7 +334,7 @@
     margin-bottom: 8px;
 }
 
-.postpilotai-label-small {
+.nexipilot-label-small {
     display: block;
     font-size: 13px;
     font-weight: 500;
@@ -343,7 +343,7 @@
 }
 
 /* Badge */
-.postpilotai-badge {
+.nexipilot-badge {
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -353,19 +353,19 @@
     font-weight: 500;
 }
 
-.postpilotai-badge-success {
+.nexipilot-badge-success {
     background: #d1fae5;
     color: #065f46;
 }
 
-.postpilotai-badge svg {
+.nexipilot-badge svg {
     width: 12px;
     height: 12px;
 }
 
 /* Input Styles */
-.postpilotai-select,
-.postpilotai-input {
+.nexipilot-select,
+.nexipilot-input {
     width: 100%;
     padding: 10px 14px;
     border: 1px solid #d1d5db;
@@ -376,14 +376,14 @@
     transition: all 0.2s ease;
 }
 
-.postpilotai-select:focus,
-.postpilotai-input:focus {
+.nexipilot-select:focus,
+.nexipilot-input:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.postpilotai-select-small {
+.nexipilot-select-small {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid #e5e7eb;
@@ -394,17 +394,17 @@
 }
 
 /* Input Group */
-.postpilotai-input-group {
+.nexipilot-input-group {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.postpilotai-input-group .postpilotai-input {
+.nexipilot-input-group .nexipilot-input {
     padding-right: 45px;
 }
 
-.postpilotai-btn-icon {
+.nexipilot-btn-icon {
     position: absolute;
     right: 8px;
     background: none;
@@ -418,30 +418,30 @@
     justify-content: center;
 }
 
-.postpilotai-btn-icon:hover {
+.nexipilot-btn-icon:hover {
     color: #667eea;
 }
 
 /* Field Description */
-.postpilotai-field-description {
+.nexipilot-field-description {
     margin: 6px 0 0 0;
     font-size: 13px;
     color: #6b7280;
     line-height: 1.5;
 }
 
-.postpilotai-field-description a {
+.nexipilot-field-description a {
     color: #667eea;
     text-decoration: none;
     font-weight: 500;
 }
 
-.postpilotai-field-description a:hover {
+.nexipilot-field-description a:hover {
     text-decoration: underline;
 }
 
 /* Feature Items */
-.postpilotai-feature-item {
+.nexipilot-feature-item {
     padding: 20px;
     border: 1px solid #f3f4f6;
     border-radius: 8px;
@@ -449,27 +449,27 @@
     transition: all 0.2s ease;
 }
 
-.postpilotai-feature-item:last-child {
+.nexipilot-feature-item:last-child {
     margin-bottom: 0;
 }
 
-.postpilotai-feature-item:hover {
+.nexipilot-feature-item:hover {
     border-color: #e5e7eb;
     background: #f9fafb;
 }
 
-.postpilotai-feature-header {
+.nexipilot-feature-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 16px;
 }
 
-.postpilotai-feature-info {
+.nexipilot-feature-info {
     flex: 1;
 }
 
-.postpilotai-feature-title {
+.nexipilot-feature-title {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -480,31 +480,31 @@
     cursor: pointer;
 }
 
-.postpilotai-feature-title svg {
+.nexipilot-feature-title svg {
     color: #667eea;
     flex-shrink: 0;
 }
 
-.postpilotai-feature-description {
+.nexipilot-feature-description {
     margin: 0;
     font-size: 13px;
     color: #6b7280;
     line-height: 1.5;
 }
 
-.postpilotai-feature-options {
+.nexipilot-feature-options {
     margin-top: 16px;
     padding-top: 16px;
     border-top: 1px solid #f3f4f6;
     display: none;
 }
 
-.postpilotai-feature-options.active {
+.nexipilot-feature-options.active {
     display: block;
 }
 
 /* Toggle Switch */
-.postpilotai-toggle {
+.nexipilot-toggle {
     position: relative;
     display: inline-block;
     width: 48px;
@@ -512,13 +512,13 @@
     flex-shrink: 0;
 }
 
-.postpilotai-toggle input {
+.nexipilot-toggle input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.postpilotai-toggle-slider {
+.nexipilot-toggle-slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -530,7 +530,7 @@
     border-radius: 26px;
 }
 
-.postpilotai-toggle-slider:before {
+.nexipilot-toggle-slider:before {
     position: absolute;
     content: "";
     height: 20px;
@@ -543,26 +543,26 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.postpilotai-toggle input:checked+.postpilotai-toggle-slider {
+.nexipilot-toggle input:checked+.nexipilot-toggle-slider {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.postpilotai-toggle input:checked+.postpilotai-toggle-slider:before {
+.nexipilot-toggle input:checked+.nexipilot-toggle-slider:before {
     transform: translateX(22px);
 }
 
-.postpilotai-toggle input:focus+.postpilotai-toggle-slider {
+.nexipilot-toggle input:focus+.nexipilot-toggle-slider {
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
 /* Submit Button */
-.postpilotai-submit-wrapper {
+.nexipilot-submit-wrapper {
     max-width: 1400px;
     margin: 0 auto;
     padding: 24px 0;
 }
 
-.postpilotai-btn-primary {
+.nexipilot-btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     border: none !important;
     padding: 12px 32px !important;
@@ -575,12 +575,12 @@
     height: auto !important;
 }
 
-.postpilotai-btn-primary:hover {
+.nexipilot-btn-primary:hover {
     transform: translateY(-1px) !important;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
 }
 
-.postpilotai-btn-primary:active {
+.nexipilot-btn-primary:active {
     transform: translateY(0) !important;
 }
 
@@ -589,16 +589,16 @@
    ======================================== */
 
 /* FAQ Meta Box Container */
-#postpilotai-faq-metabox {
+#nexipilot-faq-metabox {
     padding: 0;
 }
 
-.postpilotai-faq-container {
+.nexipilot-faq-container {
     padding: 20px;
 }
 
 /* FAQ Header */
-.postpilotai-faq-header {
+.nexipilot-faq-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -607,24 +607,24 @@
     border-bottom: 2px solid #f0f0f1;
 }
 
-.postpilotai-faq-enable {
+.nexipilot-faq-enable {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.postpilotai-faq-enable label {
+.nexipilot-faq-enable label {
     font-weight: 600;
     color: #1d2327;
     margin: 0;
 }
 
 /* FAQ Items */
-.postpilotai-faq-items {
+.nexipilot-faq-items {
     margin-bottom: 20px;
 }
 
-.postpilotai-faq-item {
+.nexipilot-faq-item {
     background: #f9fafb;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
@@ -633,33 +633,33 @@
     transition: all 0.2s ease;
 }
 
-.postpilotai-faq-item:hover {
+.nexipilot-faq-item:hover {
     border-color: #d1d5db;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.postpilotai-faq-item-header {
+.nexipilot-faq-item-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
 }
 
-.postpilotai-faq-number {
+.nexipilot-faq-number {
     font-weight: 600;
     color: #667eea;
     font-size: 14px;
 }
 
-.postpilotai-faq-field {
+.nexipilot-faq-field {
     margin-bottom: 12px;
 }
 
-.postpilotai-faq-field:last-child {
+.nexipilot-faq-field:last-child {
     margin-bottom: 0;
 }
 
-.postpilotai-faq-field label {
+.nexipilot-faq-field label {
     display: block;
     font-weight: 500;
     color: #374151;
@@ -667,8 +667,8 @@
     font-size: 13px;
 }
 
-.postpilotai-faq-field input[type="text"],
-.postpilotai-faq-field textarea {
+.nexipilot-faq-field input[type="text"],
+.nexipilot-faq-field textarea {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid #d1d5db;
@@ -677,20 +677,20 @@
     transition: all 0.2s ease;
 }
 
-.postpilotai-faq-field input[type="text"]:focus,
-.postpilotai-faq-field textarea:focus {
+.nexipilot-faq-field input[type="text"]:focus,
+.nexipilot-faq-field textarea:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.postpilotai-faq-field textarea {
+.nexipilot-faq-field textarea {
     min-height: 80px;
     resize: vertical;
 }
 
 /* Checkbox Group - Grid Layout for AI Providers */
-.postpilotai-checkbox-group {
+.nexipilot-checkbox-group {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 10px;
@@ -698,7 +698,7 @@
 }
 
 /* Provider Selection Cards */
-.postpilotai-checkbox-card {
+.nexipilot-checkbox-card {
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -707,7 +707,7 @@
     height: 100%;
 }
 
-.postpilotai-checkbox-card input[type="checkbox"] {
+.nexipilot-checkbox-card input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     width: 0;
@@ -715,7 +715,7 @@
     pointer-events: none;
 }
 
-.postpilotai-checkbox-card__content {
+.nexipilot-checkbox-card__content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -736,7 +736,7 @@
 }
 
 /* Hover Effects */
-.postpilotai-checkbox-card:hover .postpilotai-checkbox-card__content {
+.nexipilot-checkbox-card:hover .nexipilot-checkbox-card__content {
     border-color: #d1d5db;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     background: #f9fafb;
@@ -744,13 +744,13 @@
 }
 
 /* Selected State */
-.postpilotai-checkbox-card input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
+.nexipilot-checkbox-card input[type="checkbox"]:checked+.nexipilot-checkbox-card__content {
     background: #f0fdf4;
     border-color: #10b981;
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
 }
 
-.postpilotai-checkbox-card__icon {
+.nexipilot-checkbox-card__icon {
     width: 32px;
     height: 32px;
     display: flex;
@@ -762,18 +762,18 @@
     transition: all 0.2s ease;
 }
 
-.postpilotai-checkbox-card input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
+.nexipilot-checkbox-card input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__icon {
     background: white;
     color: #10b981;
     transform: scale(1.1);
 }
 
-.postpilotai-checkbox-card__icon svg {
+.nexipilot-checkbox-card__icon svg {
     width: 18px;
     height: 18px;
 }
 
-.postpilotai-checkbox-card__label {
+.nexipilot-checkbox-card__label {
     font-size: 13px;
     font-weight: 600;
     color: #374151;
@@ -781,12 +781,12 @@
     line-height: 1.2;
 }
 
-.postpilotai-checkbox-card input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
+.nexipilot-checkbox-card input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__label {
     color: #065f46;
 }
 
 /* Checkmark Badge */
-.postpilotai-checkbox-card__status {
+.nexipilot-checkbox-card__status {
     position: absolute;
     top: 6px;
     right: 6px;
@@ -803,118 +803,118 @@
     color: white;
 }
 
-.postpilotai-checkbox-card input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status {
+.nexipilot-checkbox-card input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__status {
     opacity: 1;
     transform: scale(1);
 }
 
 /* Reduce checkmark icon size */
-.postpilotai-checkbox-card__status svg {
+.nexipilot-checkbox-card__status svg {
     width: 10px;
     height: 10px;
 }
 
 /* Brand Specific Colors (Optional enhancements) */
-.postpilotai-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
+.nexipilot-checkbox-card--chatgpt input[type="checkbox"]:checked+.nexipilot-checkbox-card__content {
     background: #f0fdf9;
     border-color: #10a37f;
 }
 
-.postpilotai-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
-.postpilotai-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
+.nexipilot-checkbox-card--chatgpt input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__status,
+.nexipilot-checkbox-card--chatgpt input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__icon {
     background-color: #10a37f;
     color: white;
 }
 
-.postpilotai-checkbox-card--chatgpt input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
+.nexipilot-checkbox-card--chatgpt input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__label {
     color: #10a37f;
 }
 
-.postpilotai-checkbox-card--claude input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
+.nexipilot-checkbox-card--claude input[type="checkbox"]:checked+.nexipilot-checkbox-card__content {
     background: #fff7ed;
     border-color: #d97757;
 }
 
-.postpilotai-checkbox-card--claude input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
-.postpilotai-checkbox-card--claude input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
+.nexipilot-checkbox-card--claude input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__status,
+.nexipilot-checkbox-card--claude input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__icon {
     background-color: #d97757;
     color: white;
 }
 
-.postpilotai-checkbox-card--claude input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
+.nexipilot-checkbox-card--claude input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__label {
     color: #d97757;
 }
 
-.postpilotai-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
+.nexipilot-checkbox-card--perplexity input[type="checkbox"]:checked+.nexipilot-checkbox-card__content {
     background: #f0fdfa;
     border-color: #20808d;
 }
 
-.postpilotai-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
-.postpilotai-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
+.nexipilot-checkbox-card--perplexity input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__status,
+.nexipilot-checkbox-card--perplexity input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__icon {
     background-color: #20808d;
     color: white;
 }
 
-.postpilotai-checkbox-card--perplexity input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
+.nexipilot-checkbox-card--perplexity input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__label {
     color: #20808d;
 }
 
-.postpilotai-checkbox-card--grok input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
+.nexipilot-checkbox-card--grok input[type="checkbox"]:checked+.nexipilot-checkbox-card__content {
     background: #f9fafb;
     border-color: #000000;
 }
 
-.postpilotai-checkbox-card--grok input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
-.postpilotai-checkbox-card--grok input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
+.nexipilot-checkbox-card--grok input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__status,
+.nexipilot-checkbox-card--grok input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__icon {
     background-color: #000000;
     color: white;
 }
 
-.postpilotai-checkbox-card--grok input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
+.nexipilot-checkbox-card--grok input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__label {
     color: #000000;
 }
 
-.postpilotai-checkbox-card--copilot input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
+.nexipilot-checkbox-card--copilot input[type="checkbox"]:checked+.nexipilot-checkbox-card__content {
     background: #eff6ff;
     border-color: #0078d4;
 }
 
-.postpilotai-checkbox-card--copilot input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
-.postpilotai-checkbox-card--copilot input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
+.nexipilot-checkbox-card--copilot input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__status,
+.nexipilot-checkbox-card--copilot input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__icon {
     background-color: #0078d4;
     color: white;
 }
 
-.postpilotai-checkbox-card--copilot input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
+.nexipilot-checkbox-card--copilot input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__label {
     color: #0078d4;
 }
 
-.postpilotai-checkbox-card--google input[type="checkbox"]:checked+.postpilotai-checkbox-card__content {
+.nexipilot-checkbox-card--google input[type="checkbox"]:checked+.nexipilot-checkbox-card__content {
     background: #fef2f2;
     border-color: #4285f4;
 }
 
-.postpilotai-checkbox-card--google input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__status,
-.postpilotai-checkbox-card--google input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__icon {
+.nexipilot-checkbox-card--google input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__status,
+.nexipilot-checkbox-card--google input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__icon {
     background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #ea4335 100%);
     color: white;
 }
 
-.postpilotai-checkbox-card--google input[type="checkbox"]:checked+.postpilotai-checkbox-card__content .postpilotai-checkbox-card__label {
+.nexipilot-checkbox-card--google input[type="checkbox"]:checked+.nexipilot-checkbox-card__content .nexipilot-checkbox-card__label {
     color: #4285f4;
 }
 
 
 /* FAQ Actions */
-.postpilotai-faq-actions {
+.nexipilot-faq-actions {
     display: flex;
     gap: 10px;
     margin-top: 16px;
 }
 
-.button.postpilotai-add-faq,
-.button.postpilotai-generate-faq {
+.button.nexipilot-add-faq,
+.button.nexipilot-generate-faq {
     background: #667eea;
     color: white;
     border: none;
@@ -924,14 +924,14 @@
     transition: all 0.2s ease;
 }
 
-.button.postpilotai-add-faq:hover,
-.button.postpilotai-generate-faq:hover {
+.button.nexipilot-add-faq:hover,
+.button.nexipilot-generate-faq:hover {
     background: #5568d3;
     color: white;
     transform: translateY(-1px);
 }
 
-.button.postpilotai-remove-faq {
+.button.nexipilot-remove-faq {
     background: #ef4444;
     color: white;
     border: none;
@@ -941,13 +941,13 @@
     transition: all 0.2s ease;
 }
 
-.button.postpilotai-remove-faq:hover {
+.button.nexipilot-remove-faq:hover {
     background: #dc2626;
     color: white;
     transform: translateY(-1px);
 }
 
-.postpilotai-no-faqs {
+.nexipilot-no-faqs {
     text-align: center;
     padding: 40px 20px;
     color: #6b7280;
@@ -956,65 +956,65 @@
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-    .postpilotai-settings-grid {
+    .nexipilot-settings-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 782px) {
-    .postpilotai-header {
+    .nexipilot-header {
         padding: 24px;
     }
 
-    .postpilotai-header-content {
+    .nexipilot-header-content {
         flex-direction: column;
         align-items: flex-start;
         gap: 16px;
     }
 
-    .postpilotai-header h1 {
+    .nexipilot-header h1 {
         font-size: 24px;
     }
 
-    .postpilotai-feature-header {
+    .nexipilot-feature-header {
         flex-direction: column;
         gap: 12px;
     }
 
-    .postpilotai-toggle {
+    .nexipilot-toggle {
         align-self: flex-start;
     }
 
     /* Checkbox Group Responsive */
-    .postpilotai-checkbox-group {
+    .nexipilot-checkbox-group {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
     }
 }
 
 @media (max-width: 600px) {
-    .postpilotai-checkbox-group {
+    .nexipilot-checkbox-group {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 480px) {
-    .postpilotai-checkbox-card__content {
+    .nexipilot-checkbox-card__content {
         padding: 10px 6px;
         min-height: 70px;
     }
 
-    .postpilotai-checkbox-card__icon {
+    .nexipilot-checkbox-card__icon {
         width: 28px;
         height: 28px;
     }
 
-    .postpilotai-checkbox-card__icon svg {
+    .nexipilot-checkbox-card__icon svg {
         width: 16px;
         height: 16px;
     }
 
-    .postpilotai-checkbox-card__label {
+    .nexipilot-checkbox-card__label {
         font-size: 12px;
     }
 }

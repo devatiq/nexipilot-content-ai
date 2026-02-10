@@ -5,24 +5,24 @@
  * This file contains the AdminManager class, which is responsible for handling the
  * initialization and configuration of the PostPilot Admin.
  *
- * @package PostPilotAI\Admin
+ * @package NexiPilot\Admin
  * @since 1.0.0
  */
 
-namespace PostPilotAI\Admin;
+namespace NexiPilot\Admin;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilotAI\Admin\Assets\Assets;
+use NexiPilot\Admin\Assets\Assets;
 
 /**
  * Class AdminManager
  *
  * Handles the initialization and configuration of the PostPilot Admin.
  *
- * @package PostPilotAI\Admin
+ * @package NexiPilot\Admin
  * @since 1.0.0
  */
 class AdminManager
@@ -68,7 +68,7 @@ class AdminManager
      */
     public function set_constants()
     {
-        define('POSTPILOTAI_ADMIN_ASSETS', plugin_dir_url(__FILE__) . 'Assets');
+        define('NEXIPILOT_ADMIN_ASSETS', plugin_dir_url(__FILE__) . 'Assets');
     }
 
     /**
@@ -92,8 +92,8 @@ class AdminManager
      */
     public function init_hooks()
     {
-        add_action('wp_ajax_postpilotai_save_setting', array($this, 'postpilotai_save_setting'));
-        add_filter('plugin_action_links_' . POSTPILOTAI_BASENAME, array($this, 'add_plugin_settings_link'));
+        add_action('wp_ajax_nexipilot_save_setting', array($this, 'nexipilot_save_setting'));
+        add_filter('plugin_action_links_' . NEXIPILOT_BASENAME, array($this, 'add_plugin_settings_link'));
         add_filter('plugin_row_meta', array($this, 'plugin_row_meta'), 10, 2);
     }
 
@@ -103,20 +103,20 @@ class AdminManager
      * @since 1.0.0
      * @return void
      */
-    public function postpilotai_save_setting()
+    public function nexipilot_save_setting()
     {
         // Verify nonce for security
-        check_ajax_referer('postpilotai_nonce', 'nonce');
+        check_ajax_referer('nexipilot_nonce', 'nonce');
 
         // Ensure the user has the proper capability
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(array('message' => __('Unauthorized', 'postpilot-ai')));
+            wp_send_json_error(array('message' => __('Unauthorized', 'nexipilot-content-ai')));
             wp_die();
         }
 
         // Check if the required fields are set
         if (!isset($_POST['settingName']) || !isset($_POST['value'])) {
-            wp_send_json_error(array('message' => __('Missing data', 'postpilot-ai')));
+            wp_send_json_error(array('message' => __('Missing data', 'nexipilot-content-ai')));
             wp_die();
         }
 
@@ -128,9 +128,9 @@ class AdminManager
 
         // Save the setting in the options table
         if (update_option($setting_name, $value)) {
-            wp_send_json_success(array('message' => __('Setting saved.', 'postpilot-ai')));
+            wp_send_json_success(array('message' => __('Setting saved.', 'nexipilot-content-ai')));
         } else {
-            wp_send_json_error(array('message' => __('Failed to save setting.', 'postpilot-ai')));
+            wp_send_json_error(array('message' => __('Failed to save setting.', 'nexipilot-content-ai')));
         }
 
         wp_die();
@@ -148,7 +148,7 @@ class AdminManager
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
             esc_url(admin_url('admin.php?page=postpilotai-settings')),
-            esc_html__('Settings', 'postpilot-ai')
+            esc_html__('Settings', 'nexipilot-content-ai')
         );
 
         // Prepend the settings link
@@ -167,10 +167,10 @@ class AdminManager
      */
     public function plugin_row_meta($links, $file)
     {
-        if (POSTPILOTAI_BASENAME === $file) {
+        if (NEXIPILOT_BASENAME === $file) {
             $row_meta = array(
-                'docs' => '<a href="https://github.com/devatiq/postpilot" target="_blank">' . esc_html__('Documentation', 'postpilot-ai') . '</a>',
-                'support' => '<a href="https://github.com/devatiq/postpilot/issues" target="_blank">' . esc_html__('Support', 'postpilot-ai') . '</a>',
+                'docs' => '<a href="https://github.com/devatiq/postpilot" target="_blank">' . esc_html__('Documentation', 'nexipilot-content-ai') . '</a>',
+                'support' => '<a href="https://github.com/devatiq/postpilot/issues" target="_blank">' . esc_html__('Support', 'nexipilot-content-ai') . '</a>',
             );
             return array_merge($links, $row_meta);
         }

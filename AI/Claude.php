@@ -4,25 +4,25 @@
  *
  * Claude (Anthropic) provider implementation.
  *
- * @package PostPilotAI\AI
+ * @package NexiPilot\AI
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 
-namespace PostPilotAI\AI;
+namespace NexiPilot\AI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilotAI\Helpers\Logger;
+use NexiPilot\Helpers\Logger;
 
 /**
  * Claude Provider Class
  *
  * Implements the ProviderInterface for Claude (Anthropic).
  *
- * @package PostPilotAI\AI
+ * @package NexiPilot\AI
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */
@@ -96,7 +96,7 @@ class Claude implements ProviderInterface
             // If not valid JSON, create a simple structure
             return array(
                 array(
-                    'question' => __('What is this content about?', 'postpilot-ai'),
+                    'question' => __('What is this content about?', 'nexipilot-content-ai'),
                     'answer' => $response,
                 ),
             );
@@ -179,7 +179,7 @@ class Claude implements ProviderInterface
         if (is_wp_error($test_response)) {
             return new \WP_Error(
                 'invalid_api_key',
-                __('Invalid Claude API key.', 'postpilot-ai')
+                __('Invalid Claude API key.', 'nexipilot-content-ai')
             );
         }
 
@@ -201,7 +201,7 @@ class Claude implements ProviderInterface
         if (empty($api_key)) {
             return new \WP_Error(
                 'missing_api_key',
-                __('Claude API key is not configured.', 'postpilot-ai')
+                __('Claude API key is not configured.', 'nexipilot-content-ai')
             );
         }
 
@@ -245,7 +245,7 @@ class Claude implements ProviderInterface
                 'api_error',
                 sprintf(
                     /* translators: %d: HTTP response code */
-                    __('Claude API error (Code: %d)', 'postpilot-ai'),
+                    __('Claude API error (Code: %d)', 'nexipilot-content-ai'),
                     $response_code
                 )
             );
@@ -261,7 +261,7 @@ class Claude implements ProviderInterface
 
         return new \WP_Error(
             'invalid_response',
-            __('Invalid response from Claude API.', 'postpilot-ai')
+            __('Invalid response from Claude API.', 'nexipilot-content-ai')
         );
     }
 }

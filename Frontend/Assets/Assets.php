@@ -4,11 +4,11 @@
  *
  * Handles frontend assets enqueuing.
  *
- * @package PostPilotAI\Frontend\Assets
+ * @package NexiPilot\Frontend\Assets
  * @since 1.0.0
  */
 
-namespace PostPilotAI\Frontend\Assets;
+namespace NexiPilot\Frontend\Assets;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
  *
  * Handles the enqueuing of frontend CSS files.
  *
- * @package PostPilotAI\Frontend\Assets
+ * @package NexiPilot\Frontend\Assets
  * @since 1.0.0
  */
 class Assets
@@ -49,18 +49,18 @@ class Assets
 
         wp_enqueue_style(
             'postpilotai-frontend-style',
-            POSTPILOTAI_FRONTEND_ASSETS . '/css/frontend.css',
+            NEXIPILOT_FRONTEND_ASSETS . '/css/frontend.css',
             array(),
-            POSTPILOTAI_VERSION
+            NEXIPILOT_VERSION
         );
 
         // Enqueue external AI sharing styles if feature is enabled
-        if (get_option('postpilotai_enable_external_ai_sharing', '1') === '1') {
+        if (get_option('nexipilot_enable_external_ai_sharing', '1') === '1') {
             wp_enqueue_style(
                 'postpilotai-external-ai-sharing',
-                POSTPILOTAI_FRONTEND_ASSETS . '/css/external-ai-sharing.css',
+                NEXIPILOT_FRONTEND_ASSETS . '/css/external-ai-sharing.css',
                 array(),
-                POSTPILOTAI_VERSION
+                NEXIPILOT_VERSION
             );
         }
     }

@@ -4,25 +4,25 @@
  *
  * Google Gemini provider implementation.
  *
- * @package PostPilotAI\AI
+ * @package NexiPilot\AI
  * @since 1.0.0
  * @author Md Abul Bashar <hmbashar@gmail.com>
  */
 
-namespace PostPilotAI\AI;
+namespace NexiPilot\AI;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilotAI\Helpers\Logger;
+use NexiPilot\Helpers\Logger;
 
 /**
  * Gemini Provider Class
  *
  * Implements the ProviderInterface for Google Gemini.
  *
- * @package PostPilotAI\AI
+ * @package NexiPilot\AI
  * @since 1.0.0
  */
 class Gemini implements ProviderInterface
@@ -116,7 +116,7 @@ class Gemini implements ProviderInterface
             // If not valid JSON, create a simple structure
             return array(
                 array(
-                    'question' => __('What is this content about?', 'postpilot-ai'),
+                    'question' => __('What is this content about?', 'nexipilot-content-ai'),
                     'answer' => $cleaned_response,
                 ),
             );
@@ -127,7 +127,7 @@ class Gemini implements ProviderInterface
             Logger::error('Gemini FAQ response is not an array', array('type' => gettype($faq_data)));
             return array(
                 array(
-                    'question' => __('What is this content about?', 'postpilot-ai'),
+                    'question' => __('What is this content about?', 'nexipilot-content-ai'),
                     'answer' => $cleaned_response,
                 ),
             );
@@ -214,7 +214,7 @@ class Gemini implements ProviderInterface
         if (is_wp_error($test_response)) {
             return new \WP_Error(
                 'invalid_api_key',
-                __('Invalid Gemini API key.', 'postpilot-ai')
+                __('Invalid Gemini API key.', 'nexipilot-content-ai')
             );
         }
 
@@ -236,7 +236,7 @@ class Gemini implements ProviderInterface
         if (empty($api_key)) {
             return new \WP_Error(
                 'missing_api_key',
-                __('Gemini API key is not configured.', 'postpilot-ai')
+                __('Gemini API key is not configured.', 'nexipilot-content-ai')
             );
         }
 
@@ -292,14 +292,14 @@ class Gemini implements ProviderInterface
                     'gemini_bad_request',
                     sprintf(
                         /* translators: %1$s: Gemini API error message */
-                        __('Gemini API error: Invalid request format. %1$s', 'postpilot-ai'),
+                        __('Gemini API error: Invalid request format. %1$s', 'nexipilot-content-ai'),
                         $error_message
                     )
                 );
             } elseif ($response_code === 401 || $response_code === 403) {
                 return new \WP_Error(
                     'gemini_invalid_key',
-                    __('Invalid Gemini API key. Please check your API key in PostPilot settings.', 'postpilot-ai')
+                    __('Invalid Gemini API key. Please check your API key in PostPilot settings.', 'nexipilot-content-ai')
                 );
             } elseif ($response_code === 429) {
                 // Extract retry time if available
@@ -310,7 +310,7 @@ class Gemini implements ProviderInterface
                             if (isset($detail['retryDelay'])) {
                                 $retry_info = sprintf(
                                     /* translators: %1$s: retry delay (e.g., "30s", "2 minutes") */
-                                    esc_html__(' Please retry in %1$s.', 'postpilot-ai'),
+                                    esc_html__(' Please retry in %1$s.', 'nexipilot-content-ai'),
                                     $detail['retryDelay']
                                 );
                             }
@@ -326,7 +326,7 @@ class Gemini implements ProviderInterface
                             /* translators: %1$s: retry information message (e.g., " Please retry in 2 minutes.") */
                             esc_html__(
                                 'Gemini API quota exceeded. You have reached your daily request limit (20 requests/day on free tier).%1$s Upgrade your plan at https://ai.google.dev/pricing or wait for quota reset.',
-                                'postpilot-ai'
+                                'nexipilot-content-ai'
                             ),
                             $retry_info
                         )
@@ -336,7 +336,7 @@ class Gemini implements ProviderInterface
                         'gemini_rate_limit',
                         sprintf(
                             /* translators: %1$s: retry information message (e.g., " Please retry in 30 seconds.") */
-                            __('Gemini API rate limit exceeded.%1$s', 'postpilot-ai'),
+                            __('Gemini API rate limit exceeded.%1$s', 'nexipilot-content-ai'),
                             $retry_info
                         )
                     );
@@ -344,14 +344,14 @@ class Gemini implements ProviderInterface
             } elseif (strpos($error_message, 'quota') !== false || strpos($error_message, 'RESOURCE_EXHAUSTED') !== false) {
                 return new \WP_Error(
                     'gemini_quota_exceeded',
-                    __('Gemini quota exceeded. Please check your quota at https://aistudio.google.com/app/apikey', 'postpilot-ai')
+                    __('Gemini quota exceeded. Please check your quota at https://aistudio.google.com/app/apikey', 'nexipilot-content-ai')
                 );
             } else {
                 return new \WP_Error(
                     'gemini_api_error',
                     sprintf(
                         /* translators: 1: Gemini API error code, 2: Gemini API error message */
-                        __('Gemini API error (Code: %1$d): %2$s', 'postpilot-ai'),
+                        __('Gemini API error (Code: %1$d): %2$s', 'nexipilot-content-ai'),
                         $response_code,
                         $error_message
                     )
@@ -370,7 +370,7 @@ class Gemini implements ProviderInterface
 
         return new \WP_Error(
             'invalid_response',
-            __('Invalid response from Gemini API.', 'postpilot-ai')
+            __('Invalid response from Gemini API.', 'nexipilot-content-ai')
         );
     }
 

@@ -8,7 +8,7 @@
  * @since 1.0.0
  */
 
-namespace PostPilotAI\Helpers;
+namespace NexiPilot\Helpers;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -27,7 +27,7 @@ class RateLimiter
     public static function get_post_limit()
     {
         // Allow premium versions to override via filter
-        return apply_filters('postpilotai_rate_limit_post', 2);
+        return apply_filters('nexipilot_rate_limit_post', 2);
     }
 
     /**
@@ -38,7 +38,7 @@ class RateLimiter
     public static function get_post_window()
     {
         // Allow premium versions to override via filter
-        return apply_filters('postpilotai_rate_limit_post_window', 300);
+        return apply_filters('nexipilot_rate_limit_post_window', 300);
     }
 
     /**
@@ -49,7 +49,7 @@ class RateLimiter
     public static function get_daily_limit()
     {
         // Allow premium versions to override via filter
-        return apply_filters('postpilotai_rate_limit_daily', 30);
+        return apply_filters('nexipilot_rate_limit_daily', 30);
     }
 
     /**
@@ -60,7 +60,7 @@ class RateLimiter
     public static function get_daily_window()
     {
         // Allow premium versions to override via filter
-        return apply_filters('postpilotai_rate_limit_daily_window', 86400);
+        return apply_filters('nexipilot_rate_limit_daily_window', 86400);
     }
 
     /**
@@ -283,7 +283,7 @@ class RateLimiter
      */
     private static function get_post_transient_key($user_id, $post_id)
     {
-        return sprintf('postpilotai_rate_post_%d_%d', $post_id, $user_id);
+        return sprintf('nexipilot_rate_post_%d_%d', $post_id, $user_id);
     }
 
     /**
@@ -294,7 +294,7 @@ class RateLimiter
      */
     private static function get_daily_transient_key($user_id)
     {
-        return sprintf('postpilotai_rate_daily_%d', $user_id);
+        return sprintf('nexipilot_rate_daily_%d', $user_id);
     }
 
     /**

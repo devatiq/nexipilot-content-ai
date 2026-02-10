@@ -1,4 +1,4 @@
-=== PostPilot AI ===
+=== NexiPilot Content AI ===
 Contributors: nexibyllc
 Tags: ai summarization, faq, internal-links, content generation
 Requires at least: 5.8
@@ -12,7 +12,7 @@ AI-powered WordPress plugin that generates FAQs, content summaries, and smart in
 
 == Description ==
 
-PostPilot AI enhances your WordPress content with AI-generated features, helping you create more engaging and SEO-friendly posts automatically.
+NexiPilot Content AI enhances your WordPress content with AI-generated features, helping you create more engaging and SEO-friendly posts automatically.
 
 **Features**
 
@@ -27,9 +27,9 @@ PostPilot AI enhances your WordPress content with AI-generated features, helping
 
 == Installation ==
 
-1.  Upload the `postpilot` folder to the `/wp-content/plugins/` directory.
+1.  Upload the `nexipilot-content-ai` folder to the `/wp-content/plugins/` directory.
 2.  Activate the plugin through the 'Plugins' menu in WordPress.
-3.  Go to **PostPilot AI** in the admin menu.
+3.  Go to **NexiPilot Content AI** in the admin menu.
 4.  Configure your AI provider (OpenAI, Claude, Gemini, or Grok) and enter your API key.
 5.  Enable the features you want to use (FAQ, Summary, Internal Links, External Sharing).
 
@@ -45,10 +45,10 @@ Yes, you need an API key from one of the supported providers: OpenAI, Anthropic 
 - **xAI**: Grok-2, Grok-2 mini, Grok Beta
 
 = Does it slow down my site? =
-No. PostPilot AI processes content asynchronously and caches the results for 24 hours. The generated content is served from the cache, so there is no delay for your visitors.
+No. NexiPilot Content AI processes content asynchronously and caches the results for 24 hours. The generated content is served from the cache, so there is no delay for your visitors.
 
 = Can I customize the output? =
-Yes! PostPilot AI provides hooks and filters that allow developers to customize the generated HTML output for FAQs, summaries, and internal links.
+Yes! NexiPilot Content AI provides hooks and filters that allow developers to customize the generated HTML output for FAQs, summaries, and internal links.
 
 == Screenshots ==
 

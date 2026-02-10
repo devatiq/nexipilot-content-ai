@@ -1,19 +1,19 @@
 <?php
 /**
- * Plugin Name: PostPilot AI
- * Plugin URI: https://github.com/devatiq/postpilot-ai
+ * Plugin Name: NexiPilot Content AI
+ * Plugin URI: https://github.com/devatiq/nexipilot-content-ai
  * Description: AI-powered WordPress plugin that generates FAQs, content summaries, and smart internal links for your posts.
  * Version: 1.0.0
  * Author: Nexiby LLC
  * Author URI: https://nexiby.com
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: postpilot-ai
+ * Text Domain: nexipilot-content-ai
  * Domain Path: /languages
  * Requires at least: 5.8
  * Requires PHP: 7.4
  *
- * @package PostPilot
+ * @package NexiPilot
  */
 
 if (!defined('ABSPATH')) {
@@ -21,19 +21,19 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Main PostPilot Class
+ * Main NexiPilot Class
  *
  * This is the main singleton class that handles the initialization
- * of the PostPilot AI plugin.
+ * of the NexiPilot Content AI plugin.
  *
  * @since 1.0.0
  */
-final class PostPilotAI
+final class NexiPilot
 {
     /**
      * Plugin instance
      *
-     * @var PostPilotAI|null
+     * @var NexiPilot|null
      */
     private static $instance = null;
 
@@ -53,7 +53,7 @@ final class PostPilotAI
      * Get singleton instance
      *
      * @since 1.0.0
-     * @return PostPilotAI
+     * @return NexiPilot
      */
     public static function get_instance()
     {
@@ -71,12 +71,12 @@ final class PostPilotAI
      */
     private function define_constants()
     {
-        define('POSTPILOTAI_VERSION', '1.0.0');
-        define('POSTPILOTAI_PATH', plugin_dir_path(__FILE__));
-        define('POSTPILOTAI_URL', plugin_dir_url(__FILE__));
-        define('POSTPILOTAI_FILE', __FILE__);
-        define('POSTPILOTAI_BASENAME', plugin_basename(__FILE__));
-        define('POSTPILOTAI_NAME', 'PostPilot AI');
+        define('NEXIPILOT_VERSION', '1.0.0');
+        define('NEXIPILOT_PATH', plugin_dir_path(__FILE__));
+        define('NEXIPILOT_URL', plugin_dir_url(__FILE__));
+        define('NEXIPILOT_FILE', __FILE__);
+        define('NEXIPILOT_BASENAME', plugin_basename(__FILE__));
+        define('NEXIPILOT_NAME', 'NexiPilot Content AI');
     }
 
     /**
@@ -87,8 +87,8 @@ final class PostPilotAI
      */
     private function include_files()
     {
-        if (file_exists(POSTPILOTAI_PATH . 'vendor/autoload.php')) {
-            require_once POSTPILOTAI_PATH . 'vendor/autoload.php';
+        if (file_exists(NEXIPILOT_PATH . 'vendor/autoload.php')) {
+            require_once NEXIPILOT_PATH . 'vendor/autoload.php';
         }
     }
 
@@ -101,8 +101,8 @@ final class PostPilotAI
     private function init_hooks()
     {
         add_action('plugins_loaded', [$this, 'plugin_loaded']);
-        register_activation_hook(POSTPILOTAI_FILE, [$this, 'activate']);
-        register_deactivation_hook(POSTPILOTAI_FILE, [$this, 'deactivate']);
+        register_activation_hook(NEXIPILOT_FILE, [$this, 'activate']);
+        register_deactivation_hook(NEXIPILOT_FILE, [$this, 'deactivate']);
     }
 
     /**
@@ -114,8 +114,8 @@ final class PostPilotAI
     public function plugin_loaded()
     {
         // Initialize the main manager after all plugins are loaded
-        if (class_exists('PostPilotAI\Manager')) {
-            new PostPilotAI\Manager();
+        if (class_exists('NexiPilot\\Manager')) {
+            new NexiPilot\Manager();
         }
     }
 
@@ -128,8 +128,8 @@ final class PostPilotAI
      */
     public function activate()
     {
-        if (class_exists('PostPilotAI\Activate')) {
-            PostPilotAI\Activate::activate();
+        if (class_exists('NexiPilot\\Activate')) {
+            NexiPilot\Activate::activate();
         }
     }
 
@@ -141,8 +141,8 @@ final class PostPilotAI
      */
     public function deactivate()
     {
-        if (class_exists('PostPilotAI\Deactivate')) {
-            PostPilotAI\Deactivate::deactivate();
+        if (class_exists('NexiPilot\\Deactivate')) {
+            NexiPilot\Deactivate::deactivate();
         }
     }
 
@@ -171,12 +171,12 @@ final class PostPilotAI
  * Bootstrap the plugin
  *
  * @since 1.0.0
- * @return PostPilotAI
+ * @return NexiPilot
  */
-function postpilotai()
+function nexipilot()
 {
-    return PostPilotAI::get_instance();
+    return NexiPilot::get_instance();
 }
 
 // Initialize the plugin
-postpilotai();
+nexipilot();

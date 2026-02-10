@@ -8,7 +8,7 @@
  * @since 1.0.0
  */
 
-.postpilotai-external-ai-sharing {
+.nexipilot-external-ai-sharing {
     margin: 2.5rem 0;
     padding: 2rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -18,24 +18,24 @@
     transition: all 0.3s ease;
 }
 
-.postpilotai-external-ai-sharing:hover {
+.nexipilot-external-ai-sharing:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
-.postpilotai-external-ai-sharing__header {
+.nexipilot-external-ai-sharing__header {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 1.5rem;
 }
 
-.postpilotai-external-ai-sharing__icon {
+.nexipilot-external-ai-sharing__icon {
     flex-shrink: 0;
     color: #6366f1;
     filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.2));
 }
 
-.postpilotai-external-ai-sharing__title {
+.nexipilot-external-ai-sharing__title {
     margin: 0;
     font-size: 1.125rem;
     font-weight: 600;
@@ -43,13 +43,13 @@
     letter-spacing: -0.01em;
 }
 
-.postpilotai-external-ai-sharing__buttons {
+.nexipilot-external-ai-sharing__buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
 }
 
-.postpilotai-external-ai-sharing__button {
+.nexipilot-external-ai-sharing__button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -69,7 +69,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.postpilotai-external-ai-sharing__button::before {
+.nexipilot-external-ai-sharing__button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -81,23 +81,23 @@
     transition: opacity 0.25s ease;
 }
 
-.postpilotai-external-ai-sharing__button:hover::before {
+.nexipilot-external-ai-sharing__button:hover::before {
     opacity: 1;
 }
 
-.postpilotai-external-ai-sharing__button:hover {
+.nexipilot-external-ai-sharing__button:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     text-decoration: none;
     color: #fff;
 }
 
-.postpilotai-external-ai-sharing__button:active {
+.nexipilot-external-ai-sharing__button:active {
     transform: translateY(-1px);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
-.postpilotai-external-ai-sharing__button-logo {
+.nexipilot-external-ai-sharing__button-logo {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -105,92 +105,92 @@
     height: 20px;
 }
 
-.postpilotai-external-ai-sharing__button-logo svg {
+.nexipilot-external-ai-sharing__button-logo svg {
     width: 100%;
     height: 100%;
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
-.postpilotai-external-ai-sharing__button-text {
+.nexipilot-external-ai-sharing__button-text {
     position: relative;
     z-index: 1;
 }
 
 /* Provider-specific colors with gradients */
-.postpilotai-external-ai-sharing__button--chatgpt {
+.nexipilot-external-ai-sharing__button--chatgpt {
     background: linear-gradient(135deg, #10a37f 0%, #0d8f6f 100%);
 }
 
-.postpilotai-external-ai-sharing__button--chatgpt:hover {
+.nexipilot-external-ai-sharing__button--chatgpt:hover {
     background: linear-gradient(135deg, #0d8f6f 0%, #0a7a5e 100%);
     box-shadow: 0 6px 16px rgba(16, 163, 127, 0.35);
 }
 
-.postpilotai-external-ai-sharing__button--claude {
+.nexipilot-external-ai-sharing__button--claude {
     background: linear-gradient(135deg, #cc785c 0%, #b8654d 100%);
 }
 
-.postpilotai-external-ai-sharing__button--claude:hover {
+.nexipilot-external-ai-sharing__button--claude:hover {
     background: linear-gradient(135deg, #b8654d 0%, #a4563e 100%);
     box-shadow: 0 6px 16px rgba(204, 120, 92, 0.35);
 }
 
-.postpilotai-external-ai-sharing__button--perplexity {
+.nexipilot-external-ai-sharing__button--perplexity {
     background: linear-gradient(135deg, #20808d 0%, #1a6b76 100%);
 }
 
-.postpilotai-external-ai-sharing__button--perplexity:hover {
+.nexipilot-external-ai-sharing__button--perplexity:hover {
     background: linear-gradient(135deg, #1a6b76 0%, #145660 100%);
     box-shadow: 0 6px 16px rgba(32, 128, 141, 0.35);
 }
 
-.postpilotai-external-ai-sharing__button--grok {
+.nexipilot-external-ai-sharing__button--grok {
     background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
 }
 
-.postpilotai-external-ai-sharing__button--grok:hover {
+.nexipilot-external-ai-sharing__button--grok:hover {
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
 }
 
-.postpilotai-external-ai-sharing__button--copilot {
+.nexipilot-external-ai-sharing__button--copilot {
     background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
 }
 
-.postpilotai-external-ai-sharing__button--copilot:hover {
+.nexipilot-external-ai-sharing__button--copilot:hover {
     background: linear-gradient(135deg, #005a9e 0%, #004578 100%);
     box-shadow: 0 6px 16px rgba(0, 120, 212, 0.35);
 }
 
-.postpilotai-external-ai-sharing__button--google {
+.nexipilot-external-ai-sharing__button--google {
     background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 75%, #ea4335 100%);
 }
 
-.postpilotai-external-ai-sharing__button--google:hover {
+.nexipilot-external-ai-sharing__button--google:hover {
     background: linear-gradient(135deg, #3367d6 0%, #2d9348 50%, #f9ab00 75%, #d33b2c 100%);
     box-shadow: 0 6px 16px rgba(66, 133, 244, 0.35);
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-    .postpilotai-external-ai-sharing {
+    .nexipilot-external-ai-sharing {
         padding: 1.5rem;
     }
 
-    .postpilotai-external-ai-sharing__header {
+    .nexipilot-external-ai-sharing__header {
         margin-bottom: 1.25rem;
     }
 
-    .postpilotai-external-ai-sharing__title {
+    .nexipilot-external-ai-sharing__title {
         font-size: 1rem;
     }
 
-    .postpilotai-external-ai-sharing__buttons {
+    .nexipilot-external-ai-sharing__buttons {
         flex-direction: column;
         gap: 0.875rem;
     }
 
-    .postpilotai-external-ai-sharing__button {
+    .nexipilot-external-ai-sharing__button {
         width: 100%;
         justify-content: center;
         padding: 0.875rem 1.25rem;
@@ -199,12 +199,12 @@
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
-    .postpilotai-external-ai-sharing {
+    .nexipilot-external-ai-sharing {
         background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
         border-color: #374151;
     }
 
-    .postpilotai-external-ai-sharing__title {
+    .nexipilot-external-ai-sharing__title {
         color: #f9fafb;
     }
 }

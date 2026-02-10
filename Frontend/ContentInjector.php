@@ -4,25 +4,25 @@
  *
  * Handles content injection for AI-generated features.
  *
- * @package PostPilotAI\Frontend
+ * @package NexiPilot\Frontend
  * @since 1.0.0
  */
 
-namespace PostPilotAI\Frontend;
+namespace NexiPilot\Frontend;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-use PostPilotAI\AI\Manager as AIManager;
-use PostPilotAI\Helpers\Logger;
+use NexiPilot\AI\Manager as AIManager;
+use NexiPilot\Helpers\Logger;
 
 /**
  * ContentInjector Class
  *
  * Injects AI-generated content into posts using WordPress hooks.
  *
- * @package PostPilotAI\Frontend
+ * @package NexiPilot\Frontend
  * @since 1.0.0
  */
 class ContentInjector
@@ -80,8 +80,8 @@ class ContentInjector
         $modified_content = $content;
 
         // Inject Summary
-        if (get_option('postpilotai_enable_summary', '1') === '1') {
-            $summary_position = get_option('postpilotai_summary_position', 'before_content');
+        if (get_option('nexipilot_enable_summary', '1') === '1') {
+            $summary_position = get_option('nexipilot_summary_position', 'before_content');
             $summary = $this->get_summary($post->ID, $post->post_content);
 
             if ($summary_position === 'before_content') {
@@ -90,13 +90,13 @@ class ContentInjector
         }
 
         // Inject Internal Links
-        if (get_option('postpilotai_enable_internal_links', '1') === '1') {
+        if (get_option('nexipilot_enable_internal_links', '1') === '1') {
             $modified_content = $this->inject_internal_links($post->ID, $modified_content);
         }
 
         // Inject FAQ
-        if (get_option('postpilotai_enable_faq', '1') === '1') {
-            $faq_position = get_option('postpilotai_faq_position', 'after_content');
+        if (get_option('nexipilot_enable_faq', '1') === '1') {
+            $faq_position = get_option('nexipilot_faq_position', 'after_content');
             $faq = $this->get_faq($post->ID, $post->post_content);
 
             if ($faq_position === 'after_content') {
@@ -107,8 +107,8 @@ class ContentInjector
         }
 
         // Inject Summary (if after content)
-        if (get_option('postpilotai_enable_summary', '1') === '1') {
-            $summary_position = get_option('postpilotai_summary_position', 'before_content');
+        if (get_option('nexipilot_enable_summary', '1') === '1') {
+            $summary_position = get_option('nexipilot_summary_position', 'before_content');
 
             if ($summary_position === 'after_content') {
                 $summary = $this->get_summary($post->ID, $post->post_content);
@@ -117,8 +117,8 @@ class ContentInjector
         }
 
         // Inject External AI Sharing
-        if (get_option('postpilotai_enable_external_ai_sharing', '1') === '1') {
-            $external_ai_position = get_option('postpilotai_external_ai_position', 'before_content');
+        if (get_option('nexipilot_enable_external_ai_sharing', '1') === '1') {
+            $external_ai_position = get_option('nexipilot_external_ai_position', 'before_content');
             $external_ai_html = $this->get_external_ai_sharing_html($post->ID);
 
             if ($external_ai_position === 'before_content') {
@@ -145,14 +145,14 @@ class ContentInjector
     private function get_faq($post_id, $content)
     {
         // Check if FAQ is enabled for this post
-        $faq_enabled = get_post_meta($post_id, '_postpilotai_faq_enabled', true);
+        $faq_enabled = get_post_meta($post_id, '_nexipilot_faq_enabled', true);
 
         if ($faq_enabled !== '1') {
             return '';
         }
 
         // Get FAQ data from post meta
-        $faq_data = get_post_meta($post_id, '_postpilotai_faqs', true);
+        $faq_data = get_post_meta($post_id, '_nexipilot_faqs', true);
 
         if (empty($faq_data) || !is_array($faq_data)) {
             Logger::debug('No FAQ data found in post meta', array('post_id' => $post_id));
@@ -165,7 +165,7 @@ class ContentInjector
         ob_start();
         ?>
         <div class="postpilotai-faq postpilotai-faq--<?php echo esc_attr($layout); ?>">
-            <h2 class="postpilotai-faq__title"><?php esc_html_e('Frequently Asked Questions', 'postpilot-ai'); ?></h2>
+            <h2 class="postpilotai-faq__title"><?php esc_html_e('Frequently Asked Questions', 'nexipilot-content-ai'); ?></h2>
             <div class="postpilotai-faq__items">
                 <?php foreach ($faq_data as $index => $faq_item): ?>
                     <?php if (isset($faq_item['question']) && isset($faq_item['answer'])): ?>
@@ -200,7 +200,7 @@ class ContentInjector
          * @param array  $faq_data The FAQ data array.
          * @param string $layout The layout style (accordion or static).
          */
-        return apply_filters('postpilotai_faq_output', $output, $post_id, $faq_data, $layout);
+        return apply_filters('nexipilot_faq_output', $output, $post_id, $faq_data, $layout);
     }
 
     /**
@@ -213,11 +213,11 @@ class ContentInjector
     private function get_faq_layout($post_id)
     {
         // Get per-post layout setting
-        $post_layout = get_post_meta($post_id, '_postpilotai_faq_display_style', true);
+        $post_layout = get_post_meta($post_id, '_nexipilot_faq_display_style', true);
 
         // If default or empty, use global setting
         if (empty($post_layout) || $post_layout === 'default') {
-            return get_option('postpilotai_faq_default_layout', 'accordion');
+            return get_option('nexipilot_faq_default_layout', 'accordion');
         }
 
         return $post_layout;
@@ -244,7 +244,7 @@ class ContentInjector
         ?>
         <div class="postpilotai-summary">
             <div class="postpilotai-summary-content">
-                <strong><?php esc_html_e('Summary:', 'postpilot-ai'); ?></strong>
+                <strong><?php esc_html_e('Summary:', 'nexipilot-content-ai'); ?></strong>
                 <?php echo wp_kses_post($summary_text); ?>
             </div>
         </div>
@@ -259,7 +259,7 @@ class ContentInjector
          * @param int    $post_id The post ID.
          * @param string $summary_text The summary text.
          */
-        return apply_filters('postpilotai_summary_output', $output, $post_id, $summary_text);
+        return apply_filters('nexipilot_summary_output', $output, $post_id, $summary_text);
     }
 
     /**
@@ -318,7 +318,7 @@ class ContentInjector
          * @param int    $post_id The post ID.
          * @param array  $link_suggestions The link suggestions array.
          */
-        return apply_filters('postpilotai_internal_links_output', $modified_content, $post_id, $link_suggestions);
+        return apply_filters('nexipilot_internal_links_output', $modified_content, $post_id, $link_suggestions);
     }
 
     /**
@@ -350,22 +350,22 @@ class ContentInjector
         // Get enabled providers
         $enabled_providers = array();
 
-        if (get_option('postpilotai_external_ai_chatgpt', '1') === '1') {
+        if (get_option('nexipilot_external_ai_chatgpt', '1') === '1') {
             $enabled_providers['chatgpt'] = 'ChatGPT';
         }
-        if (get_option('postpilotai_external_ai_claude', '1') === '1') {
+        if (get_option('nexipilot_external_ai_claude', '1') === '1') {
             $enabled_providers['claude'] = 'Claude';
         }
-        if (get_option('postpilotai_external_ai_perplexity', '1') === '1') {
+        if (get_option('nexipilot_external_ai_perplexity', '1') === '1') {
             $enabled_providers['perplexity'] = 'Perplexity';
         }
-        if (get_option('postpilotai_external_ai_grok', '1') === '1') {
+        if (get_option('nexipilot_external_ai_grok', '1') === '1') {
             $enabled_providers['grok'] = 'Grok';
         }
-        if (get_option('postpilotai_external_ai_copilot', '1') === '1') {
+        if (get_option('nexipilot_external_ai_copilot', '1') === '1') {
             $enabled_providers['copilot'] = 'Microsoft Copilot';
         }
-        if (get_option('postpilotai_external_ai_google', '1') === '1') {
+        if (get_option('nexipilot_external_ai_google', '1') === '1') {
             $enabled_providers['google'] = 'Google AI Overview';
         }
 
@@ -381,7 +381,7 @@ class ContentInjector
         }
 
         // Get customizable heading text
-        $heading_text = get_option('postpilotai_external_ai_heading', 'Summarize this post with:');
+        $heading_text = get_option('nexipilot_external_ai_heading', 'Summarize this post with:');
 
         // Provider logos (SVG)
         $logos = array(
@@ -453,7 +453,7 @@ class ContentInjector
          * @param int    $post_id The post ID.
          * @param array  $enabled_providers The enabled providers array.
          */
-        return apply_filters('postpilotai_external_ai_sharing_output', $output, $post_id, $enabled_providers);
+        return apply_filters('nexipilot_external_ai_sharing_output', $output, $post_id, $enabled_providers);
     }
 
     /**
