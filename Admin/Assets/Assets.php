@@ -48,7 +48,7 @@ class Assets
         // Load on PostPilot settings page and post edit pages
         if ('toplevel_page_postpilotai-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_style(
-                'postpilotai-admin-style',
+                'nexipilot-admin-style',
                 NEXIPILOT_ADMIN_ASSETS . '/css/admin.css',
                 array(),
                 NEXIPILOT_VERSION
@@ -79,7 +79,7 @@ class Assets
         // Enqueue settings.js only on PostPilot settings page
         if ('toplevel_page_postpilotai-settings' === $hook_suffix) {
             wp_enqueue_script(
-                'postpilotai-settings-script',
+                'nexipilot-settings-script',
                 NEXIPILOT_ADMIN_ASSETS . '/js/settings.js',
                 array('jquery', 'sweetalert2'),
                 NEXIPILOT_VERSION,
@@ -90,7 +90,7 @@ class Assets
         // Enqueue faq-metabox.js only on post edit pages
         if ('post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_script(
-                'postpilotai-faq-metabox-script',
+                'nexipilot-faq-metabox-script',
                 NEXIPILOT_ADMIN_ASSETS . '/js/faq-metabox.js',
                 array('jquery', 'sweetalert2'),
                 NEXIPILOT_VERSION,
@@ -99,7 +99,7 @@ class Assets
 
             // Localize script for FAQ metabox
             wp_localize_script(
-                'postpilotai-faq-metabox-script',
+                'nexipilot-faq-metabox-script',
                 'nexipilotAdmin',
                 array(
                     'ajaxurl' => admin_url('admin-ajax.php'),
@@ -151,7 +151,7 @@ class Assets
 
         // Enqueue FAQ CSS
         wp_enqueue_style(
-            'postpilotai-faq',
+            'nexipilot-faq',
             NEXIPILOT_URL . 'Frontend/Assets/css/faq.css',
             array(),
             NEXIPILOT_VERSION
@@ -161,7 +161,7 @@ class Assets
         $layout = $this->get_faq_layout($post->ID);
         if ($layout === 'accordion') {
             wp_enqueue_script(
-                'postpilotai-faq-accordion',
+                'nexipilot-faq-accordion',
                 NEXIPILOT_URL . 'Frontend/Assets/js/faq-accordion.js',
                 array(),
                 NEXIPILOT_VERSION,

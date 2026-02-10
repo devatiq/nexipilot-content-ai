@@ -54,7 +54,7 @@ class Settings
     {
         add_menu_page(
             __('NexiPilot Content AI', 'nexipilot-content-ai'),
-            __('NexiPilot Content AI', 'nexipilot-content-ai'),
+            __('NexiPilot', 'nexipilot-content-ai'),
             'manage_options',
             'postpilotai-settings',
             array($this, 'render_settings_page'),
@@ -495,20 +495,20 @@ class Settings
         // Check if settings were updated (for SweetAlert2 notification)
         $settings_updated = false;
 
-		/**
-			 * settings-updated is a core query arg added by options.php after a successful settings save.
-			 * It's read-only and only used here to display a UI notice, no state change or action is performed.
-			 */
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Core read-only redirect flag from options.php, used only for UI.
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended
-		if ( isset( $_GET['settings-updated'], $_GET['page'] ) ) {
-			$page = sanitize_key( wp_unslash( $_GET['page'] ) );
+        /**
+         * settings-updated is a core query arg added by options.php after a successful settings save.
+         * It's read-only and only used here to display a UI notice, no state change or action is performed.
+         */
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Core read-only redirect flag from options.php, used only for UI.
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
+        if (isset($_GET['settings-updated'], $_GET['page'])) {
+            $page = sanitize_key(wp_unslash($_GET['page']));
 
-			if ( 'postpilotai-settings' === $page ) {
-				$settings_updated = ( 'true' === sanitize_text_field( wp_unslash( $_GET['settings-updated'] ) ) );
-			}
-		}
-		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+            if ('postpilotai-settings' === $page) {
+                $settings_updated = ('true' === sanitize_text_field(wp_unslash($_GET['settings-updated'])));
+            }
+        }
+        // phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 
         ?>
@@ -1232,8 +1232,8 @@ class Settings
                                             <label for="nexipilot_external_ai_position" class="postpilotai-label-small">
                                                 <?php esc_html_e('Display Position', 'nexipilot-content-ai'); ?>
                                             </label>
-                                            <select name="nexipilot_external_ai_position"
-                                                id="nexipilot_external_ai_position" class="postpilotai-select-small">
+                                            <select name="nexipilot_external_ai_position" id="nexipilot_external_ai_position"
+                                                class="postpilotai-select-small">
                                                 <option value="before_content" <?php selected(get_option('nexipilot_external_ai_position', 'before_content'), 'before_content'); ?>>
                                                     <?php esc_html_e('Before Content', 'nexipilot-content-ai'); ?>
                                                 </option>
@@ -1485,8 +1485,8 @@ class Settings
         $value = get_option('nexipilot_openai_api_key', '');
         $has_key = !empty($value);
         ?>
-        <input type="text" name="nexipilot_openai_api_key" id="nexipilot_openai_api_key"
-            value="<?php echo esc_attr($value); ?>" class="regular-text"
+        <input type="text" name="nexipilot_openai_api_key" id="nexipilot_openai_api_key" value="<?php echo esc_attr($value); ?>"
+            class="regular-text"
             placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'nexipilot-content-ai') : esc_attr__('Enter your OpenAI API key', 'nexipilot-content-ai'); ?>" />
         <?php if ($has_key): ?>
             <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
@@ -1514,8 +1514,8 @@ class Settings
         $value = get_option('nexipilot_claude_api_key', '');
         $has_key = !empty($value);
         ?>
-        <input type="text" name="nexipilot_claude_api_key" id="nexipilot_claude_api_key"
-            value="<?php echo esc_attr($value); ?>" class="regular-text"
+        <input type="text" name="nexipilot_claude_api_key" id="nexipilot_claude_api_key" value="<?php echo esc_attr($value); ?>"
+            class="regular-text"
             placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'nexipilot-content-ai') : esc_attr__('Enter your Claude API key', 'nexipilot-content-ai'); ?>" />
         <?php if ($has_key): ?>
             <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
@@ -1660,8 +1660,8 @@ class Settings
         $value = get_option('nexipilot_gemini_api_key', '');
         $has_key = !empty($value);
         ?>
-        <input type="text" name="nexipilot_gemini_api_key" id="nexipilot_gemini_api_key"
-            value="<?php echo esc_attr($value); ?>" class="regular-text"
+        <input type="text" name="nexipilot_gemini_api_key" id="nexipilot_gemini_api_key" value="<?php echo esc_attr($value); ?>"
+            class="regular-text"
             placeholder="<?php echo $has_key ? esc_attr__('API key is saved', 'nexipilot-content-ai') : esc_attr__('Enter your Gemini API key', 'nexipilot-content-ai'); ?>" />
         <?php if ($has_key): ?>
             <span class="dashicons dashicons-yes-alt" style="color: #46b450; margin-left: 5px;"></span>
