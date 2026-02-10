@@ -129,8 +129,9 @@ class AdminManager
             wp_send_json_error(array('message' => __('Invalid setting.', 'nexipilot-content-ai')));
         }
 
-        // Get raw value
-        $raw_value = wp_unslash($_POST['value']);
+        // Get raw value with basic sanitization (WordPress coding standards requirement)
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitized below based on setting type
+        $raw_value = isset($_POST['value']) ? wp_unslash($_POST['value']) : '';
 
         // Sanitize value using the callback defined for this setting
         $sanitize_callback = $allowed_settings[$setting_name];
