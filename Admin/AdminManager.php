@@ -155,9 +155,11 @@ class AdminManager
 
         if ($updated) {
             wp_send_json_success(array('message' => __('Setting saved.', 'nexipilot-content-ai')));
+            wp_die(); // Explicit exit for code review compliance
         }
 
         wp_send_json_error(array('message' => __('Failed to save setting.', 'nexipilot-content-ai')));
+        wp_die(); // Explicit exit for code review compliance
     }
 
     /**

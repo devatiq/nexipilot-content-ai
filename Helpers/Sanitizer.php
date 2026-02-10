@@ -203,7 +203,7 @@ class Sanitizer
             // Position Settings
             'nexipilot_faq_position' => array(self::class, 'sanitize_position'),
             'nexipilot_summary_position' => array(self::class, 'sanitize_position'),
-            'nexipilot_external_ai_position' => 'sanitize_text_field',
+            'nexipilot_external_ai_position' => array(self::class, 'sanitize_position'),
             'nexipilot_faq_default_layout' => array(self::class, 'sanitize_faq_layout'),
 
             // External AI Sharing Providers
