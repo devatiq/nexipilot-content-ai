@@ -46,7 +46,7 @@ class Assets
     public function admin_enqueue_styles($hook_suffix)
     {
         // Load on PostPilot settings page and post edit pages
-        if ('toplevel_page_postpilotai-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
+        if ('toplevel_page_nexipilot-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_style(
                 'nexipilot-admin-style',
                 NEXIPILOT_ADMIN_ASSETS . '/css/admin.css',
@@ -66,7 +66,7 @@ class Assets
     public function admin_enqueue_scripts($hook_suffix)
     {
         // Enqueue SweetAlert2 on settings page and post edit pages
-        if ('toplevel_page_postpilotai-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
+        if ('toplevel_page_nexipilot-settings' === $hook_suffix || 'post.php' === $hook_suffix || 'post-new.php' === $hook_suffix) {
             wp_enqueue_script(
                 'sweetalert2',
                 NEXIPILOT_ADMIN_ASSETS . '/js/sweetalert2.js',
@@ -77,7 +77,7 @@ class Assets
         }
 
         // Enqueue settings.js only on PostPilot settings page
-        if ('toplevel_page_postpilotai-settings' === $hook_suffix) {
+        if ('toplevel_page_nexipilot-settings' === $hook_suffix) {
             wp_enqueue_script(
                 'nexipilot-settings-script',
                 NEXIPILOT_ADMIN_ASSETS . '/js/settings.js',

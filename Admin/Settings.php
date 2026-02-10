@@ -56,7 +56,7 @@ class Settings
             __('NexiPilot Content AI', 'nexipilot-content-ai'),
             __('NexiPilot', 'nexipilot-content-ai'),
             'manage_options',
-            'postpilotai-settings',
+            'nexipilot-settings',
             array($this, 'render_settings_page'),
             'dashicons-superhero-alt',
             30
@@ -361,14 +361,14 @@ class Settings
             'nexipilot_ai_section',
             __('AI Provider Configuration', 'nexipilot-content-ai'),
             array($this, 'render_ai_section_description'),
-            'postpilotai-settings'
+            'nexipilot-settings'
         );
 
         add_settings_section(
             'nexipilot_features_section',
             __('Feature Settings', 'nexipilot-content-ai'),
             array($this, 'render_features_section_description'),
-            'postpilotai-settings'
+            'nexipilot-settings'
         );
 
         // Add settings fields - AI Provider
@@ -376,7 +376,7 @@ class Settings
             'nexipilot_ai_provider',
             __('AI Provider', 'nexipilot-content-ai'),
             array($this, 'render_ai_provider_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_ai_section'
         );
 
@@ -384,7 +384,7 @@ class Settings
             'nexipilot_openai_api_key',
             __('OpenAI API Key', 'nexipilot-content-ai'),
             array($this, 'render_openai_api_key_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_ai_section'
         );
 
@@ -392,7 +392,7 @@ class Settings
             'nexipilot_claude_api_key',
             __('Claude API Key', 'nexipilot-content-ai'),
             array($this, 'render_claude_api_key_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_ai_section'
         );
 
@@ -400,7 +400,7 @@ class Settings
             'nexipilot_gemini_api_key',
             __('Gemini API Key', 'nexipilot-content-ai'),
             array($this, 'render_gemini_api_key_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_ai_section'
         );
 
@@ -409,7 +409,7 @@ class Settings
             'nexipilot_openai_model',
             __('OpenAI Model', 'nexipilot-content-ai'),
             array($this, 'render_openai_model_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_ai_section'
         );
 
@@ -417,7 +417,7 @@ class Settings
             'nexipilot_claude_model',
             __('Claude Model', 'nexipilot-content-ai'),
             array($this, 'render_claude_model_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_ai_section'
         );
 
@@ -425,7 +425,7 @@ class Settings
             'nexipilot_gemini_model',
             __('Gemini Model', 'nexipilot-content-ai'),
             array($this, 'render_gemini_model_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_ai_section'
         );
 
@@ -434,7 +434,7 @@ class Settings
             'nexipilot_enable_faq',
             __('Enable FAQ Generator', 'nexipilot-content-ai'),
             array($this, 'render_enable_faq_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_features_section'
         );
 
@@ -442,7 +442,7 @@ class Settings
             'nexipilot_faq_position',
             __('FAQ Position', 'nexipilot-content-ai'),
             array($this, 'render_faq_position_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_features_section'
         );
 
@@ -450,7 +450,7 @@ class Settings
             'nexipilot_faq_default_layout',
             __('Default FAQ Display Style', 'nexipilot-content-ai'),
             array($this, 'render_faq_default_layout_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_features_section'
         );
 
@@ -458,7 +458,7 @@ class Settings
             'nexipilot_enable_summary',
             __('Enable Content Summary', 'nexipilot-content-ai'),
             array($this, 'render_enable_summary_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_features_section'
         );
 
@@ -466,7 +466,7 @@ class Settings
             'nexipilot_summary_position',
             __('Summary Position', 'nexipilot-content-ai'),
             array($this, 'render_summary_position_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_features_section'
         );
 
@@ -474,7 +474,7 @@ class Settings
             'nexipilot_enable_internal_links',
             __('Enable Smart Internal Links', 'nexipilot-content-ai'),
             array($this, 'render_enable_internal_links_field'),
-            'postpilotai-settings',
+            'nexipilot-settings',
             'nexipilot_features_section'
         );
     }
@@ -504,7 +504,7 @@ class Settings
         if (isset($_GET['settings-updated'], $_GET['page'])) {
             $page = sanitize_key(wp_unslash($_GET['page']));
 
-            if ('postpilotai-settings' === $page) {
+            if ('nexipilot-settings' === $page) {
                 $settings_updated = ('true' === sanitize_text_field(wp_unslash($_GET['settings-updated'])));
             }
         }
@@ -512,7 +512,7 @@ class Settings
 
 
         ?>
-        <div class="wrap postpilotai-settings-wrap" <?php echo $settings_updated ? 'data-settings-saved="true"' : ''; ?>>
+        <div class="wrap nexipilot-settings-wrap" <?php echo $settings_updated ? 'data-settings-saved="true"' : ''; ?>>
             <!-- Header Section -->
             <div class="postpilotai-header">
                 <div class="postpilotai-header-content">
@@ -621,12 +621,12 @@ class Settings
                 </button>
             </div>
 
-            <form action="options.php" method="post" class="postpilotai-settings-form">
+            <form action="options.php" method="post" class="nexipilot-settings-form">
                 <?php settings_fields('nexipilot_settings'); ?>
 
                 <!-- AI Providers Tab Content -->
                 <div class="postpilotai-tab-content" id="ai-providers-tab">
-                    <div class="postpilotai-settings-grid">
+                    <div class="nexipilot-settings-grid">
                         <!-- OpenAI Provider Card -->
                         <div class="postpilotai-card postpilotai-provider-card">
                             <div class="postpilotai-card-header">
@@ -971,7 +971,7 @@ class Settings
 
                 <!-- Features Tab Content -->
                 <div class="postpilotai-tab-content" id="features-tab">
-                    <div class="postpilotai-settings-grid">
+                    <div class="nexipilot-settings-grid">
                         <!-- Feature Settings Card -->
                         <div class="postpilotai-card">
                             <div class="postpilotai-card-header">
@@ -1356,7 +1356,7 @@ class Settings
 
                 <!-- Troubleshooting Tab Content -->
                 <div class="postpilotai-tab-content" id="troubleshooting-tab">
-                    <div class="postpilotai-settings-grid">
+                    <div class="nexipilot-settings-grid">
                         <!-- Debug Logging Card -->
                         <div class="postpilotai-card">
                             <div class="postpilotai-card-header">

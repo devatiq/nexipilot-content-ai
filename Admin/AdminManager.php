@@ -147,7 +147,7 @@ class AdminManager
     {
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
-            esc_url(admin_url('admin.php?page=postpilotai-settings')),
+            esc_url(admin_url('admin.php?page=nexipilot-settings')),
             esc_html__('Settings', 'nexipilot-content-ai')
         );
 
