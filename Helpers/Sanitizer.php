@@ -86,6 +86,18 @@ class Sanitizer
         return in_array($value, $allowed_values, true) ? $value : $default;
     }
 
+
+    /**
+     * Get allowed AI providers
+     *
+     * @since 1.0.0
+     * @return array Array of allowed AI providers
+     */
+    public static function get_allowed_ai_providers()
+    {
+        return array('openai', 'claude', 'gemini', 'grok');
+    }
+
     /**
      * Sanitize AI provider
      *
@@ -95,9 +107,9 @@ class Sanitizer
      */
     public static function sanitize_ai_provider($provider)
     {
-        $allowed_providers = array('openai', 'claude', 'gemini');
-        return self::sanitize_select($provider, $allowed_providers, 'openai');
+        return self::sanitize_select($provider, self::get_allowed_ai_providers(), 'openai');
     }
+
 
     /**
      * Sanitize position option

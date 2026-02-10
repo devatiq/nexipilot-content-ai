@@ -199,7 +199,7 @@ class Settings
             'nexipilot_settings',
             'nexipilot_enable_faq',
             array(
-                'type' => 'string',
+                'type' => 'boolean',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
                 'default' => '1',
             )
@@ -209,7 +209,7 @@ class Settings
             'nexipilot_settings',
             'nexipilot_enable_summary',
             array(
-                'type' => 'string',
+                'type' => 'boolean',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
                 'default' => '1',
             )
@@ -219,7 +219,7 @@ class Settings
             'nexipilot_settings',
             'nexipilot_enable_internal_links',
             array(
-                'type' => 'string',
+                'type' => 'boolean',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
                 'default' => '1',
             )
@@ -270,7 +270,7 @@ class Settings
             'nexipilot_settings',
             'nexipilot_enable_external_ai_sharing',
             array(
-                'type' => 'string',
+                'type' => 'boolean',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
                 'default' => '1',
             )
@@ -290,7 +290,7 @@ class Settings
             'nexipilot_settings',
             'nexipilot_external_ai_chatgpt',
             array(
-                'type' => 'string',
+                'type' => 'boolean',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
                 'default' => '1',
             )
@@ -300,7 +300,7 @@ class Settings
             'nexipilot_settings',
             'nexipilot_external_ai_claude',
             array(
-                'type' => 'string',
+                'type' => 'boolean',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
                 'default' => '1',
             )
@@ -310,7 +310,7 @@ class Settings
             'nexipilot_settings',
             'nexipilot_external_ai_perplexity',
             array(
-                'type' => 'string',
+                'type' => 'boolean',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
                 'default' => '1',
             )
@@ -320,7 +320,7 @@ class Settings
             'nexipilot_settings',
             'nexipilot_external_ai_grok',
             array(
-                'type' => 'string',
+                'type' => 'boolean',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
                 'default' => '1',
             )
@@ -330,7 +330,7 @@ class Settings
             'nexipilot_settings',
             'nexipilot_external_ai_copilot',
             array(
-                'type' => 'string',
+                'type' => 'boolean',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
                 'default' => '1',
             )
@@ -340,7 +340,7 @@ class Settings
             'nexipilot_settings',
             'nexipilot_external_ai_google',
             array(
-                'type' => 'string',
+                'type' => 'boolean',
                 'sanitize_callback' => array(Sanitizer::class, 'sanitize_checkbox'),
                 'default' => '1',
             )
@@ -587,8 +587,8 @@ class Settings
                             $status_class = 'nexipilot-status-partial';
                         }
                         ?>
-                        <span class="nexipilot-status-badge <?php echo esc_attr($status_class); ?>"
-                            id="nexipilot-api-status" title="<?php echo esc_attr($tooltip); ?>">
+                        <span class="nexipilot-status-badge <?php echo esc_attr($status_class); ?>" id="nexipilot-api-status"
+                            title="<?php echo esc_attr($tooltip); ?>">
                             <span class="status-dot"></span>
                             <?php echo esc_html($status_text); ?>
                         </span>
