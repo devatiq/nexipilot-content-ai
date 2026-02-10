@@ -57,7 +57,7 @@
         }
 
         // Restore last active tab on page load
-        const lastActiveTab = localStorage.getItem('nexipilot_active_tab') || 'general';
+        const lastActiveTab = localStorage.getItem('nexipilot_active_tab') || 'features';
         switchTab(lastActiveTab);
 
         // Handle tab clicks

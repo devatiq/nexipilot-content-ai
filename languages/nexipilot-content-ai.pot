@@ -1,0 +1,938 @@
+# Copyright (C) 2026 Nexiby LLC
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: NexiPilot Content AI 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nexipilot-content-ai\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-02-10T13:04:32+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: nexipilot-content-ai\n"
+
+#. Plugin Name of the plugin
+#: nexipilot-content-ai.php
+#: Admin/Settings.php:56
+msgid "NexiPilot Content AI"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: nexipilot-content-ai.php
+msgid "https://github.com/devatiq/nexipilot-content-ai"
+msgstr ""
+
+#. Description of the plugin
+#: nexipilot-content-ai.php
+msgid "AI-powered WordPress plugin that generates FAQs, content summaries, and smart internal links for your posts."
+msgstr ""
+
+#. Author of the plugin
+#: nexipilot-content-ai.php
+msgid "Nexiby LLC"
+msgstr ""
+
+#. Author URI of the plugin
+#: nexipilot-content-ai.php
+msgid "https://nexiby.com"
+msgstr ""
+
+#: Admin/AdminManager.php:117
+msgid "Unauthorized"
+msgstr ""
+
+#: Admin/AdminManager.php:123
+msgid "Missing data"
+msgstr ""
+
+#: Admin/AdminManager.php:135
+msgid "Invalid setting."
+msgstr ""
+
+#: Admin/AdminManager.php:157
+msgid "Setting saved."
+msgstr ""
+
+#: Admin/AdminManager.php:161
+msgid "Failed to save setting."
+msgstr ""
+
+#: Admin/AdminManager.php:177
+msgid "Settings"
+msgstr ""
+
+#: Admin/AdminManager.php:198
+msgid "Documentation"
+msgstr ""
+
+#: Admin/AdminManager.php:199
+msgid "Support"
+msgstr ""
+
+#: Admin/Assets/Assets.php:109
+msgid "Are you sure you want to remove this FAQ item?"
+msgstr ""
+
+#: Admin/Assets/Assets.php:110
+msgid "Yes, remove it"
+msgstr ""
+
+#: Admin/Assets/Assets.php:111
+msgid "Cancel"
+msgstr ""
+
+#: Admin/Assets/Assets.php:112
+msgid "Generating FAQ..."
+msgstr ""
+
+#: Admin/Assets/Assets.php:113
+msgid "Please wait while we generate FAQs from your content."
+msgstr ""
+
+#: Admin/Assets/Assets.php:114
+msgid "Success!"
+msgstr ""
+
+#: Admin/Assets/Assets.php:115
+#: Admin/Assets/Assets.php:122
+msgid "Error"
+msgstr ""
+
+#: Admin/Assets/Assets.php:116
+msgid "API Quota Exceeded"
+msgstr ""
+
+#: Admin/Assets/Assets.php:117
+msgid "Your OpenAI quota has been exceeded. Would you like to use demo FAQ content instead?"
+msgstr ""
+
+#: Admin/Assets/Assets.php:118
+msgid "Yes, use demo FAQ"
+msgstr ""
+
+#: Admin/Assets/Assets.php:119
+msgid "Demo FAQ Added"
+msgstr ""
+
+#: Admin/Assets/Assets.php:120
+msgid "Demo FAQ content has been added. You can edit it manually or add credits to your OpenAI account to generate real content."
+msgstr ""
+
+#: Admin/Assets/Assets.php:121
+msgid "Rate Limit Reached"
+msgstr ""
+
+#: Admin/Assets/Assets.php:123
+msgid "OK"
+msgstr ""
+
+#: Admin/Assets/Assets.php:124
+msgid "An error occurred. Please try again."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:74
+msgid "NexiPilot Content AI - FAQ Generator"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:110
+msgid "Display FAQ on this post?"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:113
+msgid "Check this to show AI-generated FAQs on the frontend."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:130
+msgid "FAQ Display Style:"
+msgstr ""
+
+#. translators: %s: current global default layout
+#: Admin/MetaBox/FAQMetaBox.php:138
+#, php-format
+msgid "Use Default (%s)"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:144
+#: Admin/Settings.php:1067
+#: Admin/Settings.php:1623
+msgid "Accordion"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:147
+#: Admin/Settings.php:1070
+#: Admin/Settings.php:1626
+msgid "Static"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:151
+msgid "Choose how FAQs should be displayed on the frontend."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:158
+msgid "FAQ Items"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:160
+msgid "+ Add FAQ Item"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:171
+msgid "No FAQs yet. Click \"Generate FAQ\" to create them automatically."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:181
+msgid "Regenerate FAQ"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:181
+msgid "Generate FAQ"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:185
+msgid "Generate FAQs using AI based on your post content."
+msgstr ""
+
+#. translators: %1$s: FAQ item number
+#: Admin/MetaBox/FAQMetaBox.php:216
+#, php-format
+msgid "FAQ #%1$s"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:226
+msgid "Remove this FAQ"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:232
+msgid "Question:"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:235
+msgid "Enter question..."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:238
+msgid "Answer:"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:240
+msgid "Enter answer..."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:358
+#: Admin/MetaBox/FAQMetaBox.php:467
+#: Admin/MetaBox/FAQMetaBox.php:548
+msgid "Permission denied."
+msgstr ""
+
+#. translators: %1$s: remaining wait time before FAQ generation is allowed again
+#: Admin/MetaBox/FAQMetaBox.php:372
+#: Admin/MetaBox/FAQMetaBox.php:482
+#, php-format
+msgid "You have generated FAQ for this post recently. Please wait %1$s before trying again."
+msgstr ""
+
+#. translators: %1$d: maximum number of FAQ generations allowed per day
+#: Admin/MetaBox/FAQMetaBox.php:381
+#: Admin/MetaBox/FAQMetaBox.php:493
+#, php-format
+msgid "You have reached your daily FAQ generation limit (%1$d per day). Please try again tomorrow."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:402
+msgid "Post not found."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:445
+msgid "FAQ generated successfully!"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:527
+msgid "Demo FAQ added successfully!"
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:557
+msgid "AI service is not configured. Please add your API key in NexiPilot settings."
+msgstr ""
+
+#: Admin/MetaBox/FAQMetaBox.php:581
+msgid "AI service is available."
+msgstr ""
+
+#: Admin/Settings.php:57
+msgid "NexiPilot"
+msgstr ""
+
+#: Admin/Settings.php:362
+msgid "AI Provider Configuration"
+msgstr ""
+
+#: Admin/Settings.php:369
+#: Admin/Settings.php:986
+msgid "Feature Settings"
+msgstr ""
+
+#: Admin/Settings.php:377
+#: Admin/Settings.php:1017
+#: Admin/Settings.php:1104
+#: Admin/Settings.php:1176
+msgid "AI Provider"
+msgstr ""
+
+#: Admin/Settings.php:385
+msgid "OpenAI API Key"
+msgstr ""
+
+#: Admin/Settings.php:393
+msgid "Claude API Key"
+msgstr ""
+
+#: Admin/Settings.php:401
+msgid "Gemini API Key"
+msgstr ""
+
+#: Admin/Settings.php:410
+msgid "OpenAI Model"
+msgstr ""
+
+#: Admin/Settings.php:418
+msgid "Claude Model"
+msgstr ""
+
+#: Admin/Settings.php:426
+msgid "Gemini Model"
+msgstr ""
+
+#: Admin/Settings.php:435
+msgid "Enable FAQ Generator"
+msgstr ""
+
+#: Admin/Settings.php:443
+msgid "FAQ Position"
+msgstr ""
+
+#: Admin/Settings.php:451
+msgid "Default FAQ Display Style"
+msgstr ""
+
+#: Admin/Settings.php:459
+msgid "Enable Content Summary"
+msgstr ""
+
+#: Admin/Settings.php:467
+msgid "Summary Position"
+msgstr ""
+
+#: Admin/Settings.php:475
+msgid "Enable Smart Internal Links"
+msgstr ""
+
+#: Admin/Settings.php:533
+msgid "AI-Powered Content Enhancement for WordPress"
+msgstr ""
+
+#: Admin/Settings.php:560
+msgid "Connected: "
+msgstr ""
+
+#: Admin/Settings.php:563
+msgid "Not configured: "
+msgstr ""
+
+#: Admin/Settings.php:569
+msgid "Not Connected"
+msgstr ""
+
+#. translators: 1: number of connected AI providers, 2: total available AI providers
+#: Admin/Settings.php:575
+#: Admin/Settings.php:583
+#, php-format
+msgid "%1$d of %2$d AI Connected"
+msgstr ""
+
+#: Admin/Settings.php:606
+msgid "Features"
+msgstr ""
+
+#: Admin/Settings.php:613
+msgid "AI Providers"
+msgstr ""
+
+#: Admin/Settings.php:620
+msgid "Troubleshooting"
+msgstr ""
+
+#: Admin/Settings.php:640
+#: Admin/Settings.php:1465
+msgid "OpenAI (ChatGPT)"
+msgstr ""
+
+#: Admin/Settings.php:641
+msgid "Configure OpenAI API credentials and model selection"
+msgstr ""
+
+#: Admin/Settings.php:656
+#: Admin/Settings.php:740
+#: Admin/Settings.php:824
+#: Admin/Settings.php:911
+msgid "API Key"
+msgstr ""
+
+#: Admin/Settings.php:663
+#: Admin/Settings.php:747
+#: Admin/Settings.php:831
+#: Admin/Settings.php:918
+msgid "Saved"
+msgstr ""
+
+#: Admin/Settings.php:684
+#: Admin/Settings.php:768
+#: Admin/Settings.php:852
+#: Admin/Settings.php:939
+msgid "Get your API key from"
+msgstr ""
+
+#: Admin/Settings.php:693
+#: Admin/Settings.php:777
+#: Admin/Settings.php:861
+#: Admin/Settings.php:947
+msgid "Model"
+msgstr ""
+
+#: Admin/Settings.php:708
+msgid "This model will be used for ALL features that use OpenAI"
+msgstr ""
+
+#: Admin/Settings.php:724
+msgid "Anthropic Claude"
+msgstr ""
+
+#: Admin/Settings.php:725
+msgid "Configure Claude API credentials and model selection"
+msgstr ""
+
+#: Admin/Settings.php:792
+msgid "This model will be used for ALL features that use Claude"
+msgstr ""
+
+#: Admin/Settings.php:808
+msgid "Google Gemini"
+msgstr ""
+
+#: Admin/Settings.php:809
+msgid "Configure Gemini API credentials and model selection"
+msgstr ""
+
+#: Admin/Settings.php:879
+msgid "This model will be used for ALL features that use Gemini"
+msgstr ""
+
+#: Admin/Settings.php:895
+msgid "xAI Grok"
+msgstr ""
+
+#: Admin/Settings.php:896
+msgid "Configure Grok API credentials and model selection"
+msgstr ""
+
+#: Admin/Settings.php:959
+msgid "This model will be used for ALL features that use Grok"
+msgstr ""
+
+#: Admin/Settings.php:967
+#: Admin/Settings.php:1353
+#: Admin/Settings.php:1421
+msgid "Save Settings"
+msgstr ""
+
+#: Admin/Settings.php:987
+msgid "Enable or disable AI-powered features"
+msgstr ""
+
+#: Admin/Settings.php:1002
+msgid "FAQ Generator"
+msgstr ""
+
+#: Admin/Settings.php:1005
+msgid "Automatically generate frequently asked questions based on your content"
+msgstr ""
+
+#: Admin/Settings.php:1033
+#: Admin/Settings.php:1120
+#: Admin/Settings.php:1192
+msgid "Model in Use"
+msgstr ""
+
+#: Admin/Settings.php:1039
+#: Admin/Settings.php:1126
+#: Admin/Settings.php:1198
+msgid "Not configured"
+msgstr ""
+
+#: Admin/Settings.php:1043
+#: Admin/Settings.php:1130
+#: Admin/Settings.php:1202
+msgid "Model is configured in the AI Providers tab"
+msgstr ""
+
+#: Admin/Settings.php:1048
+#: Admin/Settings.php:1135
+#: Admin/Settings.php:1233
+msgid "Display Position"
+msgstr ""
+
+#: Admin/Settings.php:1053
+#: Admin/Settings.php:1143
+#: Admin/Settings.php:1241
+#: Admin/Settings.php:1567
+#: Admin/Settings.php:1605
+msgid "After Content"
+msgstr ""
+
+#: Admin/Settings.php:1056
+#: Admin/Settings.php:1140
+#: Admin/Settings.php:1238
+#: Admin/Settings.php:1564
+#: Admin/Settings.php:1602
+msgid "Before Content"
+msgstr ""
+
+#: Admin/Settings.php:1062
+msgid "Default Display Style"
+msgstr ""
+
+#: Admin/Settings.php:1074
+msgid "Can be overridden per post"
+msgstr ""
+
+#: Admin/Settings.php:1089
+msgid "Content Summary"
+msgstr ""
+
+#: Admin/Settings.php:1092
+msgid "Generate concise summaries of your posts for better engagement"
+msgstr ""
+
+#: Admin/Settings.php:1161
+msgid "Smart Internal Links"
+msgstr ""
+
+#: Admin/Settings.php:1164
+msgid "Automatically suggest relevant internal links to improve SEO"
+msgstr ""
+
+#: Admin/Settings.php:1219
+msgid "External AI Sharing"
+msgstr ""
+
+#: Admin/Settings.php:1222
+msgid "Allow readers to summarize posts with external AI tools"
+msgstr ""
+
+#: Admin/Settings.php:1244
+msgid "Both"
+msgstr ""
+
+#: Admin/Settings.php:1250
+msgid "Heading Text"
+msgstr ""
+
+#: Admin/Settings.php:1255
+msgid "Summarize this post with:"
+msgstr ""
+
+#: Admin/Settings.php:1257
+msgid "Customize the heading text displayed above the AI sharing buttons"
+msgstr ""
+
+#: Admin/Settings.php:1262
+msgid "Enabled AI Providers"
+msgstr ""
+
+#: Admin/Settings.php:1342
+msgid "Select which external AI tools to show to your readers"
+msgstr ""
+
+#: Admin/Settings.php:1370
+msgid "Debug Logging"
+msgstr ""
+
+#: Admin/Settings.php:1371
+msgid "Enable debug logging for troubleshooting API issues"
+msgstr ""
+
+#: Admin/Settings.php:1383
+msgid "Enable Debug Logging"
+msgstr ""
+
+#: Admin/Settings.php:1391
+msgid "Log all API requests and responses to debug.log"
+msgstr ""
+
+#: Admin/Settings.php:1395
+msgid "When enabled, all API requests and responses will be logged to debug.log. This is useful for troubleshooting API connection issues. Keep this disabled in production environments to avoid filling up your debug log."
+msgstr ""
+
+#: Admin/Settings.php:1405
+msgid "Debug Log Location:"
+msgstr ""
+
+#: Admin/Settings.php:1410
+msgid "Make sure WP_DEBUG and WP_DEBUG_LOG are enabled in wp-config.php for debug logging to work."
+msgstr ""
+
+#: Admin/Settings.php:1439
+msgid "Configure your AI provider and API credentials."
+msgstr ""
+
+#: Admin/Settings.php:1450
+msgid "Enable or disable AI-powered features and configure their display."
+msgstr ""
+
+#: Admin/Settings.php:1468
+msgid "Claude (Anthropic)"
+msgstr ""
+
+#: Admin/Settings.php:1472
+msgid "Select your preferred AI provider."
+msgstr ""
+
+#: Admin/Settings.php:1490
+#: Admin/Settings.php:1519
+#: Admin/Settings.php:1665
+msgid "API key is saved"
+msgstr ""
+
+#: Admin/Settings.php:1490
+msgid "Enter your OpenAI API key"
+msgstr ""
+
+#. translators: %s: OpenAI API URL
+#. translators: %s: Anthropic API URL
+#. translators: %s: Google AI Studio URL
+#: Admin/Settings.php:1498
+#: Admin/Settings.php:1527
+#: Admin/Settings.php:1673
+#, php-format
+msgid "Get your API key from %s"
+msgstr ""
+
+#: Admin/Settings.php:1519
+msgid "Enter your Claude API key"
+msgstr ""
+
+#: Admin/Settings.php:1547
+msgid "Enable AI-generated FAQ section"
+msgstr ""
+
+#: Admin/Settings.php:1585
+msgid "Enable AI-generated content summary"
+msgstr ""
+
+#: Admin/Settings.php:1630
+msgid "Choose the default layout for FAQ display. This can be overridden per post."
+msgstr ""
+
+#: Admin/Settings.php:1647
+msgid "Enable AI-powered smart internal linking"
+msgstr ""
+
+#: Admin/Settings.php:1665
+msgid "Enter your Gemini API key"
+msgstr ""
+
+#: Admin/Settings.php:1693
+msgid "GPT-4o (Most Capable)"
+msgstr ""
+
+#: Admin/Settings.php:1696
+msgid "GPT-4o Mini (Balanced)"
+msgstr ""
+
+#: Admin/Settings.php:1699
+msgid "GPT-4 Turbo"
+msgstr ""
+
+#: Admin/Settings.php:1702
+msgid "GPT-3.5 Turbo (Fastest)"
+msgstr ""
+
+#: Admin/Settings.php:1706
+msgid "Select the OpenAI model to use for content generation."
+msgstr ""
+
+#: Admin/Settings.php:1723
+msgid "Claude 3.5 Sonnet (Most Capable)"
+msgstr ""
+
+#: Admin/Settings.php:1726
+msgid "Claude 3 Opus"
+msgstr ""
+
+#: Admin/Settings.php:1729
+msgid "Claude 3 Haiku (Fastest)"
+msgstr ""
+
+#: Admin/Settings.php:1733
+msgid "Select the Claude model to use for content generation."
+msgstr ""
+
+#: Admin/Settings.php:1750
+msgid "Gemini 1.5 Pro (Most Capable)"
+msgstr ""
+
+#: Admin/Settings.php:1753
+msgid "Gemini 1.5 Flash (Balanced)"
+msgstr ""
+
+#: Admin/Settings.php:1756
+msgid "Gemini 1.0 Pro"
+msgstr ""
+
+#: Admin/Settings.php:1760
+msgid "Select the Gemini model to use for content generation."
+msgstr ""
+
+#: Admin/Settings.php:1807
+msgid "Missing Key"
+msgstr ""
+
+#: Admin/Settings.php:1809
+msgid "No API key configured. Add one if you plan to use this provider."
+msgstr ""
+
+#: Admin/Settings.php:1821
+msgid "Key Saved"
+msgstr ""
+
+#: Admin/Settings.php:1823
+msgid "API key saved but not verified. Save settings to validate."
+msgstr ""
+
+#: Admin/Settings.php:1832
+msgid "Invalid Key"
+msgstr ""
+
+#: Admin/Settings.php:1842
+msgid "Connected"
+msgstr ""
+
+#: Admin/Settings.php:1844
+msgid "API key verified and working"
+msgstr ""
+
+#: AI/Claude.php:99
+#: AI/Gemini.php:119
+#: AI/Gemini.php:130
+#: AI/OpenAI.php:91
+msgid "What is this content about?"
+msgstr ""
+
+#: AI/Claude.php:182
+msgid "Invalid Claude API key."
+msgstr ""
+
+#: AI/Claude.php:204
+msgid "Claude API key is not configured."
+msgstr ""
+
+#. translators: %d: HTTP response code
+#: AI/Claude.php:248
+#, php-format
+msgid "Claude API error (Code: %d)"
+msgstr ""
+
+#: AI/Claude.php:264
+msgid "Invalid response from Claude API."
+msgstr ""
+
+#: AI/Gemini.php:217
+msgid "Invalid Gemini API key."
+msgstr ""
+
+#: AI/Gemini.php:239
+msgid "Gemini API key is not configured."
+msgstr ""
+
+#. translators: %1$s: Gemini API error message
+#: AI/Gemini.php:295
+#, php-format
+msgid "Gemini API error: Invalid request format. %1$s"
+msgstr ""
+
+#: AI/Gemini.php:302
+msgid "Invalid Gemini API key. Please check your API key in NexiPilot settings."
+msgstr ""
+
+#. translators: %1$s: retry delay (e.g., "30s", "2 minutes")
+#: AI/Gemini.php:313
+#, php-format
+msgid " Please retry in %1$s."
+msgstr ""
+
+#. translators: %1$s: retry information message (e.g., " Please retry in 2 minutes.")
+#: AI/Gemini.php:327
+#, php-format
+msgid "Gemini API quota exceeded. You have reached your daily request limit (20 requests/day on free tier).%1$s Upgrade your plan at https://ai.google.dev/pricing or wait for quota reset."
+msgstr ""
+
+#. translators: %1$s: retry information message (e.g., " Please retry in 30 seconds.")
+#: AI/Gemini.php:339
+#, php-format
+msgid "Gemini API rate limit exceeded.%1$s"
+msgstr ""
+
+#: AI/Gemini.php:347
+msgid "Gemini quota exceeded. Please check your quota at https://aistudio.google.com/app/apikey"
+msgstr ""
+
+#. translators: 1: Gemini API error code, 2: Gemini API error message
+#: AI/Gemini.php:354
+#, php-format
+msgid "Gemini API error (Code: %1$d): %2$s"
+msgstr ""
+
+#: AI/Gemini.php:373
+msgid "Invalid response from Gemini API."
+msgstr ""
+
+#: AI/Grok.php:96
+msgid "Failed to parse FAQ response from Grok."
+msgstr ""
+
+#: AI/Grok.php:104
+msgid "Invalid FAQ response format from Grok."
+msgstr ""
+
+#: AI/Grok.php:164
+msgid "Failed to parse internal links response from Grok."
+msgstr ""
+
+#: AI/Grok.php:186
+msgid "Invalid Grok API key."
+msgstr ""
+
+#: AI/Grok.php:208
+msgid "Grok API key is not configured."
+msgstr ""
+
+#: AI/Grok.php:258
+msgid "Unknown error from Grok API."
+msgstr ""
+
+#. translators: %1$s: Grok API error message
+#: AI/Grok.php:270
+#, php-format
+msgid "Grok API error: %1$s"
+msgstr ""
+
+#: AI/Grok.php:285
+msgid "Failed to parse response from Grok."
+msgstr ""
+
+#: AI/Grok.php:295
+msgid "Invalid response structure from Grok."
+msgstr ""
+
+#: AI/Manager.php:223
+msgid "This is a demo summary. Configure your AI provider API key in NexiPilot settings to generate real AI-powered summaries."
+msgstr ""
+
+#. translators: %1$s: error message returned while generating the summary
+#: AI/Manager.php:246
+#, php-format
+msgid "Summary generation failed: %1$s"
+msgstr ""
+
+#: AI/Manager.php:276
+msgid "AI provider is not configured for Internal Links."
+msgstr ""
+
+#: AI/Manager.php:359
+msgid "AI provider is not configured."
+msgstr ""
+
+#: AI/Manager.php:376
+msgid "How do I configure NexiPilot AI?"
+msgstr ""
+
+#: AI/Manager.php:377
+msgid "Go to NexiPilot AI in your WordPress admin menu, select your AI provider (OpenAI or Claude), enter your API key, and enable the features you want to use."
+msgstr ""
+
+#: AI/Manager.php:380
+msgid "What AI providers are supported?"
+msgstr ""
+
+#: AI/Manager.php:381
+msgid "NexiPilot AI currently supports OpenAI (ChatGPT), Claude (Anthropic), and Google Gemini. You can switch between providers in the settings."
+msgstr ""
+
+#: AI/Manager.php:384
+msgid "Is this a demo FAQ?"
+msgstr ""
+
+#: AI/Manager.php:385
+msgid "Yes! This is demo content shown because no AI provider is configured. Add your API key in the settings to generate real AI-powered FAQs."
+msgstr ""
+
+#: AI/Manager.php:388
+msgid "How do I get an API key?"
+msgstr ""
+
+#: AI/Manager.php:389
+msgid "For OpenAI, visit platform.openai.com/api-keys. For Claude, visit console.anthropic.com. Both services require account registration."
+msgstr ""
+
+#: AI/Manager.php:405
+msgid "No AI provider configured."
+msgstr ""
+
+#: AI/OpenAI.php:190
+msgid "Invalid OpenAI API key."
+msgstr ""
+
+#: AI/OpenAI.php:206
+msgid "OpenAI API key is not configured."
+msgstr ""
+
+#: AI/OpenAI.php:250
+msgid "OpenAI quota exceeded. Please add credits to your OpenAI account at platform.openai.com/account/billing"
+msgstr ""
+
+#: AI/OpenAI.php:255
+msgid "Invalid OpenAI API key. Please check your API key in NexiPilot settings."
+msgstr ""
+
+#. translators: 1: OpenAI API error code, 2: OpenAI API error message
+#: AI/OpenAI.php:262
+#, php-format
+msgid "OpenAI API error (Code: %1$d): %2$s"
+msgstr ""
+
+#: AI/OpenAI.php:281
+msgid "Invalid response from OpenAI API."
+msgstr ""
+
+#: Frontend/ContentInjector.php:168
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: Frontend/ContentInjector.php:247
+msgid "Summary:"
+msgstr ""
+
+#: Inc/Activate.php:40
+msgid "NexiPilot Content AI requires WordPress 5.8 or higher."
+msgstr ""
+
+#: Inc/Activate.php:41
+#: Inc/Activate.php:51
+msgid "Plugin Activation Error"
+msgstr ""
+
+#: Inc/Activate.php:50
+msgid "NexiPilot Content AI requires PHP 7.4 or higher."
+msgstr ""
