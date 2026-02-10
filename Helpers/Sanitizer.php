@@ -169,4 +169,57 @@ class Sanitizer
 
         return wp_kses($content, $allowed_tags);
     }
+
+    /**
+     * Get allowed AJAX settings with their sanitization callbacks
+     *
+     * @since 1.0.0
+     * @return array Map of setting names to sanitization callbacks
+     */
+    public static function get_allowed_ajax_settings()
+    {
+        return array(
+            // AI Provider Settings
+            'nexipilot_ai_provider' => array(self::class, 'sanitize_ai_provider'),
+            'nexipilot_faq_provider' => array(self::class, 'sanitize_ai_provider'),
+            'nexipilot_summary_provider' => array(self::class, 'sanitize_ai_provider'),
+            'nexipilot_internal_links_provider' => array(self::class, 'sanitize_ai_provider'),
+
+            // Model Settings
+            'nexipilot_openai_model' => 'sanitize_text_field',
+            'nexipilot_claude_model' => 'sanitize_text_field',
+            'nexipilot_gemini_model' => 'sanitize_text_field',
+            'nexipilot_grok_model' => 'sanitize_text_field',
+
+            // Feature Enable/Disable
+            'nexipilot_enable_faq' => array(self::class, 'sanitize_checkbox'),
+            'nexipilot_enable_summary' => array(self::class, 'sanitize_checkbox'),
+            'nexipilot_enable_internal_links' => array(self::class, 'sanitize_checkbox'),
+            'nexipilot_enable_debug_logging' => array(self::class, 'sanitize_checkbox'),
+            'nexipilot_enable_external_ai_sharing' => array(self::class, 'sanitize_checkbox'),
+
+            // Position Settings
+            'nexipilot_faq_position' => array(self::class, 'sanitize_position'),
+            'nexipilot_summary_position' => array(self::class, 'sanitize_position'),
+            'nexipilot_external_ai_position' => 'sanitize_text_field',
+            'nexipilot_faq_default_layout' => array(self::class, 'sanitize_faq_layout'),
+
+            // External AI Sharing Providers
+            'nexipilot_external_ai_chatgpt' => array(self::class, 'sanitize_checkbox'),
+            'nexipilot_external_ai_claude' => array(self::class, 'sanitize_checkbox'),
+            'nexipilot_external_ai_perplexity' => array(self::class, 'sanitize_checkbox'),
+            'nexipilot_external_ai_grok' => array(self::class, 'sanitize_checkbox'),
+            'nexipilot_external_ai_copilot' => array(self::class, 'sanitize_checkbox'),
+            'nexipilot_external_ai_google' => array(self::class, 'sanitize_checkbox'),
+
+            // External AI Heading
+            'nexipilot_external_ai_heading' => 'sanitize_text_field',
+
+            // API Keys (encrypted storage)
+            'nexipilot_openai_api_key' => array(self::class, 'sanitize_api_key'),
+            'nexipilot_claude_api_key' => array(self::class, 'sanitize_api_key'),
+            'nexipilot_gemini_api_key' => array(self::class, 'sanitize_api_key'),
+            'nexipilot_grok_api_key' => array(self::class, 'sanitize_api_key'),
+        );
+    }
 }

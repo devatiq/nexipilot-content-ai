@@ -98,59 +98,6 @@ class AdminManager
     }
 
     /**
-     * Get allowed AJAX settings with their sanitization callbacks
-     *
-     * @since 1.0.0
-     * @return array Map of setting names to sanitization callbacks
-     */
-    private function get_allowed_ajax_settings()
-    {
-        return array(
-            // AI Provider Settings
-            'nexipilot_ai_provider' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_ai_provider'),
-            'nexipilot_faq_provider' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_ai_provider'),
-            'nexipilot_summary_provider' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_ai_provider'),
-            'nexipilot_internal_links_provider' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_ai_provider'),
-
-            // Model Settings
-            'nexipilot_openai_model' => 'sanitize_text_field',
-            'nexipilot_claude_model' => 'sanitize_text_field',
-            'nexipilot_gemini_model' => 'sanitize_text_field',
-            'nexipilot_grok_model' => 'sanitize_text_field',
-
-            // Feature Enable/Disable
-            'nexipilot_enable_faq' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-            'nexipilot_enable_summary' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-            'nexipilot_enable_internal_links' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-            'nexipilot_enable_debug_logging' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-            'nexipilot_enable_external_ai_sharing' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-
-            // Position Settings
-            'nexipilot_faq_position' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_position'),
-            'nexipilot_summary_position' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_position'),
-            'nexipilot_external_ai_position' => 'sanitize_text_field',
-            'nexipilot_faq_default_layout' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_faq_layout'),
-
-            // External AI Sharing Providers
-            'nexipilot_external_ai_chatgpt' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-            'nexipilot_external_ai_claude' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-            'nexipilot_external_ai_perplexity' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-            'nexipilot_external_ai_grok' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-            'nexipilot_external_ai_copilot' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-            'nexipilot_external_ai_google' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_checkbox'),
-
-            // External AI Heading
-            'nexipilot_external_ai_heading' => 'sanitize_text_field',
-
-            // API Keys (encrypted storage)
-            'nexipilot_openai_api_key' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_api_key'),
-            'nexipilot_claude_api_key' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_api_key'),
-            'nexipilot_gemini_api_key' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_api_key'),
-            'nexipilot_grok_api_key' => array(\NexiPilot\Helpers\Sanitizer::class, 'sanitize_api_key'),
-        );
-    }
-
-    /**
      * Saves a setting through an AJAX request (with whitelist security)
      *
      * @since 1.0.0
@@ -174,8 +121,8 @@ class AdminManager
         // Use sanitize_key for option names (safer than sanitize_text_field)
         $setting_name = sanitize_key(wp_unslash($_POST['settingName']));
 
-        // Get whitelist of allowed settings
-        $allowed_settings = $this->get_allowed_ajax_settings();
+        // Get whitelist of allowed settings from Sanitizer class
+        $allowed_settings = \NexiPilot\Helpers\Sanitizer::get_allowed_ajax_settings();
 
         // Block any unexpected option key (security: prevent arbitrary option updates)
         if (!isset($allowed_settings[$setting_name])) {
