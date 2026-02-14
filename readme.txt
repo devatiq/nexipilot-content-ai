@@ -118,9 +118,15 @@ Yes! NexiPilot Content AI provides hooks and filters that allow developers to cu
 
 == Screenshots ==
 
-1.  **General Settings**: Configure your AI provider and API key.
-2.  **Feature Settings**: Enable and customize individual AI features.
-3.  **Frontend Example**: How the generated AI content looks on your post.
+1.  FAQ Generator in Post Editor
+2.  FAQ Display in Post Meta
+3.  External AI Summarization Link
+4.  Automatic Content Summaries on Posts
+5.  Accordion-Style FAQ Display
+6.  Feature Management Panel
+7.  Feature Enable/Disable Toggles
+8.  API Provider Credential Management
+9.  Troubleshooting and Debugging Tab
 
 == Changelog ==
 
