@@ -1,4 +1,4 @@
-=== NexiPilot Content AI ===
+=== NexiPilot Content AI – AI-Powered FAQ, Summary & Internal Link Generator ===
 Contributors: nexibyllc
 Tags: ai summarization, faq, internal-links, content generation
 Requires at least: 5.8
